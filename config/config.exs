@@ -64,7 +64,7 @@ config :taifead, Taifead.Mailer, adapter: Swoosh.Adapters.Local
 config :dart_sass,
   version: "1.49.9",
   bainistigh: [
-    args: ~w(css/app.scss ../priv/static/assets/app.css),
+    args: ["css:../priv/static/assets"],
     cd: Path.expand("../apps/bainistigh/assets", __DIR__)
   ],
   foilsigh: [
