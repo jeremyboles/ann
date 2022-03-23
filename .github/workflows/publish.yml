@@ -11,7 +11,10 @@ jobs:
       MIX_ENV: prod
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:

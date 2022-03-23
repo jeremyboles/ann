@@ -1,6 +1,16 @@
 @use "../../../../../assets/css/media";
 @use "../../../../../assets/css/palette";
 
+@font-face {
+  font-display: swap;
+  font-family: "Argent";
+  font-style: normal;
+  font-weight: 800;
+
+  src: url("/fonts/argent/ArgentCF-ExtraBold.woff2") format("woff2"),
+    url("/fonts/argent/ArgentCF-ExtraBold.woff") format("woff");
+}
+
 :root {
   color-scheme: light dark;
 }
@@ -16,4 +26,24 @@ body {
 
   background-color: var(--body-background-color);
   color: var(--body-color);
+}
+
+header[role="banner"] h1 {
+  font-family: "Argent", serif;
+  font-size: xx-large;
+  font-weight: 800;
+  text-transform: lowercase;
+
+  a {
+    color: #{palette.stone($lightness: 18%)};
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #{palette.stone($lightness: 32%)};
+  }
+
+  span {
+    display: none;
+  }
 }
