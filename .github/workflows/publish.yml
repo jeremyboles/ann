@@ -37,8 +37,8 @@ jobs:
         run: mix assets.deploy
       - name: Create an asset manifest
         run: mix phx.digest
-      - name: Buiild release
-        run: mix release
+      - name: Build release
+        run: mix release --overwrite
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
