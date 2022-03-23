@@ -1,0 +1,58 @@
+<header role="banner">
+  <nav>
+    <ul>
+      <li>
+        <%= tab_link @socket, Bainistigh.DashboardLive do %>
+          <span aria-labelledby="tab-bar-dashboard-name" role="img"/>
+          <span id="tab-bar-dashboard-name">Dashboard</span>
+        <% end %>
+      </li>
+      <li>
+        <%= tab_link @socket, Bainistigh.EssaysLive do %>
+          <span aria-labelledby="tab-bar-essays-name" role="img"/>
+          <span id="tab-bar-essays-name">Essays</span>
+        <% end %>
+      </li>
+      <li>
+        <%= tab_link @socket, Bainistigh.JournalLive do %>
+          <span aria-labelledby="tab-bar-journal-name" role="img"/>
+          <span id="tab-bar-journal-name">Journal</span>
+        <% end %>
+      </li>
+      <li>
+        <%= tab_link @socket, Bainistigh.WikiLive do %>
+          <span aria-labelledby="tab-bar-wiki-name" role="img"/>
+          <span id="tab-bar-wiki-name">Wiki</span>
+        <% end %>
+      </li>
+      <li>
+        <%= tab_link @socket, Bainistigh.MediaLive do %>
+          <span aria-labelledby="tab-bar-media-name" role="img"/>
+          <span id="tab-bar-media-name">Media</span>
+        <% end %>
+      </li>
+      <li>
+        <%= tab_link @socket, Bainistigh.PeopleLive do %>
+          <span aria-labelledby="tab-bar-people-name" role="img"/>
+          <span id="tab-bar-people-name">People</span>
+        <% end %>
+      </li>
+      <li>
+        <%= tab_link @socket, Bainistigh.MessagesLive do %>
+          <span aria-labelledby="tab-bar-messages-name" role="img"/>
+          <span role="status" aria-label="New messages in inbox"/>
+          <span id="tab-bar-messages-name">Messages</span>
+        <% end %>
+      </li>
+      <li>
+        <%= tab_link @socket, Bainistigh.SearchLive do %>
+        <span aria-labelledby="tab-bar-search-name" role="img"/>
+        <span id="tab-bar-search-name">Search</span>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <%= @inner_content %>
+</main>

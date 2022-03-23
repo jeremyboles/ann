@@ -1,0 +1,179 @@
+@use "../utils/media";
+@use "../utils/palette";
+
+// -----------------------------------------------------------------------------------------------
+//
+// Wiki Section
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Wiki header
+// -----------------------------------------------------------------------------------------------
+
+main > section.wiki header {
+  justify-content: space-between;
+
+  & > h1 {
+    --color: #{palette.stone($lightness: 20%)};
+
+    @include media.dark {
+      --color: #{palette.stone($lightness: 90%)};
+    }
+
+    color: var(--color);
+    font-size: 13px;
+  }
+
+  //
+  // New entry button
+  // -----------------------------------------------------------------------------------------------
+
+  & > button {
+    --background-color: transparent;
+    --color: #{palette.stone($lightness: 32%)};
+
+    @include media.dark {
+      --color: #{palette.stone($lightness: 80%)};
+    }
+
+    align-items: center;
+    background-color: var(--background-color);
+    color: var(--color);
+    border: none;
+    border-radius: 6px;
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 5px 12px;
+
+    &:hover {
+      --background-color: #{palette.stone($lightness: 87%)};
+
+      @include media.dark {
+        --background-color: #{palette.stone($lightness: 16%)};
+      }
+    }
+
+    &:active {
+      --background-color: #{palette.stone($lightness: 83%)};
+
+      @include media.dark {
+        --background-color: #{palette.stone($lightness: 19%)};
+      }
+    }
+
+    //
+    // Plus icon
+    // -----------------------------------------------------------------------------------------------
+
+    span[role='img'] {
+      --size: 18px;
+
+      background-color: currentcolor;
+      display: block;
+      height: var(--size);
+      mask-image: url(/images/add.svg);
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: var(--size);
+      width: var(--size);
+    }
+
+    //
+    // Unseen text
+    // -----------------------------------------------------------------------------------------------
+
+    span:not([role='img']) {
+      display: none;
+    }
+
+    //
+    // Carent icon to indicate that it's a dropdown
+    // -----------------------------------------------------------------------------------------------
+
+    &::after {
+      --size: 10px;
+
+      background-color: currentcolor;
+      content: '';
+      display: block;
+      height: var(--size);
+      mask-image: url(/images/caret-down.svg);
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: var(--size);
+      transform: translateY(1px);
+      width: var(--size);
+    }
+  }
+}
+
+//
+// Wiki sidebar
+// -----------------------------------------------------------------------------------------------
+
+main > section.wiki {
+  --sidebar-width: 244px;
+
+  & > aside {
+    --background-color: #{palette.stone($lightness: 89%)};
+    --border-color: #{palette.stone($lightness: 83%)};
+
+    @include media.dark {
+      --background-color: #{palette.stone($lightness: 14%)};
+      --border-color: #{palette.stone($lightness: 2%)};
+    }
+
+    background-color: var(--background-color);
+    border-right: var(--border-color) solid 1px;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    top: calc(var(--banner-height) + var(--header-height));
+    width: var(--sidebar-width);
+  }
+}
+
+//
+// Wiki article
+// -----------------------------------------------------------------------------------------------
+
+main > section.wiki article {
+  --article-header-height: 28px;
+  --article-sidebar-width: 224px;
+
+  & > header {
+    --background-color: #{palette.stone($lightness: 95%)};
+    --border-color: #{palette.stone($lightness: 83%)};
+
+    @include media.dark {
+      --background-color: #{palette.stone($lightness: 10%)};
+      --border-color: #{palette.stone($lightness: 6%)};
+    }
+
+    align-items: center;
+    background-color: var(--background-color);
+    border-bottom: var(--border-color) solid 1px;
+    display: flex;
+    height: var(--article-header-height);
+    left: var(--sidebar-width);
+    padding: 0 8px;
+    position: fixed;
+    right: 0;
+    top: calc(var(--banner-height) + var(--header-height));
+  }
+
+  & > div {
+    padding-left: var(--sidebar-width);
+    padding-right: var(--article-sidebar-width);
+    padding-top: calc(var(--article-header-height));
+  }
+}
+
+//
+// Section imports
+// -----------------------------------------------------------------------------------------------
+
+@import './article-header';
+@import './article-sidebar';

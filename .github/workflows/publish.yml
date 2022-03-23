@@ -1,0 +1,90 @@
+name: Publish
+
+on: push
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    env:
+      MIX_ENV: prod
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: 1.13.3
+          otp-version: 24.1.5
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: deps
+          key: prod-${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: prod-${{ runner.os }}-mix-
+      - name: Restore build cache
+        uses: actions/cache@v2
+        with:
+          path: _build
+          key: prod-${{ runner.os }}-build-${{ hashFiles('**/mix.lock') }}
+          restore-keys: prod-${{ runner.os }}-build-
+      - name: Install dependencies
+        run: mix deps.get --only prod
+      - name: Compile app code
+        run: mix compile
+      - name: Build and package assets
+        run: mix assets.deploy
+      - name: Create an asset manifest
+        run: mix phx.digest
+      - name: Buiild release
+        run: mix release
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          name: id_ed25519
+      - name: Deploy with rsync
+        run: rsync --checksum --compress --copy-links --delete  --exclude "tls"  --human-readable --partial --recursive ./_build/prod/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/srv/ann
+      - name: Reload server
+        run: ssh -tt ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo /usr/bin/systemctl restart ann"
+#   test:
+#     name: Run test suite
+#     runs-on: ubuntu-latest
+#
+#     services:
+#       postgres:
+#         image: postgres:11
+#         env:
+#           POSTGRES_DB: taifead_test
+#           POSTGRES_PASSWORD: postgres
+#           POSTGRES_USER: postgres
+#         ports:
+#           - 5432:5432
+#         options: >-
+#           --health-cmd pg_isready
+#           --health-interval 10s
+#           --health-timeout 5s
+#           --health-retries 5
+#
+#     env:
+#       MIX_ENV: test
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Set up Elixir
+#         uses: erlef/setup-beam@v1
+#         with:
+#           elixir-version: 1.13.3
+#           otp-version: 24.1.5
+#       - name: Restore dependencies cache
+#         uses: actions/cache@v2
+#         with:
+#           path: deps
+#           key: test-${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+#           restore-keys: test-${{ runner.os }}-mix-
+#       - name: Install dependencies
+#         run: mix deps.get
+#       - name: Run tests
+#         run: mix test

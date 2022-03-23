@@ -1,0 +1,181 @@
+@use "../utils/media";
+@use "../utils/palette";
+
+//
+// Section settings
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  --banner-height: 28px;
+
+  @media (any-pointer: coarse) {
+    --banner-height: 36px;
+  }
+}
+
+//
+// Main element
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] {
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -webkit-user-select: none;
+
+  // prettier-ignore
+  li, nav { display: contents; }
+
+  ul {
+    display: flex;
+    height: var(--banner-height);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+//
+// Individual tabs
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] li {
+  a {
+    --background-color: #{palette.stone($lightness: 88%)};
+    --border-color: #{palette.stone($lightness: 83%)};
+    --color: #{palette.stone($lightness: 32%)};
+    --gap: 4px;
+
+    @include media.dark {
+      --background-color: #{palette.stone($lightness: 15%)};
+      --border-color: #{palette.stone($lightness: 20%)};
+      --color: #{palette.stone($lightness: 65%)};
+    }
+
+    align-items: center;
+    background-color: var(--background-color);
+    border-bottom: var(--border-color) solid 1px;
+    border-top: var(--border-color) solid 1px;
+    color: var(--color);
+    cursor: default;
+    display: flex;
+    flex-grow: 1;
+    gap: var(--gap);
+    height: 100%;
+    justify-content: center;
+    padding: 0 8px;
+    text-decoration: none;
+
+    &:hover {
+      --background-color: #{palette.stone($lightness: 87%)};
+      --color: #{palette.stone($lightness: 20%)};
+
+      @include media.dark {
+        --background-color: #{palette.stone($lightness: 16%)};
+        --color: #{palette.stone($lightness: 80%)};
+      }
+    }
+
+    span[role='img'] {
+      background: currentcolor;
+      display: inline-block;
+      height: 16px;
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: 16px;
+      position: relative;
+      width: 16px;
+      z-index: 1;
+    }
+
+    span[role='status'] {
+      --size: 6px;
+      --accent-color: #{palette.blue()};
+
+      @include media.dark {
+        --accent-color: #{palette.amber()};
+      }
+
+      background-color: var(--accent-color);
+      border: var(--background-color) solid 2px;
+      border-radius: var(--size);
+      box-sizing: content-box;
+      display: block;
+      height: var(--size);
+      margin-left: calc((var(--size) + (var(--gap) * 2)) * -1);
+      width: var(--size);
+      transform: translate(var(--gap), -50%);
+      z-index: 2;
+    }
+  }
+
+  &:not(:first-of-type) a {
+    border-left: var(--border-color) solid 1px;
+  }
+}
+
+//
+// Active tab
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] li {
+  a[aria-current='page'] {
+    --background-color: #{palette.stone($lightness: 91%)};
+    --color: #{palette.stone($lightness: 10%)};
+
+    @include media.dark {
+      --background-color: #{palette.stone($lightness: 12%)};
+      --color: #{palette.stone($lightness: 90%)};
+    }
+
+    border-bottom-color: var(--background-color);
+  }
+}
+
+//
+// Tab
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] li a {
+  &[href='/'] span[role='img'] {
+    mask-image: url(/images/dashboard.svg);
+  }
+
+  &[href='/essays'] span[role='img'] {
+    mask-image: url(/images/essays.svg);
+  }
+
+  &[href='/journal'] span[role='img'] {
+    mask-image: url(/images/journal.svg);
+  }
+
+  &[href='/media'] span[role='img'] {
+    mask-image: url(/images/media.svg);
+  }
+
+  &[href='/messages'] span[role='img'] {
+    mask-image: url(/images/inbox.svg);
+  }
+
+  &[href='/people'] span[role='img'] {
+    mask-image: url(/images/people.svg);
+  }
+
+  &[href='/search'] span[role='img'] {
+    mask-image: url(/images/search.svg);
+  }
+
+  &[href='/wiki'] span[role='img'] {
+    mask-image: url(/images/wiki.svg);
+  }
+
+  &[href^='/messages'],
+  &[href^='/search'] {
+    flex-grow: initial;
+
+    span[id] {
+      display: none;
+    }
+  }
+}

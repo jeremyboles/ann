@@ -1,0 +1,80 @@
+@use "./utils/media";
+@use "./utils/palette";
+
+//
+// Global settings
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  color-scheme: light dark;
+}
+
+//
+// Root-level element
+// -----------------------------------------------------------------------------------------------
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  --body-background-color: #{palette.stone($lightness: 98%)};
+  --body-color: #{palette.stone($lightness: 3%)};
+
+  @include media.dark {
+    --body-background-color: #{palette.stone($lightness: 9%)};
+    --body-color: #{palette.stone($lightness: 96%)};
+  }
+
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+  font-family: system-ui;
+  font-size: 12px;
+  margin: 0;
+  -webkit-font-smoothing: subpixel-antialiased;
+
+  @media (any-pointer: coarse) {
+    font-size: 14px;
+  }
+}
+
+//
+// Section header base styles
+// -----------------------------------------------------------------------------------------------
+
+main > section {
+  --header-height: 50px;
+
+  & > header {
+    --background-color: #{palette.stone($lightness: 91%)};
+    --border-color: #{palette.stone($lightness: 83%)};
+
+    @include media.dark {
+      --background-color: #{palette.stone($lightness: 12%)};
+      --border-color: #{palette.stone($lightness: 2%)};
+    }
+
+    align-items: center;
+    background-color: var(--background-color);
+    border-bottom: var(--border-color) solid 1px;
+    display: flex;
+    left: 0;
+    height: var(--header-height);
+    position: fixed;
+    right: 0;
+    padding: 0 8px;
+    top: var(--banner-height);
+  }
+}
+
+//
+// Section imports
+// -----------------------------------------------------------------------------------------------
+
+@import './layout/banner';
+
+@import './wiki';

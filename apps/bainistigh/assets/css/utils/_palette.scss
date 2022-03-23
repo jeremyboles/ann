@@ -1,0 +1,171 @@
+@use "sass:color";
+@use "sass:map";
+
+//
+// Gray tones
+// -----------------------------------------------------------------------------------------------
+
+$slate: hsl(207, 19%, 50%);
+$gray: hsl(215, 9%, 50%);
+$zinc: hsl(268, 3%, 50%);
+$neutral: hsl(34, 3%, 50%);
+$stone: hsl(25, 10%, 50%);
+
+//
+// Color definitions
+// -----------------------------------------------------------------------------------------------
+
+$red: hsl(8, 68%, 50%);
+$orange: hsl(24, 100%, 50%);
+$amber: hsl(37, 100%, 50%);
+$yellow: hsl(41, 98%, 50%);
+$lime: hsl(73, 58%, 50%);
+$green: hsl(133, 59%, 50%);
+$emerald: hsl(158, 64%, 50%);
+$teal: hsl(175, 62%, 50%);
+$cyan: hsl(187, 76%, 50%);
+$sky: hsl(194, 80%, 50%);
+$blue: hsl(214, 75%, 50%);
+$indigo: hsl(236, 58%, 50%);
+$violet: hsl(271, 94%, 50%);
+$purple: hsl(285, 91%, 50%);
+$fushcia: hsl(306, 62%, 50%);
+$pink: hsl(329, 59%, 50%);
+$rose: hsl(346, 87%, 50%);
+
+//
+// Convenience map
+// -----------------------------------------------------------------------------------------------
+
+// prettier-ignore
+$map: (slate: $slate, gray: $gray, zinc: $zinc, neutral: $neutral, stone: $stone, red: $red,
+       orange: $orange, amber: $amber, yellow: $yellow, lime: $lime, green: $green,
+       emerald: $emerald, teal: $teal, cyan: $cyan, sky: $sky, blue: $blue, indigo: $indigo,
+       violet: $violet, purple: $purple, fushcia: $fushcia, pink: $pink, rose: $rose);
+
+//
+// Named color functions
+// -----------------------------------------------------------------------------------------------
+
+@function slate($lightness: null, $alpha: null) {
+  @return change(slate, $lightness, $alpha);
+}
+
+@function gray($lightness: null, $alpha: null) {
+  @return gray(neutral, $lightness, $alpha);
+}
+
+@function zinc($lightness: null, $alpha: null) {
+  @return change(zinc, $lightness, $alpha);
+}
+
+@function neutral($lightness: null, $alpha: null) {
+  @return change(neutral, $lightness, $alpha);
+}
+
+@function stone($lightness: null, $alpha: null) {
+  @return change(stone, $lightness, $alpha);
+}
+
+@function red($lightness: null, $alpha: null) {
+  @return change(red, $lightness, $alpha);
+}
+
+@function orange($lightness: null, $alpha: null) {
+  @return change(orange, $lightness, $alpha);
+}
+
+@function amber($lightness: null, $alpha: null) {
+  @return change(amber, $lightness, $alpha);
+}
+
+@function yellow($lightness: null, $alpha: null) {
+  @return change(yellow, $lightness, $alpha);
+}
+
+@function lime($lightness: null, $alpha: null) {
+  @return change(lime, $lightness, $alpha);
+}
+
+@function green($lightness: null, $alpha: null) {
+  @return change(green, $lightness, $alpha);
+}
+
+@function emerald($lightness: null, $alpha: null) {
+  @return change(emerald, $lightness, $alpha);
+}
+
+@function teal($lightness: null, $alpha: null) {
+  @return change(teal, $lightness, $alpha);
+}
+
+@function green($lightness: null, $alpha: null) {
+  @return change(green, $lightness, $alpha);
+}
+
+@function cyan($lightness: null, $alpha: null) {
+  @return change(cyan, $lightness, $alpha);
+}
+
+@function sky($lightness: null, $alpha: null) {
+  @return change(sky, $lightness, $alpha);
+}
+
+@function blue($lightness: null, $alpha: null) {
+  @return change(blue, $lightness, $alpha);
+}
+
+@function indigo($lightness: null, $alpha: null) {
+  @return change(indigo, $lightness, $alpha);
+}
+
+@function violet($lightness: null, $alpha: null) {
+  @return change(violet, $lightness, $alpha);
+}
+
+@function purple($lightness: null, $alpha: null) {
+  @return change(purple, $lightness, $alpha);
+}
+
+@function fushcia($lightness: null, $alpha: null) {
+  @return change(fushcia, $lightness, $alpha);
+}
+
+@function pink($lightness: null, $alpha: null) {
+  @return change(pink, $lightness, $alpha);
+}
+
+@function rose($lightness: null, $alpha: null) {
+  @return change(rose, $lightness, $alpha);
+}
+
+//
+// Helper functions
+// -----------------------------------------------------------------------------------------------
+
+@function change($name, $lightness: null, $alpha: null) {
+  $color: map.get($map, $name);
+
+  @if $alpha and not $lightness {
+    $color: color.change($color, $alpha: $alpha);
+  } @else if not $alpha and $lightness {
+    $color: color.change($color, $lightness: $lightness);
+  } @else if $alpha and $lightness {
+    $color: color.change($color, $alpha: $alpha, $lightness: $lightness);
+  }
+
+  @return hsl($color);
+}
+
+@function hsl($color) {
+  $hue: color.hue($color);
+  $saturation: color.saturation($color);
+  $lightness: color.lightness($color);
+  $alpha: color.alpha($color);
+
+  @if $alpha == 1 {
+    @return #{'hsl(#{$hue}, #{$saturation}, #{$lightness})'};
+  } @else {
+    @return #{'hsla(#{$hue}, #{$saturation}, #{$lightness}, #{$alpha})'};
+  }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title><%= view_module(@conn).title(view_template(@conn), assigns) %></title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href={Routes.static_path(@conn, "/images/favicon.png")} rel="icon" type="image/png" >
+    <link href={Routes.static_path(@conn, "/assets/layout/app.css")} rel="stylesheet">
+    <%= for stylesheet <- view_module(@conn).stylesheets(view_template(@conn), assigns) do %>
+      <link href={Routes.static_path(@conn, stylesheet)} rel="stylesheet">
+    <% end %>
+  </head>
+  <body>
+    <%= @inner_content %>
+  </body>
+</html>
