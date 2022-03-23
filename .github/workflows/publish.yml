@@ -46,7 +46,7 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
           name: id_ed25519
       - name: Deploy with rsync
-        run: rsync --checksum --compress --copy-links --delete  --exclude "tls"  --human-readable --partial --recursive ./_build/prod/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/srv/ann
+        run: rsync --checksum --compress --copy-links --delete  --exclude "tls"  --human-readable --partial --recursive --verbose ./_build/prod/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/srv/ann
       - name: Reload server
         run: ssh -tt ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo /usr/bin/systemctl restart ann"
 #   test:
