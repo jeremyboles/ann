@@ -1,3 +1,19 @@
+@use "../../../../../assets/css/media";
+@use "../../../../../assets/css/palette";
+
 :root {
   color-scheme: light dark;
+}
+
+body {
+  --body-background-color: #{palette.stone($lightness: 92%)};
+  --body-color: #{palette.stone($lightness: 20%)};
+
+  @include media.dark {
+    --body-background-color: #{palette.stone($lightness: 8%)};
+    --body-color: #{palette.stone($lightness: 92%)};
+  }
+
+  background-color: var(--body-background-color);
+  color: var(--body-color);
 }
