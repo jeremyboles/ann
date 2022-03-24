@@ -11,12 +11,14 @@
 footer[role='contentinfo'] {
   @include layout.gutters;
 
-  --footer-background-color: #{palette.stone($lightness: 5%)};
-  --footer-color: #{palette.stone($lightness: 82%)};
+  --footer-background-color: #{palette.stone($lightness: 12%)};
   --footer-padding: #{rhythm.fragments(6)};
 
+  @media (prefers-color-scheme: dark) {
+    --footer-background-color: #{palette.stone($lightness: 5%)};
+  }
+
   background-color: var(--footer-background-color);
-  color: var(--footer-color);
   padding-bottom: calc(var(--footer-padding) + env(safe-area-inset-bottom, 0));
   padding-top: var(--footer-padding);
 
@@ -114,7 +116,7 @@ footer[role='contentinfo'] > div > p:first-of-type {
   }
 
   a:hover {
-    --color: #{palette.stone($lightness: 26%)};
+    --color: #{palette.stone($lightness: 79%)};
 
     @media (prefers-color-scheme: dark) {
       --color: #{palette.stone($lightness: 72%)};
@@ -133,14 +135,11 @@ footer[role='contentinfo'] > div > p:first-of-type {
 footer[role='contentinfo'] > div > nav {
   @include fonts.sans;
   @include rhythm.font-size(-2);
-  // @include rhythm.font-size(-2, $line-height: 2);
 
   --gap: #{rhythm.fragments(2, -2)};
 
   font-weight: 500;
   grid-area: navigation;
-  // padding-bottom: #{rhythm.fragments(1, -2)};
-  // padding-top: #{rhythm.fragments(1, -2)};
 
   a {
     --color: #{palette.stone($lightness: 96%)};
@@ -154,7 +153,7 @@ footer[role='contentinfo'] > div > nav {
   }
 
   a:hover {
-    --color: #{palette.stone($lightness: 96%)};
+    --color: #{palette.stone($lightness: 78%)};
 
     @media (prefers-color-scheme: dark) {
       --color: #{palette.stone($lightness: 82%)};
