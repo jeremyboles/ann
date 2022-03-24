@@ -1,3 +1,19 @@
-<footer role="contentinfo">
-  <p>&copy; 2022 Jeremy Boles</p>
-</footer>
+<footer role="contentinfo"><div>
+  <p><%= link rel: "home", title: "jeremyboles.com", to: "/" do %>
+    <span>Back to</span> Jeremy Boles<span>’s homepage →</span>
+  <% end %></p>
+
+  <nav aria-labelledby="footer-nav-label">
+    <p id="footer-nav-label">Footer navigation:</p>
+    <ul>
+      <li><%= link "Subscribe", to: "/subscribe" %></li>
+      <li><%= link "Contact", to: "/contact" %></li>
+      <li><%= link "I Don’t Track You", to: "/privacy" %></li>
+      <li><%= link "Colophon", to: "/colophon" %></li>
+      <li><%= link "Site Map", to: "/site-map" %></li>
+      <li><%= link "Source Code", rel: "external noopener", to: "https://github.com/jeremyboles/ann" %></li>
+    </ul>
+  </nav>
+  
+  <p>Copyright <span>©</span> 2021 Jeremy Boles. Content licensed under the <%= link "Creative Commons Attribution-ShareAlike 4.0 International", rel: "external license noopener", to: "https://creativecommons.org/licenses/by-sa/4.0/" %>&nbsp;license.</p>
+</div></footer>

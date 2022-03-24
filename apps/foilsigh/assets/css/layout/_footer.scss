@@ -1,0 +1,307 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Website footer styles
+// -----------------------------------------------------------------------------------------------
+
+footer[role='contentinfo'] {
+  @include layout.gutters;
+
+  --footer-background-color: #{palette.stone($lightness: 5%)};
+  --footer-color: #{palette.stone($lightness: 82%)};
+  --footer-padding: #{rhythm.fragments(6)};
+
+  background-color: var(--footer-background-color);
+  color: var(--footer-color);
+  padding-bottom: calc(var(--footer-padding) + env(safe-area-inset-bottom, 0));
+  padding-top: var(--footer-padding);
+
+  & > div {
+    @include layout.center;
+    @include layout.grid;
+
+    align-items: center;
+    gap: #{rhythm.lines(1)};
+    grid-template-areas: 'wordmark' 'navigation' 'copyright';
+
+    @include layout.two-column {
+      grid-template-areas:
+        'wordmark wordmark'
+        'navigation navigation'
+        'copyright copyright';
+    }
+
+    @include layout.three-column {
+      grid-template-areas:
+        'wordmark wordmark wordmark'
+        'navigation navigation navigation'
+        'copyright copyright copyright';
+    }
+
+    @include layout.four-column {
+      grid-template-areas:
+        'wordmark wordmark wordmark wordmark'
+        'navigation navigation navigation navigation'
+        'copyright copyright copyright copyright';
+    }
+
+    @include layout.five-column {
+      grid-template-areas:
+        'wordmark wordmark wordmark wordmark wordmark'
+        'navigation navigation navigation navigation navigation'
+        'copyright copyright copyright copyright copyright';
+    }
+
+    @include layout.six-column {
+      grid-template-areas:
+        'navigation navigation navigation wordmark wordmark wordmark'
+        'copyright copyright copyright wordmark wordmark wordmark';
+    }
+
+    @include layout.eight-column {
+      grid-template-areas:
+        'navigation navigation navigation navigation navigation wordmark wordmark wordmark'
+        'copyright copyright copyright copyright copyright wordmark wordmark wordmark';
+    }
+
+    @include layout.twelve-column {
+      grid-template-areas:
+        'navigation navigation navigation navigation navigation navigation navigation navigation wordmark wordmark wordmark wordmark'
+        'copyright copyright copyright copyright copyright copyright copyright copyright wordmark wordmark wordmark wordmark';
+      row-gap: 0;
+    }
+
+    @include layout.sixteen-column {
+      grid-template-areas:
+        'navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation wordmark wordmark wordmark wordmark wordmark'
+        'copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright wordmark wordmark wordmark wordmark wordmark';
+    }
+  }
+}
+
+//
+// Wordmark
+// -----------------------------------------------------------------------------------------------
+
+footer[role='contentinfo'] > div > p:first-of-type {
+  @include rhythm.font-size(3);
+
+  font-family: #{fonts.$argent}, ui-serif, serif;
+  font-weight: 700;
+  grid-area: wordmark;
+  letter-spacing: -0.017em;
+  text-align: center;
+  text-transform: lowercase;
+  white-space: nowrap;
+
+  @include layout.six-column {
+    text-align: right;
+  }
+
+  a {
+    --color: #{palette.stone($lightness: 96%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 86%)};
+    }
+
+    color: var(--color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    --color: #{palette.stone($lightness: 26%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 72%)};
+    }
+  }
+
+  span {
+    display: none;
+  }
+}
+
+//
+// Navigation
+// -----------------------------------------------------------------------------------------------
+
+footer[role='contentinfo'] > div > nav {
+  @include fonts.sans;
+  @include rhythm.font-size(-2);
+  // @include rhythm.font-size(-2, $line-height: 2);
+
+  --gap: #{rhythm.fragments(2, -2)};
+
+  font-weight: 500;
+  grid-area: navigation;
+  // padding-bottom: #{rhythm.fragments(1, -2)};
+  // padding-top: #{rhythm.fragments(1, -2)};
+
+  a {
+    --color: #{palette.stone($lightness: 96%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 96%)};
+    }
+
+    color: var(--color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    --color: #{palette.stone($lightness: 96%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 82%)};
+    }
+  }
+
+  a[href*='subscribe']::before {
+    --size: 1.25ch;
+
+    background-color: currentcolor;
+    content: ' ';
+    display: inline-block;
+    height: var(--size);
+    margin-right: 0.5ch;
+    mask-image: url('/images/fa/rss-regular.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: var(--size);
+    text-decoration: underline;
+    vertical-align: baseline;
+    width: var(--size);
+  }
+
+  a[href^='http:'],
+  a[href^='https:'] {
+    --text-decoration-color: transparent;
+
+    text-decoration: underline;
+    text-decoration-color: var(--text-decoration-color);
+
+    &:hover {
+      --text-decoration-color: #{palette.stone($lightness: 34%)};
+
+      @media (prefers-color-scheme: dark) {
+        --text-decoration-color: #{palette.stone($lightness: 34%)};
+      }
+    }
+  }
+
+  @include layout.six-column {
+    li + li::before {
+      --color: #{palette.stone($lightness: 96%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.stone($lightness: 74%)};
+      }
+
+      color: var(--color);
+      content: '|';
+      margin-right: var(--gap);
+    }
+  }
+
+  p {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    gap: var(--gap);
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+
+    @include layout.six-column {
+      justify-content: start;
+    }
+  }
+}
+
+///
+// Copyright
+// -----------------------------------------------------------------------------------------------
+
+footer[role='contentinfo'] > div > p:last-of-type {
+  @include fonts.sans;
+  @include rhythm.font-size(-2);
+
+  --color: #{palette.stone($lightness: 96%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 96%)};
+  }
+
+  color: var(--color);
+  font-weight: 500;
+  grid-area: copyright;
+  text-align: center;
+  -webkit-text-size-adjust: 100%;
+
+  @include layout.six-column {
+    text-align: left;
+  }
+
+  a[href^='http'] {
+    --color: inherit;
+    --text-decoration-color: transparent;
+
+    color: var(--color);
+    text-decoration-color: var(--text-decoration-color);
+  }
+
+  a[href^='http']:hover {
+    --color: #{palette.stone($lightness: 78%)};
+    --text-decoration-color: #{palette.stone($lightness: 34%)};
+
+    @media (prefers-color-schemel: dark) {
+      --color: #{palette.stone($lightness: 78%)};
+      --text-decoration-color: #{palette.stone($lightness: 34%)};
+    }
+  }
+
+  a[href^='http']::before {
+    --size: 1.75ch;
+    --space: 0.25ch;
+
+    background-color: currentcolor;
+    content: '';
+    display: inline-block;
+    height: var(--size);
+
+    margin-right: var(--space);
+    mask-image: url('/images/fa/creative-commons-by-brands.svg'),
+      url('/images/fa/creative-commons-sa-brands.svg');
+    mask-position: left center, right center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    text-decoration: underline;
+    transform: translateY(-0.25ch);
+    vertical-align: text-bottom;
+    width: calc((var(--size) * 2) + calc(var(--space) * 0.5));
+  }
+
+  span {
+    --size: 1.75ch;
+
+    background-color: currentcolor;
+    display: inline-block;
+    height: 0;
+    overflow: hidden;
+    mask-image: url('/images/fa/creative-commons-brands.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    padding-top: var(--size);
+    transform: translateY(-1px);
+    vertical-align: text-bottom;
+    width: var(--size);
+  }
+}
