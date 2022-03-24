@@ -9,7 +9,7 @@ main > section.wiki article > aside {
   --background-color: #{palette.stone($lightness: 97%)};
   --border-color: #{palette.stone($lightness: 83%)};
 
-  @include media.dark {
+  @media (prefers-color-scheme: dark)  {
     --background-color: #{palette.stone($lightness: 11%)};
     --border-color: #{palette.stone($lightness: 6%)};
   }
@@ -31,7 +31,7 @@ main > section.wiki article > aside {
 main > section.wiki article > aside [role='tablist'] {
   --border-color: #{palette.stone($lightness: 88%)};
 
-  @include media.dark {
+  @media (prefers-color-scheme: dark)  {
     --border-color: #{palette.stone($lightness: 15%)};
   }
 
@@ -61,7 +61,7 @@ main > section.wiki article > aside [role='tab'] {
   label {
     --color: #{palette.stone($lightness: 60%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --color: #{palette.stone($lightness: 50%)};
     }
 
@@ -73,7 +73,7 @@ main > section.wiki article > aside [role='tab'] {
     &:active {
       --color: #{palette.stone($lightness: 34%)};
 
-      @include media.dark {
+      @media (prefers-color-scheme: dark)  {
         --color: #{palette.stone($lightness: 76%)};
       }
     }
@@ -111,14 +111,14 @@ main > section.wiki article > aside [role='tab'] {
   &:has(input[type='radio']:checked) {
     --background-color: #{palette.stone($lightness: 91%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --background-color: #{palette.stone($lightness: 15%)};
     }
 
     label {
       --color: #{palette.blue()};
 
-      @include media.dark {
+      @media (prefers-color-scheme: dark)  {
         --color: #{palette.amber()};
       }
     }
@@ -154,7 +154,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
 main > section.wiki article > aside [role='tabpanel'] details + details {
   --border-color: #{palette.stone($lightness: 88%)};
 
-  @include media.dark {
+  @media (prefers-color-scheme: dark)  {
     --border-color: #{palette.stone($lightness: 15%)};
   }
 
@@ -178,7 +178,7 @@ main > section.wiki article > aside [role='tabpanel'] details summary {
     --color: #{palette.stone($lightness: 48%)};
     --size: 12px;
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --color: #{palette.stone($lightness: 58%)};
     }
 
@@ -227,7 +227,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
     --box-shadow-color: #{palette.stone($alpha: 0.07, $lightness: 1%)};
     --color: #{palette.stone($lightness: 12%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --background-color: #{palette.stone($lightness: 18%)};
       --border-color: #{palette.stone($lightness: 22%)};
       --box-shadow-color: #{palette.stone($alpha: 0.2, $lightness: 1%)};
@@ -250,7 +250,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
       --border-color: #{palette.blue($alpha: 0.75)};
       --ring-size: 3px;
 
-      @include media.dark {
+      @media (prefers-color-scheme: dark)  {
         --border-color: #{palette.amber($alpha: 0.45)};
       }
 
@@ -269,7 +269,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
     &::placeholder {
       --color: #{palette.stone($lightness: 68%)};
 
-      @include media.dark {
+      @media (prefers-color-scheme: dark)  {
         --color: #{palette.stone($lightness: 48%)};
       }
 
@@ -280,7 +280,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
   fieldset > select {
     --accent-color: #{palette.blue()};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --accent-color: #{palette.amber()};
     }
 
@@ -292,7 +292,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
   fieldset > select + label {
     --color: #{palette.stone($lightness: 18%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --color: #{palette.stone($lightness: 86%)};
     }
 
@@ -306,7 +306,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
     --background-color: #{palette.stone($lightness: 90%)};
     --border-color: #{palette.stone($lightness: 84%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --background-color: #{palette.stone($lightness: 10%)};
       --border-color: #{palette.stone($lightness: 14%)};
     }
@@ -335,7 +335,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
     --background-color: #{palette.stone($lightness: 90%)};
     --border-color: #{palette.stone($lightness: 88%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --background-color: #{palette.stone($lightness: 11%)};
       --border-color: #{palette.stone($lightness: 15%)};
     }

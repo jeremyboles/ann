@@ -25,7 +25,7 @@ main > section.wiki article > header ol {
     --color: #{palette.stone($lightness: 72%)};
     --size: 20px;
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --color: #{palette.stone($lightness: 26%)};
     }
 
@@ -43,7 +43,7 @@ main > section.wiki article > header ol {
   a {
     --color: #{palette.stone($lightness: 38%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --color: #{palette.stone($lightness: 64%)};
     }
 
@@ -54,7 +54,7 @@ main > section.wiki article > header ol {
     &:hover {
       --color: #{palette.stone($lightness: 18%)};
 
-      @include media.dark {
+      @media (prefers-color-scheme: dark)  {
         --color: #{palette.stone($lightness: 78%)};
       }
     }
@@ -63,7 +63,7 @@ main > section.wiki article > header ol {
   li:last-of-type a {
     --color: #{palette.stone($lightness: 18%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --color: #{palette.stone($lightness: 78%)};
     }
 

@@ -47,7 +47,7 @@ header[role='banner'] li {
     --color: #{palette.stone($lightness: 32%)};
     --gap: 4px;
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --background-color: #{palette.stone($lightness: 15%)};
       --border-color: #{palette.stone($lightness: 20%)};
       --color: #{palette.stone($lightness: 65%)};
@@ -71,7 +71,7 @@ header[role='banner'] li {
       --background-color: #{palette.stone($lightness: 87%)};
       --color: #{palette.stone($lightness: 20%)};
 
-      @include media.dark {
+      @media (prefers-color-scheme: dark)  {
         --background-color: #{palette.stone($lightness: 16%)};
         --color: #{palette.stone($lightness: 80%)};
       }
@@ -93,7 +93,7 @@ header[role='banner'] li {
       --size: 6px;
       --accent-color: #{palette.blue()};
 
-      @include media.dark {
+      @media (prefers-color-scheme: dark)  {
         --accent-color: #{palette.amber()};
       }
 
@@ -124,7 +124,7 @@ header[role='banner'] li {
     --background-color: #{palette.stone($lightness: 91%)};
     --color: #{palette.stone($lightness: 10%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --background-color: #{palette.stone($lightness: 12%)};
       --color: #{palette.stone($lightness: 90%)};
     }

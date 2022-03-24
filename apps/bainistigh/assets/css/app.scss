@@ -25,7 +25,7 @@ body {
   --body-background-color: #{palette.stone($lightness: 98%)};
   --body-color: #{palette.stone($lightness: 3%)};
 
-  @include media.dark {
+  @media (prefers-color-scheme: dark)  {
     --body-background-color: #{palette.stone($lightness: 9%)};
     --body-color: #{palette.stone($lightness: 96%)};
   }
@@ -53,7 +53,7 @@ main > section {
     --background-color: #{palette.stone($lightness: 91%)};
     --border-color: #{palette.stone($lightness: 83%)};
 
-    @include media.dark {
+    @media (prefers-color-scheme: dark)  {
       --background-color: #{palette.stone($lightness: 12%)};
       --border-color: #{palette.stone($lightness: 2%)};
     }
