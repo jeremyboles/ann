@@ -4,3 +4,6 @@
 [submodule "apps/foilsigh/priv/static/fonts/greycliff"]
 	path = apps/foilsigh/priv/static/fonts/greycliff
 	url = git@github.com:jeremyboles/greycliff.git
+[submodule "apps/foilsigh/priv/static/images/fa"]
+	path = apps/foilsigh/priv/static/images/fa
+	url = git@github.com:jeremyboles/fontawesome.git
