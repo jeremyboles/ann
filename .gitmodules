@@ -1,3 +1,6 @@
 [submodule "apps/foilsigh/priv/static/fonts/argent"]
 	path = apps/foilsigh/priv/static/fonts/argent
 	url = git@github.com:jeremyboles/argent.git
+[submodule "apps/foilsigh/priv/static/fonts/greycliff"]
+	path = apps/foilsigh/priv/static/fonts/greycliff
+	url = git@github.com:jeremyboles/greycliff.git

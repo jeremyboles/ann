@@ -1,0 +1,171 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Website header styles
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] {
+  @include layout.center;
+  @include layout.gutters;
+
+  --header-padding: #{rhythm.lines(2)};
+
+  @include layout.three-column {
+    --header-padding: #{rhythm.lines(3)};
+  }
+
+  @include layout.six-column {
+    --header-padding: #{rhythm.lines(4)};
+  }
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: #{rhythm.fragments(2)};
+  padding-bottom: var(--header-padding);
+  padding-top: calc(var(--header-padding) + env(safe-area-inset-top, 0));
+  position: relative;
+}
+
+//
+// Wordmark
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] > h1 {
+  @include rhythm.font-size(3);
+
+  font-family: 'Argent', serif;
+  font-weight: 800;
+  letter-spacing: -0.017em;
+  order: 2;
+  text-transform: lowercase;
+  white-space: nowrap;
+  word-spacing: -0.03em;
+  -moz-osx-font-smoothing: greyscale;
+  -webkit-font-smoothing: subpixel-antialiased;
+
+  @include layout.three-column {
+    @include rhythm.font-size(4);
+  }
+
+  a {
+    --color: #{palette.stone($lightness: 18%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 78%)};
+    }
+
+    color: var(--color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    --color: #{palette.stone($lightness: 26%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 86%)};
+    }
+  }
+
+  span {
+    display: none;
+  }
+}
+
+//
+// Tagline
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] > p {
+  @include fonts.sans;
+  @include rhythm.font-size(-1);
+
+  --color: #{palette.stone($lightness: 36%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 68%)};
+  }
+
+  color: var(--color);
+  order: 2;
+  transform: translateY(#{rhythm.fragments(1)});
+}
+
+///
+// Navigation
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner'] > nav {
+  order: 1;
+  transform: translateY(#{rhythm.fragments(1) * -1});
+
+  a {
+    --color: #{palette.stone(47%)};
+    --padding: #{rhythm.fragments(1, -2)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 58%)};
+    }
+
+    color: var(--color);
+    display: block;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    text-decoration: none;
+
+    &:hover {
+      --color: #{palette.stone(32%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.stone($lightness: 68%)};
+      }
+    }
+  }
+
+  p {
+    display: none;
+  }
+
+  ul {
+    @include fonts.sans;
+    @include rhythm.font-size(-2);
+
+    display: flex;
+    font-weight: 700;
+    letter-spacing: 0.085em;
+    list-style: none;
+    text-transform: uppercase;
+  }
+}
+
+///
+// Logo
+// -----------------------------------------------------------------------------------------------
+
+header[role='banner']::after {
+  --color: #{palette.stone($lightness: 89%)};
+  --size: #{rhythm.lines(7)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 13%)};
+  }
+
+  background-color: var(--color);
+  content: ' ';
+  display: block;
+  height: var(--size);
+  mask-image: url('/images/knot.svg');
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: var(--size);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--size);
+  z-index: -1;
+}

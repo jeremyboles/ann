@@ -1,0 +1,64 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Fonts & typography
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Font settings and definitions
+// -----------------------------------------------------------------------------------------------
+
+$argent: 'Argent';
+$greycliff: 'Greycliff';
+
+$argent-stack: (
+  normal: (
+    800: '/fonts/argent/ArgentCF-ExtraBold',
+  ),
+  italic: (),
+);
+
+$greycliff-stack: (
+  normal: (
+    500: '/fonts/greycliff/GreycliffCF-Medium',
+    700: '/fonts/greycliff/GreycliffCF-Bold',
+  ),
+  italic: (),
+);
+
+//
+// Initializer mix-in
+// -----------------------------------------------------------------------------------------------
+
+@mixin init {
+  @include font-faces($argent, $argent-stack);
+  @include font-faces($greycliff, $greycliff-stack);
+}
+
+//
+// Font-face mix-ins
+// -----------------------------------------------------------------------------------------------
+
+@mixin sans {
+  font-family: $greycliff, ui-sans-serif, sans-serif;
+}
+
+//
+// Helper mix-ins
+// -----------------------------------------------------------------------------------------------
+
+@mixin font-faces($family, $stack) {
+  @each $style, $weights in $stack {
+    @each $weight, $path in $weights {
+      @font-face {
+        font-display: swap;
+        font-family: $family;
+        font-style: $style;
+        font-weight: $weight;
+
+        src: url('#{$path}.woff2') format('woff2'),
+          url('#{path}.woff') format('woff');
+      }
+    }
+  }
+}

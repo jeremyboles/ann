@@ -1,0 +1,150 @@
+@use "sass:map";
+
+@use './rhythm';
+
+//
+// Breakpoint settings
+// -------------------------------------------------------------------------------------------------
+
+$breakpoints: (
+  two-column: 304px,
+  three-column: 408px,
+  four-column: 504px,
+  five-column: 640px,
+  six-column: 768px,
+  eight-column: 800px,
+  twelve-column: 1024px,
+  sixteen-column: 1360px,
+);
+
+//
+// Layout grid
+// -----------------------------------------------------------------------------------------------
+
+@mixin center($width: rhythm.fragments(265)) {
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $width;
+}
+
+@mixin grid {
+  --layout-gap: #{rhythm.fragments(2)};
+
+  display: grid;
+  grid-column-gap: var(--layout-gap);
+  grid-template-columns: repeat(1, 1fr);
+
+  @include two-column {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include three-column {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include four-column {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include five-column {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @include six-column {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @include eight-column {
+    --layout-gap: #{rhythm.lines(1)};
+
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  @include twelve-column {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  @include sixteen-column {
+    grid-template-columns: repeat(16, 1fr);
+  }
+}
+
+@mixin gutters {
+  --layout-gutter: #{rhythm.fragments(1)};
+
+  @include three-column {
+    --layout-gutter: #{rhythm.fragments(2)};
+  }
+
+  @include four-column {
+    --layout-gutter: #{rhythm.fragments(3)};
+  }
+
+  @include six-column {
+    --layout-gutter: #{rhythm.fragments(5)};
+  }
+
+  padding-left: calc(var(--layout-gutter) + env(safe-area-inset-left, 0));
+  padding-right: calc(var(--layout-gutter) + env(safe-area-inset-right, 0));
+}
+
+//
+// Layout breakpoint helpers
+// -----------------------------------------------------------------------------------------------
+
+@mixin two-column {
+  $width: #{map.get($breakpoints, two-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin three-column {
+  $width: #{map.get($breakpoints, three-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin four-column {
+  $width: #{map.get($breakpoints, four-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin five-column {
+  $width: #{map.get($breakpoints, five-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin six-column {
+  $width: #{map.get($breakpoints, six-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin eight-column {
+  $width: #{map.get($breakpoints, eight-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin twelve-column {
+  $width: #{map.get($breakpoints, twelve-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin sixteen-column {
+  $width: #{map.get($breakpoints, sixteen-column) - 1px};
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}

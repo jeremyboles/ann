@@ -1,0 +1,11 @@
+@use "../../../../../assets/css/media";
+@use "../../../../../assets/css/palette";
+
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+main > article {
+  @include layout.center;
+  @include layout.gutters;
+  @include layout.grid;
+}

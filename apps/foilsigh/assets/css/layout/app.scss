@@ -1,49 +1,62 @@
 @use "../../../../../assets/css/media";
 @use "../../../../../assets/css/palette";
 
-@font-face {
-  font-display: swap;
-  font-family: "Argent";
-  font-style: normal;
-  font-weight: 800;
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
 
-  src: url("/fonts/argent/ArgentCF-ExtraBold.woff2") format("woff2"),
-    url("/fonts/argent/ArgentCF-ExtraBold.woff") format("woff");
-}
+@include fonts.init;
+@include rhythm.init;
 
 :root {
   color-scheme: light dark;
 }
 
+//
+// Base styles
+// -----------------------------------------------------------------------------------------------
+
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
 body {
+  // @include rhythm.debug;
+
   --body-background-color: #{palette.stone($lightness: 92%)};
   --body-color: #{palette.stone($lightness: 20%)};
 
   @include media.dark {
-    --body-background-color: #{palette.stone($lightness: 8%)};
+    --body-background-color: #{palette.stone($lightness: 14%)};
     --body-color: #{palette.stone($lightness: 92%)};
   }
 
+  align-items: stretch;
   background-color: var(--body-background-color);
   color: var(--body-color);
+  display: flex;
+  flex-direction: column;
+  font-feature-settings: 'kern' 1, 'onum' 1, 'liga' 1;
+  min-height: 100vh;
 }
 
-header[role="banner"] h1 {
-  font-family: "Argent", serif;
-  font-size: xx-large;
-  font-weight: 800;
-  text-transform: lowercase;
-
-  a {
-    color: #{palette.stone($lightness: 18%)};
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #{palette.stone($lightness: 32%)};
-  }
-
-  span {
-    display: none;
-  }
+html {
+  max-width: 100%;
+  min-height: 100vh;
 }
+
+main {
+  // @include rhythm.debug;
+
+  flex-grow: 1;
+}
+
+//
+// Sub-view styles
+// -----------------------------------------------------------------------------------------------
+
+@import './header';
