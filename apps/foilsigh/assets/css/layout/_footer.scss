@@ -267,7 +267,8 @@ footer[role='contentinfo'] > div > p:last-of-type {
   }
 
   a[href^='http']::before {
-    --size: 1.75ch;
+    --mask-size: calc(var(--size) - 1px);
+    --size: 1.825ch;
     --space: 0.25ch;
 
     background-color: currentcolor;
@@ -280,15 +281,17 @@ footer[role='contentinfo'] > div > p:last-of-type {
       url('/images/fa/brands/creative-commons-sa.svg');
     mask-position: left center, right center;
     mask-repeat: no-repeat;
-    mask-size: contain;
+    mask-size: var(--mask-size) var(--mask-size),
+      var(--mask-size) var(--mask-size);
     text-decoration: underline;
-    transform: translateY(-0.25ch);
+    transform: translateY(-1px);
     vertical-align: text-bottom;
-    width: calc((var(--size) * 2) + calc(var(--space) * 0.5));
+    width: calc(var(--size) * 2);
   }
 
   span {
-    --size: 1.75ch;
+    --mask-size: calc(var(--size) - 1px);
+    --size: 1.825ch;
 
     background-color: currentcolor;
     display: inline-block;
@@ -297,7 +300,7 @@ footer[role='contentinfo'] > div > p:last-of-type {
     mask-image: url('/images/fa/brands/creative-commons.svg');
     mask-position: center;
     mask-repeat: no-repeat;
-    mask-size: contain;
+    mask-size: var(--mask-size) var(--mask-size);
     padding-top: var(--size);
     transform: translateY(-1px);
     vertical-align: text-bottom;
