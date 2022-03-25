@@ -8,8 +8,16 @@
 // Font settings and definitions
 // -----------------------------------------------------------------------------------------------
 
+$addington: 'Addington';
 $argent: 'Argent';
 $greycliff: 'Greycliff';
+
+$addington-stack: (
+  normal: (
+    300: '/fonts/addington/AddingtonCF-Light',
+  ),
+  italic: (),
+);
 
 $argent-stack: (
   normal: (
@@ -22,6 +30,8 @@ $greycliff-stack: (
   normal: (
     500: '/fonts/greycliff/GreycliffCF-Medium',
     700: '/fonts/greycliff/GreycliffCF-Bold',
+    800: '/fonts/greycliff/GreycliffCF-ExtraBold',
+    900: '/fonts/greycliff/GreycliffCF-Heavy',
   ),
   italic: (),
 );
@@ -31,6 +41,7 @@ $greycliff-stack: (
 // -----------------------------------------------------------------------------------------------
 
 @mixin init {
+  @include font-faces($addington, $addington-stack);
   @include font-faces($argent, $argent-stack);
   @include font-faces($greycliff, $greycliff-stack);
 }
@@ -41,6 +52,10 @@ $greycliff-stack: (
 
 @mixin sans {
   font-family: $greycliff, ui-sans-serif, sans-serif;
+}
+
+@mixin serif {
+  font-family: $addington, ui-serif, serif;
 }
 
 //

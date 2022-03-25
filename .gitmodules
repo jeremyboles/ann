@@ -7,3 +7,6 @@
 [submodule "apps/foilsigh/priv/static/images/fa"]
 	path = apps/foilsigh/priv/static/images/fa
 	url = git@github.com:jeremyboles/fontawesome.git
+[submodule "apps/foilsigh/priv/static/fonts/addington"]
+	path = apps/foilsigh/priv/static/fonts/addington
+	url = git@github.com:jeremyboles/addington.git

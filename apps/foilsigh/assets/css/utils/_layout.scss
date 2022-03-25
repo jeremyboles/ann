@@ -21,13 +21,6 @@ $breakpoints: (
 // Layout grid
 // -----------------------------------------------------------------------------------------------
 
-@mixin center($width: rhythm.fragments(265)) {
-  box-sizing: content-box;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: $width;
-}
-
 @mixin grid {
   --layout-gap: #{rhythm.fragments(2)};
 
@@ -70,6 +63,17 @@ $breakpoints: (
   }
 }
 
+//
+// Layout helpers
+// -----------------------------------------------------------------------------------------------
+
+@mixin center($width: rhythm.fragments(265)) {
+  box-sizing: content-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $width;
+}
+
 @mixin gutters {
   --layout-gutter: #{rhythm.fragments(1)};
 
@@ -87,6 +91,12 @@ $breakpoints: (
 
   padding-left: calc(var(--layout-gutter) + env(safe-area-inset-left, 0));
   padding-right: calc(var(--layout-gutter) + env(safe-area-inset-right, 0));
+}
+
+// Makes sure that, when a line wraps, any line after the first line is indented.
+@mixin outdent($amount: 2ch) {
+  padding-left: $amount;
+  text-indent: $amount * -1;
 }
 
 //
