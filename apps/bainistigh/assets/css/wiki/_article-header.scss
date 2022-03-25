@@ -32,10 +32,10 @@ main > section.wiki article > header ol {
     content: '';
     display: inline-block;
     height: var(--size);
-    mask-image: url(/images/caret-right.svg);
+    mask-image: url('/images/fa/regular/angle-right.svg');
     mask-position: center left;
     mask-repeat: no-repeat;
-    mask-size: var(--size);
+    mask-size: var(--size) calc(var(--size) - 4px);
     width: calc(var(--size) - 2px);
   }
 

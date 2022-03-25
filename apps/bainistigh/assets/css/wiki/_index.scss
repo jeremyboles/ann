@@ -67,12 +67,13 @@ main > section.wiki header {
     // -----------------------------------------------------------------------------------------------
 
     span[role='img'] {
-      --size: 18px;
+      --size: 16px;
 
       background-color: currentcolor;
       display: block;
       height: var(--size);
-      mask-image: url(/images/add.svg);
+
+      mask-image: url('/images/fa/regular/plus.svg');
       mask-position: center;
       mask-repeat: no-repeat;
       mask-size: var(--size);
@@ -92,13 +93,13 @@ main > section.wiki header {
     // -----------------------------------------------------------------------------------------------
 
     &::after {
-      --size: 10px;
+      --size: 8px;
 
       background-color: currentcolor;
       content: '';
       display: block;
       height: var(--size);
-      mask-image: url(/images/caret-down.svg);
+      mask-image: url('/images/fa/solid/angle-down.svg');
       mask-position: center;
       mask-repeat: no-repeat;
       mask-size: var(--size);

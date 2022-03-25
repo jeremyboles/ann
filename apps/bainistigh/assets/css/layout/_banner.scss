@@ -82,7 +82,7 @@ header[role='banner'] li {
       height: 16px;
       mask-position: center;
       mask-repeat: no-repeat;
-      mask-size: 16px;
+      mask-size: contain;
       position: relative;
       width: 16px;
       z-index: 1;
@@ -138,35 +138,35 @@ header[role='banner'] li {
 
 header[role='banner'] li a {
   &[href='/'] span[role='img'] {
-    mask-image: url(/images/dashboard.svg);
+    mask-image: url('/images/fa/light/gauge.svg');
   }
 
   &[href='/essays'] span[role='img'] {
-    mask-image: url(/images/essays.svg);
+    mask-image: url('/images/fa/light/memo-pad.svg');
   }
 
   &[href='/journal'] span[role='img'] {
-    mask-image: url(/images/journal.svg);
+    mask-image: url('/images/fa/light/book-bookmark.svg');
   }
 
   &[href='/media'] span[role='img'] {
-    mask-image: url(/images/media.svg);
+    mask-image: url('/images/fa/light/images.svg');
   }
 
   &[href='/messages'] span[role='img'] {
-    mask-image: url(/images/inbox.svg);
+    mask-image: url('/images/fa/light/inbox.svg');
   }
 
   &[href='/people'] span[role='img'] {
-    mask-image: url(/images/people.svg);
+    mask-image: url('/images/fa/light/circle-user.svg');
   }
 
   &[href='/search'] span[role='img'] {
-    mask-image: url(/images/search.svg);
+    mask-image: url('/images/fa/light/magnifying-glass.svg');
   }
 
   &[href='/wiki'] span[role='img'] {
-    mask-image: url(/images/wiki.svg);
+    mask-image: url('/images/fa/light/box-archive.svg');
   }
 
   &[href^='/messages'],

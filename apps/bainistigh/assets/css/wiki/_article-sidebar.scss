@@ -86,24 +86,24 @@ main > section.wiki article > aside [role='tab'] {
       content: ' ';
       mask-position: center;
       mask-repeat: no-repeat;
-      mask-size: var(--size);
+      mask-size: contain;
       width: var(--size);
     }
 
     &[for|='glossary']::after {
-      mask-image: url(/images/glossary.svg);
+      mask-image: url('/images/fa/regular/note-sticky.svg');
     }
 
     &[for|='history']::after {
-      mask-image: url(/images/history.svg);
+      mask-image: url('/images/fa/regular/clock-rotate-left.svg');
     }
 
     &[for|='links']::after {
-      mask-image: url(/images/links.svg);
+      mask-image: url('/images/fa/regular/link.svg');
     }
 
     &[for|='metadata']::after {
-      mask-image: url(/images/metadata.svg);
+      mask-image: url('/images/fa/regular/database.svg');
     }
   }
 

@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <g stroke-linecap="round" stroke-width="1.5" stroke="#000" fill="none" stroke-linejoin="round">
-        <path d="M23 15L21 2H3L1 15v5c0 1.1.895 2 2 2h18c1.1 0 2-.9 2-2Z"></path>
-        <path d="M1 15h8c0 1.657 1.343 3 3 3s3-1.343 3-3h8"></path>
-    </g>
-</svg>
