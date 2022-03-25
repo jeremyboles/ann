@@ -1,0 +1,44 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Section intro
+// -----------------------------------------------------------------------------------------------
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: #{rhythm.fragments(2)};
+  padding-bottom: #{rhythm.fragments(2)};
+}
+
+.intro h2 {
+  @include fonts.sans;
+  @include rhythm.font-size(1);
+
+  --color: #{palette.stone($lightness: 16%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 88%)};
+  }
+
+  color: var(--color);
+  font-weight: 800;
+}
+
+.intro p {
+  @include fonts.serif;
+  @include rhythm.font-size(-1);
+
+  --color: #{palette.stone($lightness: 36%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 68%)};
+  }
+
+  color: var(--color);
+  font-weight: 300;
+}

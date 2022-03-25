@@ -1,0 +1,135 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Common styles
+// -----------------------------------------------------------------------------------------------
+
+@import url('/assets/common/intro.css');
+
+///
+// Wiki index container
+// -----------------------------------------------------------------------------------------------
+
+main > article {
+  @include layout.center;
+  @include layout.gutters;
+  @include layout.grid;
+
+  --padding: #{rhythm.lines(1)};
+
+  grid-template-areas: 'intro' 'topics';
+  padding-bottom: var(--padding);
+  row-gap: var(--layout-gap);
+
+  @include layout.two-column {
+    grid-template-areas:
+      'intro intro'
+      'topics topics';
+  }
+
+  @include layout.three-column {
+    grid-template-areas:
+      'intro intro intro'
+      'topics topics topics';
+  }
+
+  @include layout.four-column {
+    grid-template-areas:
+      'intro intro intro intro'
+      'topics topics topics topics';
+  }
+
+  @include layout.five-column {
+    grid-template-areas:
+      'intro intro intro intro intro'
+      'topics topics topics topics topics';
+  }
+
+  @include layout.six-column {
+    --padding: #{rhythm.lines(2)};
+
+    grid-template-areas: 'intro intro topics topics topics topics';
+  }
+
+  @include layout.eight-column {
+    grid-template-areas: 'intro intro intro . topics topics topics topics';
+  }
+
+  @include layout.twelve-column {
+    grid-template-areas: 'intro intro intro . topics topics topics topics topics topics topics topics';
+  }
+
+  @include layout.sixteen-column {
+    grid-template-areas: 'intro intro intro . topics topics topics topics topics topics topics topics topics topics topics topics';
+  }
+}
+
+//
+// Intro blurb
+// -----------------------------------------------------------------------------------------------
+
+main > article > header {
+  grid-area: intro;
+}
+
+//
+// Topic list
+// -----------------------------------------------------------------------------------------------
+
+main > article > section {
+  @include fonts.sans;
+  @include rhythm.font-size(-1);
+
+  font-weight: 600;
+  grid-area: topics;
+
+  @include layout.two-column {
+    column-gap: var(--layout-gap);
+    column-count: 2;
+  }
+
+  @include layout.twelve-column {
+    column-count: 4;
+  }
+
+  @include layout.sixteen-column {
+    column-count: 6;
+  }
+
+  a {
+    --color: #{palette.stone($lightness: 22%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 78%)};
+    }
+
+    color: var(--color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    --color: #{palette.yellow($lightness: 32%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.yellow($lightness: 54%)};
+    }
+  }
+
+  li {
+    break-inside: avoid;
+    padding-left: 1ch;
+    text-indent: -1ch;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  ul ul {
+    padding-left: #{rhythm.fragments(1, -1)};
+  }
+}
