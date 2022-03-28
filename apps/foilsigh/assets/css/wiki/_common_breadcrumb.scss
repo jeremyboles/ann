@@ -1,0 +1,102 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Breadcrumb container
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumb {
+  p {
+    display: none;
+  }
+}
+
+//
+// Hierarchical list of topics
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumb ol {
+  @include fonts.mono;
+  @include rhythm.font-size(-1);
+
+  --background-color: #{palette.stone($lightness: 88%)};
+  --spacing: #{rhythm.fragments(1, -1)};
+
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{palette.stone($lightness: 18%)};
+  }
+
+  background-color: var(--background-color);
+  border-radius: 0.25em;
+  display: flex;
+  font-weight: 800;
+  gap: var(--spacing);
+  list-style: none;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+}
+
+//
+// Separators
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumb li + li::before {
+  --background-color: #{palette.stone($lightness: 60%)};
+  --size: 1.25ch;
+
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{palette.stone($lightness: 38%)};
+  }
+
+  background-color: var(--background-color);
+  content: '';
+  display: inline-block;
+  height: var(--size);
+  margin-right: var(--spacing);
+  mask-image: url('/images/fa/solid/right-long.svg');
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: var(--size) var(--size);
+  transform: translateY(-0.0625ch);
+  vertical-align: middle;
+  width: var(--size);
+}
+
+//
+// Links
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumb a {
+  --color: #{palette.stone($lightness: 36%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 68%)};
+  }
+
+  color: var(--color);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  --color: #{palette.yellow($lightness: 32%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.yellow($lightness: 62%)};
+  }
+}
+
+.breadcrumb li:first-of-type a:hover {
+  --color: #{palette.stone($lightness: 28%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 78%)};
+  }
+}
+
+.breadcrumb a[aria-current='page'] {
+  font-style: italic;
+  font-weight: 600;
+}

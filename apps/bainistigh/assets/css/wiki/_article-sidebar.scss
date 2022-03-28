@@ -174,7 +174,7 @@ main > section.wiki article > aside [role='tabpanel'] details summary {
   -webkit-user-select: none;
 
   &::after {
-    --color: #{palette.stone($lightness: 48%)};
+    --color: #{palette.stone($lightness: 55%)};
     --size: 12px;
 
     @media (prefers-color-scheme: dark) {
@@ -185,10 +185,10 @@ main > section.wiki article > aside [role='tabpanel'] details summary {
     content: '';
     display: block;
     height: var(--size);
-    mask-image: url(/images/caret-right-thin.svg);
+    mask-image: url('/images/fa/regular/angle-right.svg');
     mask-position: center;
     mask-repeat: no-repeat;
-    mask-size: var(--size);
+    mask-size: var(--size) var(--size);
     width: var(--size);
   }
 
@@ -203,7 +203,7 @@ main > section.wiki article > aside [role='tabpanel'] details summary {
 
 main > section.wiki article > aside [role='tabpanel'] details[open] summary {
   &::after {
-    mask-image: url(/images/caret-down-thin.svg);
+    mask-image: url('/images/fa/regular/angle-down.svg');
   }
 }
 

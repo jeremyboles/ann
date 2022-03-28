@@ -1,0 +1,144 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Related wiki topics
+// -----------------------------------------------------------------------------------------------
+
+#topic-related {
+  @include layout.gutters;
+
+  --background-color: #{palette.stone($lightness: 88%)};
+
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{palette.stone($lightness: 18%)};
+  }
+
+  background-color: var(--background-color);
+  grid-area: related;
+
+  h3 {
+    display: none;
+  }
+}
+
+//
+// List of topic "category" columns
+// -----------------------------------------------------------------------------------------------
+
+#topic-related dl {
+  @include layout.center;
+  @include layout.grid;
+
+  --padding: #{rhythm.lines(2)};
+
+  row-gap: var(--layout-gap);
+  padding-bottom: var(--padding);
+  padding-top: var(--padding);
+
+  & > div {
+    @include layout.two-column {
+      grid-column-end: span 2;
+      grid-column-start: auto;
+    }
+
+    @include layout.three-column {
+      grid-column-end: span 3;
+      grid-column-start: auto;
+    }
+
+    @include layout.four-column {
+      grid-column-end: span 2;
+      grid-column-start: auto;
+    }
+
+    @include layout.six-column {
+      columns: 2;
+      column-gap: var(--layout-gap);
+      grid-column-end: span 3;
+    }
+
+    @include layout.eight-column {
+      grid-column-end: span 4;
+    }
+
+    @include layout.twelve-column {
+      columns: 1;
+      grid-column-end: span 3;
+    }
+
+    @include layout.sixteen-column {
+      columns: 2;
+      grid-column-end: span 4;
+    }
+  }
+}
+
+//
+// "Category" name
+// -----------------------------------------------------------------------------------------------
+
+#topic-related dt {
+  @include fonts.mono;
+  @include rhythm.font-size(-2);
+
+  --color: #{palette.stone($lightness: 16%)};
+  --border-color: #{palette.stone($lightness: 74%)};
+  --border-width: 1px;
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 80%)};
+    --border-color: #{palette.stone($lightness: 26%)};
+  }
+
+  border-bottom: var(--border-color) solid var(--border-width);
+  color: var(--color);
+  column-span: all;
+  font-weight: 700;
+  grid-column-end: span 2;
+  grid-column-start: 1;
+  margin-bottom: calc(var(--border-width) * -1);
+
+  @include layout.twelve-column {
+    column-span: initial;
+  }
+
+  @include layout.sixteen-column {
+    column-span: all;
+  }
+}
+
+//
+// Link to topic
+// -----------------------------------------------------------------------------------------------
+
+#topic-related dd {
+  @include fonts.mono;
+  @include rhythm.font-size(-2);
+
+  font-weight: 400;
+  padding-left: 2ch;
+  text-indent: -2ch;
+
+  a {
+    --color: #{palette.stone($lightness: 22%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 72%)};
+    }
+
+    color: var(--color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    --color: #{palette.yellow($lightness: 44%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.yellow($lightness: 62%)};
+    }
+  }
+}

@@ -1,0 +1,187 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Supplementary contrainer
+// -----------------------------------------------------------------------------------------------
+
+.supplementary {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+//
+// Heading divider line
+// -----------------------------------------------------------------------------------------------
+
+.supplementary::before {
+  --color: #{palette.stone($lightness: 72%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 28%)};
+  }
+
+  background-color: var(--color);
+  content: '';
+  display: block;
+  height: 1px;
+  transform: translateY(#{rhythm.fragments(2)});
+  width: 100%;
+  z-index: -1;
+}
+
+//
+// Heading
+// -----------------------------------------------------------------------------------------------
+
+.supplementary h3 {
+  @include fonts.sans;
+  @include rhythm.font-size(-2);
+
+  --color: #{palette.stone($lightness: 38%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 66%)};
+  }
+
+  background-color: var(--body-background-color);
+  color: var(--color);
+  font-weight: 800;
+  letter-spacing: 0.125em;
+  padding-bottom: #{rhythm.fragments(1, -2)};
+  padding-right: #{rhythm.fragments(1, -2)};
+  position: relative;
+  text-transform: uppercase;
+}
+
+//
+// List of links
+// -----------------------------------------------------------------------------------------------
+
+.supplementary ul {
+  @include fonts.sans;
+  @include rhythm.font-size(-1);
+
+  --color: #{palette.stone($lightness: 38%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 68%)};
+  }
+
+  color: var(--color);
+  font-weight: 450;
+  margin-left: #{rhythm.fragments(3, -1)};
+  padding-bottom: #{rhythm.fragments(3, -1)};
+
+  a {
+    color: var(--color);
+    text-decoration-color: var(--text-decoration-color);
+  }
+
+  a:link {
+    --color: #{palette.blue($lightness: 46%)};
+    --text-decoration-color: #{palette.blue($lightness: 72%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.blue($lightness: 66%)};
+      --text-decoration-color: #{palette.blue($lightness: 28%)};
+    }
+
+    &:hover {
+      --color: #{palette.blue($lightness: 38%)};
+      --text-decoration-color: #{palette.blue($lightness: 56%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.blue($lightness: 68%)};
+        --text-decoration-color: #{palette.blue($lightness: 52%)};
+      }
+    }
+  }
+
+  a:visited {
+    --color: #{palette.purple($lightness: 42%)};
+    --text-decoration-color: #{palette.purple($lightness: 72%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.purple($lightness: 62%)};
+      --text-decoration-color: #{palette.purple($lightness: 26%)};
+    }
+
+    &:hover {
+      --color: #{palette.purple($lightness: 38%)};
+      --text-decoration-color: #{palette.purple($lightness: 56%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.purple($lightness: 82%)};
+        --text-decoration-color: #{palette.purple($lightness: 26%)};
+      }
+    }
+  }
+
+  // prettier-ignore
+  a:active, a:hover:active {
+    --color: #{palette.red($lightness: 38%)};
+    --text-decoration-color: #{palette.red($lightness: 48%)};
+  
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.red($lightness: 58%)};
+      --text-decoration-color: #{palette.red($lightness: 60%)};
+    }
+  }
+
+  li::marker {
+    --color: #{palette.stone($lightness: 58%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 68%)};
+    }
+
+    color: var(--color);
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+}
+
+//
+// Glossary of terms
+// -----------------------------------------------------------------------------------------------
+
+.supplementary dl {
+  padding-bottom: #{rhythm.fragments(3)};
+
+  dt {
+    @include fonts.sans;
+    @include rhythm.font-size(-1);
+
+    --color: #{palette.stone($lightness: 16%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 82%)};
+    }
+
+    color: var(--color);
+    font-style: oblique;
+    font-weight: 700;
+  }
+
+  dd {
+    @include fonts.serif;
+    @include rhythm.font-size(-1);
+
+    --color: #{palette.stone($lightness: 44%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 64%)};
+    }
+
+    color: var(--color);
+    font-weight: 300;
+    margin-left: #{rhythm.lines(1, -1)};
+  }
+}

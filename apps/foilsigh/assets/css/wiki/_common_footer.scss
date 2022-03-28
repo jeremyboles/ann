@@ -1,0 +1,47 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Footer container
+// -----------------------------------------------------------------------------------------------
+
+.footer figcaption {
+  // @include colors.modes(stone 500, stone 400);
+  @include fonts.sans;
+  @include rhythm.font-size(-2);
+
+  --color: #{palette.stone($lightness: 32%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 82%)};
+  }
+
+  color: var(--color);
+  font-weight: 500;
+  order: 2;
+
+  a[href^='/map'] {
+    --color: inherit;
+
+    color: var(--color);
+    text-decoration: none;
+  }
+
+  a[href^='/map']:hover {
+    --color: #{palette.emerald($lightness: 32%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.emerald($lightness: 56%)};
+    }
+  }
+
+  i {
+    font-style: oblique;
+  }
+  b {
+    font-weight: 600;
+  }
+}

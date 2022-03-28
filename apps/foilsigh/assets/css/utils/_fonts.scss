@@ -10,14 +10,18 @@
 
 $addington: 'Addington';
 $argent: 'Argent';
+$ellograph: 'Ellograph';
 $greycliff: 'Greycliff';
 
 $addington-stack: (
   normal: (
     300: '/fonts/addington/AddingtonCF-Light',
     400: '/fonts/addington/AddingtonCF-Regular',
+    500: '/fonts/addington/AddingtonCF-Medium',
   ),
-  italic: (),
+  italic: (
+    300: '/fonts/addington/AddingtonCF-LightItalic',
+  ),
 );
 
 $argent-stack: (
@@ -25,6 +29,19 @@ $argent-stack: (
     800: '/fonts/argent/ArgentCF-ExtraBold',
   ),
   italic: (),
+);
+
+$ellograph-stack: (
+  normal: (
+    300: '/fonts/ellograph/EllographCF-Light',
+    400: '/fonts/ellograph/EllographCF-Regular',
+    700: '/fonts/ellograph/EllographCF-Bold',
+    800: '/fonts/ellograph/EllographCF-ExtraBold',
+  ),
+  italic: (
+    600: '/fonts/ellograph/EllographCF-DemiBoldItalic',
+    700: '/fonts/ellograph/EllographCF-BoldItalic',
+  ),
 );
 
 $greycliff-stack: (
@@ -35,7 +52,11 @@ $greycliff-stack: (
     800: '/fonts/greycliff/GreycliffCF-ExtraBold',
     900: '/fonts/greycliff/GreycliffCF-Heavy',
   ),
-  italic: (),
+  oblique: (
+    500: '/fonts/greycliff/GreycliffCF-MediumOblique',
+    600: '/fonts/greycliff/GreycliffCF-DemiBoldOblique',
+    700: '/fonts/greycliff/GreycliffCF-BoldOblique',
+  ),
 );
 
 //
@@ -45,12 +66,17 @@ $greycliff-stack: (
 @mixin init {
   @include font-faces($addington, $addington-stack);
   @include font-faces($argent, $argent-stack);
+  @include font-faces($ellograph, $ellograph-stack);
   @include font-faces($greycliff, $greycliff-stack);
 }
 
 //
 // Font-face mix-ins
 // -----------------------------------------------------------------------------------------------
+
+@mixin mono {
+  font-family: $ellograph, ui-monospace, monospace;
+}
 
 @mixin sans {
   font-family: $greycliff, ui-sans-serif, sans-serif;

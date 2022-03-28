@@ -24,8 +24,8 @@ $breakpoints: (
 @mixin grid {
   --layout-gap: #{rhythm.fragments(2)};
 
+  column-gap: var(--layout-gap);
   display: grid;
-  grid-column-gap: var(--layout-gap);
   grid-template-columns: repeat(1, 1fr);
 
   @include two-column {

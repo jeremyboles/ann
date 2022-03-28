@@ -1,0 +1,132 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Wiki topic header
+// -----------------------------------------------------------------------------------------------
+
+#topic-header {
+  display: flex;
+  flex-direction: column;
+  gap: #{rhythm.lines(3)};
+  grid-area: header;
+  padding-bottom: #{rhythm.lines(3)};
+}
+
+//
+// Topic title
+// -----------------------------------------------------------------------------------------------
+
+#topic-header h2 {
+  @include fonts.sans;
+  @include rhythm.font-size(4);
+
+  @include layout.eight-column {
+    @include rhythm.font-size(5);
+  }
+
+  font-weight: 800;
+  overflow-wrap: break-word;
+  text-align: center;
+
+  a {
+    --color: #{palette.stone($lightness: 10%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 88%)};
+    }
+
+    color: var(--color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    --color: #{palette.yellow($lightness: 32%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.yellow($lightness: 62%)};
+    }
+  }
+}
+
+//
+// Tags
+// -----------------------------------------------------------------------------------------------
+
+#topic-header p {
+  @include fonts.mono;
+  @include rhythm.font-size(-1);
+
+  display: flex;
+  gap: #{rhythm.fragments(2, -1)};
+  justify-content: center;
+  font-style: italic;
+  font-weight: 700;
+  position: relative;
+
+  span {
+    display: none;
+  }
+}
+
+#topic-header p::before {
+  --background-color: #{palette.stone($lightness: 42%)};
+
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{palette.stone($lightness: 66%)};
+  }
+
+  background-color: var(--background-color);
+  border-radius: 0.0625em;
+  content: '';
+  display: block;
+  height: #{rhythm.fragments(1, -1)};
+  position: absolute;
+  top: 0;
+  transform: translateY(#{rhythm.fragments(4, -1) * -1});
+  width: #{rhythm.lines(4, -1)};
+}
+
+//
+// Links
+// -----------------------------------------------------------------------------------------------
+
+#topic-header p a {
+  --color: #{palette.stone($lightness: 32%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 72%)};
+  }
+
+  color: var(--color);
+  text-decoration: none;
+}
+
+#topic-header p a:hover {
+  --color: #{palette.orange($lightness: 44%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.orange($lightness: 60%)};
+  }
+}
+
+#topic-header p a::before {
+  --color: #{palette.stone($lightness: 62%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 38%)};
+  }
+
+  content: '#';
+  color: var(--color);
+}
+#topic-header p a:hover::before {
+  --color: #{palette.orange($lightness: 44%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.orange($lightness: 60%)};
+  }
+}

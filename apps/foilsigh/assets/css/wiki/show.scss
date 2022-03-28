@@ -1,0 +1,135 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Common styles
+// -----------------------------------------------------------------------------------------------
+
+@import url('./common.css');
+
+//
+// Main grid
+// -----------------------------------------------------------------------------------------------
+
+main > div > div {
+  @include layout.center;
+  @include layout.gutters;
+  @include layout.grid;
+
+  align-items: start;
+  grid-template-areas:
+    'header'
+    'breadcrumb'
+    'content'
+    'supplementary'
+    'journal'
+    'essays'
+    'footer';
+  padding-bottom: var(--layout-gap);
+  row-gap: var(--layout-gap);
+
+  @include layout.two-column {
+    grid-template-areas:
+      'header header'
+      'breadcrumb breadcrumb'
+      'content content'
+      'supplementary supplementary'
+      'journal journal'
+      'essays essays'
+      'footer footer';
+  }
+
+  @include layout.three-column {
+    grid-template-areas:
+      'header header header'
+      'breadcrumb breadcrumb breadcrumb'
+      'content content content'
+      'supplementary supplementary supplementary'
+      'journal journal journal'
+      'essays essays essays'
+      'footer footer footer';
+  }
+
+  @include layout.four-column {
+    grid-template-areas:
+      'header header header header'
+      'breadcrumb breadcrumb breadcrumb breadcrumb'
+      'content content content content'
+      'supplementary supplementary supplementary supplementary'
+      'journal journal journal journal'
+      'essays essays essays essays'
+      'footer footer footer footer';
+  }
+
+  @include layout.five-column {
+    grid-template-areas:
+      'header header header header header'
+      'breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb'
+      'content content content content content'
+      'supplementary supplementary supplementary supplementary supplementary'
+      'journal journal journal journal journal'
+      'essays essays essays essays essays'
+      'footer footer footer footer footer';
+  }
+
+  @include layout.six-column {
+    grid-template-areas:
+      'header header header header header header'
+      'breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb'
+      'content content content content content content'
+      'supplementary supplementary supplementary supplementary supplementary supplementary'
+      'journal journal journal journal journal journal'
+      'essays essays essays essays essays essays'
+      'footer footer footer footer footer footer';
+  }
+
+  @include layout.eight-column {
+    grid-template-areas:
+      'header header header header header header header header'
+      'breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb'
+      'content content content content content content content content'
+      'journal journal journal journal journal supplementary supplementary supplementary'
+      'journal journal journal journal journal footer footer footer'
+      'journal journal journal journal journal essays essays essays';
+    grid-template-rows: auto min-content auto auto minmax(max-content, 1fr) auto;
+  }
+
+  @include layout.twelve-column {
+    grid-template-areas:
+      'header header header header header header header header header header header header'
+      'breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb'
+      'content content content content content content content content journal journal journal journal'
+      'supplementary supplementary supplementary supplementary supplementary supplementary footer footer footer footer footer footer'
+      'essays essays essays essays essays essays essays essays essays essays essays essays';
+  }
+
+  @include layout.sixteen-column {
+    grid-template-areas:
+      'header header header header header header header header header header header header header header header header'
+      'footer footer footer footer breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb'
+      'footer footer footer footer content content content content content content content content journal journal journal journal'
+      'supplementary supplementary supplementary supplementary content content content content content content content content journal journal journal journal'
+      'essays essays essays essays essays essays essays essays essays essays essays essays journal journal journal journal';
+    grid-template-rows: auto min-content auto minmax(max-content, 1fr) auto;
+  }
+}
+
+main > div > div > article {
+  display: contents;
+}
+
+//
+// Section imports
+// -----------------------------------------------------------------------------------------------
+
+@import './show_breadcrumb';
+@import './show_content';
+@import './show_essays';
+@import './show_footer';
+@import './show_header';
+@import './show_journal';
+@import './show_related';
+@import './show_supplementary';

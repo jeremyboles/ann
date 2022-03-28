@@ -13,3 +13,6 @@
 [submodule "apps/bainistigh/priv/static/images/fa"]
 	path = apps/bainistigh/priv/static/images/fa
 	url = git@github.com:jeremyboles/fontawesome.git
+[submodule "apps/foilsigh/priv/static/fonts/ellograph"]
+	path = apps/foilsigh/priv/static/fonts/ellograph
+	url = git@github.com:jeremyboles/ellograph.git

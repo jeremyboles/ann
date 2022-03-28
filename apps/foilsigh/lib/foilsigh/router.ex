@@ -21,9 +21,11 @@ defmodule Foilsigh.Router do
 
     get "/essays", EssaysController, :index
     get "/journal", JournalController, :index
-    get "/wiki", WikiController, :index
     get "/calendar", CalendarController, :index
     get "/map", MapController, :index
+
+    get "/wiki", WikiController, :index
+    get "/:slug", WikiController, :show
   end
 
   # Other scopes may use custom stacks.
