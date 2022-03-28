@@ -1,0 +1,11 @@
+{
+  "name": "foilsigh",
+  "private": true,
+  "dependencies": {
+    "d3-geo": "^3.0.1",
+    "ngeohash": "^0.6.3",
+    "svgo": "^2.8.0",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  }
+}

@@ -14,6 +14,10 @@ defmodule Foilsigh.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :graphics do
+    plug :accepts, ["svg", "svgz"]
+  end
+
   scope "/", Foilsigh do
     pipe_through :browser
 
@@ -28,8 +32,10 @@ defmodule Foilsigh.Router do
     get "/:slug", WikiController, :show
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Foilsigh do
-  #   pipe_through :api
-  # end
+  scope "/g", Foilsigh do
+    pipe_through :graphics
+
+    get "/map.svg", GraphicsController, :map
+    get "/points.svg", GraphicsController, :points
+  end
 end

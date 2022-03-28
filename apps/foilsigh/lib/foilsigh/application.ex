@@ -11,7 +11,10 @@ defmodule Foilsigh.Application do
       # Start the Telemetry supervisor
       Foilsigh.Telemetry,
       # Start the Endpoint (http/https)
-      Foilsigh.Endpoint
+      Foilsigh.Endpoint,
+      # Start Reathaí for the app
+      {Reathai, cd: Application.app_dir(:foilsigh, "priv/js"), name: Foilsigh.Reathai}
+
       # Start a worker by calling: Foilsigh.Worker.start_link(arg)
       # {Foilsigh.Worker, arg}
     ]

@@ -27,7 +27,9 @@ defmodule Ann.MixProject do
       setup: ["cmd mix setup"],
 
       # run `mix assets.deploy` in all Phoenix apps
-      "assets.deploy": ["cmd --app bainistigh --app foilsigh mix assets.deploy"]
+      "assets.deploy": ["cmd --app bainistigh --app foilsigh mix assets.deploy"],
+      "npm.deploy": ["cmd --app foilsigh mix npm.deploy"],
+      "npm.get": ["cmd --app foilsigh mix npm.get"]
     ]
   end
 
@@ -54,6 +56,7 @@ defmodule Ann.MixProject do
           bainistigh: :permanent,
           foilsigh: :permanent,
           giorraigh: :permanent,
+          reathai: :permanent,
           taifead: :permanent
         ]
       ]

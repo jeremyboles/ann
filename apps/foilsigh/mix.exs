@@ -37,19 +37,20 @@ defmodule Foilsigh.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:dart_sass, "~> 0.4", runtime: Mix.env() == :dev},
+      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:floki, ">= 0.30.0", only: :test},
+      {:jason, "~> 1.2"},
       {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
-      {:floki, ">= 0.30.0", only: :test},
-      {:dart_sass, "~> 0.4", runtime: Mix.env() == :dev},
-      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
-      {:telemetry_metrics, "~> 0.6"},
-      {:telemetry_poller, "~> 1.0"},
+      {:plug_cowboy, "~> 2.5"},
+      {:reathai, in_umbrella: true},
       {:taifead, in_umbrella: true},
-      {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"}
     ]
   end
 
@@ -60,7 +61,11 @@ defmodule Foilsigh.MixProject do
     [
       setup: ["deps.get"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["sass foilsigh --no-source-map --style=compressed", "phx.digest"]
+      "assets.deploy": ["sass foilsigh --no-source-map --style=compressed", "phx.digest"],
+      "npm.deploy": [
+        "cmd cd priv/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules"
+      ],
+      "npm.get": ["cmd cd priv/js && npm install"]
     ]
   end
 end
