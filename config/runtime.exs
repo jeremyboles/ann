@@ -5,6 +5,10 @@ import Config
 # system starts, so it is typically used to load production configuration
 # and secrets from environment variables or elsewhere. Do not define
 # any compile-time configuration in here, as it won't be applied.
+
+# Tell Reathaí where Node lives
+config :reathai, Reathai.Worker, node_path: System.find_executable("node")
+
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
   # The secret key base is used to sign/encrypt cookies and other secrets.

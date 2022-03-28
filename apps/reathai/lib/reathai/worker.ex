@@ -4,7 +4,6 @@ defmodule Reathai.Worker do
   use GenServer
 
   @chunk_size 65_536
-  @node_path System.find_executable("node")
   @timeout 30_000
 
   # Client API
@@ -36,7 +35,10 @@ defmodule Reathai.Worker do
       {'NODE_PATH', String.to_charlist(dir)}
     ]
 
-    {:ok, Port.open({:spawn_executable, @node_path}, args: args, env: env, line: @chunk_size)}
+    config = Application.get_env(:reathai, __MODULE__)
+
+    {:ok,
+     Port.open({:spawn_executable, config[:node_path]}, args: args, env: env, line: @chunk_size)}
   end
 
   @impl true
