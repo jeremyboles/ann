@@ -22,10 +22,10 @@
 
 #topic-header h2 {
   @include fonts.sans;
-  @include rhythm.font-size(4);
+  @include rhythm.font-size(4, $line-height: 9);
 
   @include layout.eight-column {
-    @include rhythm.font-size(5);
+    @include rhythm.font-size(5, $line-height: 12);
   }
 
   font-weight: 800;
