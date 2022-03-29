@@ -22,6 +22,9 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 bainistigh-*.tar
 
+# Ignore MapKit JS key
+/priv/mapkit.p8
+
 # Ignore assets that are produced by build tools.
 /priv/static/assets/
 

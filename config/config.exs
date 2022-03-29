@@ -82,6 +82,13 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
+# MapKit JS key
+config :joken,
+  default_signer: [
+    jose_extra_headers: %{"kid" => "4YQKWLJNBT"},
+    signer_alg: "ES256"
+  ]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

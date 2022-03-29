@@ -25,3 +25,10 @@ liveSocket.connect()
 window.liveSocket = liveSocket
 
 WikiEditor.define()
+
+mapkit.init({
+  async authorizationCallback(done) {
+    const resp = await fetch('/token')
+    done(await resp.text())
+  },
+})

@@ -50,6 +50,7 @@ defmodule Bainistigh.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:taifead, in_umbrella: true},
       {:jason, "~> 1.2"},
+      {:joken, "~> 2.4"},
       {:plug_cowboy, "~> 2.5"}
     ]
   end

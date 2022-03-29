@@ -158,6 +158,10 @@ config :bainistigh, Bainistigh.Endpoint,
     ]
   ]
 
+# MapKit JS key
+config :joken,
+  default_signer: [key_pem: File.read!("#{File.cwd!()}/apps/bainistigh/priv/mapkit.p8")]
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

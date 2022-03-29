@@ -25,6 +25,8 @@ defmodule Bainistigh.Router do
     live "/people", PeopleLive
     live "/messages", MessagesLive
     live "/search", SearchLive
+
+    get "/token", TokenController, :show
   end
 
   # Other scopes may use custom stacks.

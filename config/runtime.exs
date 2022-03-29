@@ -121,6 +121,15 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  # Key file for talking to MapKit JS
+  keyfile =
+    System.get_env("MAPKIT_KEYFILE") ||
+      raise """
+      environment variable MAPKIT_KEYFILE is missing.
+      """
+
+  config :joken, default_signer: [key_pem: File.read!(keyfile)]
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
