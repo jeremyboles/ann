@@ -28,7 +28,6 @@ defmodule Ann.MixProject do
 
       # run `mix assets.deploy` in all Phoenix apps
       "assets.deploy": ["cmd --app bainistigh --app foilsigh mix assets.deploy"],
-      "npm.deploy": ["cmd --app foilsigh mix npm.deploy"],
       "npm.get": ["cmd --app bainistigh --app foilsigh mix npm.get"]
     ]
   end

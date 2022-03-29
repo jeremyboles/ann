@@ -61,9 +61,10 @@ defmodule Foilsigh.MixProject do
     [
       setup: ["deps.get"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["sass foilsigh --no-source-map --style=compressed", "phx.digest"],
-      "npm.deploy": [
-        "cmd cd priv/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules"
+      "assets.deploy": [
+        "cmd cd priv/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules",
+        "sass foilsigh --no-source-map --style=compressed",
+        "phx.digest"
       ],
       "npm.get": ["cmd cd priv/js && npm install"]
     ]
