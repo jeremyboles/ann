@@ -62,8 +62,8 @@ defmodule Bainistigh.MixProject do
       setup: ["deps.get"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
-        "esbuild bainistigh --minify",
         "cmd cd assets/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules",
+        "esbuild bainistigh --minify",
         "sass bainistigh --no-source-map --style=compressed",
         "phx.digest"
       ],
