@@ -26,6 +26,8 @@ window.liveSocket = liveSocket
 
 WikiEditor.define()
 
+mapkit.addEventListener('error', console.error)
+
 mapkit.init({
   async authorizationCallback(done) {
     const resp = await fetch('/token')
