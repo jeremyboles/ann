@@ -72,6 +72,10 @@
   }
 }
 
+//
+// Separator
+// -----------------------------------------------------------------------------------------------
+
 #topic-header p::before {
   --background-color: #{palette.stone($lightness: 42%)};
 
@@ -86,7 +90,7 @@
   height: #{rhythm.fragments(1, -1)};
   position: absolute;
   top: 0;
-  transform: translateY(#{rhythm.fragments(4, -1) * -1});
+  transform: translateY(#{rhythm.fragments(6, -1) * -1});
   width: #{rhythm.lines(4, -1)};
 }
 
