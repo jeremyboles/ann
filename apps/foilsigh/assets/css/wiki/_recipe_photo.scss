@@ -1,0 +1,20 @@
+@use "../utils/rhythm";
+
+#recipe-photo {
+  display: block;
+  grid-area: photo;
+
+  & picture {
+    height: #{rhythm.lines(20)};
+    overflow: hidden;
+  }
+
+  & img {
+    border-radius: 0.125em;
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    width: 100%;
+  }
+}

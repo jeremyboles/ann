@@ -29,6 +29,7 @@ defmodule Foilsigh.Router do
     get "/map", MapController, :index
 
     get "/wiki", WikiController, :index
+    get "/recipe", WikiController, :recipe
     get "/:slug", WikiController, :show
   end
 

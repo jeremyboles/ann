@@ -1,28 +1,19 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
 @use "../utils/layout";
+@use "../utils/rhythm";
 
 //
-// Essays related to the wiki topic
+// Essays container
 // -----------------------------------------------------------------------------------------------
 
 // Is also '.essays' (wiki/_common_essays.scss) in the markup.
-
-#topic-essays {
+#recipe-essays {
   display: grid;
   gap: var(--layout-gap);
-  grid-auto-rows: 1fr;
   grid-area: essays;
-
-  @include layout.six-column {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include layout.eight-column {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  @include layout.twelve-column {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  grid-auto-rows: 1fr;
 
   @include layout.sixteen-column {
     grid-template-columns: repeat(2, 1fr);

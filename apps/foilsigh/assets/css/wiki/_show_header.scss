@@ -131,6 +131,6 @@
   --color: #{palette.orange($lightness: 44%)};
 
   @media (prefers-color-scheme: dark) {
-    --color: #{palette.orange($lightness: 60%)};
+    --color: #{palette.orange($lightness: 44%)};
   }
 }

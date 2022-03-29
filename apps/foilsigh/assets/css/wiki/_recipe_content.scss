@@ -5,103 +5,110 @@
 @use "../utils/rhythm";
 
 //
-// Wiki content container
+// Recipe content
 // -----------------------------------------------------------------------------------------------
 
-#topic-content {
+#recipe-content {
+  --border-color: #{palette.stone($lightness: 82%)};
+  --border-width: 1px;
+
+  @media (prefers-color-scheme: dark) {
+    --border-color: #{palette.stone($lightness: 28%)};
+  }
+
+  border-top: var(--border-color) solid var(--border-width);
   grid-area: content;
+  margin-bottom: calc(var(--border-width) * -1);
+  padding-top: #{rhythm.lines(1)};
+
+  @include layout.four-column {
+    column-gap: var(--layout-gap);
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
 }
 
 //
-// Table of contents
+// Ingredient list
 // -----------------------------------------------------------------------------------------------
 
-#topic-content > nav {
-  @include fonts.sans;
-  @include rhythm.font-size(-1);
+#recipe-content ul {
+  grid-column: 1 / span 3;
+  list-style: none;
 
-  padding-bottom: #{rhythm.lines(2, -1)};
+  li {
+    @include fonts.sans;
+    @include rhythm.font-size(-1);
 
-  &::after {
-    --background-color: #{palette.stone($lightness: 66%)};
-
-    @media (prefers-color-scheme: dark) {
-      --background-color: #{palette.stone($lightness: 42%)};
-    }
-
-    background-color: var(--background-color);
-    content: '';
-    display: block;
-    height: 1px;
-    margin: 0 auto;
-    transform: translateY(calc(#{rhythm.lines(1, -1)} - 1px));
-    width: #{rhythm.lines(6, -1)};
-  }
-
-  a {
-    --color: #{palette.stone($lightness: 28%)};
+    --color: #{palette.stone($lightness: 22%)};
 
     @media (prefers-color-scheme: dark) {
       --color: #{palette.stone($lightness: 88%)};
     }
 
     color: var(--color);
-    text-decoration: none;
-  }
+    font-weight: 700;
+    padding-bottom: #{rhythm.fragments(2)};
+    padding-left: 2ch;
+    text-indent: -2ch;
 
-  a:hover {
-    --color: #{palette.stone($lightness: 48%)};
+    i {
+      --color: #{palette.stone($lightness: 36%)};
 
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 64%)};
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.stone($lightness: 76%)};
+      }
+
+      color: var(--color);
+      font-weight: 400;
+      font-style: normal;
     }
-  }
-
-  li::marker {
-    @include fonts.mono;
-    @include rhythm.font-size(-1);
-
-    font-variant-numeric: tabular-nums;
-    font-weight: 300;
-  }
-
-  ol {
-    --color: #{palette.stone($lightness: 48%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 62%)};
-    }
-
-    color: var(--color);
-    columns: 2;
-    font-weight: 800;
-    list-style-type: decimal-leading-zero;
-    list-style-position: inside;
-    text-transform: capitalize;
-  }
-
-  p {
-    display: none;
   }
 }
 
 //
-// Main topic content/copy
+// Recipe steps
 // -----------------------------------------------------------------------------------------------
 
-#topic-content > div {
-  @include fonts.serif;
-  @include rhythm.font-size(0);
+#recipe-content ol {
+  grid-column: 4 / span 4;
 
-  --color: #{palette.stone($lightness: 28%)};
+  li {
+    @include fonts.serif;
+    @include rhythm.font-size(0);
 
-  @media (prefers-color-scheme: dark) {
-    --color: #{palette.stone($lightness: 84%)};
+    --color: #{palette.stone($lightness: 18%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 82%)};
+    }
+
+    color: var(--color);
+    font-weight: 300;
+    list-style-position: inside;
+    padding-bottom: #{rhythm.fragments(2)};
   }
 
-  color: var(--color);
-  font-weight: 300;
+  li::marker {
+    @include rhythm.font-size(-1);
+    @include fonts.sans;
 
+    color: #{palette.stone($lightness: 36%)};
+
+    @media (prefers-color-scheme: dark) {
+      color: #{palette.stone($lightness: 56%)};
+    }
+
+    font-variant-numeric: tabular-nums;
+    font-weight: 850;
+  }
+}
+
+//
+// Links
+// -----------------------------------------------------------------------------------------------
+
+#recipe-content {
   a {
     color: var(--color);
     text-decoration-color: var(--text-decoration-color);
@@ -151,7 +158,7 @@
   a:active, a:hover:active {
     --color: #{palette.red($lightness: 38%)};
     --text-decoration-color: #{palette.red($lightness: 48%)};
-
+  
     @media (prefers-color-scheme: dark) {
       --color: #{palette.red($lightness: 58%)};
       --text-decoration-color: #{palette.red($lightness: 60%)};
@@ -174,47 +181,5 @@
     @media (prefers-color-scheme: dark) {
       --color: #{palette.yellow($lightness: 62%)};
     }
-  }
-
-  // prettier-ignore
-  h2, li, p {
-    max-width: 72ch;
-  }
-
-  h2 {
-    @include fonts.sans;
-    @include rhythm.font-size(1);
-
-    --color: #{palette.stone($lightness: 12%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 92%)};
-    }
-
-    color: var(--color);
-    font-weight: 700;
-    padding-bottom: #{rhythm.fragments(2, 1)};
-    padding-top: #{rhythm.fragments(6, 1)};
-  }
-
-  // prettier-ignore
-  ol, ul {
-    margin-left: #{rhythm.fragments(6)};
-
-    li::marker {
-      color: #{palette.stone($lightness: 36%)};
-
-      @media (prefers-color-scheme: dark) {
-        color: #{palette.stone($lightness: 56%)};
-      }
-
-      font-size: 0.9em;
-      font-weight: 600;
-    }
-  }
-
-  // prettier-ignore
-  p + ol, p + p, p + ul {
-    margin-top: #{rhythm.lines(1)};
   }
 }
