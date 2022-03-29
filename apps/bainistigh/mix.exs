@@ -65,7 +65,11 @@ defmodule Bainistigh.MixProject do
         "esbuild bainistigh --minify",
         "sass bainistigh --no-source-map --style=compressed",
         "phx.digest"
-      ]
+      ],
+      "npm.deploy": [
+        "cmd cd assets/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules"
+      ],
+      "npm.get": ["cmd cd assets/js && npm install"]
     ]
   end
 end

@@ -164,10 +164,16 @@ main > section.wiki article {
     top: calc(var(--banner-height) + var(--header-height));
   }
 
-  & > div {
+  & > wiki-editor {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     padding-left: var(--sidebar-width);
     padding-right: var(--article-sidebar-width);
-    padding-top: calc(var(--article-header-height));
+    // prettier-ignore
+    padding-top: calc(var(--article-header-height) + var(--banner-height) + var(--header-height));
+    width: 100%;
   }
 }
 

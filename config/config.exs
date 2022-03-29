@@ -64,7 +64,7 @@ config :taifead, Taifead.Mailer, adapter: Swoosh.Adapters.Local
 config :dart_sass,
   version: "1.49.9",
   bainistigh: [
-    args: ["css:../priv/static/assets"],
+    args: ["--load-path=./js/node_modules/prosemirror-view/style", "css:../priv/static/assets"],
     cd: Path.expand("../apps/bainistigh/assets", __DIR__)
   ],
   foilsigh: [
@@ -77,7 +77,7 @@ config :esbuild,
   version: "0.14.26",
   bainistigh: [
     args:
-      ~w(js/app.mjs --bundle --target=safari15 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/app.mjs --bundle --format=esm --external:/fonts/* --external:/images/* --outdir=../priv/static/assets --target=safari15),
     cd: Path.expand("../apps/bainistigh/assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]

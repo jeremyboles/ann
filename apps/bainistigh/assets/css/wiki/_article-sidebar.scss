@@ -331,7 +331,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
   }
 
   ul {
-    --background-color: #{palette.stone($lightness: 90%)};
+    --background-color: #{palette.stone($lightness: 99%)};
     --border-color: #{palette.stone($lightness: 88%)};
 
     @media (prefers-color-scheme: dark) {
