@@ -9,6 +9,20 @@
   width: 100%;
 }
 
+::selection {
+  --background-color: #{palette.blue($lightness: 82%)};
+  --color: #{palette.stone($lightness: 18%)};
+
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{palette.yellow($lightness: 42%)};
+    --color: #{palette.stone($lightness: 92%)};
+  }
+
+  background-color: var(--background-color);
+  border-radius: 2px;
+  color: var(--color);
+}
+
 .ProseMirror {
   --color: #{palette.stone($lightness: 18%)};
 

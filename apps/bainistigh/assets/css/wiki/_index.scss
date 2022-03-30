@@ -114,7 +114,7 @@ main > section.wiki header {
 // -----------------------------------------------------------------------------------------------
 
 main > section.wiki {
-  --sidebar-width: 244px;
+  --sidebar-width: 252px;
 
   & > aside {
     --background-color: #{palette.stone($lightness: 89%)};
@@ -164,7 +164,7 @@ main > section.wiki article {
     top: calc(var(--banner-height) + var(--header-height));
   }
 
-  & > wiki-editor {
+  & > div[id] {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -174,6 +174,28 @@ main > section.wiki article {
     // prettier-ignore
     padding-top: calc(var(--article-header-height) + var(--banner-height) + var(--header-height));
     width: 100%;
+
+    .ProseMirror {
+      --color: #{palette.stone($lightness: 18%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.stone($lightness: 92%)};
+      }
+
+      box-sizing: border-box;
+      color: var(--color);
+      flex-grow: 1;
+      font-family: ui-serif, serif;
+      font-size: 20px;
+      font-variant-ligatures: common-ligatures;
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 64ch;
+      outline: none;
+      padding: 56px 28px;
+      text-rendering: optimizelegibility;
+      width: 100%;
+    }
   }
 }
 

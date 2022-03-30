@@ -7,14 +7,10 @@ import 'phoenix_html' // handles method=PUT/DELETE in forms and buttons
 
 import * as hooks from './hooks/index.mjs'
 
-// Import custom elements
-import './elements/wiki-editor/index.mjs'
-
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute('content')
 
-console.log(hooks)
 let liveSocket = new LiveSocket('/live', Socket, {
   hooks,
   params: { _csrf_token: csrfToken },

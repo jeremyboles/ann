@@ -2,22 +2,22 @@
 // Exported functions
 // -----------------------------------------------------------------------------------------------
 
-export function beforeUpdate() {
-  console.log('[BEFORE UPDATE]')
-}
+// export function beforeUpdate() {
+//   console.log('[BEFORE UPDATE]')
+// }
 
 export function destroyed() {
-  console.log('[DESTROYED]')
+  // console.log('[DESTROYED]')
   this.preference.removeEventListener('change', this.changeColorScheme)
   this.map?.destroy()
 }
 
-export function disconnected() {
-  console.log('[DISCONNECTED]')
-}
+// export function disconnected() {
+//   console.log('[DISCONNECTED]')
+// }
 
 export function mounted() {
-  console.log('[MOUNTED]')
+  // console.log('[MOUNTED]')
 
   this.map = new mapkit.Map(this.el, {
     colorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -31,13 +31,13 @@ export function mounted() {
   this.preference.addEventListener('change', this.changeColorScheme)
 }
 
-export function reconnected() {
-  console.log('[RECONNNECTED]')
-}
-
-export function updated() {
-  console.log('[UPDATED]')
-}
+// export function reconnected() {
+//   console.log('[RECONNNECTED]')
+// }
+//
+// export function updated() {
+//   console.log('[UPDATED]')
+// }
 
 //
 // Private functions
