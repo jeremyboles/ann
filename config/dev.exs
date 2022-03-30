@@ -162,6 +162,9 @@ config :bainistigh, Bainistigh.Endpoint,
 config :joken,
   default_signer: [key_pem: File.read!("#{File.cwd!()}/apps/bainistigh/priv/mapkit.p8")]
 
+# Set the origin that is used in MapKit JWTs
+config :bainistigh, Token, origin: "http://localhost:4100"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

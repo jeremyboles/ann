@@ -141,3 +141,8 @@ config :bainistigh, Bainistigh.Endpoint,
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+# Set the origin that is used in MapKit JWTs
+
+config :bainistigh, Token, origin: "https://boles.app"
+
