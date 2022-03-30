@@ -5,7 +5,7 @@ import { LiveSocket } from 'phoenix_live_view'
 
 import 'phoenix_html' // handles method=PUT/DELETE in forms and buttons
 
-import { WikiEditor } from './elements/wiki-editor/index.mjs'
+import './elements/wiki-editor/index.mjs'
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -23,8 +23,6 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
-
-WikiEditor.define()
 
 mapkit.addEventListener('error', console.error)
 

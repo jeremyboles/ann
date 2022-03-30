@@ -15,18 +15,6 @@ import { EditorView } from 'prosemirror-view'
 export class WikiEditor extends HTMLElement {
   static stylesheet = '/assets/elements/wiki-editor.css'
 
-  static define() {
-    customElements?.define('wiki-editor', WikiEditor)
-
-    if (document?.head) {
-      const link = document.createElement('link')
-      link.setAttribute('as', 'style')
-      link.setAttribute('href', this.stylesheet)
-      link.setAttribute('rel', 'preload')
-      document.head.append(link)
-    }
-  }
-
   constructor() {
     super()
 
@@ -55,3 +43,5 @@ export class WikiEditor extends HTMLElement {
     this.addEventListener('click', console.info)
   }
 }
+
+customElements?.define('wiki-editor', WikiEditor)
