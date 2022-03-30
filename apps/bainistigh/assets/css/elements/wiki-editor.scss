@@ -24,14 +24,17 @@
 }
 
 .ProseMirror {
+  --caret-color: #{palette.blue()};
   --color: #{palette.stone($lightness: 18%)};
 
   @media (prefers-color-scheme: dark) {
+    --caret-color: #{palette.amber()};
     --color: #{palette.stone($lightness: 92%)};
   }
 
   box-sizing: border-box;
   color: var(--color);
+  caret-color: var(--caret-color);
   flex-grow: 1;
   font-family: ui-serif, serif;
   font-size: 20px;
@@ -43,4 +46,16 @@
   padding: 56px 28px;
   text-rendering: optimizelegibility;
   width: 100%;
+}
+
+.ProseMirror [data-placeholder]:first-of-type {
+  // @include colors.modes(stone 400, stone 700, caret-color);
+}
+
+.ProseMirror [data-placeholder]:first-of-type::before {
+  // @include colors.modes(stone 400, stone 700);
+
+  content: attr(data-placeholder);
+  pointer-events: none;
+  position: absolute;
 }

@@ -176,14 +176,18 @@ main > section.wiki article {
     width: 100%;
 
     .ProseMirror {
+      --caret-color: #{palette.blue()};
       --color: #{palette.stone($lightness: 18%)};
 
       @media (prefers-color-scheme: dark) {
+        --caret-color: #{palette.amber()};
         --color: #{palette.stone($lightness: 92%)};
       }
 
       box-sizing: border-box;
       color: var(--color);
+      caret-color: var(--caret-color);
+      caret-width: 3px;
       flex-grow: 1;
       font-family: ui-serif, serif;
       font-size: 20px;
@@ -195,6 +199,51 @@ main > section.wiki article {
       padding: 56px 28px;
       text-rendering: optimizelegibility;
       width: 100%;
+
+      h1 {
+        font-size: 200%;
+        font-weight: 400;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      p strong {
+        font-weight: 650;
+      }
+
+      h1 + p {
+        margin-top: 20px;
+      }
+
+      p + p {
+        margin-top: 16px;
+      }
+
+      [data-placeholder]:first-of-type {
+        --color: #{palette.stone($lightness: 68%)};
+
+        @media (prefers-color-scheme: dark) {
+          --color: #{palette.stone($lightness: 42%)};
+        }
+
+        color: var(--color);
+      }
+
+      [data-placeholder]:first-of-type::before {
+        --color: #{palette.stone($lightness: 68%)};
+
+        @media (prefers-color-scheme: dark) {
+          --color: #{palette.stone($lightness: 42%)};
+        }
+
+        color: var(--color);
+        content: attr(data-placeholder);
+        pointer-events: none;
+        position: absolute;
+      }
     }
   }
 }

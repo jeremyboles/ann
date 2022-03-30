@@ -23,7 +23,12 @@ export function disconnected() {
 export function mounted() {
   console.log('[wiki-editor MOUNTED]')
 
-  const state = EditorState.create({ plugins, schema })
+  const doc = schema.nodeFromJSON({
+    content: [{ type: 'heading', attrs: { level: 1 } }, { type: 'paragraph' }],
+    type: 'doc',
+  })
+
+  const state = EditorState.create({ doc, plugins, schema })
   const view = new EditorView(this.el, { state })
 
   view.focus()
