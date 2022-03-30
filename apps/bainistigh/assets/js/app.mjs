@@ -5,13 +5,18 @@ import { LiveSocket } from 'phoenix_live_view'
 
 import 'phoenix_html' // handles method=PUT/DELETE in forms and buttons
 
+import * as hooks from './hooks/index.mjs'
+
+// Import custom elements
 import './elements/wiki-editor/index.mjs'
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute('content')
 
+console.log(hooks)
 let liveSocket = new LiveSocket('/live', Socket, {
+  hooks,
   params: { _csrf_token: csrfToken },
 })
 
@@ -23,8 +28,6 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
-
-mapkit.addEventListener('error', console.error)
 
 mapkit.init({
   async authorizationCallback(done) {

@@ -320,6 +320,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
 
     & > div[id] {
       height: calc(100% - 2px);
+      display: block;
       width: 100%;
     }
 

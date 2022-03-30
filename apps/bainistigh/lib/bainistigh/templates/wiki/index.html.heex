@@ -68,21 +68,8 @@
           <summary>Location</summary>
           
           <div class="map">
-            <div id="wiki-map"></div>
+            <div id="wiki-map" phx-hook="LocationPicker"></div>
           </div>
-          <script>
-            window.addEventListener('DOMContentLoaded', (event) => {
-              mapkit.addEventListener("configuration-change", () => {
-                const map = new mapkit.Map('wiki-map',{
-                  colorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? mapkit.Map.ColorSchemes.Dark : mapkit.Map.ColorSchemes.Light
-                })
-                
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-                  map.colorScheme = event.matches ? mapkit.Map.ColorSchemes.Dark : mapkit.Map.ColorSchemes.Light
-                });
-              })
-            });
-          </script>
         </details>
         
         <details open>
