@@ -160,7 +160,7 @@ config :bainistigh, Bainistigh.Endpoint,
 
 # MapKit JS key
 config :joken,
-  default_signer: [key_pem: File.read!("#{File.cwd!()}/apps/bainistigh/priv/mapkit.p8")]
+  default_signer: [key_pem: File.read!("#{__DIR__}/../apps/bainistigh/priv/mapkit.p8")]
 
 # Set the origin that is used in MapKit JWTs
 config :bainistigh, Token, origin: "http://localhost:4100"
