@@ -1,18 +1,24 @@
 [submodule "apps/foilsigh/priv/static/fonts/argent"]
+	ignore = dirty
 	path = apps/foilsigh/priv/static/fonts/argent
 	url = git@github.com:jeremyboles/argent.git
 [submodule "apps/foilsigh/priv/static/fonts/greycliff"]
+	ignore = dirty
 	path = apps/foilsigh/priv/static/fonts/greycliff
 	url = git@github.com:jeremyboles/greycliff.git
 [submodule "apps/foilsigh/priv/static/images/fa"]
+	ignore = dirty
 	path = apps/foilsigh/priv/static/images/fa
 	url = git@github.com:jeremyboles/fontawesome.git
 [submodule "apps/foilsigh/priv/static/fonts/addington"]
+	ignore = dirty
 	path = apps/foilsigh/priv/static/fonts/addington
 	url = git@github.com:jeremyboles/addington.git
 [submodule "apps/bainistigh/priv/static/images/fa"]
+	ignore = dirty
 	path = apps/bainistigh/priv/static/images/fa
 	url = git@github.com:jeremyboles/fontawesome.git
 [submodule "apps/foilsigh/priv/static/fonts/ellograph"]
+	ignore = dirty
 	path = apps/foilsigh/priv/static/fonts/ellograph
 	url = git@github.com:jeremyboles/ellograph.git

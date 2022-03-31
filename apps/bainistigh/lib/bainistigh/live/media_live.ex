@@ -7,7 +7,7 @@ defmodule Bainistigh.MediaLive do
 
   def render(assigns) do
     ~H"""
-      <section>
+      <section class="section-header">
         <header>Media</header>
       </section> 
     """

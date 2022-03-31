@@ -11,7 +11,9 @@ defmodule Taifead.Application do
       # Start the Ecto repository
       Taifead.Repo,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Taifead.PubSub}
+      {Phoenix.PubSub, name: Taifead.PubSub},
+      # Start Reathaí for the app
+      {Reathai, cd: Application.app_dir(:taifead, "priv/js"), name: Taifead.Reathai}
       # Start a worker by calling: Taifead.Worker.start_link(arg)
       # {Taifead.Worker, arg}
     ]

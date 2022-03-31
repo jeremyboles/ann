@@ -27,8 +27,8 @@ defmodule Ann.MixProject do
       setup: ["cmd mix setup"],
 
       # run `mix assets.deploy` in all Phoenix apps
-      "assets.deploy": ["cmd --app bainistigh --app foilsigh mix assets.deploy"],
-      "npm.get": ["cmd --app bainistigh --app foilsigh mix npm.get"]
+      "assets.deploy": ["cmd --app bainistigh --app foilsigh --app taifead mix assets.deploy"],
+      "npm.get": ["cmd --app bainistigh --app foilsigh --app taifead mix npm.get"]
     ]
   end
 

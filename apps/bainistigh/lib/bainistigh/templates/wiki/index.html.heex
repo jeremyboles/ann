@@ -1,99 +1,102 @@
-<section class="wiki">
-  <header>
-    <h1>Wiki</h1>
-    
-    <button title="New Wiki Article" type="button">
-      <span role="img"/>
-      <span>New Article</span>
-    </button>
-  </header>
-  
-  <aside>
-    Sidebar
-  </aside>
-  
-  <article>
-    <header>
-      <nav>
-        <ol>
-          <li><a href="#">Travel</a></li>
-          <li><a href="#">Trips</a></li>
-          <li><a href="#">Trip to Scotland, 2018</a></li>
-        </ol>
-      </nav>
+<.form for={@changeset} let={f} phx-change="validate" phx-submit="save">
+  <section class="wiki">
+    <header class="section-header">
+      <h1>Wiki</h1>
+      
+      <button title="New Wiki Article" type="submit">
+        <span role="img"/>
+        <span>New Article</span>
+      </button>
     </header>
     
-    <div id="wiki-editor" phx-hook="WikiEditor"/>
     
-    <aside>
-      <ul role="tablist">
-        <li aria-controls="metadata-panel" role="tab">
-          <input checked id="metadata-tab" name="wiki-tabs" type="radio">
-          <label for="metadata-tab" title="Article Metadata">Metadata</label>
-        </li>
-        <li aria-controls="glossary-panel" role="tab">
-          <input id="glossary-tab" name="wiki-tabs" type="radio">
-          <label for="glossary-tab" title="Glossary of Terms">Glossary</label>
-        </li>
-        <li aria-controls="links-panel" role="tab">
-          <input id="links-tab" name="wiki-tabs" type="radio">
-          <label for="links-tab" title="Attached Links">Links</label>
-        </li>
-        <li aria-controls="history-panel" role="tab">
-          <input id="history-tab" name="wiki-tabs" type="radio">
-          <label for="history-tab" title="Update History">History</label>
-        </li>
-      </ul>
-      
-      <section id="metadata-panel" role="tabpanel">
-        <details open>
-          <summary>Topic Attributes</summary>
-          
-          <fieldset>
-            <input id="slug-input" placeholder="custom-slug" type="text"/>
-            <label for="slug-input"><abbr title="Uniform Resource Locator">URL</abbr> Slug</label>
-
-            <input id="short-title-input"  type="text"/>
-            <label for="short-title-input">Shortened Title</label>
-            
-            <select id="parent-topic-select">
-              <option>Trips</option>
-              <option>Something</option>
-            </select>
-            <label for="parent-topic-select">Parent Topic</label>
-          </fieldset>
-        </details>
-        
-        <details open>
-          <summary>Location</summary>
-          
-          <div class="map">
-            <div id="wiki-map" phx-hook="LocationPicker"></div>
-          </div>
-        </details>
-        
-        <details open>
-          <summary>Tags</summary>
-          
-          <ul>
-            <li><input type="text" value="trips"></li>
-            <li><input type="text" value="scotland"></li>
-            <li><input type="text" value="kids"></li>
-          </ul>
-        </details>
-      </section>
-      
-      <section id="glossary-panel" role="tabpanel">
-        Glossary
-      </section>
-      
-      <section id="links-panel" role="tabpanel">
-        Links
-      </section>
-      
-      <section id="history-panel" role="tabpanel">
-        History
-      </section>
+    <aside class="wiki-sidebar">
+      Sidebar
     </aside>
-  </article>
-</section> 
+    
+    <article>
+      <header>
+        <nav>
+          <ol>
+            <li><a href="#">Travel</a></li>
+            <li><a href="#">Trips</a></li>
+            <li><a href="#">Trip to Scotland, 2018</a></li>
+          </ol>
+        </nav>
+      </header>
+      
+      <div id="wiki-editor" data-input={input_id(f, :doc)} phx-hook="WikiEditor" phx-update="ignore"></div>
+      <%= text_input f, :doc %>
+      
+      <aside>
+        <ul role="tablist">
+          <li aria-controls="metadata-panel" role="tab">
+            <input checked id="metadata-tab" name="wiki-tabs" type="radio">
+            <label for="metadata-tab" title="Article Metadata">Metadata</label>
+          </li>
+          <li aria-controls="glossary-panel" role="tab">
+            <input id="glossary-tab" name="wiki-tabs" type="radio">
+            <label for="glossary-tab" title="Glossary of Terms">Glossary</label>
+          </li>
+          <li aria-controls="links-panel" role="tab">
+            <input id="links-tab" name="wiki-tabs" type="radio">
+            <label for="links-tab" title="Attached Links">Links</label>
+          </li>
+          <li aria-controls="history-panel" role="tab">
+            <input id="history-tab" name="wiki-tabs" type="radio">
+            <label for="history-tab" title="Update History">History</label>
+          </li>
+        </ul>
+        
+        <section id="metadata-panel" role="tabpanel">
+          <details open>
+            <summary>Topic Attributes</summary>
+            
+            <fieldset>
+              <%= text_input f, :url_slug, placeholder: "custom-slug" %>
+              <%= label f, :url_slug do %>
+                <abbr title="Uniform Resource Locator">URL</abbr> Slug
+              <% end %>
+  
+              <%= text_input f, :short_title %>
+              <%= label f, :short_title, "Shortened Title" %>
+              
+              <%= select f, :parent_id, [] %>
+              <%= label f, :parent_id, "Parent Topic" %>
+            </fieldset>
+          </details>
+          
+          <details open>
+            <summary>Location</summary>
+            
+            <div class="map">
+              <div id="wiki-map" phx-hook="LocationPicker" phx-update="ignore"></div>
+            </div>
+          </details>
+          
+          <details open>
+            <summary>Tags</summary>
+            
+            <ul>
+              <li><input type="text" value="trips"></li>
+              <li><input type="text" value="scotland"></li>
+              <li><input type="text" value="kids"></li>
+            </ul>
+          </details>
+        </section>
+        
+        <section id="glossary-panel" role="tabpanel">
+          Glossary
+        </section>
+        
+        <section id="links-panel" role="tabpanel">
+          Links
+        </section>
+        
+        <section id="history-panel" role="tabpanel">
+          History
+        </section>
+      </aside>
+    </article>
+  </section> 
+</.form>

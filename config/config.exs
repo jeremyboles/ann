@@ -13,7 +13,7 @@ import Config
 
 config :bainistigh,
   ecto_repos: [Taifead.Repo],
-  generators: [binary_id: true, context_app: :taifead]
+  generators: [binary_id: true, context_app: :taifead, timestamp_type: :utc_datetime_usec]
 
 # Configures the endpoint
 config :bainistigh, Bainistigh.Endpoint,
@@ -46,7 +46,7 @@ config :giorraigh, Giorraigh.Endpoint,
 
 # Configure Mix tasks and generators
 config :taifead,
-  generators: [binary_id: true],
+  generators: [binary_id: true, timestamp_type: :utc_datetime_usec],
   ecto_repos: [Taifead.Repo]
 
 # Configures the mailer
@@ -57,6 +57,13 @@ config :taifead,
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
 config :taifead, Taifead.Mailer, adapter: Swoosh.Adapters.Local
+
+# Use timestamps that support microtime, and also make sure that they
+# know that they are UTC time.
+config :taifead, Taifead.Repo,
+  migration_foreign_key: [column: :id, type: :binary_id],
+  migration_primary_key: [name: :id, type: :binary_id],
+  migration_timestamps: [type: :utc_datetime_usec]
 
 # Dependency configuration
 

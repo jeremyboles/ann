@@ -10,7 +10,7 @@
 // Wiki header
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki header {
+section.wiki header {
   justify-content: space-between;
 
   & > h1 {
@@ -113,10 +113,10 @@ main > section.wiki header {
 // Wiki sidebar
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki {
+section.wiki {
   --sidebar-width: 252px;
 
-  & > aside {
+  .wiki-sidebar {
     --background-color: #{palette.stone($lightness: 89%)};
     --border-color: #{palette.stone($lightness: 83%)};
 
@@ -139,7 +139,7 @@ main > section.wiki {
 // Wiki article
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki article {
+section.wiki article {
   --article-header-height: 28px;
   --article-sidebar-width: 224px;
 

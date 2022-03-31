@@ -4,7 +4,7 @@
 // Wiki breadcrumbs
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki article > header ol {
+section.wiki article > header ol {
   --gap: 3px;
 
   align-items: center;

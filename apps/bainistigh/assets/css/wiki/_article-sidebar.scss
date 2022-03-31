@@ -4,7 +4,7 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki article > aside {
+section.wiki article > aside {
   --background-color: #{palette.stone($lightness: 97%)};
   --border-color: #{palette.stone($lightness: 83%)};
 
@@ -27,7 +27,7 @@ main > section.wiki article > aside {
 // Sidebar tabs
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki article > aside [role='tablist'] {
+section.wiki article > aside [role='tablist'] {
   --border-color: #{palette.stone($lightness: 88%)};
 
   @media (prefers-color-scheme: dark) {
@@ -44,7 +44,7 @@ main > section.wiki article > aside [role='tablist'] {
   -webkit-user-select: none;
 }
 
-main > section.wiki article > aside [role='tab'] {
+section.wiki article > aside [role='tab'] {
   --background-color: transparent;
 
   align-items: center;
@@ -124,15 +124,15 @@ main > section.wiki article > aside [role='tab'] {
   }
 }
 
-main > section.wiki article > aside [role='tabpanel'] {
+section.wiki article > aside [role='tabpanel'] {
   display: none;
 }
 
 // prettier-ignore
-main > section.wiki article > aside [role='tablist']:has(input[id|='glossary']:checked) ~ [role='tabpanel'][id|='glossary'],
-main > section.wiki article > aside [role='tablist']:has(input[id|='history']:checked) ~ [role='tabpanel'][id|='history'],
-main > section.wiki article > aside [role='tablist']:has(input[id|='links']:checked) ~ [role='tabpanel'][id|='links'],
-main > section.wiki article > aside [role='tablist']:has(input[id|='metadata']:checked) ~ [role='tabpanel'][id|='metadata'] {
+section.wiki article > aside [role='tablist']:has(input[id|='glossary']:checked) ~ [role='tabpanel'][id|='glossary'],
+section.wiki article > aside [role='tablist']:has(input[id|='history']:checked) ~ [role='tabpanel'][id|='history'],
+section.wiki article > aside [role='tablist']:has(input[id|='links']:checked) ~ [role='tabpanel'][id|='links'],
+section.wiki article > aside [role='tablist']:has(input[id|='metadata']:checked) ~ [role='tabpanel'][id|='metadata'] {
   display: block;
 }
 
@@ -140,7 +140,7 @@ main > section.wiki article > aside [role='tablist']:has(input[id|='metadata']:c
 // Sidebar sections
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki article > aside [role='tabpanel'] details {
+section.wiki article > aside [role='tabpanel'] details {
   &:first-of-type summary {
     display: none;
   }
@@ -150,7 +150,7 @@ main > section.wiki article > aside [role='tabpanel'] details {
   }
 }
 
-main > section.wiki article > aside [role='tabpanel'] details + details {
+section.wiki article > aside [role='tabpanel'] details + details {
   --border-color: #{palette.stone($lightness: 88%)};
 
   @media (prefers-color-scheme: dark) {
@@ -160,7 +160,7 @@ main > section.wiki article > aside [role='tabpanel'] details + details {
   border-top: var(--border-color) solid 1px;
 }
 
-main > section.wiki article > aside [role='tabpanel'] details summary {
+section.wiki article > aside [role='tabpanel'] details summary {
   --color: #{palette.stone($lightness: 55%)};
 
   align-items: center;
@@ -197,11 +197,11 @@ main > section.wiki article > aside [role='tabpanel'] details summary {
   }
 }
 
-main > section.wiki article > aside [role='tabpanel'] details summary {
+section.wiki article > aside [role='tabpanel'] details summary {
   padding: 8px;
 }
 
-main > section.wiki article > aside [role='tabpanel'] details[open] summary {
+section.wiki article > aside [role='tabpanel'] details[open] summary {
   &::after {
     mask-image: url('/images/fa/regular/angle-down.svg');
   }
@@ -211,7 +211,7 @@ main > section.wiki article > aside [role='tabpanel'] details[open] summary {
 // Form fields
 // -----------------------------------------------------------------------------------------------
 
-main > section.wiki article > aside [role='tabpanel'] details {
+section.wiki article > aside [role='tabpanel'] details {
   fieldset {
     border: 0;
     display: flex;

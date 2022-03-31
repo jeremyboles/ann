@@ -36,11 +36,12 @@ defmodule Taifead.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix_pubsub, "~> 2.0"},
       {:ecto_sql, "~> 3.6"},
-      {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.2"},
-      {:swoosh, "~> 1.3"}
+      {:phoenix_pubsub, "~> 2.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:swoosh, "~> 1.3"},
+      {:reathai, in_umbrella: true}
     ]
   end
 
@@ -50,9 +51,13 @@ defmodule Taifead.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      "assets.deploy": [
+        "cmd cd priv/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules"
+      ],
+      "npm.get": ["cmd cd priv/js && npm install"]
     ]
   end
 end

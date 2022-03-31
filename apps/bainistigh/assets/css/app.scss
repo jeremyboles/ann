@@ -7,6 +7,8 @@
 // -----------------------------------------------------------------------------------------------
 
 :root {
+  --header-height: 50px;
+
   color-scheme: light dark;
 }
 
@@ -47,29 +49,25 @@ body {
 // Section header base styles
 // -----------------------------------------------------------------------------------------------
 
-main > section {
-  --header-height: 50px;
+.section-header {
+  --background-color: #{palette.stone($lightness: 91%)};
+  --border-color: #{palette.stone($lightness: 83%)};
 
-  & > header {
-    --background-color: #{palette.stone($lightness: 91%)};
-    --border-color: #{palette.stone($lightness: 83%)};
-
-    @media (prefers-color-scheme: dark) {
-      --background-color: #{palette.stone($lightness: 12%)};
-      --border-color: #{palette.stone($lightness: 2%)};
-    }
-
-    align-items: center;
-    background-color: var(--background-color);
-    border-bottom: var(--border-color) solid 1px;
-    display: flex;
-    left: 0;
-    height: var(--header-height);
-    position: fixed;
-    right: 0;
-    padding: 0 8px;
-    top: var(--banner-height);
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{palette.stone($lightness: 12%)};
+    --border-color: #{palette.stone($lightness: 2%)};
   }
+
+  align-items: center;
+  background-color: var(--background-color);
+  border-bottom: var(--border-color) solid 1px;
+  display: flex;
+  left: 0;
+  height: var(--header-height);
+  position: fixed;
+  right: 0;
+  padding: 0 8px;
+  top: var(--banner-height);
 }
 
 //

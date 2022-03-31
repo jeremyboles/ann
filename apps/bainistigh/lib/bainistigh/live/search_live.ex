@@ -7,7 +7,7 @@ defmodule Bainistigh.SearchLive do
 
   def render(assigns) do
     ~H"""
-      <section>
+      <section class="section-header">
         <header>Search</header>
       </section> 
     """
