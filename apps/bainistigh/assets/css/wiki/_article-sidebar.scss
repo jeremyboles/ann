@@ -195,6 +195,41 @@ section.wiki article > aside [role='tabpanel'] details summary {
   &::-webkit-details-marker {
     display: none;
   }
+
+  span {
+    flex-grow: 1;
+  }
+
+  button {
+    --color: #{palette.stone($lightness: 55%)};
+    --size: 12px;
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 58%)};
+    }
+
+    appearance: none;
+    background-color: var(--color);
+    content: '';
+    display: block;
+    height: 0;
+    margin-right: 4px;
+    mask-image: url('/images/fa/regular/circle-plus.svg');
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: var(--size) var(--size);
+    overflow: hidden;
+    padding-top: var(--size);
+    width: 12px;
+  }
+
+  button:hover {
+    --color: #{palette.stone($lightness: 32%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 74%)};
+    }
+  }
 }
 
 section.wiki article > aside [role='tabpanel'] details summary {
@@ -258,10 +293,7 @@ section.wiki article > aside [role='tabpanel'] details {
       border-width: var(--ring-size);
       margin-bottom: calc(var(--ring-size) * -1);
       outline: none;
-      transform: translate(
-        calc((var(--ring-size) - 0.5px) * -1),
-        calc((var(--ring-size) - 0.5px) * -1)
-      );
+      transform: translate(calc((var(--ring-size) - 0.5px) * -1), calc((var(--ring-size) - 0.5px) * -1));
       width: calc(100% + var(--ring-size));
     }
 

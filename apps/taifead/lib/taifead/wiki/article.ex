@@ -27,15 +27,13 @@ defmodule Taifead.Wiki.Article do
   @doc false
   def changeset(article, attrs) do
     article
-    |> cast(attrs, [:doc, :parent_id, :short_title, :url_slug, :visibility])
+    |> cast(attrs, [:doc, :parent_id, :short_title, :tags, :url_slug, :visibility])
     |> extract_from_doc()
     |> unique_constraint(:url_slug)
   end
 
   defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do
-    IO.inspect(doc)
     {:ok, data} = Reathai.call(Taifead.Reathai, ["wiki", [doc]])
-    IO.inspect(data)
     cast(changeset, data, [:content_html, :content_text, :title_html, :title_text])
   end
 

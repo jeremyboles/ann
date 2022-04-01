@@ -75,12 +75,17 @@
           </details>
           
           <details open>
-            <summary>Tags</summary>
+            <summary>
+              <span>Tags</span>
+              <button class="location-off" phx-click="add-tag" type="button">Add Tag</button>
+            </summary>
             
-            <ul>
-              <li><input type="text" value="trips"></li>
-              <li><input type="text" value="scotland"></li>
-              <li><input type="text" value="kids"></li>
+            <ul id="wiki-tags" phx-hook="TagList">
+              <%= for {tag, index} <- Enum.with_index(input_value(f, :tags)) do %>
+                <li>
+                  <input name={"#{input_name(f, :tags)}[]"} id={input_id(f, :tags, index)} phx-keydown="modify-tags" phx-value-index={index} type="text" value={tag} />
+                </li>
+              <% end %>
             </ul>
           </details>
         </section>
