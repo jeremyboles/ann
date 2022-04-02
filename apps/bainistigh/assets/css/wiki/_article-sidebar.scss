@@ -373,11 +373,14 @@ section.wiki article > aside [role='tabpanel'] details {
     }
 
     background-color: var(--background-color);
-    border-bottom: var(--border-color) solid 1px;
     border-top: var(--border-color) solid 1px;
     list-style: none;
     margin: 0;
     padding: 0 8px;
+
+    &:has(li) {
+      border-bottom: var(--border-color) solid 1px;
+    }
 
     li {
       display: flex;

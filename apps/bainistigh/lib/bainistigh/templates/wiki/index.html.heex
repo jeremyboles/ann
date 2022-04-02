@@ -11,7 +11,20 @@
     
     
     <aside class="wiki-sidebar">
-      Sidebar
+      <ol>
+
+        <%= for article <- @articles do %>
+          <li>
+            <%= live_patch "aria-current": (if article.id === @id, do: "page"), to: "/wiki/#{article.id}" do %>
+              <%= if article.title_html do %>
+                <%= article.title_html %>
+              <% else %>
+                <i>No Title</i>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+      </ol>
     </aside>
     
     <article>
@@ -83,7 +96,7 @@
             <ul id="wiki-tags" phx-hook="TagList">
               <%= for {tag, index} <- Enum.with_index(input_value(f, :tags)) do %>
                 <li>
-                  <input name={"#{input_name(f, :tags)}[]"} id={input_id(f, :tags, index)} phx-keydown="modify-tags" phx-value-index={index} type="text" value={tag} />
+                  <input autocomplete="off" name={"#{input_name(f, :tags)}[]"} id={input_id(f, :tags, index)} phx-keydown="modify-tags" phx-value-index={index} type="text" value={tag} />
                 </li>
               <% end %>
             </ul>

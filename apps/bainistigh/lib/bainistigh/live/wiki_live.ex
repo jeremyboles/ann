@@ -52,11 +52,23 @@ defmodule Bainistigh.WikiLive do
     {:noreply, assign(socket, changeset: Wiki.change_article(article, params))}
   end
 
-  def handle_params(_params, _url, socket), do: {:noreply, socket}
+  def handle_params(params, _url, socket) do
+    {:noreply, assign(socket, id: params["id"])}
+  end
 
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    articles = Wiki.list_articles()
     changeset = Wiki.change_article(%Wiki.Article{tags: []})
-    {:ok, assign(socket, changeset: changeset, page_title: "Wiki")}
+
+    socket =
+      assign(socket,
+        articles: articles,
+        changeset: changeset,
+        id: params["id"],
+        page_title: "Wiki"
+      )
+
+    {:ok, socket}
   end
 
   def render(assigns) do

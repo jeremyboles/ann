@@ -20,7 +20,7 @@
         <% end %>
       </li>
       <li>
-        <%= tab_link @socket, Bainistigh.WikiLive do %>
+        <%= tab_link @socket, Bainistigh.WikiLive, {&Routes.wiki_path/2, :new} do %>
           <span aria-labelledby="tab-bar-wiki-name" role="img"/>
           <span id="tab-bar-wiki-name">Wiki</span>
         <% end %>

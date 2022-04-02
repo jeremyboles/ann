@@ -129,9 +129,46 @@ section.wiki {
     border-right: var(--border-color) solid 1px;
     bottom: 0;
     left: 0;
+    padding: 8px;
     position: fixed;
     top: calc(var(--banner-height) + var(--header-height));
     width: var(--sidebar-width);
+
+    & > ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    & > ol li {
+      margin: 0;
+    }
+
+    & > ol li a {
+      --color: #{palette.stone($lightness: 20%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.stone($lightness: 90%)};
+      }
+
+      color: var(--color);
+      display: block;
+      padding: 8px;
+      text-decoration: none;
+    }
+
+    & > ol li a[aria-current='page'] {
+      --accent-color: #{palette.blue()};
+      --color: #{palette.stone($lightness: 92%)};
+
+      @media (prefers-color-scheme: dark) {
+        --accent-color: #{palette.amber($lightness: 44%)};
+        --color: #{palette.stone($lightness: 99%)};
+      }
+
+      background-color: var(--accent-color);
+      border-radius: 4px;
+    }
   }
 }
 
