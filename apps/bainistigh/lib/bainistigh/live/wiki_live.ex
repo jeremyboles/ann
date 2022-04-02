@@ -38,9 +38,17 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_event("save", %{"article" => params}, socket) do
-    case Wiki.create_article(params) do
+    case save(socket.assigns.article, params) do
       {:ok, article} ->
-        {:noreply, assign(socket, article: article, changeset: Wiki.change_article(article))}
+        socket =
+          assign(socket,
+            article: article,
+            articles: Wiki.list_articles(),
+            changeset: Wiki.change_article(article),
+            page_title: page_title(article)
+          )
+
+        {:noreply, socket}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
@@ -48,27 +56,37 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_event("validate", %{"article" => params}, socket) do
-    article = %Wiki.Article{}
+    article = socket.assigns.article
     {:noreply, assign(socket, changeset: Wiki.change_article(article, params))}
   end
 
-  def handle_params(params, _url, socket) do
-    {:noreply, assign(socket, id: params["id"])}
-  end
-
-  def mount(params, _session, socket) do
-    articles = Wiki.list_articles()
-    changeset = Wiki.change_article(%Wiki.Article{tags: []})
+  def handle_params(%{"id" => id}, _url, socket) do
+    article = Wiki.get_article!(id)
 
     socket =
       assign(socket,
-        articles: articles,
-        changeset: changeset,
-        id: params["id"],
-        page_title: "Wiki"
+        article: article,
+        changeset: Wiki.change_article(article),
+        page_title: page_title(article)
       )
 
-    {:ok, socket}
+    {:noreply, socket}
+  end
+
+  def handle_params(_params, _url, socket) do
+    socket =
+      assign(socket,
+        article: nil,
+        changeset: Wiki.change_article(%Wiki.Article{tags: []}),
+        page_title: page_title(nil)
+      )
+
+    {:noreply, socket}
+  end
+
+  def mount(_params, _session, socket) do
+    articles = Wiki.list_articles()
+    {:ok, assign(socket, articles: articles)}
   end
 
   def render(assigns) do
@@ -80,4 +98,10 @@ defmodule Bainistigh.WikiLive do
     tags = if !Enum.any?(tags, &(&1 === "")), do: Enum.concat(tags, [""]), else: tags
     Ecto.Changeset.change(changeset, tags: tags)
   end
+
+  defp page_title(%Wiki.Article{title_text: title}), do: "#{title} - Wiki"
+  defp page_title(_), do: "New Article - Wiki"
+
+  def save(nil, params), do: Wiki.create_article(params)
+  def save(article, params), do: Wiki.update_article(article, params)
 end

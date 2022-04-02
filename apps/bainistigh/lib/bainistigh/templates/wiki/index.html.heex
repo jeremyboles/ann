@@ -12,10 +12,9 @@
     
     <aside class="wiki-sidebar">
       <ol>
-
         <%= for article <- @articles do %>
-          <li>
-            <%= live_patch "aria-current": (if article.id === @id, do: "page"), to: "/wiki/#{article.id}" do %>
+          <li id="article-link-#{article.id}">
+            <%= live_patch "aria-current": current_page(article, @article), to: "/wiki/#{article.id}" do %>
               <%= if article.title_html do %>
                 <%= article.title_html %>
               <% else %>
@@ -38,7 +37,7 @@
         </nav>
       </header>
       
-      <div id="wiki-editor" data-input={input_id(f, :doc)} phx-hook="WikiEditor" phx-update="ignore"></div>
+      <div id="wiki-editor" data-input={input_id(f, :doc)} phx-hook="WikiEditor"></div>
       <%= text_input f, :doc %>
       
       <aside>

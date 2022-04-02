@@ -8,25 +8,26 @@ import schema from './schema.mjs'
 // Settings & constants
 // -----------------------------------------------------------------------------------------------
 
-const DEFAULT_CONTENT = [
-  { type: 'heading', attrs: { level: 1 } },
-  { type: 'paragraph' },
-]
+const DEFAULT_JSON = { content: [{ type: 'heading', attrs: { level: 1 } }, { type: 'paragraph' }], type: 'doc' }
 
 //
 // Exported functions
 // -----------------------------------------------------------------------------------------------
+
+export function beforeUpdate() {
+  this.view?.destroy()
+}
 
 export function destroyed() {
   this.view?.destroy()
 }
 
 export function mounted() {
-  const content = document.getElementById(this.el.dataset.input)?.value
+  const json = document.getElementById(this.el.dataset.input)?.value
     ? JSON.parse(document.getElementById(this.el.dataset.input)?.value)
-    : DEFAULT_CONTENT
+    : DEFAULT_JSON
 
-  const doc = schema.nodeFromJSON({ content, type: 'doc' })
+  const doc = schema.nodeFromJSON(json)
   const state = EditorState.create({ doc, plugins, schema })
 
   this.view = new EditorView(this.el, {
@@ -35,6 +36,20 @@ export function mounted() {
   })
 
   this.view.focus()
+}
+
+export function updated() {
+  const json = document.getElementById(this.el.dataset.input)?.value
+    ? JSON.parse(document.getElementById(this.el.dataset.input)?.value)
+    : DEFAULT_JSON
+
+  const doc = schema.nodeFromJSON(json)
+  const state = EditorState.create({ doc, plugins, schema })
+
+  this.view = new EditorView(this.el, {
+    dispatchTransaction: dispatchTransaction.bind(this),
+    state,
+  })
 }
 
 //
