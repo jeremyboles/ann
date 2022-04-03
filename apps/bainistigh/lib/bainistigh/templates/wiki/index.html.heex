@@ -41,7 +41,7 @@
       <%= text_input f, :doc %>
       
       <aside>
-        <ul role="tablist">
+        <ul phx-update="ignore" role="tablist">
           <li aria-controls="metadata-panel" role="tab">
             <input checked id="metadata-tab" name="wiki-tabs" type="radio">
             <label for="metadata-tab" title="Article Metadata">Metadata</label>
@@ -72,8 +72,8 @@
   
               <%= text_input f, :short_title %>
               <%= label f, :short_title, "Shortened Title" %>
-              
-              <%= select f, :parent_id, [] %>
+
+              <%= select f, :parent_id, Enum.map(@articles, &{&1.title_text, &1.id}), prompt: [key: ""] %>
               <%= label f, :parent_id, "Parent Topic" %>
             </fieldset>
           </details>
