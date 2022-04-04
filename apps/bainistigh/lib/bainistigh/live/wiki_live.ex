@@ -43,7 +43,7 @@ defmodule Bainistigh.WikiLive do
         socket =
           assign(socket,
             article: article,
-            articles: Wiki.list_articles(),
+            articles: Wiki.ordered_articles(),
             changeset: Wiki.change_article(article),
             page_title: page_title(article)
           )
@@ -85,7 +85,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def mount(_params, _session, socket) do
-    articles = Wiki.list_articles()
+    articles = Wiki.ordered_articles()
     {:ok, assign(socket, articles: articles)}
   end
 

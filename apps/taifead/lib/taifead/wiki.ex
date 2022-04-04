@@ -22,6 +22,21 @@ defmodule Taifead.Wiki do
   end
 
   @doc """
+  Returns an ordered list of articles.
+
+  ## Examples
+
+      iex> ordered_articles(
+      [%Article{}, ...]
+      
+  """
+  def ordered_articles do
+    Article
+    |> order_by([{:asc, :title_text}])
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single article.
 
   Raises `Ecto.NoResultsError` if the Article does not exist.
