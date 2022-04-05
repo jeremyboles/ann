@@ -12,7 +12,7 @@ defmodule Taifead.Wiki.ArticleRevision do
 
     field :changes, :map
     field :coords, Geo.PostGIS.Geometry
-    field :mapkit_response, :string
+    field :mapkit_response, :map
     field :note, :string
 
     timestamps()
@@ -21,7 +21,8 @@ defmodule Taifead.Wiki.ArticleRevision do
   @doc false
   def changeset(article_revision, attrs) do
     article_revision
-    |> cast(attrs, [:changes, :mapkit_response, :note])
+    |> cast(attrs, [:changes, :note])
+    |> cast_mapkit_response(attrs)
     |> cast_coords(attrs)
   end
 
@@ -40,5 +41,17 @@ defmodule Taifead.Wiki.ArticleRevision do
 
   defp cast_coords(data, _) do
     data
+  end
+
+  defp cast_mapkit_response(changeset, %{"mapkit_response" => resp}) when resp === "" do
+    changeset
+  end
+
+  defp cast_mapkit_response(changeset, %{"mapkit_response" => resp}) when is_bitstring(resp) do
+    cast(changeset, %{"mapkit_response" => Jason.decode!(resp)}, [:mapkit_response])
+  end
+
+  defp cast_mapkit_response(changeset, _) do
+    changeset
   end
 end

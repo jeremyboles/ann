@@ -42,7 +42,7 @@
       </header>
       
       <div data-input={input_id(f, :doc)} id="wiki-editor" phx-hook="WikiEditor"></div>
-      <%= hidden_input f, :doc %>
+      <%= hidden_input f, :doc, value: json(input_value(f, :doc)) %>
       
       <aside>
         <ul phx-update="ignore" role="tablist">

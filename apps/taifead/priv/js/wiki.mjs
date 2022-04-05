@@ -8,13 +8,10 @@ import schema from 'bainistighn/wiki-schema'
 // -------------------------------------------------------------------------------------------------
 
 export default function extract(doc) {
-  // The document is saved a string of JSON in the database, so it needs to be parsed.
-  const parsed = JSON.parse(doc)
-
   // Create a virtual DOM environment, using JSDOM and then have ProseMirror serialize the document
   // and return a virtual `DocumentFragment` object.
   const { window } = new jsdom.JSDOM()
-  const node = schema.nodeFromJSON(parsed)
+  const node = schema.nodeFromJSON(doc)
   const dom = DOMSerializer.fromSchema(schema).serializeFragment(node.content, {
     document: window.document,
   })

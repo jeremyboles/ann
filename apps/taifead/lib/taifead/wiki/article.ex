@@ -8,15 +8,15 @@ defmodule Taifead.Wiki.Article do
   @timestamps_opts [type: :utc_datetime_usec]
 
   schema "articles" do
-    field(:content_html, :string)
-    field(:content_text, :string)
-    field(:doc, :string)
-    field(:short_title, :string)
-    field(:tags, {:array, :string}, default: [])
-    field(:title_html, :string)
-    field(:title_text, :string)
-    field(:url_slug, :string)
-    field(:visibility, Ecto.Enum, default: :private, values: [:private, :published])
+    field :content_html, :string
+    field :content_text, :string
+    field :doc, :map
+    field :short_title, :string
+    field :tags, {:array, :string}, default: []
+    field :title_html, :string
+    field :title_text, :string
+    field :url_slug, :string
+    field :visibility, Ecto.Enum, default: :private, values: [:private, :published]
 
     belongs_to(:parent, __MODULE__, foreign_key: :parent_id)
     has_many(:children, __MODULE__, foreign_key: :parent_id)
@@ -29,10 +29,19 @@ defmodule Taifead.Wiki.Article do
   @doc false
   def changeset(article, attrs) do
     article
-    |> cast(attrs, [:doc, :parent_id, :short_title, :tags, :url_slug, :visibility])
+    |> cast(attrs, [:parent_id, :short_title, :tags, :url_slug, :visibility])
+    |> cast_doc(attrs)
     |> cast_assoc(:revisions)
     |> extract_from_doc()
     |> unique_constraint(:url_slug)
+  end
+
+  defp cast_doc(changeset, %{"doc" => doc}) when is_bitstring(doc) do
+    cast(changeset, %{"doc" => Jason.decode!(doc)}, [:doc])
+  end
+
+  defp cast_doc(changeset, _) do
+    changeset
   end
 
   defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do
