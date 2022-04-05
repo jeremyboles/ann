@@ -12,7 +12,7 @@ defmodule Taifead.Wiki.Article do
     field(:content_text, :string)
     field(:doc, :string)
     field(:short_title, :string)
-    field(:tags, {:array, :string})
+    field(:tags, {:array, :string}, default: [])
     field(:title_html, :string)
     field(:title_text, :string)
     field(:url_slug, :string)
@@ -21,6 +21,8 @@ defmodule Taifead.Wiki.Article do
     belongs_to(:parent, __MODULE__, foreign_key: :parent_id)
     has_many(:children, __MODULE__, foreign_key: :parent_id)
 
+    has_many :revisions, Taifead.Wiki.ArticleRevision
+
     timestamps()
   end
 
@@ -28,6 +30,7 @@ defmodule Taifead.Wiki.Article do
   def changeset(article, attrs) do
     article
     |> cast(attrs, [:doc, :parent_id, :short_title, :tags, :url_slug, :visibility])
+    |> cast_assoc(:revisions)
     |> extract_from_doc()
     |> unique_constraint(:url_slug)
   end

@@ -3,7 +3,7 @@
     <header class="section-header">
       <h1>Wiki</h1>
       
-      <button title="New Wiki Article" type="submit">
+      <button title="New Wiki Article" type="button">
         <span role="img"/>
         <span>New Article</span>
       </button>
@@ -35,10 +35,14 @@
             <li><a href="#">Trip to Scotland, 2018</a></li>
           </ol>
         </nav>
+        
+        <div>
+          <button type="submit">Publish</button>
+        </div>
       </header>
       
-      <div id="wiki-editor" data-input={input_id(f, :doc)} phx-hook="WikiEditor"></div>
-      <%= text_input f, :doc %>
+      <div data-input={input_id(f, :doc)} id="wiki-editor" phx-hook="WikiEditor"></div>
+      <%= hidden_input f, :doc %>
       
       <aside>
         <ul phx-update="ignore" role="tablist">
@@ -82,8 +86,11 @@
             <summary>Location</summary>
             
             <div class="map">
-              <div id="wiki-map" phx-hook="LocationPicker" phx-update="ignore"></div>
+              <div data-coords-input={input_id(:revision, :coords)} data-mapkit-response-input={input_id(:revision, :mapkit_response)} id="wiki-map" phx-hook="LocationPicker" phx-update="ignore"></div>
             </div>
+            
+            <%= hidden_input :revision, :coords %>
+            <%= hidden_input :revision, :mapkit_response %>
           </details>
           
           <details open>

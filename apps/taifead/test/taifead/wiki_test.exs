@@ -62,4 +62,60 @@ defmodule Taifead.WikiTest do
       assert %Ecto.Changeset{} = Wiki.change_article(article)
     end
   end
+
+  describe "article_revisions" do
+    alias Taifead.Wiki.ArticleRevision
+
+    import Taifead.WikiFixtures
+
+    @invalid_attrs %{changes: nil, note: nil}
+
+    test "list_article_revisions/0 returns all article_revisions" do
+      article_revision = article_revision_fixture()
+      assert Wiki.list_article_revisions() == [article_revision]
+    end
+
+    test "get_article_revision!/1 returns the article_revision with given id" do
+      article_revision = article_revision_fixture()
+      assert Wiki.get_article_revision!(article_revision.id) == article_revision
+    end
+
+    test "create_article_revision/1 with valid data creates a article_revision" do
+      valid_attrs = %{changes: %{}, note: "some note"}
+
+      assert {:ok, %ArticleRevision{} = article_revision} = Wiki.create_article_revision(valid_attrs)
+      assert article_revision.changes == %{}
+      assert article_revision.note == "some note"
+    end
+
+    test "create_article_revision/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Wiki.create_article_revision(@invalid_attrs)
+    end
+
+    test "update_article_revision/2 with valid data updates the article_revision" do
+      article_revision = article_revision_fixture()
+      update_attrs = %{changes: %{}, note: "some updated note"}
+
+      assert {:ok, %ArticleRevision{} = article_revision} = Wiki.update_article_revision(article_revision, update_attrs)
+      assert article_revision.changes == %{}
+      assert article_revision.note == "some updated note"
+    end
+
+    test "update_article_revision/2 with invalid data returns error changeset" do
+      article_revision = article_revision_fixture()
+      assert {:error, %Ecto.Changeset{}} = Wiki.update_article_revision(article_revision, @invalid_attrs)
+      assert article_revision == Wiki.get_article_revision!(article_revision.id)
+    end
+
+    test "delete_article_revision/1 deletes the article_revision" do
+      article_revision = article_revision_fixture()
+      assert {:ok, %ArticleRevision{}} = Wiki.delete_article_revision(article_revision)
+      assert_raise Ecto.NoResultsError, fn -> Wiki.get_article_revision!(article_revision.id) end
+    end
+
+    test "change_article_revision/1 returns a article_revision changeset" do
+      article_revision = article_revision_fixture()
+      assert %Ecto.Changeset{} = Wiki.change_article_revision(article_revision)
+    end
+  end
 end

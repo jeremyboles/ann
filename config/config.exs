@@ -63,7 +63,8 @@ config :taifead, Taifead.Mailer, adapter: Swoosh.Adapters.Local
 config :taifead, Taifead.Repo,
   migration_foreign_key: [column: :id, type: :binary_id],
   migration_primary_key: [name: :id, type: :binary_id],
-  migration_timestamps: [type: :utc_datetime_usec]
+  migration_timestamps: [type: :utc_datetime_usec],
+  types: Taifead.PostgresTypes
 
 # Dependency configuration
 

@@ -20,4 +20,19 @@ defmodule Taifead.WikiFixtures do
 
     article
   end
+
+  @doc """
+  Generate a article_revision.
+  """
+  def article_revision_fixture(attrs \\ %{}) do
+    {:ok, article_revision} =
+      attrs
+      |> Enum.into(%{
+        changes: %{},
+        note: "some note"
+      })
+      |> Taifead.Wiki.create_article_revision()
+
+    article_revision
+  end
 end

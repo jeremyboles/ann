@@ -37,8 +37,8 @@ defmodule Bainistigh.WikiLive do
     {:noreply, socket}
   end
 
-  def handle_event("save", %{"article" => params}, socket) do
-    case save(socket.assigns.article, params) do
+  def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
+    case save(socket.assigns.article, article_params, revision_params) do
       {:ok, article} ->
         socket =
           assign(socket,
@@ -102,6 +102,11 @@ defmodule Bainistigh.WikiLive do
   defp page_title(%Wiki.Article{title_text: title}), do: "#{title} - Wiki"
   defp page_title(_), do: "New Article - Wiki"
 
-  def save(nil, params), do: Wiki.create_article(params)
-  def save(article, params), do: Wiki.update_article(article, params)
+  def save(nil, article_params, revision_params) do
+    Wiki.create_article(article_params, revision_params)
+  end
+
+  def save(article, article_params, revision_params) do
+    Wiki.update_article(article, article_params, revision_params)
+  end
 end
