@@ -27,7 +27,7 @@ if config_env() == :prod do
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      ip: {0, 0, 0, 0, 0, 0, 0, 1},
       port: String.to_integer(System.get_env("GIORRAIGH_PORT") || "6000")
     ],
     secret_key_base: secret_key_base
@@ -64,7 +64,7 @@ if config_env() == :prod do
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      ip: {0, 0, 0, 0, 0, 0, 0, 1},
       port: String.to_integer(System.get_env("FOILSIGH_PORT") || "5000")
     ],
     secret_key_base: secret_key_base
@@ -116,7 +116,7 @@ if config_env() == :prod do
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      ip: {0, 0, 0, 0, 0, 0, 0, 1},
       port: String.to_integer(System.get_env("BAINISTIGH_PORT") || "4000")
     ],
     secret_key_base: secret_key_base
