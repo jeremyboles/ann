@@ -33,6 +33,7 @@ defmodule Taifead.Wiki.Article do
     |> cast_doc(attrs)
     |> cast_assoc(:revisions)
     |> extract_from_doc()
+    |> validate_not_id(:parent_id)
     |> unique_constraint(:url_slug)
   end
 
@@ -51,5 +52,14 @@ defmodule Taifead.Wiki.Article do
 
   defp extract_from_doc(changeset) do
     changeset
+  end
+
+  def validate_not_id(changeset, field) when is_atom(field) do
+    validate_change(changeset, field, fn field, value ->
+      case value == get_field(changeset, :id) do
+        true -> [{field, "cannot be the same as :id"}]
+        _ -> []
+      end
+    end)
   end
 end
