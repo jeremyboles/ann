@@ -32,10 +32,7 @@ defmodule Bainistigh.WikiLive do
     {:noreply, assign(socket, changeset: changeset)}
   end
 
-  def handle_event("modify-tags", params, socket) do
-    IO.inspect(params)
-    {:noreply, socket}
-  end
+  def handle_event("modify-tags", _, socket), do: {:noreply, socket}
 
   def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
     case save(socket.assigns.article, article_params, revision_params) do
@@ -61,7 +58,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_params(%{"id" => id}, _url, socket) do
-    article = Wiki.get_article!(id)
+    article = Wiki.get_article!(id) |> Taifead.Repo.preload([:children, :parent])
 
     socket =
       assign(socket,
@@ -85,13 +82,11 @@ defmodule Bainistigh.WikiLive do
   end
 
   def mount(_params, _session, socket) do
-    articles = Wiki.ordered_articles()
+    articles = Wiki.ordered_articles() |> Taifead.Repo.preload([:children, :parent])
     {:ok, assign(socket, articles: articles)}
   end
 
-  def render(assigns) do
-    Phoenix.View.render(Bainistigh.WikiView, "index.html", assigns)
-  end
+  def render(assigns), do: Phoenix.View.render(Bainistigh.WikiView, "index.html", assigns)
 
   defp add_tag(changeset = %Ecto.Changeset{}) do
     tags = changeset.changes |> Map.get(:tags, [])

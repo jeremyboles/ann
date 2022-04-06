@@ -30,9 +30,31 @@
       <header>
         <nav>
           <ol>
-            <li><a href="#">Travel</a></li>
-            <li><a href="#">Trips</a></li>
-            <li><a href="#">Trip to Scotland, 2018</a></li>
+            <%= if @article.parent do %>
+              <li>
+                <%= live_patch to: "/wiki/#{@article.parent.id}" do %>
+                  <%= if @article.parent.title_html do %>
+                    <%= @article.parent.title_html %>
+                  <% else %>
+                    <i>No Title</i>
+                  <% end %>
+                <% end %>
+              </li>
+            <% end %>
+            
+            <li>
+              <%= if @article do %>
+                <%= live_patch to: "/wiki/#{@article.id}" do %>
+                  <%= if @article.title_html do %>
+                    <%= @article.title_html %>
+                  <% else %>
+                    <i>No Title</i>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <i>No Title</i>
+              <% end %>
+            </li>
           </ol>
         </nav>
         
@@ -77,7 +99,10 @@
               <%= text_input f, :short_title %>
               <%= label f, :short_title, "Shortened Title" %>
 
-              <%= select f, :parent_id, Enum.map(@articles, &{&1.title_text, &1.id}), prompt: [key: ""] %>
+              <%= select f, :parent_id,
+                @articles |> Enum.reject(&(&1.id == input_value(f, :id))) |> Enum.map(&{&1.title_text, &1.id}),
+                disabled: @articles |> Enum.reject(&(&1.id == input_value(f, :id))) |> Enum.count == 0,
+                prompt: [key: ""] %>
               <%= label f, :parent_id, "Parent Topic" %>
             </fieldset>
           </details>
