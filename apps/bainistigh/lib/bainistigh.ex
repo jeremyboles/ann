@@ -17,36 +17,26 @@ defmodule Bainistigh do
   and import those modules here.
   """
 
+  def channel do
+    quote do
+      use Phoenix.Channel
+    end
+  end
+
+  def component do
+    quote do
+      use Phoenix.Component
+
+      unquote(view_helpers())
+    end
+  end
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: Bainistigh
 
       import Plug.Conn
       alias Bainistigh.Router.Helpers, as: Routes
-    end
-  end
-
-  def view do
-    quote do
-      use Phoenix.View,
-        root: "lib/bainistigh/templates",
-        namespace: Bainistigh
-
-      # Import convenience functions from controllers
-      import Phoenix.Controller,
-        only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
-
-      # Include shared imports and aliases for views
-      unquote(view_helpers())
-    end
-  end
-
-  def live_view do
-    quote do
-      use Phoenix.LiveView,
-        layout: {Bainistigh.LayoutView, "live.html"}
-
-      unquote(view_helpers())
     end
   end
 
@@ -58,9 +48,10 @@ defmodule Bainistigh do
     end
   end
 
-  def component do
+  def live_view do
     quote do
-      use Phoenix.Component
+      use Phoenix.LiveView,
+        layout: {Bainistigh.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -76,9 +67,18 @@ defmodule Bainistigh do
     end
   end
 
-  def channel do
+  def view do
     quote do
-      use Phoenix.Channel
+      use Phoenix.View,
+        root: "lib/bainistigh/templates",
+        namespace: Bainistigh
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller,
+        only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
+
+      # Include shared imports and aliases for views
+      unquote(view_helpers())
     end
   end
 
