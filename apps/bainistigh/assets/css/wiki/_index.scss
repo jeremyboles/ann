@@ -199,6 +199,13 @@ section.wiki article {
     position: fixed;
     right: 0;
     top: calc(var(--banner-height) + var(--header-height));
+
+    & > div {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      width: calc(var(--article-sidebar-width) - 16px);
+    }
   }
 
   & > div[id] {

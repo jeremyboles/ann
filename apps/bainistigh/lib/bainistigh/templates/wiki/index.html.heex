@@ -59,6 +59,13 @@
         </nav>
         
         <div>
+          <div>
+            <%= checkbox f, :visibility, checked_value: :published, unchecked_value: :private %>
+            <%= label f, :visibility do %>
+              Published?
+            <% end %>
+          </div>
+          
           <button type="submit">Publish</button>
         </div>
       </header>
