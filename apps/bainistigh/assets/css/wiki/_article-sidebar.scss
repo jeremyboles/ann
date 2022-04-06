@@ -86,7 +86,7 @@ section.wiki article > aside [role='tab'] {
       content: ' ';
       mask-position: center;
       mask-repeat: no-repeat;
-      mask-size: contain;
+      mask-size: var(--size) var(--size);
       width: var(--size);
     }
 
@@ -100,6 +100,8 @@ section.wiki article > aside [role='tab'] {
 
     &[for|='links']::after {
       mask-image: url('/images/fa/regular/link.svg');
+      mask-size: calc(var(--size) + 2px) calc(var(--size) + 2px);
+      width: calc(var(--size) + 1px);
     }
 
     &[for|='metadata']::after {
