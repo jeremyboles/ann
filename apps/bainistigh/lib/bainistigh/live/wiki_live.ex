@@ -45,7 +45,7 @@ defmodule Bainistigh.WikiLive do
             page_title: page_title(article)
           )
 
-        {:noreply, socket}
+        {:noreply, push_redirect(socket, to: "/wiki/#{article.id}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
