@@ -30,20 +30,20 @@
       <header>
         <nav>
           <ol>
-            <%= if @article.parent do %>
-              <li>
-                <%= live_patch to: "/wiki/#{@article.parent.id}" do %>
-                  <%= if @article.parent.title_html do %>
-                    <%= @article.parent.title_html %>
-                  <% else %>
-                    <i>No Title</i>
+            <%= if @article do %>
+              <%= if @article.parent do %>
+                <li>
+                  <%= live_patch to: "/wiki/#{@article.parent.id}" do %>
+                    <%= if @article.parent.title_html do %>
+                      <%= @article.parent.title_html %>
+                    <% else %>
+                      <i>No Title</i>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </li>
-            <% end %>
-            
-            <li>
-              <%= if @article do %>
+                </li>
+              <% end %>
+              
+              <li>
                 <%= live_patch to: "/wiki/#{@article.id}" do %>
                   <%= if @article.title_html do %>
                     <%= @article.title_html %>
@@ -51,10 +51,10 @@
                     <i>No Title</i>
                   <% end %>
                 <% end %>
-              <% else %>
-                <i>No Title</i>
-              <% end %>
-            </li>
+              </li>
+            <% else %>
+              <li><i>No Title</i></li>
+            <% end %>
           </ol>
         </nav>
         
@@ -113,12 +113,12 @@
               <button class="location-off" type="button">Location Off</button>
             </summary>
             
-            <div class="map">
+            <div class="map" phx-update="ignore">
               <div data-coords-input={input_id(:revision, :coords)} data-mapkit-response-input={input_id(:revision, :mapkit_response)} id="wiki-map" phx-hook="LocationPicker" phx-update="ignore"></div>
+              
+              <%= hidden_input :revision, :coords %>
+              <%= hidden_input :revision, :mapkit_response %>
             </div>
-            
-            <%= hidden_input :revision, :coords %>
-            <%= hidden_input :revision, :mapkit_response %>
           </details>
           
           <details open>
