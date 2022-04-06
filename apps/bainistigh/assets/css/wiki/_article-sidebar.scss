@@ -209,18 +209,27 @@ section.wiki article > aside [role='tabpanel'] details summary {
     }
 
     appearance: none;
+    border: 0;
     background-color: var(--color);
     content: '';
     display: block;
     height: 0;
-    margin-right: 4px;
-    mask-image: url('/images/fa/regular/circle-plus.svg');
+    margin-right: 8px;
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: var(--size) var(--size);
     overflow: hidden;
     padding-top: var(--size);
     width: 12px;
+
+    &.add-tag {
+      mask-image: url('/images/fa/regular/circle-plus.svg');
+    }
+
+    &.location-off {
+      mask-size: 15px 15px;
+      mask-image: url('/images/fa/regular/location-dot-slash.svg');
+    }
   }
 
   button:hover {

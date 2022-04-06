@@ -83,7 +83,10 @@
           </details>
           
           <details open>
-            <summary>Location</summary>
+            <summary>
+              <span>Location</span>
+              <button class="location-off" type="button">Location Off</button>
+            </summary>
             
             <div class="map">
               <div data-coords-input={input_id(:revision, :coords)} data-mapkit-response-input={input_id(:revision, :mapkit_response)} id="wiki-map" phx-hook="LocationPicker" phx-update="ignore"></div>
@@ -96,7 +99,7 @@
           <details open>
             <summary>
               <span>Tags</span>
-              <button class="location-off" phx-click="add-tag" type="button">Add Tag</button>
+              <button class="add-tag" phx-click="add-tag" type="button">Add Tag</button>
             </summary>
             
             <ul id="wiki-tags" phx-hook="TagList">

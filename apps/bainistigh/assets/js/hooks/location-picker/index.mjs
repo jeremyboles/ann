@@ -17,7 +17,7 @@ export function destroyed() {
 // }
 
 export function mounted() {
-  // console.log('[MOUNTED]')
+  console.log('[MOUNTED]')
 
   this.geocoder = new mapkit.Geocoder({ getsUserLocation: true })
   this.map = new mapkit.Map(this.el, {
@@ -47,9 +47,9 @@ export function mounted() {
 //   console.log('[RECONNNECTED]')
 // }
 //
-// export function updated() {
-//   console.log('[UPDATED]')
-// }
+export function updated() {
+  console.log('[UPDATED]', this.map)
+}
 
 //
 // Private functions
