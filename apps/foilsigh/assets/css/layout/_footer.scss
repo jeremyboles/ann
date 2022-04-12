@@ -3,6 +3,7 @@
 @use "../utils/fonts";
 @use "../utils/icon";
 @use "../utils/layout";
+@use "../utils/media";
 @use "../utils/rhythm";
 
 //
@@ -11,15 +12,8 @@
 
 footer[role='contentinfo'] {
   @include layout.gutters;
-
-  --footer-background-color: #{palette.stone($lightness: 12%)};
+  @include media.dark(background-color, palette.stone($lightness: 12%), palette.stone($lightness: 5%));
   --footer-padding: #{rhythm.fragments(6)};
-
-  @media (prefers-color-scheme: dark) {
-    --footer-background-color: #{palette.stone($lightness: 5%)};
-  }
-
-  background-color: var(--footer-background-color);
   padding-bottom: calc(var(--footer-padding) + env(safe-area-inset-bottom, 0));
   padding-top: var(--footer-padding);
 
@@ -92,7 +86,6 @@ footer[role='contentinfo'] {
 
 footer[role='contentinfo'] > div > p:first-of-type {
   @include rhythm.font-size(3);
-
   font-family: #{fonts.$argent}, ui-serif, serif;
   font-weight: 700;
   grid-area: wordmark;
@@ -106,21 +99,10 @@ footer[role='contentinfo'] > div > p:first-of-type {
   }
 
   a {
-    --color: #{palette.stone($lightness: 96%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 86%)};
-    }
-
-    color: var(--color);
+    @include media.dark(color, palette.stone($lightness: 96%), palette.stone($lightness: 86%));
     text-decoration: none;
-  }
-
-  a:hover {
-    --color: #{palette.stone($lightness: 79%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 72%)};
+    &:hover {
+      @include media.dark(--color, palette.stone($lightness: 79%), palette.stone($lightness: 72%));
     }
   }
 
@@ -143,21 +125,10 @@ footer[role='contentinfo'] > div > nav {
   grid-area: navigation;
 
   a {
-    --color: #{palette.stone($lightness: 96%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 96%)};
-    }
-
-    color: var(--color);
+    @include media.dark(color, palette.stone($lightness: 96%), palette.stone($lightness: 96%));
     text-decoration: none;
-  }
-
-  a:hover {
-    --color: #{palette.stone($lightness: 78%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 82%)};
+    &:hover {
+      @include media.dark(--color, palette.stone($lightness: 78%), palette.stone($lightness: 82%));
     }
   }
 
@@ -177,28 +148,16 @@ footer[role='contentinfo'] > div > nav {
   a[href^='http:'],
   a[href^='https:'] {
     --text-decoration-color: transparent;
-
     text-decoration: underline;
     text-decoration-color: var(--text-decoration-color);
-
     &:hover {
-      --text-decoration-color: #{palette.stone($lightness: 34%)};
-
-      @media (prefers-color-scheme: dark) {
-        --text-decoration-color: #{palette.stone($lightness: 34%)};
-      }
+      @include media.dark(--text-decoration-color, palette.stone($lightness: 34%), palette.stone($lightness: 34%));
     }
   }
 
   @include layout.six-column {
     li + li::before {
-      --color: #{palette.stone($lightness: 96%)};
-
-      @media (prefers-color-scheme: dark) {
-        --color: #{palette.stone($lightness: 74%)};
-      }
-
-      color: var(--color);
+      @include media.dark(color, palette.stone($lightness: 96%), palette.stone($lightness: 74%));
       content: '|';
       margin-right: var(--gap);
     }
@@ -227,15 +186,8 @@ footer[role='contentinfo'] > div > nav {
 
 footer[role='contentinfo'] > div > p:last-of-type {
   @include fonts.sans;
+  @include media.dark(color, palette.stone($lightness: 96%), palette.stone($lightness: 96%));
   @include rhythm.font-size(-2);
-
-  --color: #{palette.stone($lightness: 96%)};
-
-  @media (prefers-color-scheme: dark) {
-    --color: #{palette.stone($lightness: 96%)};
-  }
-
-  color: var(--color);
   font-weight: 500;
   grid-area: copyright;
   text-align: center;
@@ -254,13 +206,8 @@ footer[role='contentinfo'] > div > p:last-of-type {
   }
 
   a[href^='http']:hover {
-    --color: #{palette.stone($lightness: 78%)};
-    --text-decoration-color: #{palette.stone($lightness: 34%)};
-
-    @media (prefers-color-schemel: dark) {
-      --color: #{palette.stone($lightness: 78%)};
-      --text-decoration-color: #{palette.stone($lightness: 34%)};
-    }
+    @include media.dark(--color, palette.stone($lightness: 78%), palette.stone($lightness: 78%));
+    @include media.dark(--text-decoration-color, palette.stone($lightness: 34%), palette.stone($lightness: 34%));
   }
 
   a[href^='http']::before {

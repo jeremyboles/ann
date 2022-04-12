@@ -3,6 +3,7 @@
 @use "../utils/fonts";
 @use "../utils/icon";
 @use "../utils/layout";
+@use "../utils/media";
 @use "../utils/rhythm";
 
 //
@@ -10,22 +11,15 @@
 // -----------------------------------------------------------------------------------------------
 
 aside[role='complementary'] {
+  @include media.dark(background-color, palette.stone($lightness: 82%), palette.stone($lightness: 11%));
   @include layout.gutters;
-
-  --background-color: #{palette.stone($lightness: 82%)};
   --padding: #{rhythm.lines(1)};
+  padding-bottom: var(--padding);
+  padding-top: var(--padding);
 
   @include layout.six-column {
     --padding: #{rhythm.lines(2)};
   }
-
-  @media (prefers-color-scheme: dark) {
-    --background-color: #{palette.stone($lightness: 11%)};
-  }
-
-  background-color: var(--background-color);
-  padding-bottom: var(--padding);
-  padding-top: var(--padding);
 
   & > div {
     @include layout.center;
@@ -119,28 +113,15 @@ body > aside[role='complementary'] > div > div {
   }
 
   ul > li > a:hover {
-    --text-decoration-color: #{palette.stone($lightness: 61%)};
-
-    @media (prefers-color-scheme: dark) {
-      --text-decoration-color: #{palette.stone($lightness: 36%)};
-    }
-
+    @include media.dark(text-decoration-color, palette.stone($lightness: 61%), palette.stone($lightness: 36%));
     text-decoration: underline;
-    text-decoration-color: var(--text-decoration-color);
   }
 
   ul > li > a::before {
     @include icon.mask(var(--mask-size));
-    --background-color: #{palette.stone($lightness: 62%)};
+    @include media.dark(background-color, palette.stone($lightness: 62%), palette.stone($lightness: 36%));
     --mask-size: calc(var(--size) - 0.5px);
     --size: #{rhythm.fragments(3, -1)};
-
-    @media (prefers-color-scheme: dark) {
-      --background-color: #{palette.stone($lightness: 36%)};
-      --text-decoration-color: #{palette.stone($lightness: 36%)};
-    }
-
-    background-color: var(--background-color);
     content: '';
     display: inline-block;
     height: var(--size);
@@ -150,27 +131,15 @@ body > aside[role='complementary'] > div > div {
   }
 
   ul > li > a:link:hover::before {
-    --background-color: #{palette.blue($lightness: 46%)};
-
-    @media (prefers-color-scheme: dark) {
-      --background-color: #{palette.blue($lightness: 52%)};
-    }
+    @include media.dark(--background-color, palette.blue($lightness: 46%), palette.blue($lightness: 52%));
   }
 
   ul > li > a:visited:hover::before {
-    --background-color: #{palette.purple($lightness: 46%)};
-
-    @media (prefers-color-scheme: dark) {
-      --background-color: #{palette.purple($lightness: 52%)};
-    }
+    @include media.dark(--background-color, palette.purple($lightness: 46%), palette.purple($lightness: 52%));
   }
 
   ul > li > a:active:hover::before {
-    --background-color: #{palette.red($lightness: 46%)};
-
-    @media (prefers-color-scheme: dark) {
-      --background-color: #{palette.red($lightness: 44%)};
-    }
+    @include media.dark(--background-color, palette.red($lightness: 46%), palette.red($lightness: 44%));
   }
 
   ul > li > [href*='boles.social']::before {
@@ -277,20 +246,13 @@ body > aside[role='complementary'] > div > article {
 
   p {
     @include fonts.serif;
+    @include media.dark(color, palette.stone($lightness: 32%), palette.stone($lightness: 77%));
     @include rhythm.font-size(-1);
-
-    --color: #{palette.stone($lightness: 32%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 77%)};
-    }
-
-    color: var(--color);
     font-weight: 300;
     grid-area: copy;
     max-width: 72ch;
 
-    a {
+    a:not(.u-pronoun) {
       --color: #{palette.stone($lightness: 32%)};
       --text-decoration-color: transparent;
 
@@ -302,7 +264,7 @@ body > aside[role='complementary'] > div > article {
       text-decoration-color: var(--text-decoration-color);
     }
 
-    a:hover {
+    a:not(.u-pronoun):hover {
       --color: #{palette.stone($lightness: 24%)};
       --text-decoration-color: #{palette.stone($lightness: 48%)};
 
@@ -315,41 +277,20 @@ body > aside[role='complementary'] > div > article {
 
   p > b {
     @include fonts.sans;
+    @include media.dark(color, palette.stone($lightness: 64%), palette.stone($lightness: 58%));
     @include rhythm.font-size(-2);
-
-    --color: #{palette.stone($lightness: 64%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 58%)};
-    }
-
-    color: var(--color);
     font-weight: 500;
     text-transform: uppercase;
     white-space: nowrap;
 
     a {
-      --color: #{palette.orange($lightness: 50%)};
-      --text-decoration-color: #{palette.orange($lightness: 74%)};
-
-      @media (prefers-color-scheme: dark) {
-        --color: #{palette.orange($lightness: 44%)};
-        --text-decoration-color: #{palette.orange($lightness: 21%)};
-      }
-
-      color: var(--color);
+      @include media.dark(color, palette.orange($lightness: 50%), palette.orange($lightness: 44%));
+      @include media.dark(text-decoration-color, palette.orange($lightness: 74%), palette.orange($lightness: 21%));
       font-weight: 900;
       letter-spacing: 0.125em;
-      text-decoration-color: var(--text-decoration-color);
-    }
-
-    a:hover {
-      --color: #{palette.orange($lightness: 38%)};
-      --text-decoration-color: #{palette.orange($lightness: 42%)};
-
-      @media (prefers-color-scheme: dark) {
-        --color: #{palette.orange($lightness: 52%)};
-        --text-decoration-color: #{palette.orange($lightness: 46%)};
+      &:hover {
+        @include media.dark(--color, palette.orange($lightness: 38%), palette.orange($lightness: 52%));
+        @include media.dark(--text-decoration-color, palette.orange($lightness: 42%), palette.orange($lightness: 46%));
       }
     }
   }
@@ -392,41 +333,23 @@ body > aside[role='complementary'] > div > article {
     @include fonts.sans;
     @include layout.outdent;
     @include rhythm.font-size(-1);
-
     font-weight: 500;
   }
 
   & > li a {
-    --color: #{palette.stone($lightness: 42%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 72%)};
-    }
-
-    color: var(--color);
+    @include media.dark(color, palette.stone($lightness: 42%), palette.stone($lightness: 72%));
     text-decoration: none;
   }
 
   & > li a:hover {
-    --color: #{palette.stone($lightness: 28%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 86%)};
-    }
+    @include media.dark(--color, palette.stone($lightness: 28%), palette.stone($lightness: 86%));
   }
 }
 
 %title {
   @include fonts.sans;
+  @include media.dark(color, palette.stone($lightness: 25%), palette.stone($lightness: 52%));
   @include rhythm.font-size(-2);
-
-  --color: #{palette.stone($lightness: 25%)};
-
-  @media (prefers-color-scheme: dark) {
-    --color: #{palette.stone($lightness: 52%)};
-  }
-
-  color: var(--color);
   font-weight: 800;
   letter-spacing: 0.125em;
   text-transform: uppercase;
