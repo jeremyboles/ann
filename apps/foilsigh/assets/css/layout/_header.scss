@@ -72,15 +72,8 @@ header[role='banner'] > h1 {
 
 header[role='banner'] > p {
   @include fonts.sans;
+  @include media.dark(color, palette.stone($lightness: 36%), palette.stone($lightness: 68%));
   @include rhythm.font-size(-1);
-
-  --color: #{palette.stone($lightness: 36%)};
-
-  @media (prefers-color-scheme: dark) {
-    --color: #{palette.stone($lightness: 68%)};
-  }
-
-  color: var(--color);
   order: 2;
   transform: translateY(#{rhythm.fragments(1)});
 }
@@ -94,25 +87,14 @@ header[role='banner'] > nav {
   transform: translateY(#{rhythm.fragments(1) * -1});
 
   a {
-    --color: #{palette.stone(47%)};
+    @include media.dark(color, palette.stone($lightness: 47%), palette.stone($lightness: 58%));
     --padding: #{rhythm.fragments(1, -2)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 58%)};
-    }
-
-    color: var(--color);
     display: block;
     padding-left: var(--padding);
     padding-right: var(--padding);
     text-decoration: none;
-
     &:hover {
-      --color: #{palette.stone(32%)};
-
-      @media (prefers-color-scheme: dark) {
-        --color: #{palette.stone($lightness: 68%)};
-      }
+      @include media.dark(--color, palette.stone($lightness: 32%), palette.stone($lightness: 68%));
     }
   }
 
@@ -137,14 +119,8 @@ header[role='banner'] > nav {
 // -----------------------------------------------------------------------------------------------
 
 header[role='banner']::after {
-  --color: #{palette.stone($lightness: 89%)};
+  @include media.dark(background-color, palette.stone($lightness: 89%), palette.stone($lightness: 13%));
   --size: #{rhythm.lines(7)};
-
-  @media (prefers-color-scheme: dark) {
-    --color: #{palette.stone($lightness: 13%)};
-  }
-
-  background-color: var(--color);
   content: ' ';
   display: block;
   height: var(--size);
