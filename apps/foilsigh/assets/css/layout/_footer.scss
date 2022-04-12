@@ -1,6 +1,7 @@
 @use "../../../../../assets/css/palette";
 
 @use "../utils/fonts";
+@use "../utils/icon";
 @use "../utils/layout";
 @use "../utils/rhythm";
 
@@ -161,17 +162,13 @@ footer[role='contentinfo'] > div > nav {
   }
 
   a[href*='subscribe']::before {
-    --size: 1.25ch;
-
+    @include icon.mask(var(--size), '/images/fa/regular/rss.svg');
+    --size: 1.3ch;
     background-color: currentcolor;
     content: ' ';
     display: inline-block;
     height: var(--size);
     margin-right: 0.5ch;
-    mask-image: url('/images/fa/regular/rss.svg');
-    mask-position: center;
-    mask-repeat: no-repeat;
-    mask-size: var(--size);
     text-decoration: underline;
     vertical-align: baseline;
     width: var(--size);
@@ -277,12 +274,15 @@ footer[role='contentinfo'] > div > p:last-of-type {
     height: var(--size);
 
     margin-right: var(--space);
-    mask-image: url('/images/fa/brands/creative-commons-by.svg'),
+    -webkit-mask-image: url('/images/fa/brands/creative-commons-by.svg'),
       url('/images/fa/brands/creative-commons-sa.svg');
+    mask-image: url('/images/fa/brands/creative-commons-by.svg'), url('/images/fa/brands/creative-commons-sa.svg');
+    -webkit-mask-position: left center, right center;
     mask-position: left center, right center;
+    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    mask-size: var(--mask-size) var(--mask-size),
-      var(--mask-size) var(--mask-size);
+    -webkit-mask-size: var(--mask-size) var(--mask-size), var(--mask-size) var(--mask-size);
+    mask-size: var(--mask-size) var(--mask-size), var(--mask-size) var(--mask-size);
     text-decoration: underline;
     transform: translateY(-1px);
     vertical-align: text-bottom;
@@ -290,17 +290,13 @@ footer[role='contentinfo'] > div > p:last-of-type {
   }
 
   span {
+    @include icon.mask(var(--mask-size), '/images/fa/brands/creative-commons.svg');
     --mask-size: calc(var(--size) - 1px);
     --size: 1.825ch;
-
     background-color: currentcolor;
     display: inline-block;
     height: 0;
     overflow: hidden;
-    mask-image: url('/images/fa/brands/creative-commons.svg');
-    mask-position: center;
-    mask-repeat: no-repeat;
-    mask-size: var(--mask-size) var(--mask-size);
     padding-top: var(--size);
     transform: translateY(-1px);
     vertical-align: text-bottom;

@@ -1,6 +1,7 @@
 @use "../../../../../assets/css/palette";
 
 @use "../utils/fonts";
+@use "../utils/icon";
 @use "../utils/layout";
 @use "../utils/rhythm";
 
@@ -129,6 +130,7 @@ body > aside[role='complementary'] > div > div {
   }
 
   ul > li > a::before {
+    @include icon.mask(var(--mask-size));
     --background-color: #{palette.stone($lightness: 62%)};
     --mask-size: calc(var(--size) - 0.5px);
     --size: #{rhythm.fragments(3, -1)};
@@ -143,9 +145,6 @@ body > aside[role='complementary'] > div > div {
     display: inline-block;
     height: var(--size);
     margin-right: #{rhythm.fragments(1, -1)};
-    mask-position: left center;
-    mask-repeat: no-repeat;
-    mask-size: var(--mask-size) var(--mask-size);
     vertical-align: text-bottom;
     width: var(--size);
   }
@@ -175,23 +174,23 @@ body > aside[role='complementary'] > div > div {
   }
 
   ul > li > [href*='boles.social']::before {
-    mask-image: url('/images/fa/brands/mastodon.svg');
+    @include icon.mask-image('/images/fa/brands/mastodon.svg');
   }
 
   ul > li > [href*='facebook.com']::before {
-    mask-image: url('/images/fa/brands/facebook.svg');
+    @include icon.mask-image('/images/fa/brands/facebook.svg');
   }
 
   ul > li > [href*='github.com']::before {
-    mask-image: url('/images/fa/brands/github.svg');
+    @include icon.mask-image('/images/fa/brands/github.svg');
   }
 
   ul > li > [href*='instagram.com']::before {
-    mask-image: url('/images/fa/brands/instagram.svg');
+    @include icon.mask-image('/images/fa/brands/instagram.svg');
   }
 
   ul > li > [href*='twitter.com']::before {
-    mask-image: url('/images/fa/brands/twitter.svg');
+    @include icon.mask-image('/images/fa/brands/twitter.svg');
   }
 }
 
