@@ -2,6 +2,7 @@
 
 @use "../utils/fonts";
 @use "../utils/layout";
+@use "../utils/media";
 @use "../utils/rhythm";
 
 //
@@ -53,21 +54,10 @@ header[role='banner'] > h1 {
   }
 
   a {
-    --color: #{palette.stone($lightness: 18%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 78%)};
-    }
-
-    color: var(--color);
+    @include media.dark(color, palette.stone($lightness: 18%), palette.stone($lightness: 78%));
     text-decoration: none;
-  }
-
-  a:hover {
-    --color: #{palette.stone($lightness: 26%)};
-
-    @media (prefers-color-scheme: dark) {
-      --color: #{palette.stone($lightness: 86%)};
+    &:hover {
+      @include media.dark(--color, palette.stone($lightness: 26%), palette.stone($lightness: 86%));
     }
   }
 

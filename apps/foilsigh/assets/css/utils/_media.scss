@@ -1,0 +1,15 @@
+@use "sass:string";
+
+@mixin dark($property, $light, $dark) {
+  @if string.slice($property, 1, 2) == '--' {
+    #{$property}: $light;
+    @media (prefers-color-scheme: dark) {
+      #{$property}: $dark;
+    }
+  } @else {
+    #{$property}: var(--#{$property}, $light);
+    @media (prefers-color-scheme: dark) {
+      --#{$property}: $dark;
+    }
+  }
+}
