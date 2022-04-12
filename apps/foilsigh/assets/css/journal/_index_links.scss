@@ -1,0 +1,150 @@
+//
+// Links (a.k.a. "Blogroll")
+// -----------------------------------------------------------------------------------------------
+
+main > div > aside:last-of-type {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  grid-area: links;
+  position: relative;
+}
+
+//
+// Divider rule
+// -----------------------------------------------------------------------------------------------
+
+main > div > aside:last-of-type::before {
+  --color: #{palette.stone($lightness: 76%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color: #{palette.stone($lightness: 24%)};
+  }
+
+  background-color: var(--color);
+  content: '';
+  display: block;
+  height: 1px;
+  transform: translateY(#{rhythm.fragments(2)});
+  width: 100%;
+  z-index: -1;
+}
+
+//
+// Heading
+// -----------------------------------------------------------------------------------------------
+
+main > div > aside:last-of-type h3 {
+  @include fonts.sans;
+  @include rhythm.font-size(-2);
+
+  background-color: var(--body-background-color);
+  font-weight: 800;
+  letter-spacing: 0.125em;
+  padding-right: #{rhythm.fragments(1, -2)};
+  position: relative;
+  text-transform: uppercase;
+
+  span {
+    display: none;
+  }
+}
+
+//
+// List of links
+// -----------------------------------------------------------------------------------------------
+
+main > div > aside:last-of-type dl {
+  padding-top: #{rhythm.fragments(1)};
+
+  dt {
+    @include fonts.sans;
+    @include rhythm.font-size(-1);
+
+    font-weight: 700;
+
+    a[href^='http:'],
+    a[href^='https:'] {
+      --color: #{palette.stone($lightness: 28%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.stone($lightness: 88%)};
+      }
+
+      color: var(--color);
+      text-decoration: underline;
+      text-decoration-color: var(--text-decoration-color, transparent);
+
+      &:link {
+        --text-decoration-color: #{palette.blue($lightness: 68%)};
+
+        @media (prefers-color-scheme: dark) {
+          --text-decoration-color: #{palette.blue($lightness: 32%)};
+        }
+
+        &:hover {
+          --color: #{palette.blue($lightness: 68%)};
+          --text-decoration-color: #{palette.blue($lightness: 68%)};
+
+          @media (prefers-color-scheme: dark) {
+            --color: #{palette.blue($lightness: 52%)};
+            --text-decoration-color: #{palette.blue($lightness: 48%)};
+          }
+        }
+      }
+
+      &:visited {
+        --text-decoration-color: #{palette.purple($lightness: 68%)};
+
+        @media (prefers-color-scheme: dark) {
+          --text-decoration-color: #{palette.purple($lightness: 32%)};
+        }
+
+        &:hover {
+          --color: #{palette.purple($lightness: 68%)};
+          --text-decoration-color: #{palette.purple($lightness: 68%)};
+
+          @media (prefers-color-scheme: dark) {
+            --color: #{palette.purple($lightness: 52%)};
+            --text-decoration-color: #{palette.purple($lightness: 48%)};
+          }
+        }
+      }
+
+      &:active {
+        --text-decoration-color: #{palette.red($lightness: 68%)};
+
+        @media (prefers-color-scheme: dark) {
+          --text-decoration-color: #{palette.red($lightness: 32%)};
+        }
+
+        &:hover {
+          --color: #{palette.red($lightness: 68%)};
+          --text-decoration-color: #{palette.red($lightness: 68%)};
+
+          @media (prefers-color-scheme: dark) {
+            --color: #{palette.red($lightness: 52%)};
+            --text-decoration-color: #{palette.red($lightness: 48%)};
+          }
+        }
+      }
+    }
+  }
+
+  dd {
+    @include fonts.sans;
+    @include rhythm.font-size(-2, $line-height: 3);
+
+    --color: #{palette.stone($lightness: 37%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.stone($lightness: 74%)};
+    }
+
+    color: var(--color);
+
+    font-weight: 400;
+    margin-bottom: #{rhythm.fragments(1, -2)};
+    padding-left: #{rhythm.fragments(2, -2)};
+  }
+}

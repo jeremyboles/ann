@@ -42,3 +42,83 @@
   color: var(--color);
   font-weight: 300;
 }
+
+//
+// Links
+// -----------------------------------------------------------------------------------------------
+
+.intro p {
+  a {
+    color: var(--color);
+    text-decoration-color: var(--text-decoration-color);
+  }
+
+  a:link {
+    --color: #{palette.blue($lightness: 46%)};
+    --text-decoration-color: #{palette.blue($lightness: 72%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.blue($lightness: 66%)};
+      --text-decoration-color: #{palette.blue($lightness: 28%)};
+    }
+
+    &:hover {
+      --color: #{palette.blue($lightness: 38%)};
+      --text-decoration-color: #{palette.blue($lightness: 56%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.blue($lightness: 68%)};
+        --text-decoration-color: #{palette.blue($lightness: 52%)};
+      }
+    }
+  }
+
+  a:visited {
+    --color: #{palette.purple($lightness: 42%)};
+    --text-decoration-color: #{palette.purple($lightness: 72%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.purple($lightness: 62%)};
+      --text-decoration-color: #{palette.purple($lightness: 26%)};
+    }
+
+    &:hover {
+      --color: #{palette.purple($lightness: 38%)};
+      --text-decoration-color: #{palette.purple($lightness: 56%)};
+
+      @media (prefers-color-scheme: dark) {
+        --color: #{palette.purple($lightness: 82%)};
+        --text-decoration-color: #{palette.purple($lightness: 26%)};
+      }
+    }
+  }
+
+  // prettier-ignore
+  a:active, a:hover:active {
+    --color: #{palette.red($lightness: 38%)};
+    --text-decoration-color: #{palette.red($lightness: 48%)};
+  
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.red($lightness: 58%)};
+      --text-decoration-color: #{palette.red($lightness: 60%)};
+    }
+  }
+
+  a:not([href^='http:']):not([href^='https:']) {
+    --color: #{palette.yellow($lightness: 26%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.yellow($lightness: 86%)};
+    }
+
+    text-decoration: none;
+  }
+
+  a:not([href^='http:']):not([href^='https:']):hover {
+    --color: #{palette.yellow($lightness: 36%)};
+
+    @media (prefers-color-scheme: dark) {
+      --color: #{palette.yellow($lightness: 62%)};
+    }
+  }
+}

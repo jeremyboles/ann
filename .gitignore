@@ -24,3 +24,6 @@ erl_crash.dump
 
 # Elixir Language Server files
 /.elixir_ls/
+
+# Nova configuration files
+/.nova/

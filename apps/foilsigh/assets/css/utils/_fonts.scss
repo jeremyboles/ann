@@ -35,6 +35,7 @@ $ellograph-stack: (
   normal: (
     300: '/fonts/ellograph/EllographCF-Light',
     400: '/fonts/ellograph/EllographCF-Regular',
+    600: '/fonts/ellograph/EllographCF-DemiBold',
     700: '/fonts/ellograph/EllographCF-Bold',
     800: '/fonts/ellograph/EllographCF-ExtraBold',
   ),
@@ -46,6 +47,7 @@ $ellograph-stack: (
 
 $greycliff-stack: (
   normal: (
+    300: '/fonts/greycliff/GreycliffCF-Light',
     500: '/fonts/greycliff/GreycliffCF-Medium',
     600: '/fonts/greycliff/GreycliffCF-DemiBold',
     700: '/fonts/greycliff/GreycliffCF-Bold',
@@ -99,8 +101,7 @@ $greycliff-stack: (
         font-style: $style;
         font-weight: $weight;
 
-        src: url('#{$path}.woff2') format('woff2'),
-          url('#{path}.woff') format('woff');
+        src: url('#{$path}.woff2') format('woff2'), url('#{path}.woff') format('woff');
       }
     }
   }

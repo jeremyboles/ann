@@ -21,7 +21,9 @@ main > article {
 
   --padding: #{rhythm.lines(1)};
 
-  grid-template-areas: 'intro' 'topics';
+  grid-template-areas:
+    'intro'
+    'topics';
   padding-bottom: var(--padding);
   row-gap: var(--layout-gap);
 
