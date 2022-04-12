@@ -1,0 +1,17 @@
+@mixin mask($size, $image: false) {
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: $size $size;
+  mask-size: $size $size;
+
+  @if $image {
+    @include mask-image($image);
+  }
+}
+
+@mixin mask-image($url) {
+  -webkit-mask-image: url('#{$url}');
+  mask-image: url('#{$url}');
+}
