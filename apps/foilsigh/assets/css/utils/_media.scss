@@ -19,7 +19,7 @@
   } @else {
     #{$property}: var(--#{$property}, $light);
     @media (prefers-color-scheme: dark) {
-      --#{$property}: $dark;
+      --#{$property}: #{$dark};
     }
   }
 }
