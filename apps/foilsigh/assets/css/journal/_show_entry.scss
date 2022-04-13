@@ -1,0 +1,437 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/icon";
+@use "../utils/layout";
+@use "../utils/media";
+@use "../utils/rhythm";
+
+//
+// Entry content
+// -----------------------------------------------------------------------------------------------
+
+main > article > div {
+  @include media.dark(background-color, palette.stone($lightness: 99%), palette.stone($lightness: 8%));
+  @include media.dark(border-color, palette.stone($lightness: 89%), palette.stone($lightness: 18%));
+  border-radius: 0.25em;
+  border-style: solid;
+  border-width: 1px;
+  display: flex;
+  grid-area: entry;
+  flex-direction: column;
+  position: relative;
+}
+
+//
+// Bookmark journal type
+// -----------------------------------------------------------------------------------------------
+
+main > article.bookmark > div > div {
+  justify-self: center;
+  padding: #{rhythm.lines(2)} #{rhythm.lines(1)};
+
+  figure {
+    & > p a[href^='http:'],
+    & > p a[href^='https:'] {
+      @include fonts.mono;
+      @include media.dark(color, palette.stone($lightness: 8%), palette.stone($lightness: 96%));
+      @include media.dark(text-decoration-color, palette.stone($lightness: 44%), palette.stone($lightness: 96%));
+      @include rhythm.font-size(1);
+      font-weight: 900;
+
+      &:hover {
+        @include media.dark(color, palette.blue($lightness: 48%), palette.blue($lightness: 36%));
+        @include media.dark(text-decoration-color, palette.blue($lightness: 68%), palette.blue($lightness: 36%));
+      }
+    }
+  }
+
+  figcaption {
+    padding-top: #{rhythm.lines(1)};
+
+    p {
+      @include fonts.serif;
+      @include rhythm.font-size(-1);
+      font-weight: 300;
+    }
+  }
+}
+
+//
+// Checkin journal type
+// -----------------------------------------------------------------------------------------------
+
+main > article.checkin > div > div {
+  @include fonts.sans;
+  @include rhythm.font-size(1);
+  font-weight: 700;
+  justify-self: center;
+  padding: #{rhythm.lines(2)} #{rhythm.lines(1)};
+  text-align: center;
+
+  a[href^='http:'],
+  a[href^='https:'] {
+    @include media.dark(color, palette.stone($lightness: 8%), palette.stone($lightness: 96%));
+    @include media.dark(text-decoration-color, palette.stone($lightness: 44%), palette.stone($lightness: 96%));
+    font-weight: 700;
+
+    &:hover {
+      @include media.dark(color, palette.blue($lightness: 48%), palette.blue($lightness: 36%));
+      @include media.dark(text-decoration-color, palette.blue($lightness: 68%), palette.blue($lightness: 36%));
+    }
+  }
+
+  figcaption {
+    padding-top: #{rhythm.lines(1, 1)};
+
+    p {
+      @include fonts.serif;
+      @include media.dark(color, palette.stone($lightness: 34%), palette.stone($lightness: 96%));
+      @include rhythm.font-size(-1, 1);
+      font-weight: 300;
+    }
+  }
+}
+
+//
+// Note journal type
+// -----------------------------------------------------------------------------------------------
+
+main > article.note > div > div {
+  @include media.dark(color, palette.stone($lightness: 8%), palette.stone($lightness: 96%));
+  @include fonts.serif;
+  @include rhythm.font-size(1, 6);
+  font-weight: 300;
+  justify-self: center;
+  padding: #{rhythm.lines(2, 1)} #{rhythm.lines(1, 1)};
+
+  @include layout.eight-column {
+    padding-left: #{rhythm.lines(2, 1)};
+    padding-right: #{rhythm.lines(2, 1)};
+  }
+
+  @include layout.twelve-column {
+    padding-left: #{rhythm.lines(4, 1)};
+    padding-right: #{rhythm.lines(4, 1)};
+  }
+}
+
+//
+// Photo journal type
+// -----------------------------------------------------------------------------------------------
+
+main > article.photo > div > div {
+  figcaption {
+    @include fonts.serif;
+    @include rhythm.font-size(0);
+    font-weight: 300;
+    padding: #{rhythm.lines(1)};
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  picture {
+    width: 100%;
+  }
+}
+
+main > article.photo > div header h2 {
+  border-bottom: 0;
+}
+
+//
+// Quote journal type
+// -----------------------------------------------------------------------------------------------
+
+main > article.quote > div > div {
+  @include media.dark(color, palette.stone($lightness: 8%), palette.stone($lightness: 96%));
+  justify-self: center;
+  padding: #{rhythm.lines(2)} #{rhythm.lines(1)};
+
+  figure blockquote {
+    @include fonts.serif;
+    @include rhythm.font-size(1, 6);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  figcaption {
+    @include fonts.sans;
+    @include media.dark(color, palette.stone($lightness: 34%), palette.stone($lightness: 96%));
+    @include rhythm.font-size(0);
+    font-weight: 700;
+    padding-top: #{rhythm.lines(1, 0)};
+
+    cite {
+      font-weight: 300;
+    }
+  }
+}
+
+//
+// Video journal type
+// -----------------------------------------------------------------------------------------------
+
+main > article.video > div > div {
+  figcaption {
+    @include fonts.serif;
+    @include media.dark(color, palette.stone($lightness: 34%), palette.stone($lightness: 96%));
+    @include rhythm.font-size(0);
+    font-weight: 300;
+    padding: #{rhythm.lines(1)};
+  }
+
+  video {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+//
+// Entry header area
+// -----------------------------------------------------------------------------------------------
+
+main > article > div header {
+  padding: #{rhythm.lines(1)} #{rhythm.lines(1)} 0 #{rhythm.lines(1)};
+
+  /* prettier-ignore */
+  h2 > span { display: none;}
+
+  h2 {
+    @include media.dark(border-bottom-color, palette.stone($lightness: 89%), palette.stone($lightness: 18%));
+    @include rhythm.font-size(0);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    column-gap: #{rhythm.lines(1)};
+    display: grid;
+    grid-template-columns: #{rhythm.lines(2)} 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding-bottom: #{rhythm.lines(1)};
+    position: relative;
+  }
+}
+
+//
+// Entry type icon
+// -----------------------------------------------------------------------------------------------
+
+main > article > div header h2 > a[href^='/journal'] {
+  @include media.dark(background-color, palette.stone($lightness: 72%), palette.stone($lightness: 46%));
+  border-radius: 100%;
+  height: 0;
+  left: #{rhythm.fragments(6)};
+  overflow: hidden;
+  padding-top: #{rhythm.fragments(4)};
+  position: absolute;
+  top: #{rhythm.fragments(-1)};
+  width: #{rhythm.fragments(4)};
+  z-index: 999;
+
+  &:hover {
+    @include media.dark(background-color, palette.stone($lightness: 60%), palette.stone($lightness: 56%));
+  }
+
+  &::before {
+    @include icon.mask(rhythm.fragments(2), '/images/fa/solid/memo.svg');
+    @include media.dark(background-color, palette.stone($lightness: 20%), palette.stone($lightness: 86%));
+    content: '';
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+//
+// Avatar
+// -----------------------------------------------------------------------------------------------
+
+main > article > div header h2 > a[href='/'] {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+
+  picture {
+    border-radius: 0.125em;
+    display: block;
+    height: #{rhythm.lines(2)};
+    overflow: hidden;
+    position: absolute;
+    width: #{rhythm.lines(2)};
+    z-index: 2;
+
+    img {
+      display: block;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      width: 100%;
+    }
+  }
+}
+
+//
+// Location
+// -----------------------------------------------------------------------------------------------
+
+main > article > div header h2 > a[href^='/map'] {
+  @include fonts.sans;
+  @include media.dark(color, palette.stone($lightness: 50%), palette.stone($lightness: 50%));
+  @include rhythm.font-size(-1);
+  font-weight: 500;
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+  justify-self: start;
+  text-decoration: none;
+
+  &:hover {
+    @include media.dark(color, palette.emerald($lightness: 50%), palette.emerald($lightness: 40%));
+  }
+}
+
+//
+// Published-at timestamp
+// -----------------------------------------------------------------------------------------------
+
+main > article > div header h2 > time {
+  @include fonts.sans;
+  @include media.dark(color, palette.stone($lightness: 38%), palette.stone($lightness: 70%));
+  @include rhythm.font-size(-1);
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+
+  span {
+    position: relative;
+    visibility: hidden;
+
+    &::after {
+      @include media.dark(color, palette.stone($lightness: 38%), palette.stone($lightness: 65%));
+      @include rhythm.line-height(4);
+      content: '–';
+      display: inline-block;
+      font-weight: 400;
+      left: 0.25em;
+      position: absolute;
+      top: 0;
+      visibility: visible;
+    }
+  }
+}
+
+//
+// Entry footer area
+// -----------------------------------------------------------------------------------------------
+
+main > article > div footer {
+  @include fonts.sans;
+  @include media.dark(border-top-color, palette.stone($lightness: 89%), palette.stone($lightness: 18%));
+  @include rhythm.font-size(-1);
+  border-top-style: solid;
+  border-top-width: 1px;
+  display: flex;
+  font-weight: 800;
+  justify-content: space-between;
+  padding: #{rhythm.fragments(1, -1)} #{rhythm.fragments(2, -1)};
+
+  /* prettier-ignore */
+  h3 { display: none; }
+}
+
+//
+// Entry statistic containers
+// -----------------------------------------------------------------------------------------------
+
+main > article > div footer ul {
+  align-items: center;
+  column-gap: #{rhythm.fragments(3, -1)};
+  display: flex;
+  list-style: none;
+}
+
+//
+// Entry responses
+// -----------------------------------------------------------------------------------------------
+
+main > article > div footer ul:first-of-type li {
+  align-items: center;
+  column-gap: 0.5ch;
+  display: flex;
+
+  data {
+    @include media.dark(color, palette.stone($lightness: 60%), palette.stone($lightness: 48%));
+    @include rhythm.font-size(-1, -1);
+  }
+
+  span {
+    @include icon.mask(rhythm.fragments(2, -1));
+    @include media.dark(background-color, palette.stone($lightness: 68%), palette.stone($lightness: 36%));
+    display: inline-block;
+    height: 0;
+    order: -1;
+    overflow: hidden;
+    padding-top: #{rhythm.fragments(2, -1)};
+    width: #{rhythm.fragments(2, -1)};
+  }
+
+  &.bookmarks span {
+    @include icon.mask-image('/images/fa/solid/bookmark.svg');
+  }
+
+  &.likes span {
+    @include icon.mask-image('/images/fa/solid/star.svg');
+  }
+
+  &.replies span {
+    @include icon.mask-image('/images/fa/solid/comment.svg');
+  }
+
+  &.reposts span {
+    @include icon.mask-image('/images/fa/solid/share.svg');
+  }
+}
+
+//
+// Syndication
+// -----------------------------------------------------------------------------------------------
+
+main > article > div footer ul:last-of-type li a {
+  @include icon.mask(rhythm.fragments(3, -1));
+  @include media.dark(background-color, palette.stone($lightness: 68%), palette.stone($lightness: 36%));
+  content: '';
+  display: block;
+  height: #{rhythm.fragments(3, -1)};
+  text-indent: -9999px;
+  width: #{rhythm.fragments(3, -1)};
+
+  &:link:hover {
+    @include media.dark(background-color, palette.blue($lightness: 68%), palette.blue($lightness: 36%));
+  }
+
+  &:visited:hover {
+    @include media.dark(background-color, palette.purple($lightness: 68%), palette.purple($lightness: 36%));
+  }
+
+  &:link:active,
+  &:visited:active {
+    @include media.dark(background-color, palette.red($lightness: 68%), palette.red($lightness: 36%));
+  }
+
+  &[href*='boles.social'] {
+    @include icon.mask-image('/images/fa/brands/mastodon.svg');
+  }
+
+  &[href*='instagram.com'] {
+    @include icon.mask-image('/images/fa/brands/instagram.svg');
+  }
+
+  &[href*='twitter.com'] {
+    @include icon.mask-image('/images/fa/brands/twitter.svg');
+  }
+
+  &[href*='youtube.com'] {
+    @include icon.mask-image('/images/fa/brands/youtube.svg');
+  }
+}

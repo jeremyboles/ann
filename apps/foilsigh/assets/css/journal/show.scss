@@ -1,0 +1,89 @@
+@use "../utils/layout";
+@use "../utils/rhythm";
+
+//
+// Journal entry page
+// -----------------------------------------------------------------------------------------------
+
+main > article {
+  @include layout.center;
+  @include layout.gutters;
+  @include layout.grid;
+
+  padding-bottom: #{rhythm.lines(4)};
+  row-gap: #{rhythm.lines(2)};
+
+  grid-template-areas:
+    'entry'
+    'responses'
+    'meta'
+    'map';
+
+  @include layout.two-column {
+    grid-template-areas:
+      'entry entry'
+      'responses responses'
+      'meta meta'
+      'map map';
+  }
+
+  @include layout.three-column {
+    grid-template-areas:
+      'entry entry entry'
+      'responses responses responses'
+      'meta meta meta'
+      'map map map';
+  }
+
+  @include layout.four-column {
+    grid-template-areas:
+      'entry entry entry entry'
+      'responses responses responses responses'
+      'meta meta map map';
+  }
+
+  @include layout.five-column {
+    grid-template-areas:
+      'entry entry entry entry entry'
+      'responses responses responses responses responses'
+      'meta meta meta map map';
+  }
+
+  @include layout.six-column {
+    grid-template-areas:
+      'entry entry entry entry meta meta'
+      'responses responses responses responses meta meta'
+      'responses responses responses responses map map';
+    grid-template-rows: auto auto 1fr;
+  }
+
+  @include layout.eight-column {
+    grid-template-areas:
+      'entry entry entry entry entry meta meta meta'
+      'responses responses responses responses responses meta meta meta'
+      'responses responses responses responses responses map map map';
+  }
+
+  @include layout.twelve-column {
+    grid-template-areas:
+      'entry entry entry entry entry entry entry entry meta meta meta'
+      'responses responses responses responses responses responses responses responses meta meta meta meta'
+      'responses responses responses responses responses responses responses responses map map map map';
+  }
+
+  @include layout.sixteen-column {
+    grid-template-areas:
+      '. . entry entry entry entry entry entry entry entry meta meta meta meta . .'
+      '. . responses responses responses responses responses responses responses responses meta meta meta meta . .'
+      '. . responses responses responses responses responses responses responses responses map map map map . .';
+  }
+}
+
+//
+// Section imports
+// -----------------------------------------------------------------------------------------------
+
+@import './show_entry';
+@import './show_map';
+@import './show_meta';
+@import './show_responses';
