@@ -76,7 +76,7 @@ config :dart_sass,
     cd: Path.expand("../apps/bainistigh/assets", __DIR__)
   ],
   foilsigh: [
-    args: ["css:../priv/static/assets"],
+    args: ["css:../priv/temp/assets"],
     cd: Path.expand("../apps/foilsigh/assets", __DIR__)
   ]
 
@@ -88,6 +88,14 @@ config :esbuild,
       ~w(js/app.mjs --bundle --format=esm --external:/fonts/* --external:/images/* --outdir=../priv/static/assets --target=safari15),
     cd: Path.expand("../apps/bainistigh/assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
+# Configure ex_postcss
+config :ex_postcss,
+  foilsigh: [
+    args:
+      ~w(../priv/temp/assets/**/*.css --base ../priv/temp/assets --dir ../priv/static/assets --config ./postcss.config.js),
+    cd: Path.expand("../apps/foilsigh/assets", __DIR__)
   ]
 
 # MapKit JS key

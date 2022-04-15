@@ -55,10 +55,10 @@ config :foilsigh, Foilsigh.Endpoint,
   debug_errors: true,
   secret_key_base: "DHMyBmEOvUq+44VC7h53D8JCA9OpORHGOxTa+0P2ke7lpEaGQIM1nBMg53l8m7c8",
   watchers: [
-    # Start the dart-sass watcher by calling DartSass.install_and_run(:default, args)
     sass:
       {DartSass, :install_and_run,
-       [:foilsigh, ~w(--embed-source-map --source-map-urls=absolute --watch)]}
+       [:foilsigh, ~w(--embed-source-map --source-map-urls=absolute --watch)]},
+    postcss: {ExPostcss, :run, [:foilsigh, ~w(--watch)]}
   ]
 
 # ## SSL Support

@@ -39,6 +39,7 @@ defmodule Foilsigh.MixProject do
     [
       {:dart_sass, "~> 0.4", runtime: Mix.env() == :dev},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:ex_postcss, "~> 0.1", runtime: Mix.env() == :dev},
       {:floki, ">= 0.30.0", only: :test},
       {:jason, "~> 1.2"},
       {:phoenix, "~> 1.6.6"},
@@ -63,10 +64,11 @@ defmodule Foilsigh.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
         "cmd cd priv/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules",
-        "sass foilsigh --no-source-map --style=compressed",
+        "sass foilsigh --no-source-map",
+        "postcss foilsigh",
         "phx.digest"
       ],
-      "npm.get": ["cmd cd priv/js && npm install"]
+      "npm.get": ["cmd cd assets && npm install", "cmd cd priv/js && npm install"]
     ]
   end
 end
