@@ -41,6 +41,8 @@ jobs:
           restore-keys: prod-${{ runner.os }}-build-
       - name: Install dependencies
         run: mix deps.get --only prod
+      - name: Install NPM dependencies
+        run: mix npm.get
       - name: Compile app code
         run: mix compile
       - name: Build and package assets
