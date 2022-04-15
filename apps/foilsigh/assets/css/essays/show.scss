@@ -1,0 +1,170 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/layout";
+@use "../utils/media";
+@use "../utils/rhythm";
+
+//
+// Common styles
+// -----------------------------------------------------------------------------------------------
+
+@import url('./common.css');
+
+//
+// Essay content grid
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:first-of-type {
+  @include layout.center;
+  @include layout.gutters;
+  @include layout.grid;
+  grid-template-areas:
+    'header'
+    'content';
+  row-gap: var(--layout-gap);
+
+  @include layout.two-column {
+    grid-template-areas:
+      'header header'
+      'content content';
+  }
+
+  @include layout.three-column {
+    grid-template-areas:
+      'header header header'
+      'content content content';
+  }
+
+  @include layout.four-column {
+    grid-template-areas:
+      'header header header header'
+      'content content content content';
+  }
+
+  @include layout.five-column {
+    grid-template-areas:
+      'header header header header header'
+      'content content content content content';
+  }
+
+  @include layout.six-column {
+    grid-template-areas:
+      'header header header header header header'
+      'content content content content content content';
+  }
+
+  @include layout.eight-column {
+    grid-template-areas:
+      'header header header header header header header header'
+      'content content content content content content . .';
+  }
+
+  @include layout.twelve-column {
+    grid-template-areas:
+      '. header header header header header header header header header header .'
+      '. content content content content content content content content . . .';
+  }
+
+  @include layout.sixteen-column {
+    grid-template-areas:
+      '. . header header header header header header header header header header header header . .'
+      '. . content content content content content content content content content content . . . .';
+  }
+}
+
+//
+// Essay sidebar grid
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:last-of-type {
+  @include media.dark(background-color, palette.stone($lightness: 88%), palette.stone($lightness: 12%));
+  @include media.dark(border-top-color, palette.stone($lightness: 86%), palette.stone($lightness: 10%));
+  border-top-style: solid;
+  border-top-width: 1px;
+  margin-top: -1px;
+  padding-bottom: #{rhythm.lines(4)};
+  padding-top: #{rhythm.lines(4)};
+
+  & > div {
+    @include layout.center;
+    @include layout.gutters;
+    @include layout.grid;
+    grid-template-areas:
+      'replies'
+      'responses'
+      'syndication'
+      'form';
+    row-gap: var(--layout-gap);
+
+    @include layout.two-column {
+      grid-template-areas:
+        'replies replies'
+        'responses responses'
+        'syndication syndication'
+        'form form';
+    }
+
+    @include layout.three-column {
+      grid-template-areas:
+        'replies replies replies'
+        'responses responses responses'
+        'syndication syndication syndication'
+        'form form form';
+    }
+
+    @include layout.four-column {
+      grid-template-areas:
+        'replies replies replies replies'
+        'responses responses responses responses'
+        'syndication syndication syndication syndication'
+        'form form form form';
+    }
+
+    @include layout.five-column {
+      grid-template-areas:
+        'replies replies replies replies replies'
+        'responses responses responses responses responses'
+        'syndication syndication syndication syndication syndication'
+        'form form form form form';
+    }
+
+    @include layout.six-column {
+      grid-template-areas:
+        'replies replies replies replies replies replies'
+        'responses responses responses responses syndication syndication'
+        'form form form form syndication syndication';
+    }
+
+    @include layout.eight-column {
+      grid-template-areas:
+        'replies replies replies replies replies replies responses responses'
+        'replies replies replies replies replies replies syndication syndication'
+        'form form form form form form syndication syndication';
+    }
+
+    @include layout.twelve-column {
+      grid-template-areas:
+        'replies replies replies replies replies replies replies . responses responses responses responses'
+        'replies replies replies replies replies replies replies . syndication syndication syndication syndication'
+        'form form form form form form form . syndication syndication syndication syndication';
+    }
+
+    @include layout.sixteen-column {
+      grid-template-areas:
+        '. replies replies replies replies replies replies replies replies . . . responses responses responses responses'
+        '. replies replies replies replies replies replies replies replies . . . syndication syndication syndication syndication'
+        '. form form form form form form form form form . . syndication syndication syndication syndication';
+    }
+  }
+}
+
+//
+// Subview styles
+// -----------------------------------------------------------------------------------------------
+
+@import './show_content';
+@import './show_form';
+@import './show_header';
+@import './show_replies';
+@import './show_responses';
+@import './show_syndication';

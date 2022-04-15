@@ -1,0 +1,114 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/icon";
+@use "../utils/layout";
+@use "../utils/media";
+@use "../utils/rhythm";
+
+//
+// Essay syndication
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:last-of-type > div > footer {
+  align-self: end;
+  column-gap: #{rhythm.fragments(2)};
+  display: flex;
+  grid-area: syndication;
+  justify-content: flex-end;
+  justify-self: end;
+  padding-top: #{rhythm.lines(1)};
+}
+
+//
+// Syndication description
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:last-of-type > div > footer p {
+  @include fonts.mono;
+  @include media.dark(color, palette.stone($lightness: 24%), palette.stone($lightness: 48%));
+  @include rhythm.font-size(-2);
+  font-weight: 300;
+
+  /* prettier-ignore */
+  span:first-of-type { display: none; }
+
+  span:last-of-type::first-letter {
+    text-transform: capitalize;
+  }
+}
+
+//
+// List of links
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:last-of-type > div > footer ul {
+  @include rhythm.font-size(0);
+  display: flex;
+  gap: rhythm.fragments(2);
+  height: #{rhythm.lines(1)};
+  list-style: none;
+
+  a {
+    @include icon.mask(rhythm.lines(1));
+    content: '';
+    display: block;
+    height: #{rhythm.lines(1)};
+    text-indent: -9999px;
+    width: #{rhythm.lines(1)};
+
+    &:link,
+    &:visited {
+      @include media.dark(background-color, palette.stone($lightness: 24%), palette.stone($lightness: 58%));
+    }
+
+    &:link:hover {
+      @include media.dark(background-color, palette.blue($lightness: 24%), palette.blue($lightness: 58%));
+    }
+
+    &:visited:hover {
+      @include media.dark(background-color, palette.purple($lightness: 24%), palette.purple($lightness: 58%));
+    }
+
+    &:link:active,
+    &:visited:active {
+      @include media.dark(background-color, palette.red($lightness: 24%), palette.red($lightness: 58%));
+    }
+
+    &[href*='boles.social'] {
+      @include icon.mask-image('/images/fa/brands/mastodon.svg');
+    }
+
+    &[href*='facebook.com'] {
+      @include icon.mask-image('/images/fa/brands/facebook.svg');
+    }
+
+    &[href*='github.com'] {
+      @include icon.mask-image('/images/fa/brands/github.svg');
+    }
+
+    &[href*='instagram.com'] {
+      @include icon.mask-image('/images/fa/brands/instagram.svg');
+    }
+
+    &[href*='medium.com'] {
+      @include icon.mask-image('/images/fa/brands/medium.svg');
+    }
+
+    &[href*='soundcloud.com'] {
+      @include icon.mask-image('/images/fa/brands/soundcloud.svg');
+    }
+
+    &[href*='twitter.com'] {
+      @include icon.mask-image('/images/fa/brands/twitter.svg');
+    }
+
+    &[href*='vimeo.com'] {
+      @include icon.mask-image('/images/fa/brands/vimeo.svg');
+    }
+
+    &[href*='youtube.com'] {
+      @include icon.mask-image('/images/fa/brands/youtube.svg');
+    }
+  }
+}

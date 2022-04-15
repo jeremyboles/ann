@@ -23,9 +23,12 @@ defmodule Foilsigh.Router do
 
     get "/", HomeController, :index
 
-    get "/essays", EssaysController, :index
     get "/calendar", CalendarController, :index
     get "/map", MapController, :index
+
+    # Essays section
+    get "/essays", EssaysController, :index
+    get "/essays/:slug", EssaysController, :show
 
     # Journal section
     get "/journal", JournalController, :index

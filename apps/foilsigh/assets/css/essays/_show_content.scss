@@ -1,0 +1,421 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/icon";
+@use "../utils/layout";
+@use "../utils/media";
+@use "../utils/rhythm";
+
+//
+// Essay content
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:first-of-type > div {
+  @include media.dark(color, palette.stone($lightness: 24%), palette.stone($lightness: 88%));
+  --layout-column: calc((100% - (var(--layout-gap) * 9)) / 10);
+  grid-area: content;
+  max-width: 100%;
+  padding-bottom: #{rhythm.lines(4)};
+  position: relative;
+
+  @include layout.two-column {
+    --layout-column: calc((100% - var(--layout-gap)) / 2);
+  }
+
+  @include layout.three-column {
+    --layout-column: calc((100% - (var(--layout-gap) * 2)) / 3);
+  }
+
+  @include layout.four-column {
+    --layout-column: calc((100% - (var(--layout-gap) * 3)) / 4);
+  }
+
+  @include layout.six-column {
+    --layout-column: calc((100% - (var(--layout-gap) * 5)) / 6);
+  }
+
+  @include layout.twelve-column {
+    --layout-column: calc((100% - (var(--layout-gap) * 7)) / 8);
+  }
+
+  @include layout.sixteen-column {
+    --layout-column: calc((100% - (var(--layout-gap) * 9)) / 10);
+  }
+
+  //
+  // Block-quotes
+  // -------------------------------------------------------------------------------------------------
+
+  blockquote {
+    padding-bottom: #{rhythm.lines(1)};
+    padding-left: #{rhythm.lines(1)};
+    padding-top: #{rhythm.lines(1)};
+
+    @include layout.eight-column {
+      padding-left: calc(calc(100% / 6) + calc(var(--layout-gap) / 6));
+    }
+
+    @include layout.twelve-column {
+      padding-left: calc(calc(100% / 8) + calc(var(--layout-gap) / 8));
+    }
+
+    @include layout.sixteen-column {
+      padding-left: calc(calc(100% / 9) + calc(var(--layout-gap) / 9));
+    }
+  }
+
+  blockquote p {
+    @include media.dark(color, palette.stone($lightness: 16%), palette.stone($lightness: 76%));
+    @include rhythm.font-size(0);
+    max-width: 72ch;
+  }
+
+  blockquote footer {
+    @include fonts.sans;
+    @include rhythm.font-size(-1);
+    font-weight: 500;
+    padding-top: #{rhythm.lines(1, -1)};
+    text-align: right;
+  }
+
+  blockquote footer a:link,
+  blockquote footer a:visited {
+    @include media.dark(color, palette.stone($lightness: 40%), palette.stone($lightness: 76%));
+    @include media.dark(text-decoration-color, palette.stone($lightness: 64%), palette.stone($lightness: 76%));
+  }
+
+  blockquote footer a:link:hover {
+    @include media.dark(color, palette.blue($lightness: 40%), palette.blue($lightness: 76%));
+    @include media.dark(text-decoration-color, palette.blue($lightness: 64%), palette.blue($lightness: 76%));
+  }
+
+  blockquote footer a:visited:hover {
+    @include media.dark(color, palette.purple($lightness: 40%), palette.purple($lightness: 76%));
+    @include media.dark(text-decoration-color, palette.purple($lightness: 64%), palette.purple($lightness: 76%));
+  }
+
+  blockquote footer a:active,
+  blockquote footer a:active:hover {
+    @include media.dark(color, palette.red($lightness: 40%), palette.red($lightness: 76%));
+    @include media.dark(text-decoration-color, palette.red($lightness: 64%), palette.red($lightness: 76%));
+  }
+
+  //
+  // Code
+  // -------------------------------------------------------------------------------------------------
+
+  code {
+    @include media.dark(color, palette.stone($lightness: 42%), palette.stone($lightness: 76%));
+    @include fonts.mono;
+    font-size: #{rhythm.scale(-1) + 0em};
+    font-weight: 500;
+  }
+
+  pre {
+    @include rhythm.font-size(1);
+    margin-bottom: #{rhythm.lines(1, 1)};
+    margin-top: #{rhythm.lines(1, 1)};
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  //
+  // Headings
+  // -------------------------------------------------------------------------------------------------
+
+  h3 {
+    @include media.dark(color, palette.stone($lightness: 24%), palette.stone($lightness: 76%));
+    @include fonts.sans;
+    @include rhythm.font-size(3, $line-height: 6);
+    font-weight: 700;
+    padding-bottom: #{rhythm.lines(1, 3)};
+    padding-top: #{rhythm.lines(3, 3)};
+  }
+
+  h4 {
+    @include media.dark(color, palette.stone($lightness: 36%), palette.stone($lightness: 76%));
+    @include fonts.serif;
+    @include rhythm.font-size(2);
+    font-style: italic;
+    font-weight: 100;
+    padding-bottom: #{rhythm.lines(1, 2)};
+    padding-top: #{rhythm.lines(2, 2)};
+  }
+
+  h3 + h4 {
+    margin-top: #{rhythm.lines(2, 2) * -1};
+  }
+
+  //
+  // Paragraph text
+  // -------------------------------------------------------------------------------------------------
+
+  p {
+    @include fonts.serif;
+    @include rhythm.font-size(1, $line-height: 6);
+    font-weight: 350;
+    padding-bottom: #{rhythm.fragments(2, 1)};
+    max-width: 72ch;
+  }
+
+  figure + p,
+  p + p {
+    margin-top: #{rhythm.lines(1, 1)};
+  }
+
+  //
+  // End mark
+  // -------------------------------------------------------------------------------------------------
+
+  p:last-child::after {
+    @include icon.mask(rhythm.fragments(2), '/images/knot.svg');
+    @include media.dark(background-color, palette.stone($lightness: 68%), palette.stone($lightness: 46%));
+    break-before: avoid;
+    content: '';
+    display: inline-block;
+    height: #{rhythm.fragments(2)};
+    vertical-align: baseline;
+    width: #{rhythm.fragments(2)};
+  }
+
+  //
+  // Pictures
+  // -------------------------------------------------------------------------------------------------
+
+  figure {
+    margin-top: #{rhythm.lines(1)};
+    position: relative;
+
+    @include layout.eight-column {
+      --caption-width: calc(var(--layout-gap) + (var(--layout-column) * 2));
+    }
+
+    @include layout.twelve-column {
+      --caption-width: calc((var(--layout-gap) * 2) + (var(--layout-column) * 3));
+    }
+
+    @include layout.sixteen-column {
+      --caption-width: calc((var(--layout-gap) * 3) + (var(--layout-column) * 4));
+    }
+
+    figcaption {
+      @include media.dark(color, palette.stone($lightness: 42%), palette.stone($lightness: 66%));
+      @include fonts.serif;
+      @include rhythm.font-size(0);
+
+      font-style: italic;
+      font-weight: 350;
+      padding-top: #{rhythm.lines(1)};
+
+      @include layout.eight-column {
+        margin-right: calc(0px - (var(--caption-width) + var(--layout-gap)));
+        padding-top: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: var(--caption-width);
+      }
+    }
+
+    picture {
+      display: block;
+      margin-left: calc(0px - var(--layout-gutter));
+      margin-right: calc(0px - var(--layout-gutter));
+      overflow: hidden;
+
+      @include layout.eight-column {
+        --column-width: calc((100% - (var(--layout-gutter) * 7)) / 8);
+        border-radius: 0.125em;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      @include layout.sixteen-column {
+        --column-width: calc((100% - (var(--layout-gutter) * 9)) / 10);
+      }
+    }
+
+    img {
+      display: block;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      width: 100%;
+    }
+
+    &.breakout {
+      @include layout.eight-column {
+        figcaption {
+          margin-top: #{rhythm.lines(1)};
+          top: auto;
+        }
+
+        picture {
+          margin-right: calc(0px - ((var(--layout-column) * 2) + (var(--layout-gap) * 2)));
+        }
+      }
+
+      @include layout.twelve-column {
+        picture {
+          margin-left: calc(0px - (var(--layout-column) + var(--layout-gap)));
+          margin-right: calc(0px - ((var(--layout-column) * 3) + (var(--layout-gap) * 3)));
+        }
+      }
+
+      @include layout.sixteen-column {
+        picture {
+          margin-left: calc(0px - ((var(--layout-column) * 2) + (var(--layout-gap) * 2)));
+          margin-right: calc(0px - ((var(--layout-column) * 4) + (var(--layout-gap) * 4)));
+        }
+      }
+    }
+
+    &.full {
+      @include layout.eight-column {
+        figcaption {
+          margin-top: #{rhythm.lines(1)};
+          top: auto;
+        }
+
+        picture {
+          margin-right: calc(0px - ((var(--layout-column) * 2) + (var(--layout-gap) * 2)));
+        }
+      }
+
+      @include layout.twelve-column {
+        picture {
+          margin-right: calc(0px - ((var(--layout-column) * 3) + (var(--layout-gap) * 3)));
+        }
+      }
+
+      @include layout.sixteen-column {
+        picture {
+          margin-right: calc(0px - ((var(--layout-column) * 4) + (var(--layout-gap) * 4)));
+        }
+      }
+    }
+
+    &.sidebar {
+      @include layout.eight-column {
+        float: right;
+        margin-right: calc(0px - var(--caption-width) - var(--layout-gap));
+        width: var(--caption-width);
+
+        figcaption {
+          padding-top: #{rhythm.lines(1)};
+          position: static;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  //
+  // Rules
+  // -------------------------------------------------------------------------------------------------
+
+  hr {
+    @include media.dark(background-color, palette.stone($lightness: 78%), palette.stone($lightness: 46%));
+    height: 1px;
+    margin-bottom: #{rhythm.lines(3)};
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: calc(#{rhythm.lines(3)} - 1px);
+    width: 16em;
+  }
+
+  p + hr {
+    margin-top: calc(#{rhythm.lines(3)} - #{rhythm.fragments(2)} - 1px);
+  }
+
+  //
+  // Sidenotes
+  // -------------------------------------------------------------------------------------------------
+
+  p label {
+    counter-increment: sidenote;
+
+    @include layout.eight-column {
+      pointer-events: none;
+    }
+  }
+
+  p label::before {
+    @include fonts.sans;
+    @include media.dark(color, palette.stone($lightness: 58%), palette.stone($lightness: 46%));
+    content: counter(sidenote);
+    font-size: #{rhythm.scale(-2) + 0em};
+    font-weight: 900;
+    margin-left: -0.25ch;
+    vertical-align: super;
+  }
+
+  p label + input[type='checkbox'] {
+    display: none;
+  }
+
+  p label + input[type='checkbox'] + span {
+    @include media.dark(color, palette.stone($lightness: 38%), palette.stone($lightness: 46%));
+    @include rhythm.font-size(-1);
+    display: block;
+    float: right;
+    font-weight: 300;
+    padding-bottom: #{rhythm.fragments(2, -1)};
+    padding-left: #{rhythm.lines(1, -1)};
+    padding-top: #{rhythm.fragments(2, -1)};
+    width: 100%;
+
+    @include layout.four-column {
+      max-width: calc(50% + (var(--layout-gap) / 2));
+      padding-bottom: 0;
+      padding-top: #{rhythm.fragments(2, -1)};
+      width: auto;
+    }
+
+    @include layout.eight-column {
+      @include rhythm.font-size(-1);
+      --sidenote-width: calc(((var(--layout-column) * 2) + (var(--layout-gap) * 1)));
+      margin-right: calc(0px - (var(--sidenote-width) + var(--layout-gap)));
+      max-width: none;
+      padding-left: 0;
+      padding-top: 0;
+      width: var(--sidenote-width);
+    }
+
+    @include layout.twelve-column {
+      --sidenote-width: calc(((var(--layout-column) * 3) + (var(--layout-gap) * 2)));
+    }
+
+    @include layout.sixteen-column {
+      --sidenote-width: calc(((var(--layout-column) * 4) + (var(--layout-gap) * 3)));
+    }
+  }
+
+  p label + input[type='checkbox']:not(:checked) + span {
+    display: none;
+
+    @include layout.eight-column {
+      display: block;
+    }
+  }
+
+  p label + input[type='checkbox'] + span::before {
+    @include fonts.sans;
+    @include media.dark(color, palette.stone($lightness: 58%), palette.stone($lightness: 46%));
+    box-sizing: border-box;
+    content: counter(sidenote) ' ';
+    display: inline-block;
+    font-size: #{rhythm.scale(-1) + 0em};
+    font-weight: 900;
+    margin-left: calc(0px - var(--layout-gap));
+    padding-right: calc(var(--layout-gap) / 6);
+    text-align: right;
+    transform: translateY(-0.5em);
+    width: var(--layout-gap);
+  }
+
+  p label + input[type='checkbox'] + span > span {
+    display: none;
+  }
+}

@@ -1,0 +1,122 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/icon";
+@use "../utils/layout";
+@use "../utils/media";
+@use "../utils/rhythm";
+
+//
+// Essay responses
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:last-of-type > div > aside:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: #{rhythm.fragments(1)};
+  grid-area: responses;
+
+  /* prettier-ignore */
+  h3 { display: none; }
+
+  & > details[open]:not(:last-of-type) {
+    padding-bottom: #{rhythm.fragments(3)};
+  }
+}
+
+//
+// Response types
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:last-of-type > div > aside:nth-child(2) summary {
+  @include fonts.mono;
+  @include media.dark(color, palette.stone($lightness: 28%), palette.stone($lightness: 78%));
+  @include rhythm.font-size(-2);
+  font-weight: 800;
+
+  /* prettier-ignore */
+  span { display: none; }
+
+  &::after {
+    @include icon.mask(rhythm.fragments(2, -2), '/images/fa/solid/circle-chevron-right.svg');
+    @include media.dark(background-color, palette.stone($lightness: 28%), palette.stone($lightness: 46%));
+    content: '';
+    display: inline-block;
+    height: #{rhythm.fragments(2, -2)};
+    margin-left: #{rhythm.fragments(1, -2)};
+    transform: translateY(-0.25ch);
+    vertical-align: middle;
+    width: #{rhythm.fragments(2, -2)};
+  }
+
+  &::before {
+    @include icon.mask(rhythm.fragments(2, -2));
+    @include media.dark(background-color, palette.stone($lightness: 28%), palette.stone($lightness: 64%));
+    content: '';
+    display: inline-block;
+    height: #{rhythm.fragments(2, -2)};
+    margin-right: #{rhythm.fragments(2, -2)};
+    transform: translateY(2px);
+    vertical-align: text;
+    width: #{rhythm.fragments(2, -2)};
+  }
+
+  &::marker,
+  &::-webkit-details-marker {
+    content: '';
+    display: none;
+  }
+}
+
+main > article > div:last-of-type > div > aside:nth-child(2) details.bookmarks summary::before {
+  @include icon.mask-image('/images/fa/solid/bookmark.svg');
+}
+
+main > article > div:last-of-type > div > aside:nth-child(2) details.likes summary::before {
+  @include icon.mask-image('/images/fa/solid/star.svg');
+}
+
+main > article > div:last-of-type > div > aside:nth-child(2) details.reposts summary::before {
+  @include icon.mask-image('/images/fa/solid/share.svg');
+}
+
+main > article > div:last-of-type > div > aside:nth-child(2) details[open] summary::after {
+  @include icon.mask-image('/images/fa/solid/circle-chevron-down.svg');
+}
+
+//
+// Avatars
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:last-of-type > div > aside:nth-child(2) p {
+  display: flex;
+  gap: #{rhythm.fragments(1)};
+  flex-wrap: wrap;
+  padding-left: #{rhythm.lines(1)};
+  padding-top: #{rhythm.fragments(1)};
+
+  /* prettier-ignore */
+  span { display: none; }
+
+  a {
+    display: block;
+    height: #{rhythm.lines(1)};
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  picture {
+    display: inline-block;
+
+    img {
+      border-radius: 0.125em;
+      display: block;
+      height: #{rhythm.lines(1)};
+      object-fit: cover;
+      object-position: center bottom;
+      width: auto;
+    }
+  }
+}

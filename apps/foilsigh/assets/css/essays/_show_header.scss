@@ -1,0 +1,105 @@
+@use "../../../../../assets/css/palette";
+
+@use "../utils/fonts";
+@use "../utils/layout";
+@use "../utils/media";
+@use "../utils/rhythm";
+
+//
+// Essay header
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:first-of-type > header {
+  display: flex;
+  flex-direction: column;
+  grid-area: header;
+  padding-bottom: #{rhythm.lines(3)};
+}
+
+//
+// Essay title
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:first-of-type > header h2 {
+  @include fonts.serif;
+  @include rhythm.font-size(4, $line-height: 9);
+
+  font-weight: 100;
+  margin-bottom: #{rhythm.fragments(1, 4)};
+  margin-top: #{rhythm.fragments(2, 4)};
+  overflow-wrap: break-word;
+
+  @include layout.four-column {
+    @include rhythm.font-size(5, $line-height: 11);
+    margin-bottom: #{rhythm.fragments(1, 5)};
+    margin-top: 0;
+  }
+
+  a {
+    @include media.dark(color, palette.stone($lightness: 8%), palette.stone($lightness: 88%));
+    text-decoration: none;
+
+    &:hover {
+      @include media.dark(color, palette.stone($lightness: 36%), palette.stone($lightness: 62%));
+    }
+  }
+}
+
+//
+// Essay subtitle
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:first-of-type > header h2 + p {
+  @include fonts.serif;
+  @include media.dark(color, palette.stone($lightness: 36%), palette.stone($lightness: 76%));
+  @include rhythm.font-size(2, $line-height: 8);
+  font-style: italic;
+  font-weight: 300;
+}
+
+//
+// Essay meta information
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:first-of-type > header > aside {
+  order: -1;
+  padding-bottom: #{rhythm.lines(1)};
+
+  p {
+    @include fonts.sans;
+    @include rhythm.font-size(-1);
+    font-weight: 500;
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+
+    /* prettier-ignore */
+    & > span { display: none; }
+  }
+
+  a {
+    @include media.dark(color, palette.stone($lightness: 28%), palette.stone($lightness: 76%));
+    font-weight: 800;
+    text-decoration: none;
+
+    &:hover {
+      @include media.dark(color, palette.yellow($lightness: 42%), palette.yellow($lightness: 76%));
+    }
+  }
+
+  time {
+    @include media.dark(color, palette.stone($lightness: 36%), palette.stone($lightness: 76%));
+
+    &::before {
+      @include media.dark(color, palette.stone($lightness: 52%), palette.stone($lightness: 66%));
+      content: '|';
+      font-weight: 300;
+      margin-left: #{rhythm.fragments(1, -1)};
+      margin-right: #{rhythm.fragments(1, -1)};
+    }
+
+    span {
+      font-variant: small-caps;
+      text-transform: none;
+    }
+  }
+}
