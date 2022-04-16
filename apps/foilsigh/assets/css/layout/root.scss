@@ -1,0 +1,43 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Root Styles - This is where we define the *global* styles that the rest of the website styles
+// will use compose the design. It's in here that the design tokens are calculated and defined.
+// Also any base styles for the website and styling on the document tags (i.e. <body>, <html>)
+// are defined within.
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Import styles
+// -----------------------------------------------------------------------------------------------
+
+@import "./root_scale";
+@import "./root_space";
+
+//
+// Set type sizes
+// -----------------------------------------------------------------------------------------------
+
+body {
+  font-size: var(--creat-step-0);
+}
+
+h1 {
+  font-size: var(--creat-step-3);
+}
+
+h2 {
+  font-size: var(--creat-step-2);
+}
+
+h3 {
+  font-size: var(--creat-step-1);
+}
+
+h4 {
+  font-size: var(--creat-step--1);
+}
+
+h5 {
+  font-size: var(--creat-step--2);
+}
