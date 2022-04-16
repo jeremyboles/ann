@@ -1,0 +1,115 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Type Scale (https://utopia.fyi)
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Define the fluid type scale of the Creat design system by defining upper and lower ratios for
+// the typography.
+// -----------------------------------------------------------------------------------------------
+
+$min-ratio: 1.324717957244746025960908; // https://en.wikipedia.org/wiki/Plastic_number
+$max-ratio: 1.465571231876768026656731; // https://en.wikipedia.org/wiki/Supergolden_ratio
+
+//
+// Define minimum and maximum sizes to keep things constrained and not shrinking or growing so
+// much that text gets unreadable.
+// -----------------------------------------------------------------------------------------------
+
+// Minimum values are part of the Padovan sequence (https://oeis.org/A000931).
+$min-text-size: 21;
+$min-width: 277;
+
+// Maximum values are part of Narayana's cows sequence(https://oeis.org/A000930).
+$max-text-size: 28;
+$max-width: 1873;
+
+//
+// Define CSS custom properties so we can do browser-based math.
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  --creat-min-ratio: #{$min-ratio};
+  --creat-max-ratio: #{$max-ratio};
+  --creat-min-size: #{$min-text-size};
+  --creat-max-size: #{$max-text-size};
+  --creat-min-width: #{$min-width};
+  --creat-max-width: #{$max-width};
+}
+
+//
+// This section of the code handles the responsive, screen-width dependent stuff. On the back of
+// a CSS lock, there's a calculation used to scale the font-size based on viewport width. It's
+// capped off with a media query to prevent the scaling going on forever.
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  --creat-bp: calc(var(--creat-numerator) / var(--creat-denominator));
+  --creat-denominator: calc((var(--creat-max-width) / 16) - (var(--creat-min-width) / 16));
+  --creat-numerator: calc(var(--creat-screen) - ((var(--creat-min-width) / 16) * 1rem));
+  --creat-screen: 100vw;
+
+  @media screen and (min-width: $max-width * 1px) {
+    --creat-screen: calc(var(--creat-max-width) * 1px);
+  }
+}
+
+//
+// This code calculates the steps along the modular scale, and can be duplicated to add additional
+// scale steps.
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  $steps: (-2 -1 0 1 2 3);
+
+  @each $step in $steps {
+    @if $step > 0 {
+      --creat-min-scale-#{$step}: calc(var(--creat-min-scale-#{$step - 1}) * var(--creat-min-ratio));
+      --creat-max-scale-#{$step}: calc(var(--creat-max-scale-#{$step - 1}) * var(--creat-max-ratio));
+      --creat-min-size-#{$step}: calc((var(--creat-min-size) * var(--creat-min-scale-#{$step - 1})) / 16);
+      --creat-max-size-#{$step}: calc((var(--creat-max-size) * var(--creat-max-scale-#{$step - 1})) / 16);
+    } @else if $step < 0 {
+      --creat-min-scale-#{$step}: calc(var(--creat-min-scale-#{$step + 1}) * var(--creat-min-ratio));
+      --creat-max-scale-#{$step}: calc(var(--creat-max-scale-#{$step + 1}) * var(--creat-max-ratio));
+      --creat-min-size-#{$step}: calc((var(--creat-min-size) / var(--creat-min-scale-#{$step + 1})) / 16);
+      --creat-max-size-#{$step}: calc((var(--creat-max-size) / var(--creat-max-scale-#{$step + 1})) / 16);
+    } @else {
+      --creat-min-scale-#{$step}: var(--creat-min-ratio);
+      --creat-max-scale-#{$step}: var(--creat-max-ratio);
+      --creat-min-size-#{$step}: calc(var(--creat-min-size) / 16);
+      --creat-max-size-#{$step}: calc(var(--creat-max-size) / 16);
+    }
+
+    /* prettier-ignore */
+    --creat-step-#{$step}: calc(((var(--creat-min-size-#{$step}) * 1rem) + (var(--creat-max-size-#{$step}) - var(--creat-min-size-#{$step})) * var(--creat-bp)));
+  }
+}
+
+//
+// Set type sizes
+// -----------------------------------------------------------------------------------------------
+
+body {
+  font-size: var(--creat-step-0);
+}
+
+h1 {
+  font-size: var(--creat-step-3);
+}
+
+h2 {
+  font-size: var(--creat-step-2);
+}
+
+h3 {
+  font-size: var(--creat-step-1);
+}
+
+h4 {
+  font-size: var(--creat-step--1);
+}
+
+h5 {
+  font-size: var(--creat-step--2);
+}
