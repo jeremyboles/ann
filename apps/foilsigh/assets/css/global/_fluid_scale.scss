@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Type Scale (https://utopia.fyi)
+// Fluid Type Scale (https://utopia.fyi)
 //
 // -----------------------------------------------------------------------------------------------
 
@@ -45,8 +45,11 @@ $max-width: 1873;
 // -----------------------------------------------------------------------------------------------
 
 :root {
+  /* prettier-ignore */
   --creat-bp: calc(var(--creat-numerator) / var(--creat-denominator));
+  /* prettier-ignore */
   --creat-denominator: calc((var(--creat-max-width) / 16) - (var(--creat-min-width) / 16));
+  /* prettier-ignore */
   --creat-numerator: calc(var(--creat-screen) - ((var(--creat-min-width) / 16) * 1rem));
   --creat-screen: 100vw;
 
@@ -65,19 +68,31 @@ $max-width: 1873;
 
   @each $step in $steps {
     @if $step > 0 {
+      /* prettier-ignore */
       --creat-min-scale-#{$step}: calc(var(--creat-min-scale-#{$step - 1}) * var(--creat-min-ratio));
+      /* prettier-ignore */
       --creat-max-scale-#{$step}: calc(var(--creat-max-scale-#{$step - 1}) * var(--creat-max-ratio));
+      /* prettier-ignore */
       --creat-min-size-#{$step}: calc((var(--creat-min-size) * var(--creat-min-scale-#{$step - 1})) / 16);
+      /* prettier-ignore */
       --creat-max-size-#{$step}: calc((var(--creat-max-size) * var(--creat-max-scale-#{$step - 1})) / 16);
     } @else if $step < 0 {
+      /* prettier-ignore */
       --creat-min-scale-#{$step}: calc(var(--creat-min-scale-#{$step + 1}) * var(--creat-min-ratio));
+      /* prettier-ignore */
       --creat-max-scale-#{$step}: calc(var(--creat-max-scale-#{$step + 1}) * var(--creat-max-ratio));
+      /* prettier-ignore */
       --creat-min-size-#{$step}: calc((var(--creat-min-size) / var(--creat-min-scale-#{$step + 1})) / 16);
+      /* prettier-ignore */
       --creat-max-size-#{$step}: calc((var(--creat-max-size) / var(--creat-max-scale-#{$step + 1})) / 16);
     } @else {
+      /* prettier-ignore */
       --creat-min-scale-#{$step}: var(--creat-min-ratio);
+      /* prettier-ignore */
       --creat-max-scale-#{$step}: var(--creat-max-ratio);
+      /* prettier-ignore */
       --creat-min-size-#{$step}: calc(var(--creat-min-size) / 16);
+      /* prettier-ignore */
       --creat-max-size-#{$step}: calc(var(--creat-max-size) / 16);
     }
 
