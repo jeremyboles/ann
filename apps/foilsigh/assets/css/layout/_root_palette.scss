@@ -1,0 +1,28 @@
+@use "../../../../../assets/css/palette";
+
+//
+// Define some colors to use
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  --color-main-bg: #{palette.stone($lightness: 92%)};
+  --color-main-text: #{palette.stone($lightness: 18%)};
+
+  @media (prefers-color-scheme: dark) {
+    --color-main-bg: #{palette.stone($lightness: 14%)};
+    --color-main-text: #{palette.stone($lightness: 86%)};
+  }
+}
+
+//
+// Set up some colors for a global context
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--color-main-bg);
+  color: var(--color-main-text);
+}

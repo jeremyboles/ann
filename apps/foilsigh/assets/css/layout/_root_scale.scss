@@ -97,6 +97,37 @@ $max-width: 1873;
     }
 
     /* prettier-ignore */
-    --creat-step-#{$step}: calc(((var(--creat-min-size-#{$step}) * 1rem) + (var(--creat-max-size-#{$step}) - var(--creat-min-size-#{$step})) * var(--creat-bp)));
+    --text-step-#{$step}: calc(((var(--creat-min-size-#{$step}) * 1rem) + (var(--creat-max-size-#{$step}) - var(--creat-min-size-#{$step})) * var(--creat-bp)));
   }
+
+  --line-height: var(--creat-min-ratio);
+}
+
+//
+// Set up the type scale at the global context
+// -----------------------------------------------------------------------------------------------
+
+body {
+  font-size: var(--text-step-0);
+  line-height: var(--creat-min-ratio);
+}
+
+h1 {
+  font-size: var(--text-step-3);
+}
+
+h2 {
+  font-size: var(--text-step-2);
+}
+
+h3 {
+  font-size: var(--text-step-1);
+}
+
+h4 {
+  font-size: var(--text-step--1);
+}
+
+h5 {
+  font-size: var(--text-step--2);
 }

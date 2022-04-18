@@ -1,0 +1,27 @@
+@use "../utils/fonts";
+
+//
+// Initialize imported global styles
+// -----------------------------------------------------------------------------------------------
+
+@include fonts.init;
+
+//
+// Set up some typography settings
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  --font-display: "Argent", ui-serif, serif;
+  --font-mono: "Ellograph", ui-monospace, monospace;
+  --font-sans: "Greycliff", ui-sans-serif, sans-serif;
+  --font-serif: "Addington", ui-serif, serif;
+}
+
+//
+// Set up typography at a global context
+// -----------------------------------------------------------------------------------------------
+
+body {
+  font-family: var(--font-serif);
+  font-weight: 200;
+}
