@@ -1,18 +1,101 @@
-@use "../utils/fonts";
-
+// -----------------------------------------------------------------------------------------------
 //
-// Initialize imported global styles
+// Fonts & typography
+//
 // -----------------------------------------------------------------------------------------------
 
-@include fonts.init;
+//
+// Font settings and definitions
+// -----------------------------------------------------------------------------------------------
+
+$addington: "Addington";
+$argent: "Argent";
+$ellograph: "Ellograph";
+$greycliff: "Greycliff";
+
+$addington-stack: (
+  normal: (
+    100: "/fonts/addington/AddingtonCF-Thin",
+    300: "/fonts/addington/AddingtonCF-Light",
+    400: "/fonts/addington/AddingtonCF-Regular",
+    500: "/fonts/addington/AddingtonCF-Medium",
+  ),
+  italic: (
+    100: "/fonts/addington/AddingtonCF-ThinItalic",
+    300: "/fonts/addington/AddingtonCF-LightItalic",
+  ),
+);
+
+$argent-stack: (
+  normal: (
+    800: "/fonts/argent/ArgentCF-ExtraBold",
+  ),
+  italic: (),
+);
+
+$ellograph-stack: (
+  normal: (
+    300: "/fonts/ellograph/EllographCF-Light",
+    400: "/fonts/ellograph/EllographCF-Regular",
+    600: "/fonts/ellograph/EllographCF-DemiBold",
+    700: "/fonts/ellograph/EllographCF-Bold",
+    800: "/fonts/ellograph/EllographCF-ExtraBold",
+  ),
+  italic: (
+    600: "/fonts/ellograph/EllographCF-DemiBoldItalic",
+    700: "/fonts/ellograph/EllographCF-BoldItalic",
+  ),
+);
+
+$greycliff-stack: (
+  normal: (
+    300: "/fonts/greycliff/GreycliffCF-Light",
+    500: "/fonts/greycliff/GreycliffCF-Medium",
+    600: "/fonts/greycliff/GreycliffCF-DemiBold",
+    700: "/fonts/greycliff/GreycliffCF-Bold",
+    800: "/fonts/greycliff/GreycliffCF-ExtraBold",
+    900: "/fonts/greycliff/GreycliffCF-Heavy",
+  ),
+  oblique: (
+    500: "/fonts/greycliff/GreycliffCF-MediumOblique",
+    600: "/fonts/greycliff/GreycliffCF-DemiBoldOblique",
+    700: "/fonts/greycliff/GreycliffCF-BoldOblique",
+  ),
+);
 
 //
-// Set up some typography settings
+// Define the CSS font-face declarations for each of the fonts
+// -----------------------------------------------------------------------------------------------
+
+$font-stacks: (
+  $addington: $addington-stack,
+  $argent: $argent-stack,
+  $ellograph: $ellograph-stack,
+  $greycliff: $greycliff-stack,
+);
+
+@each $family, $stack in $font-stacks {
+  @each $style, $weights in $stack {
+    @each $weight, $path in $weights {
+      @font-face {
+        font-display: swap;
+        font-family: $family;
+        font-style: $style;
+        font-weight: $weight;
+
+        src: url("#{$path}.woff2") format("woff2"), url("#{path}.woff") format("woff");
+      }
+    }
+  }
+}
+
+//
+// Define CSS custom properties for out fonts
 // -----------------------------------------------------------------------------------------------
 
 :root {
-  --font-display: "Argent", ui-serif, serif;
-  --font-mono: "Ellograph", ui-monospace, monospace;
-  --font-sans: "Greycliff", ui-sans-serif, sans-serif;
-  --font-serif: "Addington", ui-serif, serif;
+  --font-display: $argent, ui-serif, serif;
+  --font-mono: $ellograph, ui-monospace, monospace;
+  --font-sans: $greycliff, ui-sans-serif, sans-serif;
+  --font-serif: $addington, ui-serif, serif;
 }

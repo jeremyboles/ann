@@ -131,7 +131,7 @@ a[href^="/tags/"] {
 // Topic link styles
 // -----------------------------------------------------------------------------------------------
 
-a[href^="/"][href$="/"]:not([href^="/map/"]):not([href^="/tags/"]) {
+a[href^="/"][href$="/"]:not([href^="/map/"]):not([href^="/tags/"]):not([href="/"]) {
   color: var(--topic-link-color);
   text-decoration: none;
   &:hover {
