@@ -16,12 +16,3 @@
   --font-sans: "Greycliff", ui-sans-serif, sans-serif;
   --font-serif: "Addington", ui-serif, serif;
 }
-
-//
-// Set up typography at a global context
-// -----------------------------------------------------------------------------------------------
-
-body {
-  font-family: var(--font-serif);
-  font-weight: 200;
-}

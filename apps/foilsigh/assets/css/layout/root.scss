@@ -7,7 +7,138 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "../../../../../assets/css/palette";
+
 @use "./root_palette";
 @use "./root_space";
 @use "./root_scale";
 @use "./root_type";
+
+//
+// Set up the global styles
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--color-main-bg);
+  color: var(--color-main-text);
+  font-family: var(--font-serif);
+  font-weight: 200;
+  font-size: var(--text-step-0);
+  line-height: var(--creat-min-ratio);
+}
+
+//
+// Base styles for text
+// -----------------------------------------------------------------------------------------------
+
+h1 {
+  font-size: var(--text-step-3);
+}
+
+h2 {
+  font-size: var(--text-step-2);
+}
+
+h3 {
+  font-size: var(--text-step-1);
+}
+
+h4 {
+  font-size: var(--text-step-0);
+}
+
+h5 {
+  font-size: var(--text-step--1);
+}
+
+h6 {
+  font-size: var(--text-step--2);
+}
+
+p {
+  max-inline-size: 72ch;
+}
+
+//
+// External link styles
+// -----------------------------------------------------------------------------------------------
+
+a[href^="http:"]:link,
+a[href^="https:"]:link {
+  color: var(--external-link-color);
+  text-decoration-color: var(--external-link-underline-color);
+  &:hover {
+    color: var(--external-link-color-hover);
+    text-decoration-color: var(--external-link-underline-color-hover);
+  }
+}
+
+a[href^="http:"]:visited,
+a[href^="https:"]:visited {
+  color: var(--external-link-visited-color);
+  text-decoration-color: var(--external-link-visited-underline-color);
+  &:hover {
+    color: var(--external-link-visited-color-hover);
+    text-decoration-color: var(--external-link-visited-underline-color-hover);
+  }
+}
+
+a[href^="http:"]:active,
+a[href^="https:"]:active,
+a[href^="http:"]:active:hover,
+a[href^="https:"]:active:hover {
+  color: var(--external-link-active-color);
+  text-decoration-color: var(--external-link-active-underline-color);
+}
+
+//
+// Map link styles
+// -----------------------------------------------------------------------------------------------
+
+a[href^="/map/"] {
+  color: var(--map-link-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--map-link-hover-color);
+  }
+  &:active,
+  &:active:hover {
+    color: var(--map-link-active-color);
+  }
+}
+
+//
+// Tag link styles
+// -----------------------------------------------------------------------------------------------
+
+a[href^="/tags/"] {
+  color: var(--tag-link-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--tag-link-hover-color);
+  }
+  &:active,
+  &:active:hover {
+    color: var(--tag-link-active-color);
+  }
+}
+
+//
+// Topic link styles
+// -----------------------------------------------------------------------------------------------
+
+a[href^="/"][href$="/"]:not([href^="/map/"]):not([href^="/tags/"]) {
+  color: var(--topic-link-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--topic-link-hover-color);
+  }
+  &:active,
+  &:active:hover {
+    color: var(--topic-link-active-color);
+  }
+}

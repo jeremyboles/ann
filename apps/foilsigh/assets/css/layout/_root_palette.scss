@@ -1,7 +1,7 @@
 @use "../../../../../assets/css/palette";
 
 //
-// Define some colors to use
+// Define the base colors for website
 // -----------------------------------------------------------------------------------------------
 
 :root {
@@ -15,14 +15,79 @@
 }
 
 //
-// Set up some colors for a global context
+// Define link colors
+// -----------------------------------------------------------------------------------------------
+
+/* External links */
+:root {
+  /* Unvisited links */
+  --external-link-color: #{palette.blue($lightness: 42%)};
+  --external-link-color-hover: #{palette.blue($lightness: 32%)};
+  --external-link-underline-color: #{palette.blue($lightness: 76%)};
+  --external-link-underline-color-hover: #{palette.blue($lightness: 54%)};
+
+  @media (prefers-color-scheme: dark) {
+    --external-link-color: #{palette.blue($lightness: 66%)};
+    --external-link-color-hover: #{palette.blue($lightness: 54%)};
+    --external-link-underline-color: #{palette.blue($lightness: 28%)};
+    --external-link-underline-color-hover: #{palette.blue($lightness: 44%)};
+  }
+
+  /* Visited links */
+  --external-link-visited-color: #{palette.purple($lightness: 54%)};
+  --external-link-visited-color-hover: #{palette.purple($lightness: 34%)};
+  --external-link-visited-underline-color: #{palette.purple($lightness: 78%)};
+  --external-link-visited-underline-color-hover: #{palette.purple($lightness: 46%)};
+
+  @media (prefers-color-scheme: dark) {
+    --external-link-visited-color: #{palette.purple($lightness: 72%)};
+    --external-link-visited-color-hover: #{palette.purple($lightness: 66%)};
+    --external-link-visited-underline-color: #{palette.purple($lightness: 32%)};
+    --external-link-visited-underline-color-hover: #{palette.purple($lightness: 52%)};
+  }
+
+  /* Active/focused links */
+  --external-link-active-color: #{palette.red($lightness: 48%)};
+  --external-link-active-underline-color: #{palette.red($lightness: 62%)};
+
+  @media (prefers-color-scheme: dark) {
+    --external-link-active-color: #{palette.red($lightness: 52%)};
+    --external-link-active-underline-color: #{palette.red($lightness: 46%)};
+  }
+}
+
+//
+// Define section link colors
 // -----------------------------------------------------------------------------------------------
 
 :root {
-  color-scheme: light dark;
-}
+  --map-link-color: #{palette.green($lightness: 30%)};
+  --map-link-active-color: #{palette.green($lightness: 20%)};
+  --map-link-hover-color: #{palette.green($lightness: 26%)};
 
-body {
-  background-color: var(--color-main-bg);
-  color: var(--color-main-text);
+  @media (prefers-color-scheme: dark) {
+    --map-link-color: #{palette.green($lightness: 44%)};
+    --map-link-active-color: #{palette.green($lightness: 32%)};
+    --map-link-hover-color: #{palette.green($lightness: 38%)};
+  }
+
+  --tag-link-color: #{palette.orange($lightness: 50%)};
+  --tag-link-active-color: #{palette.orange($lightness: 36%)};
+  --tag-link-hover-color: #{palette.orange($lightness: 42%)};
+
+  @media (prefers-color-scheme: dark) {
+    --tag-link-color: #{palette.orange($lightness: 64%)};
+    --tag-link-active-color: #{palette.orange($lightness: 46%)};
+    --tag-link-hover-color: #{palette.orange($lightness: 50%)};
+  }
+
+  --topic-link-color: #{palette.yellow($lightness: 42%)};
+  --topic-link-active-color: #{palette.yellow($lightness: 30%)};
+  --topic-link-hover-color: #{palette.yellow($lightness: 38%)};
+
+  @media (prefers-color-scheme: dark) {
+    --topic-link-color: #{palette.yellow($lightness: 62%)};
+    --topic-link-active-color: #{palette.yellow($lightness: 40%)};
+    --topic-link-hover-color: #{palette.yellow($lightness: 46%)};
+  }
 }
