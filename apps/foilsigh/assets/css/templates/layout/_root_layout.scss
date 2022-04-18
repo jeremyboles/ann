@@ -1,0 +1,47 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Layout utility classes for CSS composition
+//
+// -----------------------------------------------------------------------------------------------
+
+@use './root_scale' as scale;
+
+//
+// Center utility
+// -----------------------------------------------------------------------------------------------
+
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+//
+// Cluster utility
+// -----------------------------------------------------------------------------------------------
+
+.cluster {
+  align-items: var(--cluster-align, center);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-space, var(--space-sm));
+  justify-content: var(--cluster-justify, flex-start);
+}
+
+//
+// Flow utility
+// -----------------------------------------------------------------------------------------------
+
+.flow > * + * {
+  margin-block-start: var(--flow-space, var(--space-sd));
+}
+
+//
+// Wrapper utility
+// -----------------------------------------------------------------------------------------------
+
+.wrapper {
+  margin-inline: auto;
+  max-inline-size: #{scale.$max-width}px;
+  padding-inline: var(--wrapper-space, var(--space-xs-sm));
+}

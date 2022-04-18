@@ -1,3 +1,11 @@
 module.exports = () => ({
-  plugins: [require("postcss-preset-env")({ browsers: ["last 1 version"] }), require("postcss-csso")({ forceMediaMerge: true })],
+  plugins: [
+    require("postcss-preset-env")({
+      features: {
+        "custom-properties": false,
+      },
+      stage: 3,
+    }),
+    require("postcss-csso")({ forceMediaMerge: true }),
+  ],
 })

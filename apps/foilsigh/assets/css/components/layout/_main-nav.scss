@@ -1,0 +1,15 @@
+//
+// Main navigation
+// -----------------------------------------------------------------------------------------------
+
+.main-nav {
+  --cluster-justify: center;
+  --cluster-space: var(--space-xs);
+
+  a {
+    color: var(--color-secondary-text);
+    &:hover {
+      color: var(--color-tertiary-text);
+    }
+  }
+}

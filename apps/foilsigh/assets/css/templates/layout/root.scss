@@ -7,19 +7,30 @@
 //
 // -----------------------------------------------------------------------------------------------
 
-@use "../../../../../assets/css/palette";
-
 @use "./root_palette";
 @use "./root_space";
 @use "./root_scale";
 @use "./root_type";
 
+@use "./root_layout";
+@use "./root_utilities";
+
 //
 // Set up the global styles
 // -----------------------------------------------------------------------------------------------
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   color-scheme: light dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -29,6 +40,8 @@ body {
   font-weight: 200;
   font-size: var(--text-step-0);
   line-height: var(--creat-min-ratio);
+  margin-block: 0;
+  margin-inline: 0;
 }
 
 //
@@ -64,12 +77,58 @@ p {
 }
 
 //
+// Images
+// -----------------------------------------------------------------------------------------------
+
+img,
+picture {
+  display: block;
+  max-inline-size: 100%;
+}
+
+img:not([alt]) {
+  filter: blur(10px);
+}
+
+p {
+  margin-block: 0;
+}
+
+//
+// Lists
+// -----------------------------------------------------------------------------------------------
+
+ul[class],
+ol[class] {
+  list-style: none;
+  margin-block: 0;
+  padding-inline: 0;
+}
+
+//
+// Tables
+// -----------------------------------------------------------------------------------------------
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: start;
+}
+
+//
 // External link styles
 // -----------------------------------------------------------------------------------------------
+
+a {
+  text-decoration: none;
+}
 
 a[href^="http:"]:link,
 a[href^="https:"]:link {
   color: var(--external-link-color);
+  text-decoration: underline;
   text-decoration-color: var(--external-link-underline-color);
   &:hover {
     color: var(--external-link-color-hover);

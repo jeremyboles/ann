@@ -94,8 +94,8 @@ $font-stacks: (
 // -----------------------------------------------------------------------------------------------
 
 :root {
-  --font-display: $argent, ui-serif, serif;
-  --font-mono: $ellograph, ui-monospace, monospace;
-  --font-sans: $greycliff, ui-sans-serif, sans-serif;
-  --font-serif: $addington, ui-serif, serif;
+  --font-display: #{$argent}, ui-serif, serif;
+  --font-mono: #{$ellograph}, ui-monospace, monospace;
+  --font-sans: #{$greycliff}, ui-sans-serif, sans-serif;
+  --font-serif: #{$addington}, ui-serif, serif;
 }

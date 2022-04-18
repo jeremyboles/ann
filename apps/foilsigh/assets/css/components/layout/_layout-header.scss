@@ -1,0 +1,32 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Header component
+//
+// -----------------------------------------------------------------------------------------------
+
+.layout-header {
+  gap: var(--space-2xs);
+  padding-bottom: var(--space-xl);
+  padding-top: var(--space-xl);
+  position: relative;
+
+  nav {
+    order: -1;
+  }
+
+  &::after {
+    --knot-size: var(--space-4xl);
+    background-color: var(--color-faded-bg);
+    content: " ";
+    display: block;
+    height: var(--knot-size);
+    left: 50%;
+    position: absolute;
+    mask-image: url("/images/knot.svg");
+    mask-size: var(--knot-size) var(--knot-size);
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: var(--knot-size);
+    z-index: -1;
+  }
+}

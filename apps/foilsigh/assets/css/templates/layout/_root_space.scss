@@ -10,7 +10,7 @@
 
 :root {
   /* prettier-ignore */
-  $sizes: (3xs: 0.25, 2xs: 0.5, xs: 0.75, sm: 1, md: 1.5, lg: 2, xl: 3, 2xl: 4, 3xl: 6);
+  $sizes: (3xs: 0.25, 2xs: 0.5, xs: 0.75, sm: 1, md: 1.5, lg: 2, xl: 3, 2xl: 4, 3xl: 6, 4xl: 8);
 
   @each $name, $scale in $sizes {
     @if $name == sm {
@@ -41,13 +41,13 @@
   /* prettier-ignore */
   --space-2xs-xs: calc(((var(--creat-2xs-min) / 16) * 1rem) + (var(--creat-xs-max) - var(--creat-2xs-min)) * (var(--creat-bp) / 16));
   /* prettier-ignore */
-  --space-xs-s: calc(((var(--creat-xs-min) / 16) * 1rem) + (var(--creat-s-max) - var(--creat-xs-min)) * (var(--creat-bp) / 16));
+  --space-xs-sm: calc(((var(--creat-xs-min) / 16) * 1rem) + (var(--creat-sm-max) - var(--creat-xs-min)) * (var(--creat-bp) / 16));
   /* prettier-ignore */
-  --space-s-m: calc(((var(--creat-s-min) / 16) * 1rem) + (var(--creat-m-max) - var(--creat-s-min)) * (var(--creat-bp) / 16));
+  --space-sm-md: calc(((var(--creat-s-min) / 16) * 1rem) + (var(--creat-md-max) - var(--creat-sm-min)) * (var(--creat-bp) / 16));
   /* prettier-ignore */
-  --space-m-l: calc(((var(--creat-m-min) / 16) * 1rem) + (var(--creat-l-max) - var(--creat-m-min)) * (var(--creat-bp) / 16));
+  --space-md-lg: calc(((var(--creat-m-min) / 16) * 1rem) + (var(--creat-lg-max) - var(--creat-md-min)) * (var(--creat-bp) / 16));
   /* prettier-ignore */
-  --space-l-xl: calc(((var(--creat-l-min) / 16) * 1rem) + (var(--creat-xl-max) - var(--creat-l-min)) * (var(--creat-bp) / 16));
+  --space-lg-xl: calc(((var(--creat-l-min) / 16) * 1rem) + (var(--creat-xl-max) - var(--creat-lg-min)) * (var(--creat-bp) / 16));
   /* prettier-ignore */
   --space-xl-2xl: calc(((var(--creat-xl-min) / 16) * 1rem) + (var(--creat-2xl-max) - var(--creat-xl-min)) * (var(--creat-bp) / 16));
   /* prettier-ignore */
