@@ -34,6 +34,18 @@ defmodule Foilsigh.LayoutComponent do
     """
   end
 
+  def grid(assigns) do
+    ~H"""
+      <div class="grid-guide" role="presentation">
+        <div class="grid wrapper">
+          <%= for num <- 1..16 do %>
+            <div data-column-num={num} />
+          <% end %>
+        </div>
+      </div>
+    """
+  end
+
   def header(assigns) do
     ~H"""
       <header class="layout-header | center wrapper | text-center" role="banner">

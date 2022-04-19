@@ -1,0 +1,23 @@
+//
+// Grid guide
+// -----------------------------------------------------------------------------------------------
+
+.grid-guide {
+  background: lightgray;
+  bottom: 0;
+  left: 0;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+
+  & > .grid {
+    min-block-size: 100vh;
+
+    & > [data-column-num] {
+      border-inline: black solid 1px;
+      background-color: gray;
+    }
+  }
+}
