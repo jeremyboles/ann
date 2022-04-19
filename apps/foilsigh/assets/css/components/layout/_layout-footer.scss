@@ -1,0 +1,51 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Footer component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+.layout-footer {
+  background-color: #{palette.stone($lightness: 14%)};
+  color: #{palette.stone($lightness: 84%)};
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #{palette.stone($lightness: 4%)};
+    color: #{palette.stone($lightness: 94%)};
+  }
+
+  & > div {
+    --flow-space: var(--space-3xs);
+    align-items: center;
+    flex-direction: row-reverse;
+    padding-block: var(--space-md);
+  }
+
+  .logo {
+    --logo-size: var(--text-step-1);
+    a {
+      --logo-color: #{palette.stone($lightness: 88%)};
+      --logo-color-hover: #{palette.stone($lightness: 78%)};
+
+      @media (prefers-color-scheme: dark) {
+        --logo-color: #{palette.stone($lightness: 98%)};
+        --logo-color-hover: #{palette.stone($lightness: 86%)};
+      }
+    }
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration-color: transparent !important;
+    &:hover {
+      color: #{palette.stone($lightness: 72%)} !important;
+      text-decoration-color: #{palette.stone($lightness: 36%)} !important;
+    }
+  }
+
+  p {
+    line-break: strict;
+    max-inline-size: initial;
+  }
+}

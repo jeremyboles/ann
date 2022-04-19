@@ -189,15 +189,15 @@ a[href^="/tags/"] {
 //
 // Topic link styles
 // -----------------------------------------------------------------------------------------------
-
-a[href^="/"][href$="/"]:not([href^="/map/"]):not([href^="/tags/"]):not([href="/"]) {
-  color: var(--topic-link-color);
-  text-decoration: none;
-  &:hover {
-    color: var(--topic-link-hover-color);
-  }
-  &:active,
-  &:active:hover {
-    color: var(--topic-link-active-color);
-  }
-}
+//
+// a[href^="/"][href$="/"]:not([href^="/map/"]):not([href^="/tags/"]):not([href="/"]) {
+//   color: var(--topic-link-color);
+//   text-decoration: none;
+//   &:hover {
+//     color: var(--topic-link-hover-color);
+//   }
+//   &:active,
+//   &:active:hover {
+//     color: var(--topic-link-active-color);
+//   }
+// }

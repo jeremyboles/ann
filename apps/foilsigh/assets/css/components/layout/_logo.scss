@@ -12,10 +12,10 @@
   word-spacing: -0.03em;
 
   a {
-    color: var(--color-emphasized-text, currentcolor);
+    color: var(--logo-color, var(--color-emphasized-text));
     text-decoration: none;
     &:hover {
-      color: var(--color-secondary-text);
+      color: var(--logo-color-hover, var(--color-secondary-text));
     }
   }
 }
