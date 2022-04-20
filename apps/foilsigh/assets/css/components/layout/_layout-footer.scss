@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------------------------------
 
 @use "../../../../../../assets/css/palette";
+@use '../../utils/grid';
+@use '../../utils/val';
 
 .layout-footer {
   background-color: #{palette.stone($lightness: 14%)};
@@ -16,14 +18,51 @@
   }
 
   & > div {
-    --flow-space: var(--space-3xs);
     align-items: center;
     flex-direction: row-reverse;
-    padding-block: var(--space-md);
+    padding-block: #{val.rhythm(1)};
+    row-gap: #{val.rhythm(1)};
+
+    & > :first-of-type {
+      grid-column-end: -1;
+      grid-column-start: 1;
+    }
+
+    & > :last-of-type {
+      grid-column-end: -1;
+      grid-column-start: 1;
+    }
+
+    @include grid.columns(6) {
+      & > :first-of-type,
+      & > :last-of-type {
+        grid-row: 1;
+      }
+    }
+
+    /* prettier-ignore */
+    @each $columns, $width in (6: 2, 8: 3, 12: 3, 16: 4) {
+      @include grid.columns($columns) {
+        & > :first-of-type {
+          grid-column-start: span #{$width};
+        }
+
+        & > :last-of-type {
+          grid-column-end: span #{$columns - $width};
+        }
+      }
+    }
   }
 
   .logo {
     --logo-size: var(--text-step-1);
+    justify-self: center;
+    line-height: #{val.rhythm(1)};
+
+    @include grid.columns(6) {
+      justify-self: end;
+    }
+
     a {
       --logo-color: #{palette.stone($lightness: 88%)};
       --logo-color-hover: #{palette.stone($lightness: 78%)};
@@ -45,7 +84,7 @@
   }
 
   p {
-    line-break: strict;
+    // line-break: strict;
     max-inline-size: initial;
   }
 }

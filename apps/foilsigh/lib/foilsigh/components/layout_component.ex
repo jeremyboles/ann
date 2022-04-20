@@ -12,9 +12,9 @@ defmodule Foilsigh.LayoutComponent do
   def footer(assigns) do
     ~H"""
     <footer class="layout-footer" role="contentinfo">
-      <div class="spread wrapper">
+      <div class="grid wrapper">
         <.logo />
-        <div class="flow | sans step--2 weight-500">
+        <div class="footer-info">
           <nav>
             <ul class="cluster">
               <li><a href="/subscribe/">Subscribe</a></li>
