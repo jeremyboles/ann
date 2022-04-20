@@ -1,12 +1,11 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Root Layout Styles
-// This is where the design system is defined and initialized
+// Center Layout Utility
 //
 // -----------------------------------------------------------------------------------------------
 
-@use './root/reset';
-@use './root/settings';
-
-@use './root/globals';
-@use './root/utilities';
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}

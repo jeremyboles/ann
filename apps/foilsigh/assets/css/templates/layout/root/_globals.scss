@@ -1,0 +1,148 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Global Site Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../../utils/text';
+@use '../../../utils/val';
+
+//
+// Set up the global styles
+// -----------------------------------------------------------------------------------------------
+
+body {
+  @include text.style(serif, $color: main, $leading: 1, $step: 0, $weight: 200);
+  background-color: var(--color-main-bg);
+  position: relative;
+}
+
+//
+// Base styles for text
+// -----------------------------------------------------------------------------------------------
+
+h1 {
+  @include text.style($leading: 2, $step: 3);
+  margin-block: 0;
+  max-inline-size: 65ch;
+}
+
+h2 {
+  @include text.style($leading: 2, $step: 2);
+  margin-block: 0;
+  max-inline-size: 65ch;
+}
+
+h3 {
+  @include text.step(1);
+  margin-block: 0;
+  max-inline-size: 65ch;
+}
+
+h4 {
+  @include text.step(0);
+  margin-block: 0;
+  max-inline-size: 65ch;
+}
+
+h5 {
+  @include text.step(-1);
+  margin-block: 0;
+  max-inline-size: 65ch;
+}
+
+h6 {
+  @include text.step(-2);
+  margin-block: 0;
+  max-inline-size: 65ch;
+}
+
+p {
+  max-inline-size: 86ch;
+  margin-block: 0;
+}
+
+//
+// External link styles
+// -----------------------------------------------------------------------------------------------
+
+a {
+  text-decoration: none;
+}
+
+a[href^="http:"]:link,
+a[href^="https:"]:link {
+  color: var(--external-link-color);
+  text-decoration: underline;
+  text-decoration-color: var(--external-link-underline-color);
+  &:hover {
+    color: var(--external-link-color-hover);
+    text-decoration-color: var(--external-link-underline-color-hover);
+  }
+}
+
+a[href^="http:"]:visited,
+a[href^="https:"]:visited {
+  color: var(--external-link-visited-color);
+  text-decoration-color: var(--external-link-visited-underline-color);
+  &:hover {
+    color: var(--external-link-visited-color-hover);
+    text-decoration-color: var(--external-link-visited-underline-color-hover);
+  }
+}
+
+a[href^="http:"]:active,
+a[href^="https:"]:active,
+a[href^="http:"]:active:hover,
+a[href^="https:"]:active:hover {
+  color: var(--external-link-active-color);
+  text-decoration-color: var(--external-link-active-underline-color);
+}
+
+//
+// Map link styles
+// -----------------------------------------------------------------------------------------------
+
+a[href^="/map/"] {
+  color: var(--map-link-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--map-link-hover-color);
+  }
+  &:active,
+  &:active:hover {
+    color: var(--map-link-active-color);
+  }
+}
+
+//
+// Tag link styles
+// -----------------------------------------------------------------------------------------------
+
+a[href^="/tags/"] {
+  color: var(--tag-link-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--tag-link-hover-color);
+  }
+  &:active,
+  &:active:hover {
+    color: var(--tag-link-active-color);
+  }
+}
+
+//
+// Topic link styles
+// -----------------------------------------------------------------------------------------------
+//
+// a[href^="/"][href$="/"]:not([href^="/map/"]):not([href^="/tags/"]):not([href="/"]) {
+//   color: var(--topic-link-color);
+//   text-decoration: none;
+//   &:hover {
+//     color: var(--topic-link-hover-color);
+//   }
+//   &:active,
+//   &:active:hover {
+//     color: var(--topic-link-active-color);
+//   }
+// }

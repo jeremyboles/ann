@@ -1,32 +1,39 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Header component
+// Main Header Component
 //
 // -----------------------------------------------------------------------------------------------
 
+@use '../../utils/icon';
+@use '../../utils/position';
+@use '../../utils/text';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
 .layout-header {
-  gap: var(--space-2xs);
-  padding-bottom: var(--space-xl);
-  padding-top: var(--space-xl);
+  padding-block: calc(var(--fragment) * 10);
   position: relative;
 
   nav {
     order: -1;
   }
 
-  &::after {
-    --knot-size: var(--space-4xl);
-    background-color: var(--color-faded-bg);
-    content: " ";
-    display: block;
-    height: var(--knot-size);
-    left: 50%;
-    position: absolute;
-    mask-image: url("/images/knot.svg");
-    mask-size: var(--knot-size) var(--knot-size);
-    transform: translate(-50%, -50%);
-    top: 50%;
-    width: var(--knot-size);
-    z-index: -1;
+  p {
+    @include text.style(sans, $step: -1, $color: tertiary, $weight: 500);
   }
+}
+
+//
+// Knot background
+// -----------------------------------------------------------------------------------------------
+
+.layout-header::after {
+  @include icon.block(--knot-size);
+  @include icon.mask(--knot-size, "/images/knot.svg");
+  @include position.center;
+  --knot-size: calc(var(--rhythm) * 4);
+  background-color: var(--color-faded-bg);
+  z-index: -1;
 }

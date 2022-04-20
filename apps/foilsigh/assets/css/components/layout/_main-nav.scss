@@ -1,15 +1,25 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Main website navigation
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/text';
+@use '../../utils/val';
+
 //
 // Main navigation
 // -----------------------------------------------------------------------------------------------
 
 .main-nav {
+  @include text.style(sans, $kern: loose, $step: -2, $weight: 800);
   --cluster-justify: center;
-  --cluster-space: var(--space-xs);
+  text-transform: uppercase;
 
   a {
-    color: var(--color-secondary-text);
+    @include text.color(secondary);
     &:hover {
-      color: var(--color-tertiary-text);
+      @include text.color(tertiary);
     }
   }
 }

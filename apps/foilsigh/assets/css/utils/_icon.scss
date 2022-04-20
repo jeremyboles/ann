@@ -1,0 +1,19 @@
+// -----------------------------------------------------------------------------------------------
+//
+// CSS-Based Icon Utility Mix-ins
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "./val";
+
+@mixin block($size) {
+  content: "";
+  display: block;
+  height: #{val.var-escape($size)};
+  width: #{val.var-escape($size)};
+}
+
+@mixin mask($size, $url) {
+  mask-image: #{val.url-escape($url)};
+  mask-size: #{val.var-escape($size)} #{val.var-escape($size)};
+}

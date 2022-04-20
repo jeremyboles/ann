@@ -1,12 +1,12 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Root Layout Styles
-// This is where the design system is defined and initialized
+// Layout utility classes
 //
 // -----------------------------------------------------------------------------------------------
 
-@use './root/reset';
-@use './root/settings';
-
-@use './root/globals';
-@use './root/utilities';
+@use './layout/center';
+@use './layout/cluster';
+@use './layout/flow';
+@use './layout/grid';
+@use './layout/spread';
+@use './layout/wrapper';

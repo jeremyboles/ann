@@ -1,93 +1,97 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Root utilities
+// CSS Reset
+// Resets some browser styling so we don't have to keep overriding things
 //
 // -----------------------------------------------------------------------------------------------
 
 //
-// Font type utility places
+// Box sizing rules
 // -----------------------------------------------------------------------------------------------
 
-.sans {
-  font-family: var(--font-sans);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 //
-// Kerning utilities
+// Remove default padding and list styling on styled lists
 // -----------------------------------------------------------------------------------------------
 
-.kern-loose {
-  letter-spacing: 0.05em;
-}
-
-//
-// Text size utilities
-// -----------------------------------------------------------------------------------------------
-
-.step--1 {
-  font-size: var(--text-step--1);
-}
-
-.step--2 {
-  font-size: var(--text-step--2);
-}
-
-//
-// Font weight utilities
-// -----------------------------------------------------------------------------------------------
-
-.weight-500 {
-  font-weight: 500;
-}
-
-.weight-800 {
-  font-weight: 800;
-}
-
-//
-// Text alignment utilities
-// -----------------------------------------------------------------------------------------------
-
-.text-center {
-  text-align: center;
-}
-
-//
-// Text color utilities
-// -----------------------------------------------------------------------------------------------
-
-.text-tertiary {
-  color: var(--color-tertiary-text);
-}
-
-//
-// Text transform utilities
-// -----------------------------------------------------------------------------------------------
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-//
-// Flex utilities
-// -----------------------------------------------------------------------------------------------
-
-.grow {
-  flex-grow: 1;
-}
-
-//
-// Visually hide elements
-// -----------------------------------------------------------------------------------------------
-
-.vh {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: auto;
-  margin: 0;
-  overflow: hidden;
+ol[class],
+ul[class] {
+  list-style: none;
   padding: 0;
-  position: absolute;
-  width: 1px;
-  white-space: nowrap;
+}
+
+//
+// Remove default margins
+// -----------------------------------------------------------------------------------------------
+
+blockquote,
+body,
+dd,
+dl,
+figure,
+h1,
+h2,
+h3,
+h4,
+ol[class],
+p,
+ul[class] {
+  margin: 0;
+}
+
+//
+// Normalize scroll behavior
+// -----------------------------------------------------------------------------------------------
+
+html {
+  scroll-behavior: smooth;
+}
+
+//
+// Set body defaults
+// -----------------------------------------------------------------------------------------------
+
+body {
+  min-block-size: 100vh;
+  text-rendering: optimizelegibility;
+}
+
+//
+// Make images easier to work with
+// -----------------------------------------------------------------------------------------------
+
+img,
+picture {
+  display: block;
+  max-inline-size: 100%;
+}
+
+//
+// Set table defaults
+// -----------------------------------------------------------------------------------------------
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: start;
+}
+
+//
+// Remove any animations for people that don't wish to see them
+// -----------------------------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

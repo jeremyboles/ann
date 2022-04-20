@@ -1,12 +1,12 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Root Layout Styles
-// This is where the design system is defined and initialized
+// Spread Layout Utility Class
 //
 // -----------------------------------------------------------------------------------------------
 
-@use './root/reset';
-@use './root/settings';
-
-@use './root/globals';
-@use './root/utilities';
+.spread {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spread-space, var(--rhythm));
+  justify-content: space-between;
+}

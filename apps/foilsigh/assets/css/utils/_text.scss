@@ -1,0 +1,94 @@
+// -----------------------------------------------------------------------------------------------
+//
+// SASS Helpers for Dealing w/ Text Styling
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "sass:list";
+@use "sass:map";
+
+@use '../templates/layout/root/settings/palette';
+@use '../templates/layout/root/settings/scale';
+@use '../templates/layout/root/settings/type';
+
+@use './val';
+
+//
+// Mix-ins for setting CSS custom properities with safe-guards
+// -----------------------------------------------------------------------------------------------
+
+@mixin color($color) {
+  color: var(--color-#{$color}-text);
+  @if not map.has-key(palette.$text, $color) {
+    @warn "Unknown text color '#{$color}'.";
+  }
+}
+
+@mixin font($font) {
+  font-family: var(--font-#{$font});
+  @if not map.has-key(type.$fonts, $font) {
+    @warn "Unknown font name '#{$font}'.";
+  }
+}
+
+@mixin kern($name) {
+  /* prettier-ignore */
+  $kerning: ( loose: 0.05em, tight: -0.015em );
+  letter-spacing: #{map.get($kerning, $name)};
+  @if not map.has-key($kerning, $name) {
+    @warn "Unknown kern name '#{$name}'.";
+  }
+}
+
+@mixin leading($leading) {
+  line-height: #{val.rhythm($leading)};
+}
+
+@mixin step($step, $var: false) {
+  @if $var {
+    font-size: var(#{$var}, var(--text-step-#{$step}));
+  } @else {
+    font-size: var(--text-step-#{$step});
+  }
+  @if not list.index(scale.$steps, $step) {
+    @warn "Unknown text scale '#{$step}'.";
+  }
+}
+
+@mixin weight($weight) {
+  font-weight: $weight;
+}
+
+@mixin word-spacing($name) {
+  /* prettier-ignore */
+  $spacing: ( tight:  -0.03em );
+  word-spacing: #{map.get($spacing, $name)};
+  @if not map.has-key($spacing, $name) {
+    @warn "Unknown word-spacing name '#{$name}'.";
+  }
+}
+
+//
+// Mix-in for settings a bunch of text properties at once
+// -----------------------------------------------------------------------------------------------
+
+@mixin style($font: false, $color: false, $kern: false, $leading: false, $step: false, $weight: false) {
+  @if $color {
+    @include color($color);
+  }
+  @if $font {
+    @include font($font);
+  }
+  @if $kern {
+    @include kern($kern);
+  }
+  @if $leading {
+    @include leading($leading);
+  }
+  @if $step {
+    @include step($step);
+  }
+  @if $weight {
+    @include weight($weight);
+  }
+}

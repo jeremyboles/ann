@@ -1,0 +1,52 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Value Functions
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "sass:string";
+
+//
+// Functions to output vertical rhythm units easily
+// -----------------------------------------------------------------------------------------------
+
+@function fragments($count) {
+  @if $count == 1 {
+    @return var(--fragment);
+  } @else {
+    @return calc(var(--fragment) * #{$count});
+  }
+}
+
+@function rhythm($count) {
+  @if $count == 1 {
+    @return var(--rhythm);
+  } @else {
+    @return calc(var(--rhythm) * #{$count});
+  }
+}
+
+//
+// A function to add a `var()` function around CSS custom property names passed in as a param
+// if the `var()` isn't present.
+// -----------------------------------------------------------------------------------------------
+
+@function var-escape($var) {
+  @if string.slice($var, 1, 2) == "--" {
+    @return var(#{$var});
+  } @else {
+    @return $var;
+  }
+}
+
+//
+// A function to add a `url` function around around a value, if it doesn't already have one.
+// -----------------------------------------------------------------------------------------------
+
+@function url-escape($url) {
+  @if string.slice(url, 1, 4) == "url(" {
+    @return $url;
+  } @else {
+    @return url($url);
+  }
+}

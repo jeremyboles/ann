@@ -1,6 +1,14 @@
+@use "sass:map";
+
+@use '../../utils/grid';
+
 //
 // Grid guide
 // -----------------------------------------------------------------------------------------------
+
+body:has(> .grid-guide) {
+  position: relative;
+}
 
 .grid-guide {
   background: lightgray;
@@ -8,16 +16,38 @@
   left: 0;
   mix-blend-mode: overlay;
   pointer-events: none;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
 
+  & > .baseline {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="1ch"><line stroke="black" x1="0" y1="0" x2="100%" y2="0" /></svg>'),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="1ch"><line stroke="darkgray" x1="0" y1="0" x2="100%" y2="0" /></svg>');
+    background-size: 100% var(--rhythm), 100% var(--fragment);
+    background-repeat: repeat-y;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
   & > .grid {
-    min-block-size: 100vh;
+    min-block-size: 100%;
 
     & > [data-column-num] {
       border-inline: black solid 1px;
       background-color: gray;
+      display: none;
+    }
+
+    @each $count in map.keys(grid.$columns) {
+      @include grid.columns($count) {
+        & > [data-column-num]:not(:nth-child(n + #{$count + 1})) {
+          display: block;
+        }
+        // grid-template-columns: repeat($count, 1fr);
+      }
     }
   }
 }

@@ -1,0 +1,21 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Wrapper Layout Utility Class
+//
+// -----------------------------------------------------------------------------------------------
+
+@use 'sass:math';
+
+@use '../../../../../utils/grid';
+@use '../../../../../utils/scale';
+
+.wrapper {
+  margin-inline: auto;
+  max-inline-size: #{math.div(scale.$max-width, 16)}rem;
+  padding-inline-end: calc(var(--wrapper-space, calc(var(--fragment) * 2)) + env(safe-area-inset-right));
+  padding-inline-start: calc(var(--wrapper-space, calc(var(--fragment) * 2)) + env(safe-area-inset-left));
+
+  @include grid.columns(6) {
+    --wrapper-space: var(--rhythm);
+  }
+}

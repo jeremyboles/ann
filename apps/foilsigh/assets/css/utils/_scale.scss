@@ -1,0 +1,27 @@
+// -----------------------------------------------------------------------------------------------
+//
+// SASS Helpers for a Fluid Type Scale
+// https://utopia.fyi/
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Define the fluid type scale of the Creat design system by defining upper and lower ratios for
+// the typography.
+// -----------------------------------------------------------------------------------------------
+
+$min-ratio: 1.324717957244746025960908; // https://en.wikipedia.org/wiki/Plastic_number
+$max-ratio: 1.465571231876768026656731; // https://en.wikipedia.org/wiki/Supergolden_ratio
+
+//
+// Define minimum and maximum sizes to keep things constrained and not shrinking or growing so
+// much that text gets unreadable.
+// -----------------------------------------------------------------------------------------------
+
+// Minimum values are part of the Padovan sequence (https://oeis.org/A000931).
+$min-text-size: 21;
+$min-width: 351;
+
+// Maximum values are part of Narayana's cows sequence(https://oeis.org/A000930).
+$max-text-size: 28;
+$max-width: 1873;

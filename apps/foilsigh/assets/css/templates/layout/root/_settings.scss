@@ -1,12 +1,11 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Root Layout Styles
-// This is where the design system is defined and initialized
+// Settings
+// Defines various design system tokens and settings a custom properties
 //
 // -----------------------------------------------------------------------------------------------
 
-@use './root/reset';
-@use './root/settings';
-
-@use './root/globals';
-@use './root/utilities';
+@use './settings/palette';
+@use './settings/rhythm';
+@use './settings/scale';
+@use './settings/type';

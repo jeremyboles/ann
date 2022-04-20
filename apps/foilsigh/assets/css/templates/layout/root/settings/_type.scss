@@ -82,7 +82,6 @@ $font-stacks: (
         font-family: $family;
         font-style: $style;
         font-weight: $weight;
-
         src: url("#{$path}.woff2") format("woff2"), url("#{path}.woff") format("woff");
       }
     }
@@ -90,12 +89,18 @@ $font-stacks: (
 }
 
 //
-// Define CSS custom properties for out fonts
+// Define CSS custom properties for each font stack
 // -----------------------------------------------------------------------------------------------
 
+$fonts: (
+  display: "#{$argent}, ui-serif, serif",
+  mono: "#{$ellograph}, ui-monospace, monospace",
+  sans: "#{$greycliff}, ui-sans-serif, sans-serif",
+  serif: "#{$addington}, ui-serif, serif",
+);
+
 :root {
-  --font-display: #{$argent}, ui-serif, serif;
-  --font-mono: #{$ellograph}, ui-monospace, monospace;
-  --font-sans: #{$greycliff}, ui-sans-serif, sans-serif;
-  --font-serif: #{$addington}, ui-serif, serif;
+  @each $font, $stack in $fonts {
+    --font-#{$font}: #{$stack};
+  }
 }

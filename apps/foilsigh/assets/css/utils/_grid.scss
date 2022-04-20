@@ -1,0 +1,26 @@
+@use "sass:map";
+
+//
+// Define how many columns there will be at each screen width
+// -----------------------------------------------------------------------------------------------
+
+$columns: (
+  2: 227,
+  3: 351,
+  4: 465,
+  5: 595,
+  6: 816,
+  8: 872,
+  12: 1081,
+  16: 1278,
+);
+
+//
+// A mix-in for responding to each column count
+// -----------------------------------------------------------------------------------------------
+
+@mixin columns($count) {
+  @media (min-width: #{map.get($columns, $count)}px) {
+    @content;
+  }
+}

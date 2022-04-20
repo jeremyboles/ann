@@ -1,0 +1,27 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Fluid Space Scale (https://utopia.fyi)
+//
+// -----------------------------------------------------------------------------------------------
+@use 'sass:math';
+
+@use '../../../../utils/scale';
+
+//
+// Define CSS custom properties for the website's vertical rhythm
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  $fragments-per-rhythm: 4;
+
+  $min: math.div(scale.$min-text-size * scale.$min-ratio, $fragments-per-rhythm);
+  $max: math.div(scale.$max-text-size * scale.$max-ratio, $fragments-per-rhythm);
+
+  $slope: math.div($max - $min, scale.$max-width - scale.$min-width);
+  $intersection: (scale.$min-width * -1) * $slope + $min;
+
+  --fragment: clamp(#{math.div($min, 16)}rem, #{math.div($intersection, 16)}rem + #{$slope * 100}vw, #{math.div($max, 16)}rem);
+  --fragments-per-rhythm: #{$fragments-per-rhythm};
+
+  --rhythm: calc(var(--fragment) * #{$fragments-per-rhythm});
+}

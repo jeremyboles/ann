@@ -1,0 +1,24 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Grid Layout Utility Class
+//
+// -----------------------------------------------------------------------------------------------
+
+@use 'sass:map';
+
+@use '../../../../../utils/grid';
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap, calc(var(--fragment) * 2));
+
+  @each $count in map.keys(grid.$columns) {
+    @include grid.columns($count) {
+      @if $count == 6 {
+        --grid-gap: var(--rhythm);
+      }
+
+      grid-template-columns: repeat($count, 1fr);
+    }
+  }
+}

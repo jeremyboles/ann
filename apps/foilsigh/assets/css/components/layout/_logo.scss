@@ -1,15 +1,22 @@
+// -----------------------------------------------------------------------------------------------
 //
 // Logo component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main component
 // -----------------------------------------------------------------------------------------------
 
 .logo {
-  font-family: var(--font-display);
-  font-size: var(--logo-size, var(--text-step-3));
-  font-weight: 800;
-  letter-spacing: -0.015em;
-  line-height: 1;
+  @include text.step(3, $var: --logo-size);
+  @include text.style(display, $kern: tight, $weight: 800);
+  @include text.word-spacing(tight);
+  line-height: val.rhythm(2);
   text-transform: lowercase;
-  word-spacing: -0.03em;
 
   a {
     color: var(--logo-color, var(--color-emphasized-text));
