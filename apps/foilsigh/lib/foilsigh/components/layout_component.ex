@@ -14,7 +14,6 @@ defmodule Foilsigh.LayoutComponent do
     <footer role="contentinfo">
       <div>
         <.logo />
-        
         <nav>
           <ul>
             <li><a href="/subscribe/">Subscribe</a></li>

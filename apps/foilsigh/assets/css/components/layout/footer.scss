@@ -1,6 +1,7 @@
 // -----------------------------------------------------------------------------------------------
 //
 // Website Footer Component
+// The website footer contains a logo, some secondary navigation, and a copyright notice.
 //
 // -----------------------------------------------------------------------------------------------
 
@@ -174,5 +175,26 @@ footer[role="contentinfo"] p {
 
   @include grid.columns(12) {
     padding-block-start: 0;
+  }
+
+  span {
+    @include icon.replace("/images/fa/brands/creative-commons.svg", $size: 0.85em);
+    transform: translateY(0.5ch);
+  }
+
+  a[href="https://creativecommons.org/licenses/by-sa/4.0/"]::before
+  {
+    $size: 0.85em;
+    background-color: currentcolor;
+    content: "";
+    display: inline-block;
+    height: #{val.var-escape($size)};
+    margin-inline-end: 0.25ch;
+    mask-image: #{val.url-escape("/images/fa/brands/creative-commons-by.svg")}, #{val.url-escape("/images/fa/brands/creative-commons-sa.svg")};
+    mask-repeat: no-repeat;
+    mask-position: center left, center right;
+    mask-size: #{val.var-escape($size)} #{val.var-escape($size)}, #{val.var-escape($size)} #{val.var-escape($size)};
+    vertical-align: -0.51px;
+    width: #{calc(val.var-escape($size * 2) + 0.2ch)};
   }
 }

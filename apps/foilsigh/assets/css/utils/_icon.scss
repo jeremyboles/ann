@@ -15,7 +15,7 @@
   }
 }
 
-@mixin block($size, $display: block) {
+@mixin block($size, $display: inline-block) {
   content: "";
   display: $display;
   height: #{val.var-escape($size)};
@@ -25,7 +25,13 @@
 
 @mixin mask($size, $url) {
   mask-image: #{val.url-escape($url)};
-  mask-repeat: none;
+  mask-repeat: no-repeat;
   mask-position: center center;
   mask-size: #{val.var-escape($size)} #{val.var-escape($size)};
+}
+
+@mixin replace($url, $color: currentcolor, $size: 0.85em) {
+  @include block($size, inline-block);
+  @include mask($size, $url);
+  background-color: $color;
 }
