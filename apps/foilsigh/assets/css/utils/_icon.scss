@@ -6,14 +6,26 @@
 
 @use "./val";
 
-@mixin block($size) {
+@mixin before($url, $color: currentcolor, $size: 0.85em) {
+  &::before {
+    @include block($size, inline-block);
+    @include mask($size, $url);
+    background-color: $color;
+    margin-inline-end: 0.5ch;
+  }
+}
+
+@mixin block($size, $display: block) {
   content: "";
-  display: block;
+  display: $display;
   height: #{val.var-escape($size)};
+  vertical-align: -0.51px;
   width: #{val.var-escape($size)};
 }
 
 @mixin mask($size, $url) {
   mask-image: #{val.url-escape($url)};
+  mask-repeat: none;
+  mask-position: center center;
   mask-size: #{val.var-escape($size)} #{val.var-escape($size)};
 }

@@ -1,6 +1,7 @@
 @use "sass:map";
 
 @use '../../utils/grid';
+@use '../../utils/layout';
 
 //
 // Grid guide
@@ -33,6 +34,9 @@ body:has(> .grid-guide) {
   }
 
   & > .grid {
+    @include layout.grid;
+    @include layout.wrapper;
+
     min-block-size: 100%;
 
     & > [data-column-num] {

@@ -1,7 +1,16 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Site layout styles
+// Site Layout Styles
 //
 // -----------------------------------------------------------------------------------------------
 
 @import url("/assets/components/layout.css");
+
+//
+// Main content area
+// -----------------------------------------------------------------------------------------------
+
+main {
+  // Always have have the main content area expand to fill the available vertical space
+  flex-grow: 1;
+}

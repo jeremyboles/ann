@@ -12,15 +12,19 @@
 *,
 *::before,
 *::after {
+  border: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
 }
 
 //
 // Remove default padding and list styling on styled lists
 // -----------------------------------------------------------------------------------------------
 
-ol[class],
-ul[class] {
+ol,
+ul {
   list-style: none;
   padding: 0;
 }
@@ -38,9 +42,9 @@ h1,
 h2,
 h3,
 h4,
-ol[class],
+ol,
 p,
-ul[class] {
+ul {
   margin: 0;
 }
 
@@ -57,7 +61,6 @@ html {
 // -----------------------------------------------------------------------------------------------
 
 body {
-  min-block-size: 100vh;
   text-rendering: optimizelegibility;
 }
 
@@ -66,7 +69,8 @@ body {
 // -----------------------------------------------------------------------------------------------
 
 img,
-picture {
+picture,
+svg {
   display: block;
   max-inline-size: 100%;
 }

@@ -4,6 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "sass:meta";
 @use "sass:string";
 
 //
@@ -32,7 +33,7 @@
 // -----------------------------------------------------------------------------------------------
 
 @function var-escape($var) {
-  @if string.slice($var, 1, 2) == "--" {
+  @if meta.type-of($var) == string and string.slice($var, 1, 2) == "--" {
     @return var(#{$var});
   } @else {
     @return $var;
@@ -44,7 +45,7 @@
 // -----------------------------------------------------------------------------------------------
 
 @function url-escape($url) {
-  @if string.slice(url, 1, 4) == "url(" {
+  @if meta.type-of($url) == string and string.slice($url, 1, 4) == "url(" {
     @return $url;
   } @else {
     @return url($url);

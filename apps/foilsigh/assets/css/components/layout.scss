@@ -1,6 +1,11 @@
-@use "./layout/footer-info";
-@use "./layout/grid-guide";
-@use "./layout/layout-header";
-@use "./layout/layout-footer";
-@use "./layout/logo";
-@use "./layout/main-nav";
+// -----------------------------------------------------------------------------------------------
+//
+// Stylesheets for `layout_components`.
+//
+// -----------------------------------------------------------------------------------------------
+
+@import url("./layout/header.css");
+@import url("./layout/footer.css");
+
+// Have the grid-guide component pull in its own CSS
+// @import url("./layout/grid-guide.css");

@@ -53,12 +53,13 @@
 
   @each $count in map.keys(grid.$columns) {
     @include grid.columns($count) {
-      @if $count == 6 {
-        gap: var(--grid-wide-space, #{$wide-space});
-      }
-      grid-template-columns: repeat($count, 1fr);
+      grid-template-columns: repeat($count, 1fr) !important;
     }
   }
+
+  // @if $count == 6 {
+  //   gap: var(--grid-wide-space, #{$wide-space});
+  // }
 }
 
 //
@@ -72,7 +73,7 @@
   padding-inline-start: calc(var(--wrapper-space, #{$thin-space}) + env(safe-area-inset-left));
 
   @include grid.columns(6) {
-    padding-inline-end: calc(var(--wrapper-space, #{wide-space}) + env(safe-area-inset-right));
+    padding-inline-end: calc(var(--wrapper-space, #{$wide-space}) + env(safe-area-inset-right));
     padding-inline-start: calc(var(--wrapper-space, #{$wide-space}) + env(safe-area-inset-left));
   }
 }

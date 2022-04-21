@@ -5,7 +5,7 @@
     <title><%= view_module(@conn).title(view_template(@conn), assigns) %></title>
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0, viewport-fit=cover, width=device-width">
       
     <meta content="hsl(25deg, 10%, 92%)" media="(prefers-color-scheme: light)" name="theme-color">
     <meta content="hsl(25deg, 10%, 14%)" media="(prefers-color-scheme: dark)" name="theme-color">
@@ -19,6 +19,6 @@
   </head>
   <body>
     <%= @inner_content %>
-    <!-- <.grid /> -->
+    <.grid />
   </body>
 </html>

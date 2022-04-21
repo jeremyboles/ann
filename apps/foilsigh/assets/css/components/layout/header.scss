@@ -1,0 +1,83 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Website Header Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/position';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+header[role="banner"] {
+  @include layout.center;
+  @include layout.wrapper;
+  padding-block-end: #{val.fragments(10)};
+  padding-block-start: calc(#{val.fragments(10)} + env(safe-area-inset-top, 0));
+  position: relative;
+}
+
+//
+// Home link / Logo
+// -----------------------------------------------------------------------------------------------
+
+header[role="banner"] a[role="home"] {
+  color: var(--logo-color, var(--color-emphasized-text));
+  text-decoration: none;
+  &:hover {
+    color: var(--logo-color-hover, var(--color-secondary-text));
+  }
+
+  svg {
+    height: #{val.rhythm(2)};
+    width: auto;
+  }
+}
+
+//
+// Tagline
+// -----------------------------------------------------------------------------------------------
+
+header[role="banner"] p {
+  @include text.style(sans, $step: -1, $color: tertiary, $weight: 500);
+}
+
+//
+// Main navigation
+// -----------------------------------------------------------------------------------------------
+
+header[role="banner"] nav {
+  order: -1;
+
+  ul {
+    @include layout.cluster($justify: center);
+    @include text.style(sans, $kern: loose, $step: -2, $weight: 800);
+    list-style: none;
+    text-transform: uppercase;
+
+    a {
+      @include text.color(secondary);
+      &:hover {
+        @include text.color(tertiary);
+      }
+    }
+  }
+}
+
+//
+// Knot background
+// -----------------------------------------------------------------------------------------------
+
+header[role="banner"]::after {
+  @include icon.block(--knot-size);
+  @include icon.mask(--knot-size, "/images/knot.svg");
+  @include position.center;
+  --knot-size: calc(var(--rhythm) * 4);
+  background-color: var(--color-faded-bg);
+  z-index: -1;
+}

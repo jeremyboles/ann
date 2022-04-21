@@ -11,10 +11,19 @@
 // Set up the global styles
 // -----------------------------------------------------------------------------------------------
 
+html {
+  min-block-size: 100%;
+  min-block-size: -webkit-fill-available;
+  max-inline-size: 100%;
+}
+
 body {
   @include text.style(serif, $color: main, $leading: 1, $step: 0, $weight: 200);
   background-color: var(--color-main-bg);
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  line-height: #{val.rhythm(1)};
+  min-block-size: 100vh;
 }
 
 //
