@@ -9,17 +9,11 @@
 @use '../../../../utils/scale';
 
 //
-// Define the steps that we can scale the type to
-// -----------------------------------------------------------------------------------------------
-
-$steps: -2 -1 0 1 2 3;
-
-//
 // Define CSS custom properties for each step in the type scale
 // -----------------------------------------------------------------------------------------------
 
 :root {
-  @each $step in $steps {
+  @each $step in scale.$steps {
     $min: scale.$min-text-size * math.pow(scale.$min-ratio, $step);
     $max: scale.$max-text-size * math.pow(scale.$max-ratio, $step);
 

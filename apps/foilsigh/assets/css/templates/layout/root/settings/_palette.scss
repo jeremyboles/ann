@@ -7,6 +7,7 @@
 @use "sass:list";
 
 @use "../../../../../../../../assets/css/palette";
+@use "../../../../utils/colors";
 
 //
 // Define the base colors for website
@@ -23,30 +24,16 @@
 }
 
 //
-// Define named text colors
-// -----------------------------------------------------------------------------------------------
-
-/* prettier-ignore */
-$text: (
-  main: palette.stone($lightness: 18%) palette.stone($lightness: 86%),
-  secondary: palette.stone($lightness: 30%) palette.stone($lightness: 68%),
-  tertiary: palette.stone($lightness: 42%) palette.stone($lightness: 58%),
-  
-  emphasized: palette.stone($lightness: 6%) palette.stone($lightness: 94%),
-  faded: palette.stone($lightness: 62%) palette.stone($lightness: 34%)
-);
-
-//
 // Define the text colors and CSS custom properties
 // -----------------------------------------------------------------------------------------------
 
 :root {
-  @each $name, $color-stack in $text {
+  @each $name, $color-stack in colors.$text {
     --color-#{$name}-text: #{list.nth($color-stack, 1)};
   }
 
   @media (prefers-color-scheme: dark) {
-    @each $name, $color-stack in $text {
+    @each $name, $color-stack in colors.$text {
       --color-#{$name}-text: #{list.nth($color-stack, -1)};
     }
   }

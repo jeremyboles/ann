@@ -7,10 +7,9 @@
 @use "sass:list";
 @use "sass:map";
 
-@use '../templates/layout/root/settings/palette';
-@use '../templates/layout/root/settings/scale';
-@use '../templates/layout/root/settings/type';
-
+@use './colors';
+@use './fonts';
+@use './scale';
 @use './val';
 
 //
@@ -19,14 +18,14 @@
 
 @mixin color($color) {
   color: var(--color-#{$color}-text);
-  @if not map.has-key(palette.$text, $color) {
+  @if not map.has-key(colors.$text, $color) {
     @warn "Unknown text color '#{$color}'.";
   }
 }
 
 @mixin font($font) {
   font-family: var(--font-#{$font});
-  @if not map.has-key(type.$fonts, $font) {
+  @if not map.has-key(fonts.$fonts, $font) {
     @warn "Unknown font name '#{$font}'.";
   }
 }
