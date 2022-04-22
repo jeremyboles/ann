@@ -12,6 +12,7 @@
     @include mask($size, $url);
     background-color: $color;
     margin-inline-end: 0.5ch;
+    @content;
   }
 }
 

@@ -33,7 +33,7 @@
 
 @mixin kern($name) {
   /* prettier-ignore */
-  $kerning: ( loose: 0.05em, tight: -0.015em );
+  $kerning: ( loose: 0.075em, tight: -0.015em );
   letter-spacing: #{map.get($kerning, $name)};
   @if not map.has-key($kerning, $name) {
     @warn "Unknown kern name '#{$name}'.";
@@ -42,6 +42,11 @@
 
 @mixin leading($leading) {
   line-height: #{val.rhythm($leading)};
+}
+
+@mixin outdent($amount: 2ch) {
+  padding-left: $amount;
+  text-indent: $amount * -1;
 }
 
 @mixin step($step, $var: false) {

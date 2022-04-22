@@ -25,7 +25,7 @@
 // Clusters all of the children in row, wrapping predictably
 // -----------------------------------------------------------------------------------------------
 
-@mixin cluster($space: val.fragments(2), $justify: flex-start) {
+@mixin cluster($space: val.fragments(2), $justify: start) {
   align-items: var(--cluster-align, center);
   display: flex;
   flex-wrap: wrap;
@@ -47,19 +47,15 @@
 // Sets up a column grid
 // -----------------------------------------------------------------------------------------------
 
-@mixin grid($thin-space: val.fragments(2), $wide-space: val.rhythm(1)) {
+@mixin grid($space: val.fragments(2)) {
   display: grid;
-  gap: var(--grid-thin-space, #{$thin-space});
+  gap: var(--grid-space, #{$space});
 
   @each $count in map.keys(grid.$columns) {
     @include grid.columns($count) {
       grid-template-columns: repeat($count, 1fr) !important;
     }
   }
-
-  // @if $count == 6 {
-  //   gap: var(--grid-wide-space, #{$wide-space});
-  // }
 }
 
 //

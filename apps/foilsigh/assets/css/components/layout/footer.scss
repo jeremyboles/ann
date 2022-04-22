@@ -13,7 +13,7 @@
 @use '../../utils/val';
 
 //
-// Main container + content wrapper
+// Main container
 // -----------------------------------------------------------------------------------------------
 
 footer[role="contentinfo"] {
@@ -22,7 +22,7 @@ footer[role="contentinfo"] {
   color: #{palette.stone($lightness: 84%)};
 
   @media (prefers-color-scheme: dark) {
-    background-color: #{palette.stone($lightness: 4%)};
+    background-color: #{palette.stone($lightness: 2%)};
     color: #{palette.stone($lightness: 94%)};
   }
 
@@ -107,7 +107,7 @@ footer[role="contentinfo"] > div {
         grid-column-start: span $width;
       }
 
-      // Navigation + Taglin
+      // Navigation + Tagline
       nav,
       p {
         grid-column-end: span #{$columns - $width};

@@ -16,19 +16,9 @@
   --color-main-bg: #{palette.stone($lightness: 92%)};
   --color-faded-bg: #{palette.stone($lightness: 90%)};
 
-  --color-main-text: #{palette.stone($lightness: 18%)};
-  --color-secondary-text: #{palette.stone($lightness: 30%)};
-  --color-tertiary-text: #{palette.stone($lightness: 42%)};
-  --color-emphasized-text: #{palette.stone($lightness: 6%)};
-
   @media (prefers-color-scheme: dark) {
     --color-main-bg: #{palette.stone($lightness: 14%)};
     --color-faded-bg: #{palette.stone($lightness: 12%)};
-
-    --color-main-text: #{palette.stone($lightness: 86%)};
-    --color-secondary-text: #{palette.stone($lightness: 68%)};
-    --color-tertiary-text: #{palette.stone($lightness: 58%)};
-    --color-emphasized-text: #{palette.stone($lightness: 94%)};
   }
 }
 
@@ -42,7 +32,8 @@ $text: (
   secondary: palette.stone($lightness: 30%) palette.stone($lightness: 68%),
   tertiary: palette.stone($lightness: 42%) palette.stone($lightness: 58%),
   
-  emphasized: palette.stone($lightness: 6%) palette.stone($lightness: 94%)
+  emphasized: palette.stone($lightness: 6%) palette.stone($lightness: 94%),
+  faded: palette.stone($lightness: 62%) palette.stone($lightness: 34%)
 );
 
 //

@@ -1,0 +1,351 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Aside Footer Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/block';
+@use '../../utils/grid';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+aside[role="complementary"] {
+  background-color: #{palette.stone($lightness: 82%)};
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #{palette.stone($lightness: 8%)};
+  }
+}
+
+//
+// Content wrapper - this is what controls the grid layout
+// -----------------------------------------------------------------------------------------------
+
+aside[role="complementary"] > div {
+  @include layout.grid;
+  @include layout.wrapper;
+  --grid-space: #{val.fragments(2)};
+  padding-block: #{val.rhythm(2)};
+  row-gap: #{val.rhythm(1)};
+
+  & > * {
+    grid-column-end: -1;
+    grid-column-start: 1;
+  }
+
+  @include grid.columns(4) {
+    & > div,
+    & > nav {
+      grid-row: 2;
+    }
+
+    // Navigation
+    & > nav {
+      grid-column-end: span 2;
+    }
+
+    // Social links
+    & > div {
+      grid-column-start: 3;
+    }
+  }
+
+  @include grid.columns(6) {
+    // Navigation
+    & > nav {
+      grid-column-end: span 3;
+    }
+
+    // Social links
+    & > div {
+      grid-column-start: 4;
+    }
+  }
+
+  @include grid.columns(8) {
+    grid-template-rows: min-content 1fr;
+
+    // Bio
+    & > article {
+      grid-column: 4 / span 5;
+      grid-row: 1 / span 2;
+    }
+
+    & > div,
+    & > nav {
+      grid-column: 1 / span 3;
+    }
+
+    // Navigation
+    & > nav {
+      grid-row: 1;
+    }
+
+    // Social links
+    & > div {
+      grid-row: 2;
+    }
+  }
+
+  @include grid.columns(12) {
+    grid-template-rows: min-content;
+
+    // Bio
+    & > article {
+      grid-column: span 6 / -1;
+      grid-row: 1;
+    }
+
+    // Navigation
+    & > nav {
+      grid-column: 1 / span 3;
+    }
+
+    // Social links
+    & > div {
+      grid-column: 4 / span 3;
+      grid-row: 1;
+    }
+  }
+
+  @include grid.columns(16) {
+    // Navigation
+    & > nav {
+      grid-column: 1 / span 4;
+    }
+
+    // Social links
+    & > div {
+      grid-column: 5 / span 4;
+    }
+
+    // Bio
+    & > article {
+      grid-column: span 7 / -1;
+    }
+  }
+}
+
+//
+// Bio
+// -----------------------------------------------------------------------------------------------
+
+aside[role="complementary"] > div article {
+  // Define a sub-grid layout
+  display: grid;
+  gap: var(--grid-space);
+  grid-template-columns: 1fr;
+
+  @each $breakpoint, $columns in (2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 8: 5, 12: 6, 16: 7) {
+    @include grid.columns($breakpoint) {
+      grid-template-columns: repeat($columns, 1fr);
+    }
+  }
+
+  & > * {
+    grid-column-end: -1;
+    grid-column-start: 1;
+  }
+
+  & > picture {
+    aspect-ratio: 1 / 1;
+  }
+
+  @include grid.columns(5) {
+    grid-template-rows: min-content 1fr;
+    & > picture {
+      aspect-ratio: initial;
+      grid-column-end: span 2;
+      grid-row: 1 / 3;
+    }
+
+    & > h2,
+    & > p {
+      grid-column-start: 3;
+    }
+  }
+
+  @include grid.columns(8) {
+    & > picture {
+      aspect-ratio: 2 / 3;
+      grid-row: 2;
+    }
+
+    & > h2 {
+      grid-column-start: 1;
+    }
+  }
+
+  @include grid.columns(16) {
+    & > picture {
+      grid-column-end: span 3;
+      grid-row: 1 / 3;
+    }
+
+    & > h2,
+    & > p {
+      grid-column-start: 4;
+    }
+  }
+}
+
+// Title
+aside[role="complementary"] > div article h2 {
+  @include text.style(sans, $color: emphasized, $step: 0, $weight: 800);
+  line-height: #{val.rhythm(1)};
+}
+
+// Avatar/Picture
+aside[role="complementary"] > div article picture {
+  @include block.rounded;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    width: 100%;
+  }
+}
+
+// Copy
+aside[role="complementary"] > div article p {
+  @include text.style($color: secondary, $step: -1);
+
+  a[href] {
+    color: inherit;
+    text-decoration-color: transparent;
+    &:hover {
+      @include text.style($color: main);
+      text-decoration-color: var(--color-faded-text);
+    }
+  }
+}
+
+// Pronouns
+aside[role="complementary"] > div article p > b {
+  @include text.style(sans, $color: faded, $step: -2, $weight: 600);
+  white-space: nowrap;
+
+  a[href] {
+    color: #{palette.orange($lightness: 40%)};
+    font-weight: 900;
+    text-decoration-color: #{palette.orange($lightness: 72%)};
+    text-transform: uppercase;
+    &:hover {
+      color: #{palette.orange($lightness: 50%)};
+      text-decoration-color: #{palette.orange($lightness: 46%)};
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: #{palette.orange($lightness: 40%)};
+      text-decoration-color: #{palette.orange($lightness: 18%)};
+      &:hover {
+        color: #{palette.orange($lightness: 48%)};
+        text-decoration-color: #{palette.orange($lightness: 38%)};
+      }
+    }
+  }
+}
+
+//
+// Lists of links
+// -----------------------------------------------------------------------------------------------
+
+aside[role="complementary"] > div > nav,
+aside[role="complementary"] > div > div {
+  @include layout.center;
+
+  @include grid.columns(8) {
+    align-items: start;
+  }
+
+  h3 {
+    @include text.style(sans, $step: -2, $color: main, $kern: loose, $weight: 800);
+    text-align: center;
+    text-transform: uppercase;
+
+    @include grid.columns(8) {
+      text-align: start;
+    }
+  }
+
+  ul {
+    @include layout.center;
+    @include text.style(sans, $step: -1, $weight: 500);
+    gap: val.fragments(1);
+    line-height: #{val.fragments(3)};
+    text-align: center;
+
+    @include grid.columns(8) {
+      align-items: start;
+      text-align: start;
+
+      li {
+        @include text.outdent;
+      }
+    }
+
+    a,
+    a[href] {
+      @include text.color(tertiary);
+      text-decoration-color: transparent;
+      &:hover {
+        @include text.color(secondary);
+        text-decoration-color: var(--color-faded-text);
+      }
+    }
+  }
+}
+
+//
+// Social links
+// -----------------------------------------------------------------------------------------------
+
+aside[role="complementary"] > div a[href*="boles.social"] {
+  @include icon.before("/images/fa/brands/mastodon.svg", $size: 1.25em);
+}
+
+aside[role="complementary"] > div a[href*="facebook.com"] {
+  @include icon.before("/images/fa/brands/facebook.svg", $size: 1.25em);
+}
+
+aside[role="complementary"] > div a[href*="github.com"] {
+  @include icon.before("/images/fa/brands/github.svg", $size: 1.25em);
+}
+
+aside[role="complementary"] > div a[href*="instagram.com"] {
+  @include icon.before("/images/fa/brands/instagram.svg", $size: 1.25em);
+}
+
+aside[role="complementary"] > div a[href*="twitter.com"] {
+  @include icon.before("/images/fa/brands/twitter.svg", $size: 1.25em);
+}
+
+aside[role="complementary"] > div a[href]::before {
+  background-color: var(--color-faded-text);
+  margin-top: calc(#{val.fragments(2)} * -1);
+  transform: translateY(25%);
+  vertical-align: middle;
+}
+
+aside[role="complementary"] > div a[href]:link:hover::before {
+  background-color: var(--external-link-underline-color-hover);
+}
+
+aside[role="complementary"] > div a[href]:visited:hover::before {
+  background-color: var(--external-link-visited-underline-color-hover);
+}
+
+aside[role="complementary"] > div a[href]:active:hover::before,
+aside[role="complementary"] > div a[href]:active::before {
+  background-color: var(--external-link-active-color);
+}
