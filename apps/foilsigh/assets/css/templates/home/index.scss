@@ -1,0 +1,47 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Website Home Page
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+@use '../../utils/val';
+
+//
+// Article Masthead
+// -----------------------------------------------------------------------------------------------
+
+article {
+  z-index: -1;
+}
+
+article > header {
+  $website-header-height: #{val.rhythm(9)};
+  background-color: #{palette.stone($lightness: 72%)};
+  height: 100vh;
+  margin-block-start: calc(val.rhythm(9) * -1);
+  padding-block-start: $website-header-height;
+  position: relative;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #{palette.stone($lightness: 32%)};
+  }
+
+  picture {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    width: 100%;
+    // z-index: -1;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      width: 100%;
+    }
+  }
+}

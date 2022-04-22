@@ -19,6 +19,7 @@
 
 aside[role="complementary"] {
   background-color: #{palette.stone($lightness: 82%)};
+  z-index: 1;
 
   @media (prefers-color-scheme: dark) {
     background-color: #{palette.stone($lightness: 8%)};

@@ -5,6 +5,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "../../../../../../assets/css/palette";
 @use '../../utils/icon';
 @use '../../utils/layout';
 @use '../../utils/position';
@@ -21,6 +22,7 @@ header[role="banner"] {
   padding-block-end: #{val.fragments(10)};
   padding-block-start: calc(#{val.fragments(10)} + env(safe-area-inset-top, 0));
   position: relative;
+  z-index: 1;
 }
 
 //
@@ -79,6 +81,12 @@ header[role="banner"]::after {
   @include icon.mask(--knot-size, "/images/knot.svg");
   @include position.center;
   --knot-size: calc(var(--rhythm) * 4);
-  background-color: var(--color-faded-bg);
+  background-color: #{palette.stone($lightness: 4%, $alpha: 0.15)};
+  mix-blend-mode: overlay;
   z-index: -1;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #{palette.stone($lightness: 4%, $alpha: 0.15)};
+    mix-blend-mode: hard-light;
+  }
 }

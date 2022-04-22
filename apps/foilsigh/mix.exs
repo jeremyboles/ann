@@ -65,7 +65,7 @@ defmodule Foilsigh.MixProject do
       "assets.deploy": [
         "cmd cd priv/js && npm ci && mv ./node_modules/ ./_node_modules/ && rsync --archive --copy-links ./_node_modules/ ./node_modules/ && rm -rf ./_node_modules",
         "sass foilsigh --no-source-map",
-        "postcss foilsigh",
+        "postcss foilsigh --no-map",
         "phx.digest"
       ],
       "npm.get": ["cmd cd assets && npm install", "cmd cd priv/js && npm install"]
