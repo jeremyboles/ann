@@ -1,4 +1,13 @@
 <article>
   <header>
+    <picture>
+      <img src="/images/masthead@2048w.jpg">
+    </picture>
   </header>
+  
+  <div>
+    <%= for num <- 1..16 do %>
+      <div data-column-num={num}><%= num %></div>
+    <% end %>
+  </div>
 </article>

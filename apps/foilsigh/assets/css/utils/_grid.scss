@@ -24,3 +24,19 @@ $columns: (
     @content;
   }
 }
+
+//
+// Width
+// -----------------------------------------------------------------------------------------------
+
+@mixin width($count) {
+  @each $i in map.keys($columns) {
+    @include columns($i) {
+      @if $count == 1 {
+        width: calc((100% - ((var(--fragment) * 2) * #{$i - 1})) / #{$i});
+      } @else {
+        width: calc((((100% - ((var(--fragment) * 2) * #{$i - 1})) / #{$i}) * $count) + ((var(--fragment) * 2) * ($count - 1)));
+      }
+    }
+  }
+}

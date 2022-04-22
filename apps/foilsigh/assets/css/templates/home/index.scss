@@ -5,7 +5,34 @@
 // -----------------------------------------------------------------------------------------------
 
 @use "../../../../../../assets/css/palette";
+@use '../../utils/grid';
+@use '../../utils/layout';
 @use '../../utils/val';
+
+//
+// Change the website header
+// -----------------------------------------------------------------------------------------------
+
+header[role="banner"] {
+  a[role="home"] {
+    color: #{palette.stone($lightness: 96%)};
+    &:hover {
+      color: #{palette.stone($lightness: 96%, $alpha: 0.72)};
+    }
+  }
+
+  p {
+    color: #{palette.stone($lightness: 90%)};
+    text-shadow: #{palette.stone($lightness: 10%, $alpha: 0.5)} 0 0 #{val.fragments(1)};
+  }
+
+  nav ul a {
+    color: #{palette.stone($lightness: 86%)};
+    &:hover {
+      color: #{palette.stone($lightness: 86%, $alpha: 0.72)};
+    }
+  }
+}
 
 //
 // Article Masthead
@@ -17,7 +44,7 @@ article {
 
 article > header {
   $website-header-height: #{val.rhythm(10)};
-  background-color: #{palette.stone($lightness: 72%)};
+  background-color: #{palette.stone($lightness: 80%)};
   height: 100vh;
   margin-block-start: calc($website-header-height * -1);
   padding-block-start: $website-header-height;
@@ -30,8 +57,10 @@ article > header {
   picture {
     bottom: 0;
     left: 0;
-    position: absolute;
+    mix-blend-mode: multiply;
+    // opacity: 0.8;
     overflow: hidden;
+    position: absolute;
     right: 0;
     top: 0;
     width: 100%;
@@ -40,8 +69,29 @@ article > header {
     img {
       height: 100%;
       object-fit: cover;
-      object-position: center bottom;
+      object-position: center top;
       width: 100%;
+    }
+  }
+}
+
+//
+// Article Content
+// -----------------------------------------------------------------------------------------------
+
+article > div {
+  // @include layout.grid;
+  @include layout.wrapper;
+  padding-block: #{val.rhythm(1)};
+
+  & > div {
+    color: white;
+    background-color: black;
+
+    @each $columns in (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) {
+      &[data-column-num="#{$columns}"] {
+        @include grid.width($columns);
+      }
     }
   }
 }
