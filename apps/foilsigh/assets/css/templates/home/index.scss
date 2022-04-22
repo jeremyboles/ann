@@ -16,10 +16,10 @@ article {
 }
 
 article > header {
-  $website-header-height: #{val.rhythm(9)};
+  $website-header-height: #{val.rhythm(10)};
   background-color: #{palette.stone($lightness: 72%)};
   height: 100vh;
-  margin-block-start: calc(val.rhythm(9) * -1);
+  margin-block-start: calc($website-header-height * -1);
   padding-block-start: $website-header-height;
   position: relative;
 

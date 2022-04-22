@@ -164,7 +164,7 @@ footer[role="contentinfo"] nav ul a[href="/subscribe/"] {
 // -----------------------------------------------------------------------------------------------
 
 footer[role="contentinfo"] p {
-  line-height: #{val.fragments(2)};
+  line-height: #{val.fragments(3)};
   max-inline-size: initial;
   text-align: center;
 
@@ -179,7 +179,7 @@ footer[role="contentinfo"] p {
 
   span {
     @include icon.replace("/images/fa/brands/creative-commons.svg", $size: 0.85em);
-    transform: translateY(0.5ch);
+    transform: translateY(0.4ch);
   }
 
   a[href="https://creativecommons.org/licenses/by-sa/4.0/"]::before

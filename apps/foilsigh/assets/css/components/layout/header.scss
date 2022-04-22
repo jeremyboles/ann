@@ -37,7 +37,8 @@ header[role="banner"] a[role="home"] {
   }
 
   svg {
-    height: #{val.rhythm(2)};
+    height: #{val.fragments(10)};
+    margin-block: #{val.fragments(1)};
     width: auto;
   }
 }
@@ -48,6 +49,7 @@ header[role="banner"] a[role="home"] {
 
 header[role="banner"] p {
   @include text.style(sans, $step: -1, $color: tertiary, $weight: 500);
+  text-align: center;
 }
 
 //
@@ -59,7 +61,7 @@ header[role="banner"] nav {
 
   ul {
     @include layout.cluster($justify: center);
-    @include text.style(sans, $kern: loose, $step: -2, $weight: 800);
+    @include text.style(sans, $kern: loose, $step: -3, $weight: 800);
     list-style: none;
     text-transform: uppercase;
 
@@ -80,8 +82,8 @@ header[role="banner"]::after {
   @include icon.block(--knot-size);
   @include icon.mask(--knot-size, "/images/knot.svg");
   @include position.center;
-  --knot-size: calc(var(--rhythm) * 4);
-  background-color: #{palette.stone($lightness: 4%, $alpha: 0.15)};
+  --knot-size: #{val.rhythm(6)};
+  background-color: #{palette.stone($lightness: 4%, $alpha: 0.05)};
   mix-blend-mode: overlay;
   z-index: -1;
 

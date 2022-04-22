@@ -130,7 +130,7 @@ aside[role="complementary"] > div {
 
     // Bio
     & > article {
-      grid-column: span 7 / -1;
+      grid-column: span 6 / -1;
     }
   }
 }
@@ -145,7 +145,7 @@ aside[role="complementary"] > div article {
   gap: var(--grid-space);
   grid-template-columns: 1fr;
 
-  @each $breakpoint, $columns in (2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 8: 5, 12: 6, 16: 7) {
+  @each $breakpoint, $columns in (2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 8: 5, 12: 6, 16: 6) {
     @include grid.columns($breakpoint) {
       grid-template-columns: repeat($columns, 1fr);
     }
@@ -176,7 +176,7 @@ aside[role="complementary"] > div article {
 
   @include grid.columns(8) {
     & > picture {
-      aspect-ratio: 2 / 3;
+      aspect-ratio: 4 / 5;
       grid-row: 2;
     }
 
@@ -187,20 +187,20 @@ aside[role="complementary"] > div article {
 
   @include grid.columns(16) {
     & > picture {
-      grid-column-end: span 3;
+      grid-column-end: span 2;
       grid-row: 1 / 3;
     }
 
     & > h2,
     & > p {
-      grid-column-start: 4;
+      grid-column-start: 3;
     }
   }
 }
 
 // Title
 aside[role="complementary"] > div article h2 {
-  @include text.style(sans, $color: emphasized, $step: 0, $weight: 800);
+  @include text.style(sans, $color: emphasized, $step: 1, $weight: 800);
   line-height: #{val.rhythm(1)};
 }
 
@@ -232,7 +232,7 @@ aside[role="complementary"] > div article p {
 
 // Pronouns
 aside[role="complementary"] > div article p > b {
-  @include text.style(sans, $color: faded, $step: -2, $weight: 600);
+  @include text.style(sans, $color: faded, $step: -3, $weight: 600);
   white-space: nowrap;
 
   a[href] {
