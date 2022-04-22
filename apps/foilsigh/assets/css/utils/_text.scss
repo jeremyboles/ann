@@ -23,6 +23,13 @@
   }
 }
 
+@mixin decoration-color($color) {
+  text-decoration-color: var(--color-#{$color}-text);
+  @if not map.has-key(colors.$text, $color) {
+    @warn "Unknown text color '#{$color}'.";
+  }
+}
+
 @mixin font($font) {
   font-family: var(--font-#{$font});
   @if not map.has-key(fonts.$fonts, $font) {
@@ -76,9 +83,12 @@
 // Mix-in for settings a bunch of text properties at once
 // -----------------------------------------------------------------------------------------------
 
-@mixin style($font: false, $color: false, $kern: false, $leading: false, $step: false, $weight: false) {
+@mixin style($font: false, $color: false, $decoration-color: false, $kern: false, $leading: false, $step: false, $weight: false) {
   @if $color {
     @include color($color);
+  }
+  @if $decoration-color {
+    @include decoration-color($decoration-color);
   }
   @if $font {
     @include font($font);

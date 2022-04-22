@@ -225,8 +225,7 @@ aside[role="complementary"] > div article p {
     color: inherit;
     text-decoration-color: transparent;
     &:hover {
-      @include text.style($color: main);
-      text-decoration-color: var(--color-faded-text);
+      @include text.style($color: main, $decoration-color: faded);
     }
   }
 }
@@ -300,8 +299,7 @@ aside[role="complementary"] > div > div {
       @include text.color(tertiary);
       text-decoration-color: transparent;
       &:hover {
-        @include text.color(secondary);
-        text-decoration-color: var(--color-faded-text);
+        @include text.style($color: secondary, $decoration-color: faded);
       }
     }
   }
