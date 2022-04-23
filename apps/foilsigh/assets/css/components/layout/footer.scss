@@ -167,6 +167,7 @@ footer[role="contentinfo"] p {
   line-height: #{val.fragments(3)};
   max-inline-size: initial;
   text-align: center;
+  -webkit-text-size-adjust: 100%;
 
   @include grid.columns(6) {
     padding-block-start: #{val.fragments(2)};
