@@ -19,3 +19,35 @@ $text: (
   emphasized: palette.stone($lightness: 6%) palette.stone($lightness: 94%),
   faded: palette.stone($lightness: 62%) palette.stone($lightness: 34%)
 );
+
+//
+// Mix-in for setting CSS custom properties for colors easily
+// -----------------------------------------------------------------------------------------------
+
+@mixin prop($name, $value, $ns: false) {
+  #{css-name($name, $ns)}: #{$value};
+}
+
+//
+// Function for getting the CSS property name for a given color name
+// -----------------------------------------------------------------------------------------------
+
+@function css-name($name, $ns: false) {
+  @if ($ns) {
+    @return --color-#{$name}-#{$ns};
+  } @else {
+    @return --color-#{$name};
+  }
+}
+
+//
+// Function for outputting a named color as a CSS variable
+// -----------------------------------------------------------------------------------------------
+
+@function var($name, $default: false, $ns: false) {
+  @if $default {
+    @return #{"var("}#{css-name($name, $ns: text)}#{", "}#{$default}#{")"};
+  } @else {
+    @return #{"var("}#{css-name($name, $ns: text)}#{")"};
+  }
+}

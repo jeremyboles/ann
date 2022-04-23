@@ -13,18 +13,18 @@
 @use './val';
 
 //
-// Mix-ins for setting CSS custom properities with safe-guards
+// Mix-ins for setting CSS custom properties with safe-guards
 // -----------------------------------------------------------------------------------------------
 
 @mixin color($color) {
-  color: var(--color-#{$color}-text);
+  color: #{colors.var($color, $ns: text)};
   @if not map.has-key(colors.$text, $color) {
     @warn "Unknown text color '#{$color}'.";
   }
 }
 
 @mixin decoration-color($color) {
-  text-decoration-color: var(--color-#{$color}-text);
+  text-decoration-color: #{colors.var($color, $ns: text)};
   @if not map.has-key(colors.$text, $color) {
     @warn "Unknown text color '#{$color}'.";
   }

@@ -29,12 +29,12 @@
 
 :root {
   @each $name, $color-stack in colors.$text {
-    --color-#{$name}-text: #{list.nth($color-stack, 1)};
+    @include colors.prop($name, list.nth($color-stack, 1), $ns: text);
   }
 
   @media (prefers-color-scheme: dark) {
     @each $name, $color-stack in colors.$text {
-      --color-#{$name}-text: #{list.nth($color-stack, -1)};
+      @include colors.prop($name, list.nth($color-stack, -1), $ns: text);
     }
   }
 }
