@@ -6,7 +6,7 @@
 
 @use "../../../../../../assets/css/palette";
 
-@use '../../utils/block';
+@use '../../utils/box';
 @use '../../utils/grid';
 @use '../../utils/icon';
 @use '../../utils/layout';
@@ -206,7 +206,7 @@ aside[role="complementary"] > div article h2 {
 
 // Avatar/Picture
 aside[role="complementary"] > div article picture {
-  @include block.rounded;
+  @include box.rounded;
   overflow: hidden;
 
   img {

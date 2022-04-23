@@ -5,8 +5,10 @@
 // -----------------------------------------------------------------------------------------------
 
 @use "../../../../../../assets/css/palette";
+@use "../../utils/box";
 @use '../../utils/grid';
 @use '../../utils/layout';
+@use '../../utils/text';
 @use '../../utils/val';
 
 //
@@ -38,14 +40,18 @@ header[role="banner"] {
 // Article Masthead
 // -----------------------------------------------------------------------------------------------
 
-article {
+section {
   z-index: -1;
 }
 
-article > header {
+section > header {
   $website-header-height: #{val.rhythm(10)};
+
+  align-items: stretch;
   background-color: #{palette.stone($lightness: 80%)};
-  height: 100vh;
+  display: flex;
+  min-height: calc(100vh - env(safe-area-inset-bottom, 0) - env(safe-area-inset-top, 0));
+  justify-content: flex-end;
   margin-block-start: calc($website-header-height * -1);
   padding-block-start: $website-header-height;
   position: relative;
@@ -64,7 +70,7 @@ article > header {
     right: 0;
     top: 0;
     width: 100%;
-    // z-index: -1;
+    z-index: 0;
 
     img {
       height: 100%;
@@ -73,24 +79,61 @@ article > header {
       width: 100%;
     }
   }
+
+  article {
+    @include layout.wrapper;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    padding-block: #{val.rhythm(1)};
+    width: 100%;
+    z-index: 1;
+
+    & > div {
+      @include box.rounded;
+      @include grid.width(7);
+      background-color: #{palette.stone($lightness: 90%, $alpha: 0.8)};
+      padding: #{val.rhythm(1)};
+
+      @media (prefers-color-scheme: dark) {
+        background-color: #{palette.stone($lightness: 8%, $alpha: 0.6)};
+      }
+    }
+
+    h1 {
+      @include text.style(sans, $step: 2, $color: main, $weight: 700);
+      padding-block-end: #{val.fragments(2)};
+    }
+
+    p {
+      @include text.style($step: 0, $color: secondary);
+      font-weight: 100;
+    }
+  }
 }
 
 //
-// Article Content
+// Main content
 // -----------------------------------------------------------------------------------------------
 
-article > div {
-  // @include layout.grid;
+section > div {
+  @include layout.grid;
   @include layout.wrapper;
   padding-block: #{val.rhythm(1)};
+  // grid-auto-columns: span 4;
 
-  & > div {
-    color: white;
-    background-color: black;
+  & > article {
+    @include box.rounded;
+    background-color: #{palette.stone($lightness: 98%)};
+    padding: #{val.rhythm(1)};
 
-    @each $columns in (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16) {
-      &[data-column-num="#{$columns}"] {
-        @include grid.width($columns);
+    @media (prefers-color-scheme: dark) {
+      background-color: #{palette.stone($lightness: 4%)};
+    }
+
+    @each $columns, $span in (2: 2, 3: 3, 4: 4, 5: 5, 6: 3, 8: 2, 12: 3, 16: 4) {
+      @include grid.columns($columns) {
+        grid-column: span $span !important;
       }
     }
   }
