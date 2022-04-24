@@ -51,7 +51,7 @@
 }
 
 @mixin outdent($amount: 2ch) {
-  padding-left: $amount;
+  padding-inline-start: $amount;
   text-indent: $amount * -1;
 }
 

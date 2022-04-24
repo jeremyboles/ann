@@ -1,0 +1,38 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Nested List
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Nested each subsequent list within another fragment unit
+// -----------------------------------------------------------------------------------------------
+
+.nested_list ul {
+  padding-inline-start: #{val.fragments(1)};
+}
+
+//
+// Topic link container
+// -----------------------------------------------------------------------------------------------
+
+.nested_list li {
+  @include text.style(sans, $weight: 700, $step: -1);
+  @include text.outdent(1ch);
+  break-inside: avoid;
+  display: block;
+}
+
+//
+// Topic link
+// -----------------------------------------------------------------------------------------------
+
+.nested_list a {
+  @include text.color(main);
+  &:hover {
+    color: var(--topic-link-hover-color);
+  }
+}
