@@ -35,7 +35,7 @@ body:has(> .grid-guide) {
   }
 
   & > .grid {
-    @include layout.grid;
+    @include layout.grid($initialize-columns: false);
     @include layout.wrapper;
 
     min-block-size: 100%;

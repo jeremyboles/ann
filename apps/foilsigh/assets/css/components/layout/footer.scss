@@ -56,12 +56,6 @@ footer[role="contentinfo"] > div {
   margin-block-start: #{val.rhythm(1)};
   row-gap: #{val.fragments(2)};
 
-  // Use a stacked-grid layout for layouts less than six columns
-  & > * {
-    grid-column-end: -1;
-    grid-column-start: 1;
-  }
-
   // Switch to a side-by-side layout for layouts six-columns or more
   @include grid.columns(6) {
     align-items: center;

@@ -25,11 +25,6 @@ main > article {
   padding-bottom: #{val.rhythm(2)};
   row-gap: #{val.rhythm(1)};
 
-  & > * {
-    grid-column-start: 1;
-    grid-column-end: -1;
-  }
-
   @include grid.columns(12) {
     .section_header {
       grid-column-end: span 4;

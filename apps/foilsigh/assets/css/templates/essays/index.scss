@@ -1,0 +1,69 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essays Index Page Layout Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/val';
+
+//
+// Imports for components used on page
+// -----------------------------------------------------------------------------------------------
+
+@import url("/assets/components/essays.css");
+@import url("/assets/components/shared.css");
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+main > div {
+  @include layout.grid;
+  @include layout.wrapper;
+  padding-bottom: #{val.rhythm(2)};
+
+  @include grid.columns(8) {
+    & > .section_header {
+      grid-column-end: span 3;
+    }
+
+    & > .essay_summary {
+      grid-column-start: 4;
+    }
+
+    & > section {
+    }
+  }
+
+  @include grid.columns(12) {
+    & > .section_header {
+      grid-column-end: span 4;
+    }
+
+    & > .essay_summary {
+      grid-column-start: 5;
+      grid-column-end: span 5;
+    }
+
+    & > section {
+      grid-column-start: 10;
+    }
+  }
+
+  @include grid.columns(16) {
+    & > .section_header {
+      grid-column-end: span 3;
+    }
+
+    & > .essay_summary {
+      grid-column-start: 5;
+      grid-column-end: span 7;
+    }
+
+    & > section {
+      grid-column-start: 13;
+    }
+  }
+}
