@@ -56,7 +56,7 @@ main > article {
 // -----------------------------------------------------------------------------------------------
 
 main > article .nested_list {
-  column-gap: #{val.fragments(2)};
+  column-gap: var(--grid-space);
 
   @each $breakpoint, $columns in (3: 2, 6: 3, 8: 4, 16: 6) {
     @include grid.columns($breakpoint) {

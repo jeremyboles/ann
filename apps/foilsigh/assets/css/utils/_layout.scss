@@ -47,12 +47,16 @@
 // Sets up a column grid
 // -----------------------------------------------------------------------------------------------
 
-@mixin grid($space: val.fragments(2)) {
+@mixin grid($space-thin: val.fragments(2), $space-wide: val.rhythm(1)) {
+  --grid-space: var(--grid-space-thin, #{$space-thin});
   display: grid;
-  gap: var(--grid-space, #{$space});
+  gap: var(--grid-space);
 
   @each $count in map.keys(grid.$columns) {
     @include grid.columns($count) {
+      @if $count == 8 {
+        --grid-space: var(--grid-space-wide, #{$space-wide});
+      }
       grid-template-columns: repeat($count, 1fr) !important;
     }
   }

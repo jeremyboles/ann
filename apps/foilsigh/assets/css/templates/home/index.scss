@@ -120,7 +120,6 @@ section > div {
   @include layout.grid;
   @include layout.wrapper;
   padding-block: #{val.rhythm(1)};
-  // grid-auto-columns: span 4;
 
   & > article {
     @include box.rounded;
