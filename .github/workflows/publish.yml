@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [main]
+    branches: [deploy]
 
 jobs:
   deploy:
@@ -17,7 +17,22 @@ jobs:
         with:
           lfs: true
           submodules: recursive
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+      - name: Install package for cloudflared
+        run: |
+          sudo wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+          sudo dpkg -i ./cloudflared-linux-amd64.deb
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          name: id_ed25519
+          config: |
+            Host ${{ secrets.SSH_HOST }}
+              IdentityFile ~/.ssh/id_ed25519
+              ProxyCommand cloudflared access ssh --hostname %h --log-level debug --service-token-id ${{ secrets.CF_CLIENT_ID }} --service-token-secret ${{ secrets.CF_CLIENT_SECRET }}
+              User ${{ secrets.SSH_USER }}
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:
@@ -26,13 +41,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16.14.2'
-      - name: Restore dependencies cache
-        uses: actions/cache@v2
-        with:
-          path: deps
-          key: prod-${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: prod-${{ runner.os }}-mix-
+          node-version: "16.14.2"
+
       - name: Restore build cache
         uses: actions/cache@v2
         with:
@@ -51,52 +61,8 @@ jobs:
         run: mix phx.digest
       - name: Build release
         run: mix release --overwrite
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-          name: id_ed25519
-      - name: Deploy with rsync
-        run: rsync --checksum --compress --copy-links --delete --exclude "keys" --exclude "tls" --human-readable --partial --recursive --verbose ./_build/prod/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/srv/ann
-      - name: Reload server
-        run: ssh -tt ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo /usr/bin/systemctl restart ann"
-#   test:
-#     name: Run test suite
-#     runs-on: ubuntu-latest
-#
-#     services:
-#       postgres:
-#         image: postgres:11
-#         env:
-#           POSTGRES_DB: taifead_test
-#           POSTGRES_PASSWORD: postgres
-#           POSTGRES_USER: postgres
-#         ports:
-#           - 5432:5432
-#         options: >-
-#           --health-cmd pg_isready
-#           --health-interval 10s
-#           --health-timeout 5s
-#           --health-retries 5
-#
-#     env:
-#       MIX_ENV: test
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-#       - name: Set up Elixir
-#         uses: erlef/setup-beam@v1
-#         with:
-#           elixir-version: 1.13.3
-#           otp-version: 24.1.5
-#       - name: Restore dependencies cache
-#         uses: actions/cache@v2
-#         with:
-#           path: deps
-#           key: test-${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-#           restore-keys: test-${{ runner.os }}-mix-
-#       - name: Install dependencies
-#         run: mix deps.get
-#       - name: Run tests
-#         run: mix test
+
+      - name: Deploy replease with rsync
+        run: rsync --checksum --compress --copy-links --delete --human-readable --partial --recursive --verbose ./_build/prod/ ${{ secrets.SSH_HOST }}:/srv/ann
+      - name: Restart the server
+        run: ssh -tt ${{ secrets.SSH_HOST }} "sudo systemctl restart ann"
