@@ -19,8 +19,8 @@
 header[role="banner"] {
   @include layout.center;
   @include layout.wrapper;
-  padding-block-end: #{val.fragments(10)};
-  padding-block-start: calc(#{val.fragments(10)} + env(safe-area-inset-top, 0));
+  padding-block-end: #{val.fragments(14)};
+  padding-block-start: calc(#{val.fragments(14)} + env(safe-area-inset-top, 0));
   position: relative;
   z-index: 1;
 }
