@@ -4,6 +4,47 @@
 //
 // -----------------------------------------------------------------------------------------------
 
-@mixin rounded {
-  border-radius: 0.125rem;
+@use "../../../../../assets/css/palette";
+@use "./val";
+
+//
+// Rounds the corner
+// -----------------------------------------------------------------------------------------------
+
+@mixin rounded($radius: 0.125rem) {
+  border-radius: var(--rounded-radius, $radius);
+}
+
+//
+// Horizontal rule
+// -----------------------------------------------------------------------------------------------
+
+@mixin hr($position: val.rhythm(1), $size: 1px) {
+  position: relative;
+  &::before {
+    background-color: #{palette.stone($lightness: 20%)};
+    block-size: $size;
+    content: "";
+    display: block;
+    inline-size: 100%;
+    position: absolute;
+    transform: translateY(calc((#{$position} * -1) - $size));
+  }
+}
+
+//
+// Vertical rule
+// -----------------------------------------------------------------------------------------------
+
+@mixin vr($position: val.rhythm(1), $size: 1px) {
+  position: relative;
+  &::before {
+    background-color: #{palette.stone($lightness: 20%)};
+    block-size: 100%;
+    content: "";
+    display: block;
+    inline-size: $size;
+    left: calc((#{$position} * -1) - $size);
+    position: absolute;
+  }
 }

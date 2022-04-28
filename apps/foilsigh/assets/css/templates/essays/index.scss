@@ -4,6 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use '../../utils/box';
 @use '../../utils/grid';
 @use '../../utils/layout';
 @use '../../utils/val';
@@ -24,6 +25,13 @@ main > div {
   @include layout.wrapper;
   padding-bottom: #{val.rhythm(2)};
 
+  & > section {
+    column-gap: var(--grid-space);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: #{val.rhythm(1)};
+  }
+
   @include grid.columns(8) {
     & > .section_header {
       grid-column-end: span 3;
@@ -34,6 +42,7 @@ main > div {
     }
 
     & > section {
+      @include layout.flow;
     }
   }
 
@@ -48,6 +57,7 @@ main > div {
     }
 
     & > section {
+      display: initial;
       grid-column-start: 10;
     }
   }
@@ -63,7 +73,14 @@ main > div {
     }
 
     & > section {
+      --column-width: calc((100% - (var(--grid-space) * 3)) / 4);
+      @include box.vr(calc((var(--column-width) / 2) + var(--grid-space)));
+      --flow-space: #{val.rhythm(2)};
       grid-column-start: 13;
+
+      & > * + * {
+        @include box.hr;
+      }
     }
   }
 }

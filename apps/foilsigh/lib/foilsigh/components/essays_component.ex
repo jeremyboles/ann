@@ -1,33 +1,59 @@
 defmodule Foilsigh.EssaysComponent do
   use Foilsigh, :component
 
-  def essay_summary(%{inner_block: _} = assigns) do
+  def essay_summary(%{featured: true, inner_block: _} = assigns) do
     ~H"""
-      <article class="essay_summary">
-        <figure>
-          <a href="/essays/show">
-            <picture>
-              <img alt="" loading="lazy" height="837" src="http://localhost:4000/images/avatar@880w.webp" width="1256">
-            </picture>
-          </a>
-        </figure>
-      
-        <h3><a href="/essays/show"><%= @title %></a></h3>
-        <%= if @inner_block do %>
-          <p>This is the summary of the article and it's only about a sentence long. But, in theory, could be longer than that. It just depends on the essay, I guess.</p>
-        <% end %>
-      
-        <aside>
-          <p>
-            <span>This piece of writing was posted under the topic “</span><a href="/topic">Topic Title</a><span>” on</span>
-            <time datetime="2021-10-26">October 26<span>th</span>,&nbsp;2021</time><span>.</span>
-          </p>
-        </aside>
+      <article class="essay_summary featured">
+        <a href="/essays/show">
+          <.essay_summary_figure />
+          <h2><%= @title %></h2>
+        </a>
+        <p><%= render_slot(@inner_block) %></p>
+        <.essay_summary_meta date />
       </article>
     """
   end
 
   def essay_summary(assigns) do
-    essay_summary(assign(assigns, :inner_block, false))
+    ~H"""
+      <article class="essay_summary">
+        <a href="/essays/show">
+          <.essay_summary_figure />
+          <h2><%= @title %></h2>
+        </a>
+        <.essay_summary_meta />
+      </article>
+    """
+  end
+
+  def essay_summary_figure(assigns) do
+    ~H"""
+      <figure>
+        <picture>
+          <img alt="" loading="lazy" height="837" src="https://imagedelivery.net/Wfox5u9ZjFI2UCRBV0RBtA/fcfe1709-5c58-499d-cc25-90b26661fc00/public" width="1256">
+        </picture>
+      </figure>
+    """
+  end
+
+  def essay_summary_meta(%{date: _} = assigns) do
+    ~H"""
+      <aside>
+        <p>
+          <span class="vh">This piece of writing was posted under the topic “</span><a href="/topic">Topic Title</a><span class="vh">” on</span>
+          <time datetime="2021-10-26">October 26<span>th</span>,&nbsp;2021</time><span class="vh">.</span>
+        </p>
+      </aside>
+    """
+  end
+
+  def essay_summary_meta(assigns) do
+    ~H"""
+      <aside>
+        <p>
+          <span class="vh">This piece of writing was posted under the topic “</span><a href="/topic">Topic Title</a><span class="vh">.</span>
+        </p>
+      </aside>
+    """
   end
 end

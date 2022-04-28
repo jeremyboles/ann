@@ -26,7 +26,7 @@ $columns: (
 }
 
 //
-// Width
+// Mix-in for setting the width to the number of columns
 // -----------------------------------------------------------------------------------------------
 
 @mixin width($count) {

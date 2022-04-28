@@ -1,0 +1,127 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essay Summary
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/layout';
+@use '../../utils/picture';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.essay_summary {
+  column-gap: var(--grid-space);
+  display: grid;
+  grid-template-columns: 1fr #{val.rhythm(4)};
+  row-gap: #{val.fragments(2)};
+
+  & > a {
+    display: contents;
+  }
+}
+
+.essay_summary.featured {
+  @include layout.flow(val.fragments(2));
+  display: initial;
+}
+
+//
+// Masthead image
+// -----------------------------------------------------------------------------------------------
+
+.essay_summary figure {
+  align-self: center;
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 2;
+
+  picture {
+    @include box.rounded;
+    @include picture.cover;
+    aspect-ratio: 1 / 1;
+    max-block-size: #{val.rhythm(14)};
+  }
+}
+
+.essay_summary > a:hover figure {
+  opacity: 0.85;
+}
+
+.essay_summary.featured figure {
+  padding-block-end: #{val.rhythm(1)};
+  picture {
+    aspect-ratio: initial;
+  }
+}
+
+//
+// Essay title
+// -----------------------------------------------------------------------------------------------
+
+.essay_summary h2 {
+  @include text.style($color: emphasized, $step: 1, $weight: 300);
+  --flow-space: 0;
+  align-self: end;
+  grid-row: 1;
+  line-height: val.rhythm(1);
+}
+
+.essay_summary > a:hover h2 {
+  @include text.style($color: secondary);
+}
+
+.essay_summary.featured h2 {
+  @include text.style($step: 4);
+  line-height: val.rhythm(2);
+}
+
+//
+// Essay blurb
+// -----------------------------------------------------------------------------------------------
+
+.essay_summary > p {
+  @include text.style($color: secondary);
+  align-self: start;
+  grid-row: 2;
+}
+
+//
+// Essay meta information
+// -----------------------------------------------------------------------------------------------
+
+.essay_summary aside p {
+  @include text.style(sans, $color: tertiary, $kern: loose, $step: -2, $weight: 500);
+  text-transform: uppercase;
+
+  // Link to topic
+  & > a {
+    color: inherit;
+    font-weight: 800;
+    &:hover {
+      color: var(--topic-link-hover-color);
+    }
+  }
+
+  // Published at data
+  time {
+    span {
+      font-variant: small-caps;
+      text-transform: initial;
+    }
+
+    &::before {
+      @include text.color(tertiary);
+      content: "|";
+      font-weight: 500;
+      margin-inline: 1ch;
+    }
+  }
+}
+
+.essay_summary.featured aside p {
+  @include text.color(main);
+}
