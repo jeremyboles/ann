@@ -24,14 +24,16 @@
   width: #{val.var-escape($size)};
 }
 
-@mixin mask($size, $url) {
-  mask-image: #{val.url-escape($url)};
+@mixin mask($size, $url: false) {
+  @if $url {
+    mask-image: #{val.url-escape($url)};
+  }
   mask-repeat: no-repeat;
   mask-position: center center;
   mask-size: #{val.var-escape($size)} #{val.var-escape($size)};
 }
 
-@mixin replace($url, $color: currentcolor, $size: 0.85em) {
+@mixin replace($url: false, $color: currentcolor, $size: 0.85em) {
   @include block($size, inline-block);
   @include mask($size, $url);
   background-color: $color;

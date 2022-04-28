@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Section Header
+// Tags From Recently Published Journal Entries
 //
 // -----------------------------------------------------------------------------------------------
 
@@ -12,32 +12,24 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-.section_header {
-  @include layout.flow(9);
+.recent_tags {
+  @include layout.flow(val.fragments(2));
+  line-height: #{val.fragments(3)};
 }
 
 //
 // Section title
 // -----------------------------------------------------------------------------------------------
 
-.section_header > h1 {
-  @include text.style(sans, $color: main, $step: 1, $weight: 800);
+.recent_tags h3 {
+  @include text.sidebar-title;
 }
 
 //
-// Section description
+// Tag links
 // -----------------------------------------------------------------------------------------------
 
-.section_header > p {
-  @include text.style(sans, $color: secondary, $step: -1, $weight: 400);
-
-  a {
-    color: inherit;
-    &:hover {
-      color: var(--topic-link-hover-color);
-    }
-    &:active {
-      color: var(--topic-link-active-color);
-    }
-  }
+.recent_tags a[href] {
+  @include text.step(-2);
+  @include text.tag-links;
 }

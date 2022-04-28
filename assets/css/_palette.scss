@@ -164,8 +164,8 @@ $map: (slate: $slate, gray: $gray, zinc: $zinc, neutral: $neutral, stone: $stone
   $alpha: color.alpha($color);
 
   @if $alpha == 1 {
-    @return #{'hsl(#{$hue}, #{$saturation}, #{$lightness})'};
+    @return #{"hsl(#{$hue}, #{$saturation}, #{$lightness})"};
   } @else {
-    @return #{'hsla(#{$hue}, #{$saturation}, #{$lightness}, #{$alpha})'};
+    @return #{"hsla(#{$hue}, #{$saturation}, #{$lightness}, #{$alpha})"};
   }
 }

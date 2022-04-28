@@ -24,7 +24,7 @@
 }
 
 //
-// Define the text colors and CSS custom properties
+// Define the text colors as CSS custom properties
 // -----------------------------------------------------------------------------------------------
 
 :root {
@@ -35,6 +35,22 @@
   @media (prefers-color-scheme: dark) {
     @each $name, $color-stack in colors.$text {
       @include colors.prop($name, list.nth($color-stack, -1), $ns: text);
+    }
+  }
+}
+
+//
+// Define the map colors as CSS custom properties
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  @each $name, $color-stack in colors.$map {
+    @include colors.prop($name, list.nth($color-stack, 1), $ns: map);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @each $name, $color-stack in colors.$map {
+      @include colors.prop($name, list.nth($color-stack, -1), $ns: map);
     }
   }
 }

@@ -21,6 +21,19 @@ $text: (
 );
 
 //
+// Define named colors for displaying maps
+// -----------------------------------------------------------------------------------------------
+
+/* prettier-ignore */
+$map: (
+  background: palette.sky($lightness: 80%) palette.sky($lightness: 22%),
+  border: palette.sky($lightness: 70%) palette.sky($lightness: 28%),
+  land:  palette.emerald($lightness: 44%) palette.emerald($lightness: 26%),
+  marker-primary: palette.red($lightness: 50%) palette.red($lightness: 78%),
+  marker-secondary: palette.stone($lightness: 50%) palette.stone($lightness: 14%)
+);
+
+//
 // Mix-in for setting CSS custom properties for colors easily
 // -----------------------------------------------------------------------------------------------
 

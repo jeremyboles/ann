@@ -1,0 +1,66 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Journal Index Page Layout Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/val';
+
+//
+// Imports for components used on page
+// -----------------------------------------------------------------------------------------------
+
+@import url("/assets/components/shared.css");
+@import url("/assets/components/journal.css");
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+main > div {
+  @include layout.grid;
+  @include layout.wrapper;
+  align-items: start;
+  padding-bottom: #{val.rhythm(2)};
+
+  @include grid.columns(16) {
+    grid-template-rows: repeat(2, min-content) 1fr;
+
+    & > .section_header {
+      grid-column-end: span 3;
+      grid-row-end: span 1;
+    }
+
+    & > .filter_by_type {
+      grid-column-end: span 3;
+      grid-row-end: span 2;
+      grid-row-start: 2;
+    }
+
+    & > section {
+      grid-column-end: span 6;
+      grid-column-start: 5;
+      grid-row-end: span 3;
+      grid-row-start: 1;
+    }
+
+    & > .recent_tags {
+      grid-column-end: span 2;
+      grid-column-start: 12;
+    }
+
+    & > .blogroll {
+      grid-column-end: span 3;
+      grid-column-start: 14;
+    }
+
+    & > .recent_locations {
+      grid-column-end: span 5;
+      grid-column-start: 12;
+      grid-row-start: 1;
+      grid-row-end: span 2;
+    }
+  }
+}

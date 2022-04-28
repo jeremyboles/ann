@@ -1,0 +1,41 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Display Location Info About Recent Entries
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/layout';
+@use '../../utils/picture';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.recent_locations figure {
+  @include layout.flow(val.fragments(2));
+}
+
+//
+// Caption/description
+// -----------------------------------------------------------------------------------------------
+
+.recent_locations figcaption {
+  @include text.style(sans, $color: tertiary, $step: -1, $weight: 500);
+}
+
+//
+// Map illustration
+// -----------------------------------------------------------------------------------------------
+
+.recent_locations svg {
+  @include box.rounded;
+  --map-fill: var(--color-land-map);
+  --previous-fill: var(--color-marker-secondary-map);
+  --recent-fill: var(--color-marker-primary-map);
+  background-color: var(--color-background-map);
+  border: var(--color-border-map) solid 1px;
+  min-block-size: #{val.fragments(34)};
+}

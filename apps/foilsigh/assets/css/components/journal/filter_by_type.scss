@@ -1,0 +1,50 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Filter Journal Entry By Type
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/icon';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.filter_by_type {
+  column-gap: #{val.fragments(2)};
+  column-count: 2;
+}
+
+//
+// Comment
+// -----------------------------------------------------------------------------------------------
+
+.filter_by_type label {
+  @include text.style(sans, $color: main, $step: -2, $weight: 700);
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: #{val.fragments(1)};
+}
+
+//
+// Icons for types of entries
+// -----------------------------------------------------------------------------------------------
+
+.filter_by_type input {
+  @include icon.replace($color: var(--color-faded-text), $size: 1.5em);
+  appearance: none;
+
+  &:not(:checked),
+  &:not(:checked) + span {
+    opacity: 0.5;
+  }
+}
+
+@each $name, $icon in (bookmarks: bookmark, checkins: location-dot, likes: star, notes: note, photos: image, quotes: quote-left, read: book, replies: reply, reposts: retweet, rsvps: calendar-check, videos: film, walks: person-walking) {
+  .filter_by_type input[name="#{$name}"] {
+    mask-image: url("/images/fa/solid/#{$icon}.svg");
+  }
+}

@@ -1,0 +1,65 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Blogroll
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.blogroll {
+  @include layout.flow(val.fragments(2));
+
+  margin-block-start: calc(#{val.fragments(1)} * -1);
+}
+
+//
+// Section title
+// -----------------------------------------------------------------------------------------------
+
+.blogroll h3 {
+  @include text.sidebar-title;
+}
+
+//
+// Website name
+// -----------------------------------------------------------------------------------------------
+
+.blogroll dt {
+  @include text.style(sans, $step: -1, $weight: 700);
+
+  a[href] {
+    color: inherit;
+
+    &:link {
+      text-decoration-color: var(--external-link-underline-color);
+    }
+
+    &:visited {
+      text-decoration-color: var(--external-link-visited-underline-color);
+    }
+
+    &:active {
+      text-decoration-color: var(--external-link-active-underline-color);
+    }
+  }
+}
+
+.blogroll dd + dt {
+  margin-top: #{val.fragments(2)};
+}
+
+//
+// Website description
+// -----------------------------------------------------------------------------------------------
+
+.blogroll dd {
+  @include text.style(sans, $color: secondary, $step: -2, $weight: 400);
+  line-height: #{val.fragments(3)};
+  padding-inline-start: #{val.fragments(2)};
+}
