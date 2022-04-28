@@ -22,13 +22,17 @@
 @mixin hr($position: val.rhythm(1), $size: 1px) {
   position: relative;
   &::before {
-    background-color: #{palette.stone($lightness: 20%)};
+    background-color: #{palette.stone($lightness: 82%)};
     block-size: $size;
     content: "";
     display: block;
     inline-size: 100%;
     position: absolute;
     transform: translateY(calc((#{$position} * -1) - $size));
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #{palette.stone($lightness: 20%)};
+    }
   }
 }
 
@@ -39,12 +43,16 @@
 @mixin vr($position: val.rhythm(1), $size: 1px) {
   position: relative;
   &::before {
-    background-color: #{palette.stone($lightness: 20%)};
+    background-color: #{palette.stone($lightness: 82%)};
     block-size: 100%;
     content: "";
     display: block;
     inline-size: $size;
     left: calc((#{$position} * -1) - $size);
     position: absolute;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #{palette.stone($lightness: 20%)};
+    }
   }
 }
