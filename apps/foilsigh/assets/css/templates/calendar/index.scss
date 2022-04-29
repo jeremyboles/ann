@@ -4,6 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use '../../utils/grid';
 @use '../../utils/layout';
 @use '../../utils/val';
 
@@ -22,4 +23,35 @@ main > div {
   @include layout.grid;
   @include layout.wrapper;
   padding-bottom: #{val.rhythm(2)};
+  row-gap: #{val.rhythm(1)};
+
+  @include grid.columns(12) {
+    .section_header {
+      grid-column-end: span 4;
+    }
+
+    section {
+      grid-column-end: span 5;
+      grid-column-start: 5;
+    }
+
+    aside {
+      grid-column-start: 10;
+    }
+  }
+
+  @include grid.columns(16) {
+    .section_header {
+      grid-column-end: span 3;
+    }
+
+    section {
+      grid-column-end: span 7;
+      grid-column-start: 5;
+    }
+
+    aside {
+      grid-column-start: 13;
+    }
+  }
 }
