@@ -4,6 +4,36 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+//
+// Absolute
+// -----------------------------------------------------------------------------------------------
+
+@mixin absolute($position: false, $bottom: false, $left: false, $right: false, $top: false) {
+  position: absolute;
+
+  @if $position {
+    left: $position;
+    top: $position;
+  } @else {
+    @if $bottom {
+      bottom: $bottom;
+    }
+    @if $left {
+      left: $left;
+    }
+    @if $right {
+      right: $right;
+    }
+    @if $top {
+      top: $top;
+    }
+  }
+}
+
+//
+// Center
+// -----------------------------------------------------------------------------------------------
+
 @mixin center {
   left: 50%;
   position: absolute;

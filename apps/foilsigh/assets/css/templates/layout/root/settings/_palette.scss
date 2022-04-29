@@ -10,16 +10,34 @@
 @use "../../../../utils/colors";
 
 //
-// Define the base colors for website
+// Define the base background colors for website
 // -----------------------------------------------------------------------------------------------
 
 :root {
-  --color-main-bg: #{palette.stone($lightness: 92%)};
-  --color-faded-bg: #{palette.stone($lightness: 90%)};
+  @each $name, $color-stack in colors.$bg {
+    @include colors.prop($name, list.nth($color-stack, 1), $ns: bg);
+  }
 
   @media (prefers-color-scheme: dark) {
-    --color-main-bg: #{palette.stone($lightness: 14%)};
-    --color-faded-bg: #{palette.stone($lightness: 12%)};
+    @each $name, $color-stack in colors.$bg {
+      @include colors.prop($name, list.nth($color-stack, -1), $ns: bg);
+    }
+  }
+}
+
+//
+// Define the base border colors for website
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  @each $name, $color-stack in colors.$border {
+    @include colors.prop($name, list.nth($color-stack, 1), $ns: border);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @each $name, $color-stack in colors.$border {
+      @include colors.prop($name, list.nth($color-stack, -1), $ns: border);
+    }
   }
 }
 

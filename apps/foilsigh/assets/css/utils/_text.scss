@@ -122,28 +122,24 @@
   white-space: nowrap;
 
   &::after {
+    background-color: var(--color-main-border);
+    block-size: 1px;
     content: "";
     display: block;
-    background-color: var(--rule-color, #{palette.stone($lightness: 82%)});
-    block-size: 1px;
     inline-size: 100%;
-
-    @media (prefers-color-scheme: dark) {
-      background-color: var(--rule-color, #{palette.stone($lightness: 26%)});
-    }
   }
 }
 
 @mixin tag-links {
-  @include style(mono, $color: secondary, $weight: 600);
+  @include style(mono, $weight: 600);
+
+  &:not(:hover) {
+    @include color(secondary);
+  }
 
   &::before {
     @include color(faded);
     content: "#";
-  }
-
-  &:hover {
-    color: var(--tag-link-hover-color);
   }
 
   &:hover::before {

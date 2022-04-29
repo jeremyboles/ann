@@ -21,6 +21,29 @@ $text: (
 );
 
 //
+// Defined named colors for background
+// -----------------------------------------------------------------------------------------------
+
+/* prettier-ignore */
+$bg: (
+    main: palette.stone($lightness: 92%) palette.stone($lightness: 14%),
+    faded: palette.stone($lightness: 90%) palette.stone($lightness: 12%),
+    
+    canvas: palette.stone($lightness: 95%) palette.stone($lightness: 8%),
+    journal-icon: palette.stone($lightness: 56%) palette.stone($lightness: 20%),
+);
+
+//
+// Defined named colors for border
+// -----------------------------------------------------------------------------------------------
+
+/* prettier-ignore */
+$border: (
+    main: palette.stone($lightness: 82%) palette.stone($lightness: 20%),
+    subtle: palette.stone($lightness: 88%) palette.stone($lightness: 16%)
+);
+
+//
 // Define named colors for displaying maps
 // -----------------------------------------------------------------------------------------------
 

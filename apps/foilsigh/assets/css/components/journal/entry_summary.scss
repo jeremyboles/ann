@@ -1,0 +1,215 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Journal Summary Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/box';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/picture';
+@use '../../utils/position';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary {
+  @include box.rounded;
+  background-color: var(--color-canvas-bg);
+  border: var(--color-subtle-border) solid 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  overflow: hidden;
+  position: relative;
+}
+
+//
+// Meta data
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary > p {
+  @include layout.cluster($justify: space-between);
+  @include text.style(mono, $color: tertiary, $step: -2, $weight: 500);
+  order: 2;
+  max-inline-size: initial;
+  margin-inline: #{val.fragments(3)};
+  padding-block: #{val.fragments(1)};
+}
+
+.entry_summary:not(.photo) > p {
+  border-block-start: var(--color-subtle-border) solid 1px;
+}
+//
+// Published at data
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary > p > time {
+  @include icon.before("/images/fa/regular/clock.svg", $color: var(--color-faded-text), $size: 1em) {
+    margin-inline-end: 1ch;
+    transform: translateY(0.1em);
+  }
+}
+
+//
+// Location
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary > p > span {
+  @include icon.after("/images/fa/solid/earth-europe.svg", $color: var(--color-faded-text), $size: 1em) {
+    margin-inline-start: 1ch;
+    transform: translateY(0.1em);
+  }
+}
+
+//
+// Entry type icon
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary > p a[href^="/journal"] {
+  @include box.hidden-contents($size: val.fragments(6));
+  @include position.absolute(val.fragments(3));
+  background-color: var(--color-journal-icon-bg);
+  border-radius: 50%;
+  z-index: 3;
+  &:hover {
+    background-color: var(--color-faded-text);
+  }
+}
+
+@each $name, $icon in (bookmark: bookmark, checkin: location-dot, like: star, note: note, photo: image, quote: quote-left, read: book, reply: reply, repost: retweet, rsvp: calendar-check, video: film, walk: person-walking) {
+  .entry_summary.#{$name} > p a[href^="/journal"] {
+    @include icon.before("/images/fa/solid/#{$icon}.svg", $color: palette.stone($lightness: 96%), $size: val.fragments(3)) {
+      @include position.center;
+      mix-blend-mode: lighten;
+    }
+  }
+}
+
+.entry_summary.photo > p a[href^="/journal"],
+.entry_summary.video > p a[href^="/journal"] {
+  background-color: #{palette.stone($lightness: 10%, $alpha: 0.8)};
+  // mix-blend-mode: darken;
+  &:hover {
+    background-color: #{palette.stone($lightness: 10%, $alpha: 0.7)};
+  }
+}
+
+//
+// Content
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary > blockquote {
+  @include layout.flow(val.fragments(2));
+}
+
+.entry_summary:not(.photo):not(.video) > blockquote {
+  padding-block: #{val.rhythm(1)};
+  padding-inline-end: #{val.rhythm(1)};
+  padding-inline-start: #{val.fragments(12)};
+}
+
+//
+// Bookmark content
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary.bookmark > blockquote p:first-of-type {
+  @include text.style(mono, $color: emphasized, $step: -1, $weight: 700);
+
+  a {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  a[href]:not(:hover) {
+    color: inherit;
+    text-decoration-color: transparent;
+  }
+}
+
+//
+// Checkin content
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary.checkin > blockquote p:first-of-type {
+  @include text.style(sans, $color: emphasized, $weight: 800);
+}
+
+//
+// Photo content
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary.photo > blockquote picture {
+  @include picture.cover;
+  z-index: 1;
+}
+
+.entry_summary.photo > blockquote figure {
+  position: relative;
+}
+
+.entry_summary.photo > blockquote figcaption {
+  @include position.absolute($bottom: 0, $left: 0, $right: 0);
+  /* prettier-ignore */
+  background-image: linear-gradient(
+    palette.stone($lightness: 8%, $alpha: 0),
+    palette.stone($lightness: 8%, $alpha: 0.5),
+    palette.stone($lightness: 8%, $alpha: 0.75),
+    palette.stone($lightness: 8%, $alpha: 0.85)
+  );
+  color: #{palette.stone($lightness: 90%)};
+  display: flex;
+  font-style: italic;
+  font-weight: 400;
+  justify-content: center;
+  padding: #{val.fragments(2)};
+  padding-block-start: #{val.rhythm(2)};
+  z-index: 2;
+}
+
+//
+// Quote content
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary.quote > blockquote figure {
+  @include layout.flow(val.fragments(2));
+}
+
+.entry_summary.quote > blockquote blockquote {
+  font-style: italic;
+}
+
+.entry_summary.quote > blockquote figcaption {
+  @include text.style(sans, $color: main, $step: -1, $weight: 700);
+
+  cite {
+    font-style: italic;
+    font-weight: 600;
+  }
+}
+
+//
+// Video content
+// -----------------------------------------------------------------------------------------------
+
+.entry_summary.video > blockquote video {
+  max-inline-size: 100%;
+  min-inline-size: 100%;
+  object-fit: cover;
+}
+
+.entry_summary.video > blockquote figcaption {
+  display: flex;
+  font-style: italic;
+  font-weight: 400;
+  justify-content: center;
+  padding: #{val.fragments(2)};
+}

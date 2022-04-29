@@ -8,11 +8,14 @@
 @use "./val";
 
 //
-// Rounds the corner
+// Hidden contents
 // -----------------------------------------------------------------------------------------------
 
-@mixin rounded($radius: 0.125rem) {
-  border-radius: var(--rounded-radius, $radius);
+@mixin hidden-contents($size) {
+  block-size: 0;
+  inline-size: $size;
+  overflow: hidden;
+  padding-block-start: $size;
 }
 
 //
@@ -22,18 +25,22 @@
 @mixin hr($position: val.rhythm(1), $size: 1px) {
   position: relative;
   &::before {
-    background-color: #{palette.stone($lightness: 82%)};
+    background-color: var(--color-main-border);
     block-size: $size;
     content: "";
     display: block;
     inline-size: 100%;
     position: absolute;
     transform: translateY(calc((#{$position} * -1) - $size));
-
-    @media (prefers-color-scheme: dark) {
-      background-color: #{palette.stone($lightness: 20%)};
-    }
   }
+}
+
+//
+// Rounds the corner
+// -----------------------------------------------------------------------------------------------
+
+@mixin rounded($radius: 0.25rem) {
+  border-radius: var(--rounded-radius, $radius);
 }
 
 //
@@ -43,16 +50,12 @@
 @mixin vr($position: val.rhythm(1), $size: 1px) {
   position: relative;
   &::before {
-    background-color: #{palette.stone($lightness: 82%)};
+    background-color: var(--color-main-border);
     block-size: 100%;
     content: "";
     display: block;
     inline-size: $size;
     left: calc((#{$position} * -1) - $size);
     position: absolute;
-
-    @media (prefers-color-scheme: dark) {
-      background-color: #{palette.stone($lightness: 20%)};
-    }
   }
 }
