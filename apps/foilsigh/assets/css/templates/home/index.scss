@@ -45,7 +45,7 @@ section {
 }
 
 section > header {
-  $website-header-height: #{val.rhythm(10)};
+  $website-header-height: #{val.rhythm(12)};
 
   align-items: stretch;
   background-color: #{palette.stone($lightness: 80%)};
