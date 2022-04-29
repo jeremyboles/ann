@@ -1,0 +1,25 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Calendar Index Page Layout Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/layout';
+@use '../../utils/val';
+
+//
+// Imports for components used on page
+// -----------------------------------------------------------------------------------------------
+
+@import url("/assets/components/calendar.css");
+@import url("/assets/components/shared.css");
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+main > div {
+  @include layout.grid;
+  @include layout.wrapper;
+  padding-bottom: #{val.rhythm(2)};
+}
