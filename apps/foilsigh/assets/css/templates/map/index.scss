@@ -4,6 +4,9 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/grid';
 @use '../../utils/layout';
 @use '../../utils/val';
 
@@ -18,8 +21,69 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-main > div {
+main > article {
+  position: relative;
+}
+
+//
+// Section headers
+// -----------------------------------------------------------------------------------------------
+
+main > article > div {
   @include layout.grid;
   @include layout.wrapper;
-  padding-bottom: #{val.rhythm(2)};
+  height: 1px;
+  margin-block-end: -1px;
+
+  @include grid.columns(12) {
+    .section_header {
+      grid-column-end: span 4;
+    }
+  }
+
+  @include grid.columns(16) {
+    .section_header {
+      grid-column-end: span 3;
+    }
+  }
+}
+
+main > article > div .section_header {
+  background-color: palette.stone($lightness: 92%, $alpha: 0.5);
+  z-index: 1;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: palette.stone($lightness: 14%, $alpha: 0.5);
+  }
+}
+
+//
+// Map
+// -----------------------------------------------------------------------------------------------
+
+main > article > figure {
+  z-index: 2;
+}
+
+main > article > figure .map {
+  --map-fill: var(--color-land-map);
+  --previous-fill: var(--color-marker-secondary-map);
+  --recent-fill: var(--color-marker-primary-map);
+}
+
+//
+// Locations list
+// -----------------------------------------------------------------------------------------------
+
+main > article > figure figcaption {
+  background-color: palette.stone($lightness: 88%);
+  padding-block: #{val.rhythm(2)};
+
+  @media (prefers-color-scheme: dark) {
+    background-color: palette.stone($lightness: 10%);
+  }
+
+  & > * {
+    @include layout.wrapper;
+  }
 }

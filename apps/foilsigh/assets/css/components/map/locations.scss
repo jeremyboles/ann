@@ -1,0 +1,110 @@
+// -----------------------------------------------------------------------------------------------
+//
+// List of locations
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.locations {
+  margin-bottom: calc(#{val.rhythm(1)} * -1);
+
+  @include grid.columns(4) {
+    column-count: 2;
+    column-fill: balance;
+    column-gap: #{val.fragments(2)};
+    column-width: auto;
+  }
+
+  @include grid.columns(8) {
+    column-count: 4;
+    column-gap: #{val.rhythm(1)};
+  }
+
+  & > * {
+    padding-bottom: #{val.rhythm(1)};
+  }
+}
+
+//
+// Country container
+// -----------------------------------------------------------------------------------------------
+
+.locations > div {
+  @include layout.flow(val.fragments(1));
+  break-inside: avoid-column;
+}
+
+//
+// Country name
+// -----------------------------------------------------------------------------------------------
+
+.locations dt {
+  @include text.style(sans, $color: secondary, $step: -1, $weight: 700);
+}
+
+//
+// City container
+// -----------------------------------------------------------------------------------------------
+
+.locations dd {
+  align-items: center;
+  column-gap: #{val.fragments(2)};
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    display: contents;
+  }
+}
+
+//
+// City name
+// -----------------------------------------------------------------------------------------------
+
+.locations dd b {
+  @include text.style(sans, $step: -2, $weight: 600);
+  color: #{palette.emerald($lightness: 20%)};
+  order: 1;
+}
+
+.locations dd a:hover b {
+  color: var(--map-link-hover-color);
+}
+
+//
+// Post counts
+// -----------------------------------------------------------------------------------------------
+
+.locations dd i {
+  @include text.style(mono, $color: secondary, $step: -2, $weight: 400);
+  font-style: normal;
+  order: 3;
+}
+
+.locations dd a:hover i {
+  @include text.color(tertiary);
+}
+
+//
+// Dividing border
+// -----------------------------------------------------------------------------------------------
+
+.locations dd a::after {
+  border-block-end: var(--color-main-border) solid 1px;
+  block-size: 100%;
+  content: " ";
+  display: block;
+  flex-grow: 2;
+  inline-size: 1px;
+  order: 2;
+}
