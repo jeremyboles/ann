@@ -15,7 +15,9 @@
 // -----------------------------------------------------------------------------------------------
 
 .recent_locations figure {
-  @include layout.flow(val.fragments(2));
+  display: flex;
+  flex-direction: column;
+  gap: #{val.fragments(2)};
 }
 
 //
@@ -38,4 +40,5 @@
   background-color: var(--color-background-map);
   border: var(--color-border-map) solid 1px;
   min-block-size: #{val.fragments(34)};
+  order: -1;
 }

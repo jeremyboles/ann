@@ -1,6 +1,8 @@
 defmodule Foilsigh.JournalComponent do
   use Foilsigh, :component
 
+  import Foilsigh.GraphicsComponent
+
   def blogroll(assigns) do
     ~H"""
       <aside class="blogroll">
@@ -63,30 +65,23 @@ defmodule Foilsigh.JournalComponent do
   end
 
   def recent_locations(assigns) do
-    height = 168
-    width = 384
-
     ~H"""
       <footer class="recent_locations">
         <figure>      
-          <svg role="img" viewBox={"0 0 #{width} #{height}"}>
-            <desc>
-              <p><i>Trip to Scotland, 2018</i> has been updated from the following locations:</p>
-              <ul>
-                <li><data value="37.202039578772734,-93.27147187929123">Springfield, MO (37°12'07.3"N 93°16'17.3"W')</data></li>
-                <li><data value="56.11932088728583,-3.9401846057621692">Stirling, Scotland (56°07'09.6"N 3°56'24.7"W)</data></li>
-                <li><data value="43.842596263769565,10.503018539613965">Lucca, Italy (43°50'33.4"N 10°30'10.9"E)</data></li>
-              </ul>
-            </desc>
-          
-            <use href={"/g/map.svg?height=#{height}&width=#{width}#map"}/>
-            <use href={"/g/points.svg?locations[recent][]=9ytetsdz2&locations[previous][]=spz3rj21d&locations[previous][]=gcvpq24ye&height=#{height}&width=#{width}#points"}/>
-          </svg>
           <figcaption>
             <p>
               There have been forty-six journal entries published over the last sixty days from four different&nbsp;locations.
             </p>
           </figcaption>
+          
+          <.map height="168" width="384">
+            <p>Locations that I’ve posted journal entries from:</p>
+            <ul>
+              <li><data value="37.202039578772734,-93.27147187929123">Springfield, MO (37°12'07.3"N 93°16'17.3"W')</data></li>
+              <li><data value="56.11932088728583,-3.9401846057621692">Stirling, Scotland (56°07'09.6"N 3°56'24.7"W)</data></li>
+              <li><data value="43.842596263769565,10.503018539613965">Lucca, Italy (43°50'33.4"N 10°30'10.9"E)</data></li>
+            </ul>
+          </.map>
         </figure>
       </footer>
     """
