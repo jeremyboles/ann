@@ -30,7 +30,7 @@ main > div {
       grid-column-end: span 4;
     }
 
-    section {
+    .chronology {
       grid-column-end: span 5;
       grid-column-start: 5;
     }
@@ -45,13 +45,22 @@ main > div {
       grid-column-end: span 3;
     }
 
-    section {
+    .chronology {
       grid-column-end: span 7;
       grid-column-start: 5;
     }
 
     aside {
+      grid-column-end: span 3;
       grid-column-start: 13;
     }
   }
+}
+
+//
+// Side bar
+// -----------------------------------------------------------------------------------------------
+
+main > div aside {
+  @include layout.flow;
 }

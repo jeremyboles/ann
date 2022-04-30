@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Publishing Frequency Graph
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.publishing_frequency {
+  @include layout.flow(val.fragments(2));
+  margin-block-start: calc(#{val.fragments(1)} * -1);
+}
+
+//
+// Section title
+// -----------------------------------------------------------------------------------------------
+
+.publishing_frequency h3 {
+  @include text.sidebar-title;
+}
+
+//
+// Graph
+// -----------------------------------------------------------------------------------------------
+
+.publishing_frequency svg {
+  .wiki {
+    fill: #{palette.yellow($lightness: 52%)};
+  }
+
+  .journal {
+    fill: #{palette.amber($lightness: 46%)};
+  }
+
+  .essays {
+    fill: #{palette.orange($lightness: 48%)};
+  }
+}

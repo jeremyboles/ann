@@ -1,0 +1,72 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Months by Year
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.month_breakdown {
+  @include layout.flow(val.fragments(1));
+}
+
+//
+// Section title
+// -----------------------------------------------------------------------------------------------
+
+.month_breakdown > h3 {
+  @include text.sidebar-title;
+}
+
+//
+// List of years
+// -----------------------------------------------------------------------------------------------
+
+.month_breakdown > ol {
+  @include layout.flow;
+}
+
+//
+// Year
+// -----------------------------------------------------------------------------------------------
+
+.month_breakdown > ol > li > a {
+  @include text.style(mono, $color: emphasized, $step: -2, $weight: 800);
+  &::after {
+    content: ":";
+  }
+}
+
+//
+// List of months
+// -----------------------------------------------------------------------------------------------
+
+.month_breakdown > ol > li ol {
+  display: contents;
+}
+
+//
+// Month
+// -----------------------------------------------------------------------------------------------
+
+.month_breakdown > ol > li ol li {
+  @include text.style(mono, $step: -2, $weight: 500);
+  display: inline;
+
+  &:not(:last-of-type)::after {
+    content: ", ";
+  }
+
+  a {
+    @include text.color(tertiary);
+  }
+  a:hover {
+    @include text.color(secondary);
+  }
+}
