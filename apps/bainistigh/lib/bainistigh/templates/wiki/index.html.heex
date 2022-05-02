@@ -74,7 +74,7 @@
       <%= hidden_input f, :doc, value: json(input_value(f, :doc)) %>
       
       <aside>
-        <ul phx-update="ignore" role="tablist">
+        <ul id="sidebar-list" phx-update="ignore" role="tablist">
           <li aria-controls="metadata-panel" role="tab">
             <input checked id="metadata-tab" name="wiki-tabs" type="radio">
             <label for="metadata-tab" title="Article Metadata">Metadata</label>
@@ -120,7 +120,7 @@
               <button class="location-off" type="button">Location Off</button>
             </summary>
             
-            <div class="map" phx-update="ignore">
+            <div class="map" id="location-map" phx-update="ignore">
               <div data-coords-input={input_id(:revision, :coords)} data-mapkit-response-input={input_id(:revision, :mapkit_response)} id="wiki-map" phx-hook="LocationPicker" phx-update="ignore"></div>
               
               <%= hidden_input :revision, :coords %>
