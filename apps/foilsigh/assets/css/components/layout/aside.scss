@@ -202,7 +202,7 @@ aside[role="complementary"] > div article h2 {
 
 // Avatar/Picture
 aside[role="complementary"] > div article picture {
-  @include box.rounded;
+  @include box.rounded(tight);
   @include picture.cover;
 }
 
