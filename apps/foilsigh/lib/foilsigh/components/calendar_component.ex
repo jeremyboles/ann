@@ -3,7 +3,77 @@ defmodule Foilsigh.CalendarComponent do
 
   def chronology(assigns) do
     ~H"""
-      <section class="chronology">chronology</section>
+      <section class="chronology">
+        <h2><span class="vh">Published in</span> 2022</h2>
+      
+        <section>
+          <h3><span class="vh">Content from</span> September<span class="vh">, 2022</span></h3>
+      
+          <section>
+            <.event type="note">
+              <p>Nothing says “long flight to Europe” like Nescafé.</p>
+            </.event>
+            <.event type="essay">
+              <h5><a href="#">SVGs Are Cool</a></h5>
+              <p>Suddenly, everyone I know is abandoning their&nbsp;pod.</p>
+            </.event>
+          </section>
+        </section>
+      
+        <section>
+          <h3><span class="vh">Content from</span> October<span class="vh">, 2022</span></h3>
+      
+          <section>
+            <.event type="photo">
+              <picture>
+                <source sizes="800px" srcset="https://f000.backblazeb2.com/file/jeremyboles-com/topic_journal@800w.jpg 800w, https://f000.backblazeb2.com/file/jeremyboles-com/topic_journal@400w.jpg 400w" type="image/jpeg">
+                <img alt="Mansard rooftops in Paris, France" class="u-photo" loading="lazy" src="https://f000.backblazeb2.com/file/jeremyboles-com/topic_journal@400w.jpg">
+              </picture>
+            </.event>
+            
+            <.event type="wiki_new">
+            </.event>
+            
+            <.event type="wiki_update">
+            </.event>
+      
+            <.event type="checkin">
+              <p>AMS ✈ DAR</p>
+            </.event>
+
+            <.event type="bookmark">
+              <p><a href="#">https://www.airbnb.com/rooms/3528969</a></p>
+            </.event>
+
+          </section>
+        </section>
+      
+        <section>
+          <h3><span class="vh">Content from</span> August<span class="vh">, 2022</span></h3>
+      
+          <section>
+            <.event type="video">
+              <picture>
+                <source sizes="800px" srcset="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@720p.jpg 800w" type="image/jpeg">
+                <img alt="Mansard rooftops in Paris, France" class="u-photo" loading="lazy" src="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@240p.jpg">
+              </picture>
+            </.event>
+            
+            <.event type="quote">
+             <p>“Travel changes you. As you move through this life and this world you change things…”</p>
+            </.event>
+          </section>
+        </section>
+      </section>
+    """
+  end
+
+  def event(%{type: type} = assigns) do
+    ~H"""
+      <article class={"event #{type}"}>
+      <h4><span class="vh">On</span> <time>Wednesday December 2, 2014 @ 5:53 am</time><span class="vh">,</span> <a href="#"><span class="vh">I</span> <%= event_text(type) %></a><span class="vh">:</span></h4>
+        <blockquote><%= render_slot(@inner_block) %></blockquote>
+      </article>
     """
   end
 
@@ -102,4 +172,14 @@ defmodule Foilsigh.CalendarComponent do
       </div>
     """
   end
+
+  defp event_text("bookmark"), do: "Bookmarked a Webpage"
+  defp event_text("checkin"), do: "Checked-In at Schiphol Airport"
+  defp event_text("essay"), do: "Published an Essay"
+  defp event_text("note"), do: "Posted a Note"
+  defp event_text("photo"), do: "Posted a Photo"
+  defp event_text("quote"), do: "Posted a Quote"
+  defp event_text("video"), do: "Posted a Video"
+  defp event_text("wiki_new"), do: "Created the Topic “Trip to Ireland, 2012”"
+  defp event_text("wiki_update"), do: "Updated the Topic “Colophon”"
 end

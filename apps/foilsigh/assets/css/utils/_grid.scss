@@ -32,11 +32,22 @@ $columns: (
 @mixin width($count) {
   @each $i in map.keys($columns) {
     @include columns($i) {
-      @if $count == 1 {
-        width: calc((100% - ((var(--fragment) * 2) * #{$i - 1})) / #{$i});
-      } @else {
-        width: calc((((100% - ((var(--fragment) * 2) * #{$i - 1})) / #{$i}) * $count) + ((var(--fragment) * 2) * ($count - 1)));
-      }
+      width: #{col-calc($count, $i)};
     }
+  }
+}
+
+//
+// Function for calculating a width based on the number of columns
+// -----------------------------------------------------------------------------------------------
+
+@function col-calc($num, $of) {
+  $gutter: #{var(--grid-space)};
+  $col-width: calc((100% - calc(#{$gutter} * #{$of - 1})) / #{$of});
+
+  @if $num == 1 {
+    @return $col-width;
+  } @else {
+    @return calc((#{$col-width} * #{$num}) + (#{$gutter} * #{$num - 1}));
   }
 }

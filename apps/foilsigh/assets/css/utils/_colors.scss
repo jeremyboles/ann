@@ -40,6 +40,8 @@ $bg: (
 /* prettier-ignore */
 $border: (
     main: palette.stone($lightness: 82%) palette.stone($lightness: 20%),
+    
+    emphasized: palette.stone($lightness: 80%) palette.stone($lightness: 22%),
     subtle: palette.stone($lightness: 88%) palette.stone($lightness: 16%)
 );
 
@@ -82,8 +84,8 @@ $map: (
 
 @function var($name, $default: false, $ns: false) {
   @if $default {
-    @return #{"var("}#{css-name($name, $ns: text)}#{", "}#{$default}#{")"};
+    @return #{"var("}#{css-name($name, $ns: $ns)}#{", "}#{$default}#{")"};
   } @else {
-    @return #{"var("}#{css-name($name, $ns: text)}#{")"};
+    @return #{"var("}#{css-name($name, $ns: $ns)}#{")"};
   }
 }

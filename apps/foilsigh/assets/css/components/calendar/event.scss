@@ -1,0 +1,176 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Event
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/box';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/picture';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.event {
+  display: flex;
+  flex-direction: column;
+  gap: #{val.fragments(2)};
+
+  h4 {
+    display: contents;
+  }
+}
+
+//
+// Event
+// -----------------------------------------------------------------------------------------------
+
+.event h4 a {
+  @include text.style(sans, $color: emphasized, $step: -1, $weight: 700);
+  display: block;
+  order: -1;
+  &:hover {
+    @include text.color(secondary);
+  }
+}
+
+//
+// Timestamp information
+// -----------------------------------------------------------------------------------------------
+
+.event h4 time {
+  @include icon.before("/images/fa/regular/clock.svg", $color: var(--color-faded-text), $size: 1.125em) {
+    margin-inline-end: 1ch;
+    transform: translateY(0.125em);
+  }
+  @include text.style(mono, $color: secondary, $step: -2, $weight: 600);
+  order: 3;
+}
+
+//
+// Bookmark event type
+// -----------------------------------------------------------------------------------------------
+
+.event.bookmark blockquote > p {
+  @include text.style(mono, $step: -2, $weight: 600);
+
+  a[href] {
+    color: inherit;
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:link:hover {
+      color: var(--external-link-color-hover);
+      text-decoration-color: var(--external-link-underline-color-hover);
+    }
+    &:visited:hover {
+      color: var(--external-link-visited-color-hover);
+      text-decoration-color: var(--external-link-visited-underline-color-hover);
+    }
+    &:active,
+    &:hover:active {
+      color: var(--external-link-active-color);
+      text-decoration-color: var(--external-link-active-underline-color);
+    }
+  }
+}
+
+//
+// Entry icons
+// -----------------------------------------------------------------------------------------------
+
+@each $name, $icon in (bookmark: bookmark, checkin: location-dot, like: star, note: note, photo: image, quote: quote-left, read: book, reply: reply, repost: retweet, rsvp: calendar-check, video: film, walk: person-walking) {
+  .event.#{$name} > h4 a {
+    @include icon.before("/images/fa/solid/#{$icon}.svg", $color: var(--color-tertiary-text), $size: val.fragments(3)) {
+      transform: translateY(0.25em);
+    }
+  }
+}
+
+//
+// Checkin event type
+// -----------------------------------------------------------------------------------------------
+
+.event.checkin blockquote > p {
+  @include text.style($step: -1, $weight: 400);
+}
+
+//
+// Essay event type
+// -----------------------------------------------------------------------------------------------
+
+.event.essay h4 > a {
+  @include layout.visually-hidden;
+}
+
+.event.essay h5 {
+  @include text.style(serif, $color: emphasized, $step: 1, $weight: 500);
+  margin-block-end: #{val.fragments(1)};
+
+  a {
+    color: inherit;
+  }
+  a:hover {
+    @include text.color(secondary);
+  }
+}
+
+.event.essay h5 + p {
+  @include text.style(serif, $color: secondary, $step: 0, $weight: 300);
+  margin-block-end: #{val.fragments(1)};
+}
+
+//
+// Note event type
+// -----------------------------------------------------------------------------------------------
+
+.event.note blockquote > p {
+  font-style: italic;
+}
+
+//
+// Photo event type
+// -----------------------------------------------------------------------------------------------
+
+.event.photo blockquote > picture {
+  @include box.rounded(tight);
+  @include picture.cover;
+}
+
+//
+// Quote event type
+// -----------------------------------------------------------------------------------------------
+
+.event.quote blockquote > p {
+  @include text.style($step: -1, $weight: 400);
+  font-style: italic;
+}
+
+//
+// Video event type
+// -----------------------------------------------------------------------------------------------
+
+.event.video blockquote > picture {
+  @include box.rounded(tight);
+  @include picture.cover;
+}
+
+//
+// Wiki update events
+// -----------------------------------------------------------------------------------------------
+
+.event.wiki_new,
+.event.wiki_update {
+  gap: 0;
+
+  & > h4 a {
+    font-weight: 600;
+  }
+}

@@ -40,6 +40,9 @@
 // -----------------------------------------------------------------------------------------------
 
 @mixin rounded($radius: 0.25rem) {
+  @if $radius == tight {
+    $radius: 0.125em;
+  }
   border-radius: var(--rounded-radius, $radius);
 }
 

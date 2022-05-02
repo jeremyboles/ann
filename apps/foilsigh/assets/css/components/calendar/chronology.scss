@@ -4,9 +4,81 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use '../../utils/border';
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
 //
-// Main container
+// Year title
 // -----------------------------------------------------------------------------------------------
 
-.chronology {
+.chronology > h2 {
+  @include text.style(sans, $color: secondary, $kern: loose, $leading: 1, $step: 0, $weight: 600);
+  padding-block-end: #{val.rhythm(1)};
+  pointer-events: none;
+  text-transform: uppercase;
+
+  @include grid.columns(5) {
+    position: sticky;
+    top: #{val.rhythm(2)};
+  }
+}
+
+//
+// Year container
+// -----------------------------------------------------------------------------------------------
+
+.chronology > section:not(:first-of-type) {
+  @include border.block-start($color: emphasized, $width: 2px);
+  margin-block-start: val.rhythm(2);
+  padding-block-start: val.rhythm(2);
+}
+
+//
+// Month title
+// -----------------------------------------------------------------------------------------------
+
+.chronology > section > h3 {
+  @include text.style(sans, $color: main, $kern: loose, $leading: 1, $step: -1, $weight: 600);
+  pointer-events: none;
+  text-transform: uppercase;
+
+  @include grid.columns(5) {
+    position: sticky;
+    top: #{val.rhythm(4)};
+  }
+}
+
+//
+// Month container
+// -----------------------------------------------------------------------------------------------
+
+.chronology > section > section {
+  margin-block-start: #{val.rhythm(1)};
+
+  @include grid.columns(5) {
+    margin-block-start: calc(#{val.rhythm(1)} * -1);
+  }
+
+  @each $cols, $count in (5: 1, 6: 2, 8: 2, 12: 5, 16: 7) {
+    @include grid.columns($cols) {
+      padding-inline-start: calc(#{grid.col-calc($count, $of: $cols)} + var(--grid-space));
+    }
+  }
+}
+
+//
+// Individual article container
+// -----------------------------------------------------------------------------------------------
+
+.chronology > section > section article {
+  display: flex;
+  flex-direction: column;
+  &:not(:first-of-type) {
+    @include border.block-start($color: emphasized);
+    margin-block-start: val.rhythm(1);
+    padding-block-start: val.rhythm(1);
+  }
 }
