@@ -32,10 +32,11 @@ main > article {
 main > article > div {
   @include layout.grid;
   @include layout.wrapper;
-  height: 1px;
   margin-block-end: -1px;
 
   @include grid.columns(12) {
+    block-size: 0.1px;
+
     .section_header {
       grid-column-end: span 4;
     }
@@ -62,7 +63,12 @@ main > article > div .section_header {
 // -----------------------------------------------------------------------------------------------
 
 main > article > figure {
+  padding-block-start: #{val.rhythm(1)};
   z-index: 2;
+
+  @include grid.columns(12) {
+    padding-block-start: 0;
+  }
 }
 
 main > article > figure .map {
