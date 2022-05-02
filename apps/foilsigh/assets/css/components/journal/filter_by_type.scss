@@ -4,6 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use '../../utils/grid';
 @use '../../utils/icon';
 @use '../../utils/text';
 @use '../../utils/val';
@@ -13,8 +14,14 @@
 // -----------------------------------------------------------------------------------------------
 
 .filter_by_type {
-  column-gap: #{val.fragments(2)};
+  column-gap: var(--grid-space);
   column-count: 2;
+
+  @each $grid, $cols in (3: 3, 4: 4, 5: 5, 6: 6, 8: 3, 12: 2) {
+    @include grid.columns($grid) {
+      column-count: $cols;
+    }
+  }
 }
 
 //

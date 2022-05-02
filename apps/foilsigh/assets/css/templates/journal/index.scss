@@ -27,9 +27,36 @@ main > div {
 
   & > section {
     @include layout.flow;
+    padding-block: #{val.rhythm(1)};
 
     & > :first-of-type {
       margin-block-start: 0;
+    }
+  }
+
+  @include grid.columns(5) {
+    grid-template-rows: repeat(3, min-content) 1fr;
+
+    & > .recent_tags {
+      grid-column-end: span 3;
+      grid-row-start: 4;
+    }
+
+    & > .blogroll {
+      grid-column-end: span 2;
+      grid-column-start: 4;
+      grid-row-start: 4;
+    }
+  }
+
+  @include grid.columns(6) {
+    & > .recent_tags {
+      grid-column-end: span 3;
+    }
+
+    & > .blogroll {
+      grid-column-start: 4;
+      grid-column-end: span 3;
     }
   }
 
@@ -42,13 +69,13 @@ main > div {
 
     & > .filter_by_type {
       grid-column-end: span 3;
-      // grid-row-end: span 5;
       grid-row-start: 2;
     }
 
     & > section {
       grid-row-end: span 5;
       grid-column-start: 4;
+      padding-block: 0;
     }
 
     & > .recent_tags {
@@ -58,6 +85,7 @@ main > div {
 
     & > .blogroll {
       grid-column-end: span 3;
+      grid-column-start: 1;
       grid-row-start: 5;
     }
 

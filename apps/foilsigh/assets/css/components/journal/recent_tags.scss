@@ -4,6 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use '../../utils/grid';
 @use '../../utils/layout';
 @use '../../utils/text';
 @use '../../utils/val';
@@ -32,4 +33,27 @@
 .recent_tags a[href] {
   @include text.step(-2);
   @include text.tag-links;
+}
+
+//
+// List of tags
+// -----------------------------------------------------------------------------------------------
+
+.recent_tags ol {
+  column-gap: var(--grid-space);
+
+  @each $grid, $cols in (2: 2, 3: 3, 4: 4, 5: 3, 8: 2, 12: 2, 16: 1) {
+    @include grid.columns($grid) {
+      column-count: $cols;
+    }
+  }
+
+  li {
+    // display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    // -webkit-box-orient: vertical;
+    // -webkit-line-clamp: 1;
+  }
 }
