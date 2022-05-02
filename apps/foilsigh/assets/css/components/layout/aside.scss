@@ -170,6 +170,12 @@ aside[role="complementary"] > div article {
     }
   }
 
+  @include grid.columns(6) {
+    & > picture {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
   @include grid.columns(8) {
     & > picture {
       aspect-ratio: 4 / 5;

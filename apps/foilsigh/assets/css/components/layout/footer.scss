@@ -83,6 +83,10 @@ footer[role="contentinfo"] > div {
   }
 
   @include grid.columns(12) {
+    row-gap: #{val.fragments(1)};
+  }
+
+  @include grid.columns(16) {
     row-gap: 0;
   }
 
