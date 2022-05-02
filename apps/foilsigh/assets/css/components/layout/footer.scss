@@ -141,7 +141,7 @@ footer[role="contentinfo"] a[role="home"] {
 footer[role="contentinfo"] nav ul {
   @include layout.cluster($justify: center);
   list-style: none;
-  row-gap: 0;
+  row-gap: #{val.fragments(1)};
 
   @include grid.columns(6) {
     line-height: #{val.fragments(2)};

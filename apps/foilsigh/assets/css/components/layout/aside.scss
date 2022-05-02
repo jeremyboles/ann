@@ -259,6 +259,7 @@ aside[role="complementary"] > div > div {
 
   h3 {
     @include text.style(sans, $step: -2, $color: main, $kern: loose, $weight: 800);
+    margin-block-end: #{val.fragments(1)};
     text-align: center;
     text-transform: uppercase;
 
