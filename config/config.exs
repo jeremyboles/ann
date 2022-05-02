@@ -82,7 +82,7 @@ config :dart_sass,
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.26",
+  version: "0.14.38",
   bainistigh: [
     args:
       ~w(js/app.mjs --bundle --format=esm --external:/fonts/* --external:/images/* --outdir=../priv/static/assets --target=safari15),
