@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------------------------
 
 @use '../../utils/box';
+@use '../../utils/grid';
 @use '../../utils/layout';
 @use '../../utils/picture';
 @use '../../utils/text';
@@ -19,6 +20,23 @@
   display: grid;
   grid-template-columns: 1fr #{val.rhythm(4)};
   row-gap: #{val.fragments(2)};
+
+  @include grid.columns(6) {
+    grid-template-columns: 1fr #{grid.col-calc(1, $of: 3)};
+  }
+
+  @include grid.columns(8) {
+    grid-template-columns: 1fr #{grid.col-calc(1, $of: 4)};
+  }
+
+  @include grid.columns(12) {
+    grid-template-columns: 1fr #{grid.col-calc(1, $of: 3)};
+  }
+
+  @include grid.columns(16) {
+    column-gap: #{val.fragments(2)};
+    grid-template-columns: 1fr #{val.rhythm(4)};
+  }
 
   & > a {
     display: contents;
@@ -43,7 +61,6 @@
     @include box.rounded(tight);
     @include picture.cover;
     aspect-ratio: 1 / 1;
-    max-block-size: #{val.rhythm(14)};
   }
 }
 
