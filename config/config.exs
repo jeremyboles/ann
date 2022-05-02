@@ -70,7 +70,7 @@ config :taifead, Taifead.Repo,
 
 # Configure dart-sass (the version is required)
 config :dart_sass,
-  version: "1.49.9",
+  version: "1.51.0",
   bainistigh: [
     args: ["--load-path=./js/node_modules/prosemirror-view/style", "css:../priv/static/assets"],
     cd: Path.expand("../apps/bainistigh/assets", __DIR__)
