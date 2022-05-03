@@ -4,8 +4,23 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "sass:map";
+
 @use "../../../../../assets/css/palette";
+
+@use './colors';
 @use "./val";
+
+//
+// Background color
+// -----------------------------------------------------------------------------------------------
+
+@mixin bg($color) {
+  background-color: #{colors.var($color, $ns: bg)};
+  @if not map.has-key(colors.$bg, $color) {
+    @warn "Unknown background color '#{$color}'.";
+  }
+}
 
 //
 // Hidden contents

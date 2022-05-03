@@ -17,7 +17,8 @@ $text: (
   tertiary: palette.stone($lightness: 42%) palette.stone($lightness: 58%),
   
   emphasized: palette.stone($lightness: 6%) palette.stone($lightness: 94%),
-  faded: palette.stone($lightness: 62%) palette.stone($lightness: 34%)
+  faded: palette.stone($lightness: 62%) palette.stone($lightness: 34%),
+  invert: palette.stone($lightness: 94%) palette.stone($lightness: 6%)
 );
 
 //
@@ -29,6 +30,7 @@ $bg: (
     main: palette.stone($lightness: 92%) palette.stone($lightness: 14%),
     faded: palette.stone($lightness: 90%) palette.stone($lightness: 12%),
     
+    bold: palette.stone($lightness: 12%) palette.stone($lightness: 90%),
     canvas: palette.stone($lightness: 95%) palette.stone($lightness: 8%),
     journal-icon: palette.stone($lightness: 56%) palette.stone($lightness: 20%),
 );

@@ -1,0 +1,89 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Appeal
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/border';
+@use '../../utils/box';
+@use '../../utils/grid';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.contact_form {
+  @include box.bg(faded);
+  border-color: #{palette.sky($lightness: 72%)};
+  border-style: solid;
+  border-width: #{val.fragments(2)};
+  column-gap: #{val.rhythm(1)};
+  display: flex;
+  flex-wrap: wrap;
+  padding: #{val.rhythm(1)};
+  row-gap: #{val.fragments(2)};
+
+  @media (prefers-color-scheme: dark) {
+    border-color: #{palette.sky($lightness: 24%)};
+  }
+
+  & > :nth-child(n + 3) {
+    flex-basis: 100%;
+  }
+}
+
+//
+// Form label
+// -----------------------------------------------------------------------------------------------
+
+.contact_form label {
+  @include text.style(sans, $color: secondary, $kern: loose, $step: -3, $weight: 800);
+  flex-grow: 1;
+  text-transform: uppercase;
+}
+
+//
+// Form inputs
+// -----------------------------------------------------------------------------------------------
+
+.contact_form input,
+.contact_form textarea {
+  @include border.all(subtle);
+  @include box.bg(canvas);
+  @include text.style(mono, $color: emphasized, $step: -1, $weight: 500);
+  display: block;
+  padding: #{val.fragments(1)};
+  inline-size: 100%;
+  max-inline-size: 100%;
+
+  &::placeholder {
+    @include text.color(faded);
+  }
+}
+
+.contact_form textarea {
+  min-block-size: #{val.rhythm(4)};
+}
+
+//
+// Submit button
+// -----------------------------------------------------------------------------------------------
+
+.contact_form > button {
+  @include box.bg(bold);
+  @include text.style(sans, $color: invert, $kern: loose, $step: -2, $weight: 800);
+  flex-basis: auto !important;
+  margin-block-start: #{val.fragments(2)};
+  margin-inline-start: auto;
+  padding-block: #{val.fragments(2)};
+  padding-inline: #{val.fragments(2)};
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

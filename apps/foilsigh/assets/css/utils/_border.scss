@@ -30,6 +30,11 @@
 // Mix-ins for settings a bunch of border properties at once
 // -----------------------------------------------------------------------------------------------
 
+@mixin all($color: main, $width: 1px) {
+  @debug $color;
+  border: #{color($color)} solid #{$width};
+}
+
 @mixin block-start($color: main, $width: 1px) {
   @debug $color;
   border-block-start: #{color($color)} solid #{$width};

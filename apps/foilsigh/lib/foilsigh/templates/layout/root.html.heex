@@ -19,6 +19,8 @@
   </head>
   <body>
     <%= @inner_content %>
-    <!-- <.grid /> -->
+    <%= if Map.has_key?(@conn.query_params, "guide") do %>
+      <.grid />
+    <% end %>
   </body>
 </html>

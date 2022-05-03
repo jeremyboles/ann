@@ -1,0 +1,63 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Contact Page Layout Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/val';
+
+//
+// Imports for components used on page
+// -----------------------------------------------------------------------------------------------
+
+@import url("/assets/components/contact.css");
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+main > section {
+  @include layout.grid;
+  @include layout.wrapper;
+  row-gap: #{val.rhythm(2)};
+  padding-bottom: #{val.rhythm(2)};
+
+  @include grid.columns(8) {
+    & > .appeal {
+      grid-column-end: span 4;
+      grid-column-start: 5;
+      grid-row: 1;
+    }
+
+    & > .contact_form {
+      grid-column-end: span 4;
+      grid-column-start: 1;
+      grid-row: 1;
+    }
+  }
+
+  @include grid.columns(12) {
+    & > .appeal {
+      grid-column-end: span 5;
+      grid-column-start: 8;
+    }
+
+    & > .contact_form {
+      grid-column-end: span 6;
+    }
+  }
+
+  @include grid.columns(16) {
+    & > .appeal {
+      grid-column-end: span 4;
+      grid-column-start: 10;
+    }
+
+    & > .contact_form {
+      grid-column-end: span 6;
+      grid-column-start: 3;
+    }
+  }
+}

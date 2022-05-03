@@ -1,0 +1,71 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Appeal
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.appeal {
+  @include layout.flow;
+}
+
+//
+// Title
+// -----------------------------------------------------------------------------------------------
+
+.appeal h1 {
+  @include text.style(sans, $color: emphasized, $step: 2, $weight: 700);
+}
+
+//
+// Copy
+// -----------------------------------------------------------------------------------------------
+.appeal p {
+  @include text.style($color: secondary, $step: -1);
+  --flow-space: 0;
+}
+
+//
+// Contact types
+// -----------------------------------------------------------------------------------------------
+
+.appeal dl {
+  --column-width: calc(50% - (var(--grid-space) / 2));
+  column-gap: var(--grid-space);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.appeal dt {
+  @include text.style(sans, $color: tertiary, $kern: loose, $step: -3, $weight: 800);
+  flex-basis: var(--column-width);
+  text-align: end;
+  text-transform: uppercase;
+
+  &::after {
+    content: ":";
+  }
+}
+
+.appeal dd {
+  @include text.style($step: -2, $weight: 400);
+  flex-basis: var(--column-width);
+  line-height: #{val.fragments(3)};
+  padding-block-start: calc((#{val.fragments(1)} / 2) - 0.1em);
+
+  a[href] {
+    color: inherit;
+  }
+
+  address {
+    font-style: normal;
+  }
+}
