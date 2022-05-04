@@ -39,3 +39,16 @@
   @debug $color;
   border-block-start: #{color($color)} solid #{$width};
 }
+
+//
+// Mix-ins for pseudo-borders
+// -----------------------------------------------------------------------------------------------
+
+@mixin pipe($where: before, $color: dark, $space: val.fragments(1)) {
+  &::#{$where} {
+    color: #{color($color)};
+    content: "|";
+    font-weight: 300;
+    margin-inline: #{$space};
+  }
+}

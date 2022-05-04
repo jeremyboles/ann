@@ -1,0 +1,50 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essay Detail Page
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/val';
+
+//
+// Imports for components used on page
+// -----------------------------------------------------------------------------------------------
+
+@import url("/assets/components/essays.css");
+
+//
+// Content container
+// -----------------------------------------------------------------------------------------------
+
+main > article > div:first-of-type {
+  @include layout.grid;
+  @include layout.wrapper;
+  row-gap: #{val.rhythm(3)};
+
+  & > .header {
+    @include grid.columns(12) {
+      grid-column: 2 / span 10;
+    }
+
+    @include grid.columns(16) {
+      grid-column: 3 / span 12;
+    }
+  }
+
+  & > .content {
+    @include grid.columns(8) {
+      grid-column-end: span 6;
+    }
+
+    @include grid.columns(12) {
+      grid-column: 2 / span 8;
+    }
+
+    @include grid.columns(16) {
+      grid-column: 3 / span 10;
+    }
+  }
+}

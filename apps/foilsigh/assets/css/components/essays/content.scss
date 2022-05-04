@@ -1,0 +1,319 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essay Content
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.content {
+  max-inline-size: 100%;
+  padding-block-end: #{val.rhythm(4)};
+  position: relative;
+}
+
+//
+// Block-quotes
+// -----------------------------------------------------------------------------------------------
+
+.content blockquote {
+  padding-block: #{val.rhythm(1)};
+  padding-inline-start: #{val.rhythm(1)};
+
+  @include grid.columns(8) {
+    padding-inline-start: calc(#{grid.col-calc(1, 6)} + var(--grid-space));
+  }
+
+  @include grid.columns(12) {
+    padding-inline-start: calc(#{grid.col-calc(1, 8)} + var(--grid-space));
+  }
+}
+
+.content blockquote footer {
+  @include text.style(sans, $step: -1, $weight: 500);
+  padding-block-start: #{val.rhythm(1)};
+  text-align: right;
+
+  a[href] {
+    @include text.color(tertiary);
+    text-decoration-color: var(--color-faded-text);
+  }
+}
+
+.content blockquote p {
+  @include text.style($leading: 1, $step: 0);
+  max-inline-size: 72ch;
+}
+
+//
+// Code
+// -----------------------------------------------------------------------------------------------
+
+.content code {
+  @include text.style(mono, $color: secondary, $step: 0, $weight: 500);
+}
+
+.content pre {
+  margin-block: #{val.rhythm(1)};
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+//
+// Headings
+// -----------------------------------------------------------------------------------------------
+
+.content h2 {
+  @include text.style(sans, $color: emphasized, $step: 3, $weight: 700);
+  padding-block-end: #{val.rhythm(1)};
+  padding-block-start: #{val.rhythm(3)};
+}
+
+.content h3 {
+  @include text.style($color: secondary, $step: 2, $weight: 300);
+  font-style: italic;
+  padding-block-end: #{val.rhythm(1)};
+  padding-block-start: #{val.rhythm(2)};
+}
+
+.content h2 + h3 {
+  margin-block-start: calc(#{val.rhythm(2)} * -1);
+}
+
+//
+// Paragraph text
+// -----------------------------------------------------------------------------------------------
+
+.content p {
+  @include text.step(1);
+  line-height: #{val.fragments(6)};
+  padding-block-end: #{val.fragments(2)};
+}
+
+.content figure + p,
+.content p + p {
+  margin-block-start: #{val.rhythm(1)};
+}
+
+//
+// Pictures
+// -----------------------------------------------------------------------------------------------
+
+.content figure {
+  margin-block-start: #{val.rhythm(1)};
+  position: relative;
+}
+
+.content figure figcaption {
+  @include text.style($color: secondary, $step: 0);
+  font-style: italic;
+  padding-block-start: #{val.rhythm(1)};
+
+  @include grid.columns(8) {
+    --caption-width: #{grid.col-calc(2, $of: 6)};
+    inline-size: var(--caption-width);
+    margin-right: calc((var(--caption-width) + var(--grid-space)) * -1);
+    padding-block-start: initial;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  @include grid.columns(12) {
+    --caption-width: #{grid.col-calc(3, $of: 8)};
+  }
+
+  @include grid.columns(16) {
+    --caption-width: #{grid.col-calc(3, $of: 10)};
+  }
+}
+
+.content figure picture {
+  @include box.rounded(tight);
+  overflow: hidden;
+
+  img {
+    @include box.rounded(tight);
+  }
+}
+
+// Breakout variant
+.content figure.breakout {
+  @include grid.columns(8) {
+    figcaption {
+      margin-block-start: #{val.fragments(5)};
+      top: auto;
+    }
+
+    picture {
+      margin-inline-end: calc(#{grid.col-calc(2, $of: 6)} * -1);
+      max-inline-size: initial;
+    }
+  }
+
+  @include grid.columns(12) {
+    picture {
+      margin-inline-end: calc((#{grid.col-calc(3, $of: 8)} + var(--grid-space)) * -1);
+      margin-inline-start: calc((#{grid.col-calc(1, $of: 8)} + var(--grid-space)) * -1);
+    }
+  }
+
+  @include grid.columns(16) {
+    picture {
+      margin-inline-end: calc((#{grid.col-calc(3, $of: 10)} + var(--grid-space)) * -1);
+      margin-inline-start: calc((#{grid.col-calc(2, $of: 10)} + var(--grid-space)) * -1);
+    }
+  }
+}
+
+// Full variant
+.content figure.full {
+  @include grid.columns(8) {
+    figcaption {
+      margin-block-start: #{val.fragments(5)};
+      top: auto;
+    }
+
+    picture {
+      margin-inline-end: calc(#{grid.col-calc(2, $of: 6)} * -1);
+      max-inline-size: initial;
+    }
+  }
+
+  @include grid.columns(12) {
+    picture {
+      margin-inline-end: calc((#{grid.col-calc(3, $of: 8)} + var(--grid-space)) * -1);
+    }
+  }
+
+  @include grid.columns(16) {
+    picture {
+      margin-inline-end: calc((#{grid.col-calc(3, $of: 10)} + var(--grid-space)) * -1);
+    }
+  }
+}
+
+// Sidebar variant
+.content figure.sidebar {
+  @include grid.columns(8) {
+    --figure-width: #{grid.col-calc(2, $of: 6)};
+    float: right;
+    inline-size: var(--figure-width);
+    margin-inline-end: calc((var(--figure-width) + var(--grid-space)) * -1);
+
+    figcaption {
+      inline-size: 100%;
+      padding-block-start: #{val.rhythm(1)};
+      position: static;
+    }
+  }
+
+  @include grid.columns(12) {
+    --figure-width: #{grid.col-calc(3, $of: 8)};
+  }
+
+  @include grid.columns(16) {
+    --figure-width: #{grid.col-calc(3, $of: 10)};
+  }
+}
+
+//
+// Rules
+// -----------------------------------------------------------------------------------------------
+
+.content hr {
+  background-color: var(--color-emphasized-border);
+  block-size: 1px;
+  margin-block: #{val.rhythm(1)};
+  margin-inline: auto;
+  max-inline-size: 16em;
+}
+
+//
+// Sidenotes
+// -----------------------------------------------------------------------------------------------
+
+.content label {
+  counter-increment: sidenote;
+
+  @include grid.columns(8) {
+    pointer-events: none;
+  }
+
+  &::before {
+    @include text.style(sans, $color: tertiary, $step: -1, $weight: 900);
+    content: counter(sidenote);
+    margin-inline-start: -0.25ch;
+    vertical-align: super;
+  }
+
+  & + input[type="checkbox"] {
+    display: none;
+  }
+}
+
+.content label + input[type="checkbox"] + span {
+  @include text.style($color: tertiary, $step: 0);
+  display: block;
+  float: right;
+  inline-size: 100%;
+  padding-block: #{val.fragments(2)};
+  padding-inline-start: #{val.rhythm(1)};
+
+  & > span {
+    @include layout.visually-hidden;
+  }
+
+  @include grid.columns(4) {
+    inline-size: auto;
+    max-inline-size: calc(50% - (var(--grid-space) / 2));
+    padding-block-end: 0;
+    padding-block-start: #{val.fragments(2)};
+  }
+
+  @include grid.columns(8) {
+    --sidebar-width: #{grid.col-calc(2, $of: 6)};
+    margin-right: calc((var(--sidebar-width) + var(--grid-space)) * -1);
+    max-inline-size: initial !important;
+    padding-block-start: initial !important;
+    padding-inline-start: initial !important;
+    inline-size: var(--sidebar-width) !important;
+  }
+
+  @include grid.columns(12) {
+    --sidebar-width: #{grid.col-calc(3, $of: 8)};
+  }
+
+  @include grid.columns(16) {
+    --sidebar-width: #{grid.col-calc(3, $of: 10)};
+  }
+}
+
+.content label + input[type="checkbox"]:not(:checked) + span {
+  display: none;
+
+  @include grid.columns(8) {
+    display: block;
+  }
+}
+
+.content label + input[type="checkbox"] + span::before {
+  @include text.style(sans, $color: secondary, $step: -1, $weight: 900);
+  box-sizing: border-box;
+  content: counter(sidenote) " ";
+  display: inline-block;
+  inline-size: var(--grid-space);
+  margin-inline-start: calc(var(--grid-space) * -1);
+  padding-inline-end: 0.75ch;
+  text-align: end;
+  transform: translateY(-0.125ch);
+}

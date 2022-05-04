@@ -1,0 +1,81 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essay Header
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/border';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+//
+// Essay title
+// -----------------------------------------------------------------------------------------------
+
+.header > h1 {
+  @include text.style($color: emphasized, $step: 5, $weight: 100);
+  line-height: #{val.fragments(10)};
+  order: 2;
+  z-index: 1;
+
+  a {
+    color: inherit;
+  }
+  a:hover {
+    @include text.color(secondary);
+  }
+}
+
+//
+// Essay subtitle/summary
+// -----------------------------------------------------------------------------------------------
+
+.header > p {
+  @include text.style($color: tertiary, $step: 2, $weight: 300);
+  font-style: italic;
+  order: 2;
+  padding-block-start: #{val.fragments(3)};
+}
+
+//
+// Essay meta info
+// -----------------------------------------------------------------------------------------------
+
+.header > aside {
+  @include text.style(sans, $color: secondary, $kern: loose, $step: -2, $weight: 600);
+  order: 1;
+  padding-block-end: #{val.fragments(1)};
+  text-transform: uppercase;
+  z-index: 2;
+
+  a {
+    color: inherit;
+    font-weight: 800;
+  }
+  a:hover {
+    color: var(--topic-link-hover-color);
+  }
+
+  a:active {
+    color: var(--topic-link-active-color);
+  }
+
+  time {
+    @include border.pipe;
+  }
+
+  time span {
+    font-variant: small-caps;
+    font-weight: 700;
+    text-transform: none;
+  }
+}

@@ -42,7 +42,8 @@ $bg: (
 /* prettier-ignore */
 $border: (
     main: palette.stone($lightness: 82%) palette.stone($lightness: 20%),
-    
+  
+    dark: palette.stone($lightness: 66%) palette.stone($lightness: 42%),  
     emphasized: palette.stone($lightness: 80%) palette.stone($lightness: 22%),
     subtle: palette.stone($lightness: 88%) palette.stone($lightness: 16%)
 );
