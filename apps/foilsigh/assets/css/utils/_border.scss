@@ -44,11 +44,12 @@
 // Mix-ins for pseudo-borders
 // -----------------------------------------------------------------------------------------------
 
-@mixin pipe($where: before, $color: dark, $space: val.fragments(1)) {
+@mixin pipe($where: before, $color: dark, $pipe: "|", $space: val.fragments(1)) {
   &::#{$where} {
     color: #{color($color)};
-    content: "|";
+    content: "#{$pipe}";
     font-weight: 300;
     margin-inline: #{$space};
+    @content;
   }
 }

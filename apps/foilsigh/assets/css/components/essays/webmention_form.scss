@@ -1,0 +1,87 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Webmention Form
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/border';
+@use '../../utils/box';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.webmention_form {
+  @include border.all(main);
+  @include box.bg(canvas);
+  @include box.rounded;
+  @include layout.flow;
+  padding: #{val.rhythm(1)};
+}
+
+//
+// Form description
+// -----------------------------------------------------------------------------------------------
+
+.webmention_form p {
+  @include text.style(sans, $color: secondary, $step: -1, $weight: 500);
+  max-inline-size: 72ch;
+
+  a {
+    color: inherit;
+  }
+
+  a:hover {
+    color: var(--topic-link-hover-color);
+  }
+
+  a:active {
+    color: var(--topic-link-active-color);
+  }
+}
+
+//
+// Submission form
+// -----------------------------------------------------------------------------------------------
+
+.webmention_form form p {
+  display: flex;
+  flex-wrap: wrap;
+  max-inline-size: initial;
+}
+
+.webmention_form form label {
+  @include text.style(sans, $color: emphasized, $kern: loose, $step: -2, $weight: 600);
+  flex-basis: 100%;
+  padding-block-end: #{val.fragments(1)};
+  text-transform: uppercase;
+}
+
+.webmention_form form input {
+  @include border.all(emphasized);
+  @include box.bg(faded);
+  @include text.style(mono, $color: emphasized, $step: -1, $weight: 500);
+  display: block;
+  flex-grow: 1;
+  padding: #{val.fragments(1)};
+
+  &::placeholder {
+    @include text.color(faded);
+  }
+}
+
+.webmention_form form button {
+  @include text.style(sans, $color: emphasized, $kern: loose, $step: -2, $weight: 800);
+  background-color: var(--color-emphasized-border);
+  flex-basis: auto !important;
+  padding-block: #{val.fragments(2)};
+  padding-inline: #{val.fragments(2)};
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,69 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essay Responses
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/picture';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.responses {
+  @include text.style(mono, $color: secondary, $step: -2, $weight: 800);
+}
+
+//
+// Responses type
+// -----------------------------------------------------------------------------------------------
+
+.responses summary {
+  @include icon.after("/images/fa/solid/circle-chevron-right.svg", $color: var(--color-faded-text), $size: 1em);
+
+  &::marker,
+  &::-webkit-details-marker {
+    content: "";
+    display: none;
+  }
+}
+
+.responses [open] summary::after {
+  transform: rotate(90deg);
+}
+
+.responses details.bookmarks summary {
+  @include icon.before("/images/fa/solid/bookmark.svg", $size: 1em);
+}
+
+.responses details.likes summary {
+  @include icon.before("/images/fa/solid/star.svg", $size: 1em);
+}
+
+.responses details.reposts summary {
+  @include icon.before("/images/fa/solid/retweet.svg", $size: 1em);
+}
+
+//
+// Avatars/Links
+// -----------------------------------------------------------------------------------------------
+
+.responses p {
+  @include layout.cluster(val.fragments(1));
+  padding-block-end: val.fragments(2);
+  padding-inline-start: calc(1em + 0.5ch);
+
+  a:hover {
+    opacity: 0.8;
+  }
+}
+
+.responses picture {
+  @include picture.cover;
+  block-size: #{val.rhythm(1)};
+  inline-size: #{val.rhythm(1)};
+}

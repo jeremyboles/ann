@@ -6,6 +6,7 @@
 
 @use "../../../../../../assets/css/palette";
 
+@use '../../utils/box';
 @use '../../utils/grid';
 @use '../../utils/layout';
 @use '../../utils/val';
@@ -82,12 +83,8 @@ main > article > figure .map {
 // -----------------------------------------------------------------------------------------------
 
 main > article > figure figcaption {
-  background-color: palette.stone($lightness: 88%);
+  @include box.bg(darkened);
   padding-block: #{val.rhythm(2)};
-
-  @media (prefers-color-scheme: dark) {
-    background-color: palette.stone($lightness: 10%);
-  }
 
   & > * {
     @include layout.wrapper;

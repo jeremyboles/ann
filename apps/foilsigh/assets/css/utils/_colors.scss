@@ -29,6 +29,7 @@ $text: (
 $bg: (
     main: palette.stone($lightness: 92%) palette.stone($lightness: 14%),
     faded: palette.stone($lightness: 90%) palette.stone($lightness: 12%),
+    darkened: palette.stone($lightness: 88%) palette.stone($lightness: 10%),
     
     bold: palette.stone($lightness: 12%) palette.stone($lightness: 90%),
     canvas: palette.stone($lightness: 95%) palette.stone($lightness: 8%),

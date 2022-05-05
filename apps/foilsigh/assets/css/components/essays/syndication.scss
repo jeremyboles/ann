@@ -1,0 +1,66 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essay Syndication
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.syndication {
+  @include layout.cluster;
+  --cluster-justify: end;
+}
+
+//
+// Description
+// -----------------------------------------------------------------------------------------------
+
+.syndication p {
+  @include text.style(mono, $color: faded, $step: -2, $weight: 400);
+  text-transform: capitalize;
+}
+
+//
+// List of links
+// -----------------------------------------------------------------------------------------------
+
+.syndication ul {
+  @include layout.cluster(val.fragments(1));
+
+  li {
+    display: contents;
+  }
+}
+
+//
+// Syndication links
+// -----------------------------------------------------------------------------------------------
+
+.syndication a[href] {
+  @include icon.replace($size: val.fragments(3));
+  @include text.color(faded);
+  text-decoration: none;
+}
+
+.syndication a[href*="medium.com"] {
+  mask-image: url("/images/fa/brands/medium.svg");
+}
+
+.syndication a[href*="soundcloud.com"] {
+  mask-image: url("/images/fa/brands/soundcloud.svg");
+}
+
+.syndication a[href*="vimeo.com"] {
+  mask-image: url("/images/fa/brands/vimeo-v.svg");
+}
+
+.syndication a[href*="youtube.com"] {
+  mask-image: url("/images/fa/brands/youtube.svg");
+}

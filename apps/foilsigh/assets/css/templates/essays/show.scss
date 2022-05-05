@@ -4,6 +4,8 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "../../../../../../assets/css/palette";
+
 @use '../../utils/box';
 @use '../../utils/grid';
 @use '../../utils/layout';
@@ -54,4 +56,82 @@ main > article > div:first-of-type {
 // -----------------------------------------------------------------------------------------------
 
 main > article > div:last-of-type {
+  @include box.bg(darkened);
+  padding-block: #{val.rhythm(2)};
+
+  & > div {
+    @include layout.grid;
+    @include layout.wrapper;
+    row-gap: #{val.rhythm(1)};
+
+    & > .replies {
+      @include grid.columns(8) {
+        grid-column-end: span 6;
+        grid-row-end: span 2;
+      }
+
+      @include grid.columns(12) {
+        grid-column-end: span 7;
+      }
+
+      @include grid.columns(16) {
+        grid-column-end: span 8;
+        grid-column-start: 2;
+      }
+    }
+
+    & > .responses {
+      @include grid.columns(8) {
+        grid-column-end: span 2;
+        grid-column-start: 7;
+      }
+
+      @include grid.columns(12) {
+        grid-column-end: span 4;
+        grid-column-start: 9;
+      }
+
+      @include grid.columns(16) {
+        grid-column-end: span 4;
+        grid-column-start: 13;
+      }
+    }
+
+    & > .syndication {
+      align-self: end;
+
+      @include grid.columns(8) {
+        grid-column-end: span 2;
+        grid-column-start: 7;
+        grid-row-end: span 2;
+        grid-row-start: 2;
+      }
+
+      @include grid.columns(12) {
+        grid-column-end: span 4;
+        grid-column-start: 9;
+      }
+
+      @include grid.columns(16) {
+        grid-column-end: span 4;
+        grid-column-start: 13;
+      }
+    }
+
+    & > .webmention_form {
+      @include grid.columns(8) {
+        grid-column-end: span 6;
+        grid-row-start: 3;
+      }
+
+      @include grid.columns(12) {
+        grid-column-end: span 7;
+      }
+
+      @include grid.columns(16) {
+        grid-column-end: span 9;
+        grid-column-start: 2;
+      }
+    }
+  }
 }

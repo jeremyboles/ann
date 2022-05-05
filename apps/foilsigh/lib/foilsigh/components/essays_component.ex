@@ -171,6 +171,159 @@ defmodule Foilsigh.EssaysComponent do
     """
   end
 
+  def replies(assigns) do
+    ~H"""
+      <aside class="replies">
+        <h3 class="vh">Replies to “This is the Article Name”</h3>
+      
+        <article class="reply">
+          <header>
+            <picture>
+              <img alt="Brent Smith’s avatar." loading="lazy" src="/images/avatar@880w.jpg">
+            </picture>
+            <h4>
+              <a href="https://twitter.com/BrentChad/" rel="external nofollow noopener">Brent Smith</a>
+              <a href="https://twitter.com/BrentChad/status/539761772497211392" rel="external nofollow noopener">Replied on Twitter</a>
+              <span class="vh">at</span> <time datetime="">6:43 am <abbr title="Central European Time">CET</abbr> <span class="vh">on</span> December 2nd, 2015</time>
+            </h4>
+          </header>
+      
+          <blockquote cite="https://twitter.com/BrentChad/status/539761772497211392">
+            <p>that’s spot on</p>
+          </blockquote>
+        </article>
+      
+        <article class="reply">
+          <header>
+            <picture>
+              <img alt="Brent Smith’s avatar." loading="lazy" src="/images/avatar@880w.jpg">
+            </picture>
+            <h4>
+              <a href="https://example.com">Brent Smith</a>
+              <a href="https://example.com" rel="external nofollow noopener">Replied on Twitter</a>
+              <span class="vh">at</span> <time datetime="">6:43 am <abbr title="Central European Time">CET</abbr> <span class="vh">on</span> December 2nd, 2015</time>
+            </h4>
+          </header>
+      
+          <blockquote cite="https://twitter.com/BrentChad/status/539761772497211392">
+            <p>I'm sort of relieved to hear that everyone hates the MacBook keyboards and it wasn't just me being grumpy. I bought two of them when they first came out in 2016 and returned them after just a few days because of keyboard misfires and general typing uncomfortableness.</p>
+          </blockquote>
+        </article>
+      </aside>
+    """
+  end
+
+  def responses(assigns) do
+    ~H"""
+      <aside class="responses">
+        <h3 class="vh">Other Responses to “This is the Article Name”</h3>
+      
+        <details class="likes responses">
+          <summary>Liked 20 Times</summary>
+          <p>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">, and</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">, and</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">, and</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg">
+            </picture></a>
+          </p>
+        </details>
+      
+        <details class="responses reposts">
+          <summary>Reposted Once</summary>
+          <p>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+              <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg">
+            </picture></a>
+          </p>
+        </details>
+      
+        <details class="bookmarks responses">
+          <summary>Bookmarked Three Times</summary>
+          <p>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">,</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg"></picture></a><span class="vh">, and</span>
+            <a href="https://jeremyboles.com/" rel="external nofollow noopener"><picture>
+                <img alt="Brent Smith" loading="lazy" src="/images/avatar@880w.jpg">
+            </picture></a>
+          </p>
+        </details>
+      </aside>
+    """
+  end
+
+  def syndication(assigns) do
+    ~H"""
+      <footer class="syndication">
+        <p><span class="vh">“This is the Article Name” has been</span> <span> syndicated to:</span></p>
+        <ul>
+          <li><a href="http://medium.com" title="Syndicated to Medium">Medium</a></li>
+          <li><a href="http://soundcloud.com" title="Syndicated to Soundcloud">Soundcloud</a></li>
+          <li><a href="http://vimeo.com" title="Syndicated to Vimeo">Vimeo</a></li>
+          <li><a href="http://youtube.com" title="Syndicated to Youtube">Youtube</a></li>
+        </ul>
+      </footer>
+    """
+  end
+
+  def webmention_form(assigns) do
+    ~H"""
+      <aside class="webmention_form">
+        <p>
+          Have a comment or response about this essay? Publish it on your own site and use a
+          <a href="/indieweb#webmention">Webmention</a>, or let me know the
+          <abbr title="Uniform Resource Locators (i.e. a webpage address)">URL</abbr> by using the form&nbsp;below:
+        </p>
+      
+        <form method="post">
+          <p>
+            <label for="response-url-field">URL to Your Response</label>
+            <input id="response-url-field" name="response-url" placeholder="https://example.com/response" required type="url">
+            <button type="submit">Send It to Me</button>
+          </p>
+        </form>
+      </aside>
+    """
+  end
+
   defp essay_summary_figure(assigns) do
     ~H"""
       <figure>
