@@ -266,8 +266,10 @@
   display: block;
   float: right;
   inline-size: 100%;
+  line-height: #{val.rhythm(1)};
   padding-block: #{val.fragments(2)};
   padding-inline-start: #{val.rhythm(1)};
+  transform: translateY(#{val.fragments(1)});
 
   & > span {
     @include layout.visually-hidden;
