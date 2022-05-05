@@ -42,8 +42,9 @@
 .header > p {
   @include text.style($color: tertiary, $step: 2, $weight: 300);
   font-style: italic;
+  line-height: #{val.fragments(6)};
   order: 2;
-  padding-block-start: #{val.fragments(3)};
+  padding-block-start: #{val.fragments(2)};
 }
 
 //

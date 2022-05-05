@@ -62,7 +62,7 @@ main > article > div:last-of-type {
   & > div {
     @include layout.grid;
     @include layout.wrapper;
-    row-gap: #{val.rhythm(1)};
+    row-gap: #{val.rhythm(2)};
 
     & > .replies {
       @include grid.columns(8) {
