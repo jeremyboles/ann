@@ -9,6 +9,7 @@ defmodule Foilsigh.Router do
     plug :put_layout, {Foilsigh.LayoutView, :site}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_permissions_policy_header
   end
 
   pipeline :api do
@@ -52,5 +53,9 @@ defmodule Foilsigh.Router do
 
     get "/map.svg", GraphicsController, :map
     get "/points.svg", GraphicsController, :points
+  end
+
+  defp put_permissions_policy_header(conn, _) do
+    put_resp_header(conn, "permissions-policy", "interest-cohort=()")
   end
 end
