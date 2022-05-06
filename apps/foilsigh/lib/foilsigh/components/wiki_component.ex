@@ -4,7 +4,7 @@ defmodule Foilsigh.WikiComponent do
   def breadcrumbs(assigns) do
     ~H"""
       <nav aria-labelledby="topic-breadcrumb-nav-label" class="breadcrumbs" id="topic-breadcrumb">
-        <p><span id="topic-breadcrumb-nav-label">Breadcrumb</span> navigation:</p>
+        <p class="vh"><span id="topic-breadcrumb-nav-label">Breadcrumb</span> navigation:</p>
         <ol>
           <li><a href="/wiki">Wiki</a></li>
           <li><a href="/travel">Travel</a></li>
@@ -18,16 +18,7 @@ defmodule Foilsigh.WikiComponent do
   def content(assigns) do
     ~H"""
       <div class="content">
-        <nav aria-labelledby="topic-table-of-contents">
-          <p id="topic-table-of-contents">Table of contents:</p>
-          <ol>
-            <li><a href="#theitinerary">The&nbsp;Itinerary</a></li>
-            <li><a href="#memorablefood">Memorable&nbsp;Food</a></li>
-            <li><a href="#notable-gearused">Notable Gear&nbsp;Used</a></li>
-            <li><a href="#favoritesmoments">Favorites&nbsp;Moments</a></li>
-            <li><a href="#things-ilearned">Things I&nbsp;Learned</a></li>
-          </ol>
-        </nav>
+        <.table_of_contents />
       
         <div>
           <p>This trip was my first time leaving North America and, thus, my first overnight flight across the Atlantic. This was also the first&nbsp;major <a href="/solo-travel">solo&nbsp;travel</a> trek that I&nbsp;took.</p>
@@ -78,14 +69,14 @@ defmodule Foilsigh.WikiComponent do
   def essays(assigns) do
     ~H"""
       <aside class="essays">
-        <h3>Related Essays</h3>
+        <h3 class="vh">Related Essays</h3>
       
         <article class="h-entry article">
           <picture>
             <source sizes="558px" srcset="https://f000.backblazeb2.com/file/jeremyboles-com/topic_essay@588w.jpg 588w, https://f000.backblazeb2.com/file/jeremyboles-com/topic_essay@1176w.jpg 1176w" type="image/jpeg">
             <img alt="A chapel of an old, stone church with sunlight streaming through" src="https://f000.backblazeb2.com/file/jeremyboles-com/topic_essay@588w.jpg" />
           </picture>
-          <h4 class="p-name"><a class="u-uid u-url" href="/essays/asdf">Getting to My Airbnb in Paris</a></h4>
+          <h4 class="p-name"><a class="u-uid u-url" href="/essays/asdf">Getting to My Airbnb in Paris</a></h4>
           <p class="p-summary">Part one of the story about visiting my friend in Tanzania in which I navigate the streets and subways of Paris without a smartphone and after a sleepless night on a plane.</p>
         </article>
       
@@ -129,9 +120,9 @@ defmodule Foilsigh.WikiComponent do
   def header(assigns) do
     ~H"""
       <header class="header">
-        <h2><a href="/" rel="bookmark">Trip to Scotland, 2018</a></h2>
+        <h1><a href="/" rel="bookmark">Trip to Scotland, 2018</a></h1>
         <p>
-          <span>Tagged with:</span>
+          <span class="vh">Tagged with:</span>
           <a href="/tags/trip" rel="tag">trips</a>
           <a href="/tags/scotland" rel="tag">scotland</a>
           <a href="/tags/kids" rel="tag">kids</a>
@@ -143,14 +134,14 @@ defmodule Foilsigh.WikiComponent do
 
   def journal(assigns) do
     ~H"""
-      <section class="h-feed journal">
-        <h3 class="p-name">Latest Journal Entries About “Scotland, 2018”</h3>
+      <section class="journal">
+        <h3 class="vh">Latest Journal Entries About “Scotland, 2018”</h3>
       
         <article class="h-entry note">
           <p>
-            <span>On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span>,</span> 2014 <span>@</span> 5:53 am</time><span>,</span>
-            <a class="h-card p-author" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a note</a>
-            <span>from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span>,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span>:</span>
+            <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
+            <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a note</a>
+            <span class="vh">from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span class="vh">,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span class="vh">:</span>
           </p>
       
           <blockquote cite="/journal/6T51WU" class="e-content p-name">
@@ -160,9 +151,9 @@ defmodule Foilsigh.WikiComponent do
       
         <article class="h-entry photo">
           <p>
-            <span>On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span>,</span> 2014 <span>@</span> 5:53 am</time><span>,</span>
-            <a class="h-card p-author" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a photo</a>
-            <span>from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span>,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span>:</span>
+            <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
+            <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a photo</a>
+            <span class="vh">from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span class="vh">,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span class="vh">:</span>
           </p>
           <blockquote cite="/journal/6T51WU">
             <figure>
@@ -179,9 +170,9 @@ defmodule Foilsigh.WikiComponent do
       
         <article class="h-entry checkin">
           <p>
-            <span>On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span>,</span> 2014 <span>@</span> 5:53 am</time><span>,</span>
-            <a class="h-card p-author" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">was at a location</a>
-            <span>in</span> <span class="h-adr p-location"><span class="p-locality">Amsterdam</span><span>,</span> <abbr class="p-country-name" title="Netherlands">NL</abbr></span><span>:</span>
+            <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
+            <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">was at a location</a>
+            <span class="vh">in</span> <span class="h-adr p-location"><span class="p-locality">Amsterdam</span><span class="vh">,</span> <abbr class="p-country-name" title="Netherlands">NL</abbr></span><span class="vh">:</span>
           </p>
       
           <blockquote cite="/journal/6T51WU" class="e-content p-name">
@@ -192,9 +183,9 @@ defmodule Foilsigh.WikiComponent do
       
         <article class="h-entry video">
           <p>
-            <span>On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span>,</span> 2014 <span>@</span> 5:53 am</time><span>,</span>
-            <a class="h-card p-author" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a video</a>
-            <span>from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span>,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span>:</span>
+            <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
+            <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a video</a>
+            <span class="vh">from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span class="vh">,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span class="vh">:</span>
           </p>
       
           <blockquote cite="/journal/6T51WU">
@@ -222,9 +213,9 @@ defmodule Foilsigh.WikiComponent do
       
         <article class="h-entry bookmark">
           <p>
-            <span>On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span>,</span> 2014 <span>@</span> 5:53 am</time><span>,</span>
-            <a class="h-card p-author" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">bookmarked a webpage</a>
-            <span>from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span>,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span>:</span>
+            <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
+            <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">bookmarked a webpage</a>
+            <span class="vh">from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span class="vh">,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span class="vh">:</span>
           </p>
       
           <blockquote cite="/journal/6T51WU" class="e-content p-name">
@@ -235,9 +226,9 @@ defmodule Foilsigh.WikiComponent do
       
         <article class="h-entry quote">
           <p>
-            <span>On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span>,</span> 2014 <span>@</span> 5:53 am</time><span>,</span>
-            <a class="h-card p-author" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a quote</a>
-            <span>from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span>,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span>:</span>
+            <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
+            <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a quote</a>
+            <span class="vh">from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span class="vh">,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span class="vh">:</span>
           </p>
       
           <blockquote cite="/journal/6T51WU" class="e-content p-name">
@@ -524,6 +515,21 @@ defmodule Foilsigh.WikiComponent do
           </ul>
         </article>
       </aside>
+    """
+  end
+
+  defp table_of_contents(assigns) do
+    ~H"""
+      <nav aria-labelledby="topic-table-of-contents" class="table_of_contents">
+        <p class="vh" id="topic-table-of-contents">Table of contents:</p>
+        <ol>
+          <li><a href="#theitinerary">The&nbsp;Itinerary</a></li>
+          <li><a href="#memorablefood">Memorable&nbsp;Food</a></li>
+          <li><a href="#notable-gearused">Notable Gear&nbsp;Used</a></li>
+          <li><a href="#favoritesmoments">Favorites&nbsp;Moments</a></li>
+          <li><a href="#things-ilearned">Things I&nbsp;Learned</a></li>
+        </ol>
+      </nav>
     """
   end
 end

@@ -1,2 +1,46 @@
-.footer {
+// -----------------------------------------------------------------------------------------------
+//
+// Location information
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.footer figure {
+  display: grid;
+  gap: #{val.fragments(2)};
+}
+
+//
+// Map illustration
+// -----------------------------------------------------------------------------------------------
+
+.footer figure svg {
+  @include box.rounded;
+  --map-fill: var(--color-land-map);
+  --previous-fill: var(--color-marker-secondary-map);
+  --recent-fill: var(--color-marker-primary-map);
+  background-color: var(--color-background-map);
+  border: var(--color-border-map) solid 1px;
+  min-block-size: #{val.fragments(34)};
+  order: 1;
+}
+
+//
+// Map caption
+// -----------------------------------------------------------------------------------------------
+
+.footer figure figcaption {
+  @include text.style(sans, $color: tertiary, $step: -2, $weight: 500);
+  order: 2;
+
+  a {
+    color: inherit;
+  }
 }

@@ -1,2 +1,78 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Topic Header
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/grid';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
 .header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: #{val.rhythm(3)};
+  padding-block-end: #{val.rhythm(3)};
+}
+
+//
+// Topic title
+// -----------------------------------------------------------------------------------------------
+
+.header h1 {
+  @include text.style(sans, $color: emphasized, $step: 5, $weight: 900);
+  overflow-wrap: break-word;
+  text-align: center;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: var(--topic-link-hover-color);
+    }
+
+    &:active {
+      color: var(--topic-link-active-color);
+    }
+  }
+}
+
+//
+// Tag list
+// -----------------------------------------------------------------------------------------------
+
+.header p {
+  @include layout.cluster;
+  justify-content: center;
+  position: relative;
+
+  a {
+    @include text.tag-links;
+    @include text.style($step: -1, $weight: 700);
+    font-style: italic;
+  }
+}
+
+//
+// Rule between title and tags
+// -----------------------------------------------------------------------------------------------
+
+.header p::before {
+  background-color: var(--color-dark-border);
+  block-size: #{val.fragments(1)};
+  content: "";
+  display: block;
+  float: left;
+  inline-size: #{val.rhythm(4)};
+  position: absolute;
+  transform: translateY(calc((#{val.fragments(5)} * -1) - 50%));
+  top: 0;
 }

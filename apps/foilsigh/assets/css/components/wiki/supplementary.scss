@@ -1,2 +1,61 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Supplementary Information
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
 .supplementary {
+  @include layout.flow;
+}
+
+//
+// Information group
+// -----------------------------------------------------------------------------------------------
+
+.supplementary article {
+}
+
+//
+// Group title
+// -----------------------------------------------------------------------------------------------
+
+.supplementary article h3 {
+  @include text.sidebar-title;
+}
+
+//
+// List of links
+// -----------------------------------------------------------------------------------------------
+
+.supplementary article ul {
+  @include text.style(sans, $color: secondary, $step: -1, $weight: 500);
+  list-style: initial;
+  margin-inline-start: #{val.fragments(3)};
+
+  li::marker {
+    @include text.style($color: faded, $step: -2, $weight: 600);
+  }
+}
+
+//
+// Definition lists / glossary
+// -----------------------------------------------------------------------------------------------
+
+.supplementary article dt {
+  @include text.style(sans, $color: main, $step: -1, $weight: 700);
+  font-style: italic;
+}
+
+.supplementary article dd {
+  @include text.style($color: tertiary, $step: -1, $weight: 300);
+  margin-inline-start: #{val.fragments(1)};
 }

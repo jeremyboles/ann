@@ -1,0 +1,62 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Table of Contents
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/grid';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.table_of_contents {
+  padding-block-end: #{val.rhythm(2)};
+}
+
+//
+// Separator rule
+// -----------------------------------------------------------------------------------------------
+
+.table_of_contents::after {
+  background-color: var(--color-emphasized-border);
+  content: " ";
+  display: block;
+  height: 1px;
+  margin: 0 auto;
+  transform: translateY(#{val.rhythm(1)});
+  width: #{val.rhythm(3)};
+}
+
+//
+// Internal links
+// -----------------------------------------------------------------------------------------------
+
+.table_of_contents > ol {
+  @include text.style(sans, $step: -1, $weight: 800);
+  columns: 2;
+  column-gap: var(--grid-space);
+  list-style-position: inside;
+  list-style-type: decimal-leading-zero;
+
+  a {
+    @include text.color(secondary);
+  }
+  a:hover {
+    @include text.color(main);
+  }
+}
+
+//
+// Individual content link markers
+// -----------------------------------------------------------------------------------------------
+
+.table_of_contents > ol li::marker {
+  @include text.style(mono, $color: tertiary, $step: -1, $weight: 600);
+  font-variant-numeric: tabular-nums;
+}

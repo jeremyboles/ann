@@ -1,0 +1,67 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Topic Breadcrumbs
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/grid';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumbs ol {
+  @include box.bg(darkened);
+  @include box.rounded;
+  @include layout.cluster(val.fragments(1));
+  @include text.style(mono, $color: main, $step: -2, $weight: 800);
+  list-style: none;
+  padding-inline: #{val.fragments(1)};
+}
+
+//
+// Individual topics
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumbs li a {
+  color: inherit;
+
+  &:hover {
+    color: var(--topic-link-hover-color);
+  }
+
+  &:active {
+    color: var(--topic-link-active-color);
+  }
+
+  &[aria-current="page"] {
+    font-style: italic;
+    font-weight: 600;
+  }
+}
+
+/* Link back to topic index is not a topic  */
+.breadcrumbs li:first-of-type a {
+  &:hover {
+    @include text.color(tertiary);
+  }
+  &:active {
+    @include text.color(secondary);
+  }
+}
+
+//
+// Arrow icon
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumbs li + li {
+  @include icon.before("/images/fa/solid/arrow-right-long.svg", $color: var(--color-faded-text), $size: 1em) {
+    margin-inline-end: #{val.fragments(1)};
+    transform: translateY(0.1em);
+  }
+}

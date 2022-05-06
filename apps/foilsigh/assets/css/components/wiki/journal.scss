@@ -1,2 +1,240 @@
-.journal {
+// -----------------------------------------------------------------------------------------------
+//
+// Related Journal Entries
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/box';
+@use '../../utils/border';
+@use '../../utils/icon';
+@use '../../utils/picture';
+@use '../../utils/position';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.journal article {
+  @include box.bg(faded);
+  @include box.rounded;
+  @include border.all;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.journal article:not(:first-of-type) {
+  border-block-start-width: 0;
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+}
+
+.journal article:not(:last-of-type) {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+//
+// Metadata
+// -----------------------------------------------------------------------------------------------
+
+.journal article > p {
+  @include text.style(mono, $color: tertiary, $step: -2, $weight: 600);
+  display: flex;
+  justify-content: space-between;
+  margin-inline: #{val.fragments(2)};
+  order: 2;
+  padding-block: #{val.fragments(1)};
+}
+
+.journal article.bookmark > p,
+.journal article.checkin > p,
+.journal article.note > p,
+.journal article.quote > p,
+.journal article.video > p {
+  @include border.block-start;
+}
+//
+// Icon
+// -----------------------------------------------------------------------------------------------
+
+.journal article > p a[href^="/journal"] {
+  @include box.hidden-contents($size: val.fragments(6));
+  @include position.absolute(val.fragments(3));
+  background-color: var(--color-journal-icon-bg);
+  border-radius: 50%;
+  z-index: 3;
+  &:hover {
+    background-color: var(--color-faded-text);
+  }
+}
+
+@each $name, $icon in (bookmark: bookmark, checkin: location-dot, like: star, note: note, photo: image, quote: quote-left, read: book, reply: reply, repost: retweet, rsvp: calendar-check, video: film, walk: person-walking) {
+  .journal article.#{$name} > p a[href^="/journal"] {
+    @include icon.before("/images/fa/solid/#{$icon}.svg", $color: palette.stone($lightness: 96%), $size: val.fragments(3)) {
+      @include position.center;
+      mix-blend-mode: lighten;
+    }
+  }
+}
+
+.journal article.photo > p a[href^="/journal"],
+.journal article.video > p a[href^="/journal"] {
+  background-color: #{palette.stone($lightness: 10%, $alpha: 0.8)};
+  // mix-blend-mode: darken;
+  &:hover {
+    background-color: #{palette.stone($lightness: 10%, $alpha: 0.7)};
+  }
+}
+
+//
+// Published at data
+// -----------------------------------------------------------------------------------------------
+
+.journal article > p > time {
+  @include icon.before("/images/fa/regular/clock.svg", $color: var(--color-faded-text), $size: 1em) {
+    margin-inline-end: 1ch;
+    transform: translateY(0.1em);
+  }
+}
+
+//
+// Location
+// -----------------------------------------------------------------------------------------------
+
+.journal article > p > span {
+  @include icon.after("/images/fa/solid/earth-europe.svg", $color: var(--color-faded-text), $size: 1em) {
+    margin-inline-start: 1ch;
+    transform: translateY(0.1em);
+  }
+}
+
+//
+// Content
+// -----------------------------------------------------------------------------------------------
+
+.journal article > blockquote {
+  order: 1;
+  padding: #{val.rhythm(1)};
+  padding-inline-start: #{val.rhythm(3)};
+}
+
+//
+// Bookmark content
+// -----------------------------------------------------------------------------------------------
+
+.journal article.bookmark > blockquote p:first-of-type {
+  @include text.style(mono, $color: emphasized, $step: -1, $weight: 700);
+
+  a {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  a[href]:not(:hover) {
+    color: inherit;
+    text-decoration-color: transparent;
+  }
+}
+
+.journal article.bookmark > blockquote p:not(:first-of-type) {
+  @include text.style($color: secondary, $step: -1, $weight: 300);
+}
+
+//
+// Checkin content
+// -----------------------------------------------------------------------------------------------
+
+.journal article.checkin > blockquote p:first-of-type {
+  @include text.style(sans, $color: emphasized, $weight: 700);
+}
+
+.journal article.checkin > blockquote p:not(:first-of-type) {
+  @include text.style($color: secondary, $step: -1);
+  padding-block-start: #{val.fragments(2)};
+}
+
+//
+// Photo content
+// -----------------------------------------------------------------------------------------------
+
+.journal article.photo > blockquote {
+  padding: 0;
+}
+
+.journal article.photo > blockquote figure {
+  position: relative;
+}
+
+.journal article.photo > blockquote picture {
+  @include picture.cover;
+}
+
+.journal article.photo > blockquote figcaption {
+  @include position.absolute($bottom: 0, $left: 0, $right: 0);
+  @include text.step(-1);
+  /* prettier-ignore */
+  background-image: linear-gradient(
+    palette.stone($lightness: 8%, $alpha: 0),
+    palette.stone($lightness: 8%, $alpha: 0.5),
+    palette.stone($lightness: 8%, $alpha: 0.75),
+    palette.stone($lightness: 8%, $alpha: 0.85)
+  );
+  color: #{palette.stone($lightness: 90%)};
+  display: flex;
+  font-style: italic;
+  font-weight: 400;
+  justify-content: center;
+  padding: #{val.fragments(2)};
+  padding-block-start: #{val.rhythm(2)};
+
+  z-index: 2;
+}
+
+//
+// Quote content
+// -----------------------------------------------------------------------------------------------
+
+.journal article.quote > blockquote blockquote {
+  font-style: italic;
+}
+
+.journal article.quote > blockquote figcaption {
+  @include text.style(sans, $color: secondary, $step: -1, $weight: 700);
+  padding-block-start: #{val.fragments(2)};
+
+  cite {
+    font-style: italic;
+    font-weight: 500;
+  }
+}
+
+//
+// Video content
+// -----------------------------------------------------------------------------------------------
+
+.journal article.video > blockquote {
+  padding: 0;
+}
+
+.journal article.video > blockquote video {
+  max-inline-size: 100%;
+  min-inline-size: 100%;
+  object-fit: cover;
+}
+
+.journal article.video > blockquote figcaption {
+  @include text.style($color: secondary, $step: -1);
+  display: flex;
+  font-style: italic;
+  font-weight: 400;
+  justify-content: center;
+  padding: #{val.fragments(2)};
 }

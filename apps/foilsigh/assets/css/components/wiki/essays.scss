@@ -1,2 +1,118 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Related Essays
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/box';
+@use '../../utils/border';
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/picture';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
 .essays {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-space);
+  min-inline-size: 100%;
+
+  @include grid.columns(12) {
+    flex-direction: row;
+  }
+}
+//
+// Individual essay
+// -----------------------------------------------------------------------------------------------
+
+.essays article {
+  @include border.all;
+  @include box.bg(darkened);
+  @include box.rounded;
+  block-size: #{val.rhythm(12)};
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  @include grid.columns(12) {
+    max-inline-size: calc(50% - (var(--grid-space) / 2));
+  }
+}
+
+//
+// Essay title
+// -----------------------------------------------------------------------------------------------
+
+.essays article h4 {
+  @include text.style($step: 3, $weight: 500);
+  line-height: #{val.fragments(7)};
+  padding: #{val.rhythm(1)};
+  text-align: center;
+  z-index: 2;
+
+  a {
+    color: inherit;
+  }
+  a:hover {
+    @include text.color(secondary);
+  }
+}
+
+//
+// Essay description
+// -----------------------------------------------------------------------------------------------
+
+.essays article p {
+  @include text.style($color: secondary, $step: 0, $weight: 400);
+  font-style: italic;
+  padding: #{val.rhythm(1)};
+  text-align: center;
+  z-index: 2;
+}
+
+//
+// Essay with picture
+// -----------------------------------------------------------------------------------------------
+
+.essays article picture {
+  @include picture.cover;
+  background-color: #{palette.stone($lightness: 50%)};
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+
+  img {
+    mix-blend-mode: multiply;
+    opacity: 0.8;
+  }
+}
+
+.essays article picture ~ h4 {
+  color: #{palette.stone($lightness: 90%)};
+  text-align: start;
+  text-shadow: #{palette.stone($lightness: 10%, $alpha: 0.5)} 0 0 #{val.fragments(1)};
+
+  a:hover {
+    color: #{palette.stone($lightness: 90%, $alpha: 0.8)};
+  }
+}
+
+.essays article picture ~ p {
+  color: #{palette.stone($lightness: 84%)};
+  text-align: start;
+  text-shadow: #{palette.stone($lightness: 10%, $alpha: 0.5)} 0 0 #{val.fragments(1)};
 }

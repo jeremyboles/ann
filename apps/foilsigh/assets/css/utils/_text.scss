@@ -68,6 +68,10 @@
   }
 }
 
+@mixin style($style) {
+  font-style: $style;
+}
+
 @mixin weight($weight) {
   font-weight: $weight;
 }
@@ -85,7 +89,7 @@
 // Mix-in for settings a bunch of text properties at once
 // -----------------------------------------------------------------------------------------------
 
-@mixin style($font: false, $color: false, $decoration-color: false, $kern: false, $leading: false, $step: false, $weight: false) {
+@mixin style($font: false, $color: false, $decoration-color: false, $kern: false, $leading: false, $step: false, $style: false, $weight: false) {
   @if $color {
     @include color($color);
   }
@@ -103,6 +107,9 @@
   }
   @if $step {
     @include step($step);
+  }
+  @if $style {
+    @include style($style);
   }
   @if $weight {
     @include weight($weight);

@@ -1,2 +1,69 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Topic Content
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
 .content {
+  padding-block-end: #{val.rhythm(2)};
+}
+
+.content div {
+  @include text.style(sans, $weight: 400);
+
+  a:not([href^="http:"]):not([href^="https:"]) {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--topic-link-color);
+    text-decoration-style: dotted;
+
+    &:hover {
+      color: var(--topic-link-hover-color);
+      text-decoration-color: var(--topic-link-hover-color);
+    }
+    &:active {
+      color: var(--topic-link-active-color);
+      text-decoration-color: var(--topic-link-active-color);
+    }
+  }
+}
+
+//
+// Headings
+// -----------------------------------------------------------------------------------------------
+
+.content div h2 {
+  @include text.style(serif, $color: emphasized, $step: 1, $weight: 700);
+  padding-block-start: #{val.rhythm(1)};
+}
+
+//
+// Lists
+// -----------------------------------------------------------------------------------------------
+
+.content div ol,
+.content div ul {
+  list-style: initial;
+  margin-left: #{val.fragments(6)};
+
+  li::marker {
+    @include text.style($color: faded, $step: -1, $weight: 600);
+  }
+}
+
+//
+// Content spacing
+// -----------------------------------------------------------------------------------------------
+
+.content div p + ol,
+.content div p + p,
+.content div p + ul {
+  margin-block-start: #{val.rhythm(1)};
 }
