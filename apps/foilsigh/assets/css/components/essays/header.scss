@@ -40,7 +40,7 @@
 // -----------------------------------------------------------------------------------------------
 
 .header > p {
-  @include text.style($color: tertiary, $step: 2, $weight: 300);
+  @include text.style($color: secondary, $step: 2, $weight: 100);
   font-style: italic;
   line-height: #{val.fragments(6)};
   order: 2;
@@ -52,7 +52,7 @@
 // -----------------------------------------------------------------------------------------------
 
 .header > aside {
-  @include text.style(sans, $color: secondary, $kern: loose, $step: -2, $weight: 600);
+  @include text.style(sans, $color: tertiary, $kern: loose, $step: -2, $weight: 600);
   order: 1;
   padding-block-end: #{val.fragments(1)};
   text-transform: uppercase;
