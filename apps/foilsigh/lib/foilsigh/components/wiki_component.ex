@@ -467,7 +467,7 @@ defmodule Foilsigh.WikiComponent do
   def related(assigns) do
     ~H"""
       <aside class="related">
-        <h3>Related Wiki Topics</h3>
+        <h3 class="vh">Related Wiki Topics</h3>
         <dl>
           <div>
             <dt>Other Topics Under “Trip to Scotland, 2018”</dt>

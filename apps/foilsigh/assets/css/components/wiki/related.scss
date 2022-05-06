@@ -1,2 +1,109 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Related Topics
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/border';
+@use '../../utils/box';
+@use '../../utils/grid';
+@use '../../utils/layout';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
 .related {
+  @include box.bg(darkened);
+}
+
+//
+// Category list
+// -----------------------------------------------------------------------------------------------
+
+.related dl {
+  @include layout.grid;
+  @include layout.wrapper;
+  padding-block: #{val.rhythm(2)};
+}
+
+//
+// Category list
+// -----------------------------------------------------------------------------------------------
+
+.related dl > div {
+  @include grid.columns(2) {
+    grid-column-end: span 2;
+    grid-column-start: auto;
+  }
+
+  @include grid.columns(3) {
+    grid-column-end: span 3;
+  }
+
+  @include grid.columns(4) {
+    grid-column-end: span 2;
+  }
+
+  @include grid.columns(6) {
+    columns: 2;
+    column-gap: var(--grid-space);
+    grid-column-end: span 3;
+  }
+
+  @include grid.columns(8) {
+    grid-column-end: span 4;
+  }
+
+  @include grid.columns(12) {
+    columns: 1;
+    grid-column-end: span 3;
+  }
+
+  @include grid.columns(16) {
+    columns: 2;
+    grid-column-end: span 4;
+  }
+}
+
+//
+// Category name
+// -----------------------------------------------------------------------------------------------
+
+.related dt {
+  @include border.block-end;
+  @include text.style(mono, $color: secondary, $step: -2, $weight: 700);
+  column-span: all;
+  grid-column-end: span 2;
+  grid-column-start: 1;
+
+  @include grid.columns(12) {
+    column-span: initial;
+  }
+
+  @include grid.columns(16) {
+    column-span: all;
+  }
+}
+
+//
+// Topics
+// -----------------------------------------------------------------------------------------------
+
+.related dd {
+  @include text.outdent;
+  @include text.style(mono, $color: tertiary, $step: -2, $weight: 500);
+
+  a {
+    color: inherit;
+  }
+
+  a:hover {
+    color: var(--topic-link-hover-color);
+  }
+  a:active {
+    color: var(--topic-link-active-color);
+  }
 }

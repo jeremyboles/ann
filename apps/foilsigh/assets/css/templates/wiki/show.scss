@@ -14,3 +14,14 @@
 
 @import url("/assets/components/shared.css");
 @import url("/assets/components/wiki.css");
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+main > div > div {
+  @include layout.grid;
+  @include layout.wrapper;
+  padding-bottom: #{val.rhythm(2)};
+  row-gap: #{val.rhythm(1)};
+}
