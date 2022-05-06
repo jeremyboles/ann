@@ -1,14 +1,16 @@
 <div>
   <div>
-    <%= render("_show_breadcrumb.html") %>
+    <.breadcrumbs />
+
     <article>
-      <%= render("_show_header.html") %>
-      <%= render("_show_content.html") %>
-      <%= render("_show_journal.html") %>
-      <%= render("_show_supplementary.html") %>
-      <%= render("_show_essays.html") %>
-      <%= render("_show_footer.html") %>
+      <.header />
+      <.content />
+      <.journal />
+      <.supplementary />
+      <.essays />
+      <.footer />
     </article>
   </div>
-  <%= render("_show_related.html") %>
+
+  <.related />
 </div>

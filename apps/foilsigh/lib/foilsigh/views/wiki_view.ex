@@ -4,6 +4,7 @@ defmodule Foilsigh.WikiView do
   import Foilsigh.SharedComponent
   import Foilsigh.WikiComponent
 
+  def stylesheets("show.html", _assigns), do: ~w(/assets/templates/wiki/show.css)
   def stylesheets("index.html", _assigns), do: ~w(/assets/templates/wiki/index.css)
   def stylesheets(_action, _assigns), do: []
 
