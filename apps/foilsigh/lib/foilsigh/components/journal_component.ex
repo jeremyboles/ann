@@ -22,6 +22,45 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
+  def entry_header(assigns) do
+    ~H"""
+      <header class="entry_header">
+        <h2>
+          <a class="h-card p-author" href="/">
+            <picture>
+              <img alt="I" class="u-photo" loading="lazy" src="/images/avatar@880w.jpg">
+            </picture>
+          </a>
+          <a class="u-uid u-url" href={"/journal/#{@slug}"}>Published the Following Note</a>
+          <span>at</span> <time class="dt-published" datetime="2013-06-13 12:00:00">5:53 AM <span>on</span> December 2nd, 2014</time><span>,</span>
+          <span>from</span> <a class="h-adr p-location" href="/map">Quartier de Bonne-Nouvelle</a><span>:</span>
+        </h2>
+      </header>
+    """
+  end
+
+  def entry_footer(assigns) do
+    ~H"""
+      <footer class="entry_footer">
+        <h3 class="vh">Types of Responses to This Note</h3>
+        <ul>
+          <li class="replies"><data>5</data> <span>Replies</span></li>
+          <li class="likes"><data>9</data> <span>Likes</span></li>
+          <li class="reposts"><data>1</data> <span>Repost</span></li>
+          <li class="bookmarks"><data>3</data> <span>Bookmarks</span></li>
+        </ul>
+      
+        <h3 class="vh">Syndication of This Note</h3>
+        <ul>
+          <li><a href="https://twitter.com/jeremyboles/status/539749149538009090">Twitter</a></li>
+          <li><a href="https://www.instagram.com/p/B89FdgKBC7m/">Instgram</a></li>
+          <li><a href="https://www.youtube.com/watch?v=Jd0EiwY-jbg">Youtube</a></li>
+          <li><a href="https://boles.social/web/@freedcreative@merveilles.town/107572377410561742">Mastodon</a></li>
+        </ul>
+      </footer>
+    """
+  end
+
   def entry_summary(%{type: type} = assigns) do
     ~H"""
       <article class={"entry_summary #{type}"}>
@@ -61,6 +100,75 @@ defmodule Foilsigh.JournalComponent do
           <p class="vh"><button type="submit">Filter Entries</button></p>
         </fieldset>
       </form>
+    """
+  end
+
+  def location_map(assigns) do
+    ~H"""
+      <aside class="location_map">
+        <svg role="img" viewBox="0 0 384 168">
+          <desc>
+            <p><i>Trip to Scotland, 2018</i> has been updated from the following locations:</p>
+            <ul>
+              <li><data value="37.202039578772734,-93.27147187929123">Springfield, MO (37°12'07.3"N 93°16'17.3"W')</data></li>
+              <li><data value="56.11932088728583,-3.9401846057621692">Stirling, Scotland (56°07'09.6"N 3°56'24.7"W)</data></li>
+              <li><data value="43.842596263769565,10.503018539613965">Lucca, Italy (43°50'33.4"N 10°30'10.9"E)</data></li>
+            </ul>
+          </desc>
+        
+          <use href="/g/map.svg?height=168&width=384#map"/>
+          <use href="/g/points.svg?locations[primary][]=9ytetsdz2&locations[secondary][]=spz3rj21d&locations[secondary][]=gcvpq24ye&height=168&width=384#points"/>
+        </svg>
+      </aside>
+    """
+  end
+
+  def metadata(assigns) do
+    ~H"""
+      <aside class="metadata">
+        <h4 class="vh">Metadata about This Note</h4>
+      
+        <p>
+          <span>This note was posted under the topic “</span><a href="/topic">This is a Topic Title</a><span>” and was tagged with:</span>
+          <a href="/tags/pizza" rel="tag">pizza</a><span>,</span>
+          <a href="/tags/pizza" rel="tag">test</a><span>,</span>
+          <a href="/tags/pizza" rel="tag">more-test</a><span>,</span>
+          <a href="/tags/pizza" rel="tag">make-it-long</a><span>,</span>  
+          <a href="/tags/arugula" rel="tag">arugula</a><span>,&nbsp;and</span>&nbsp;<a href="/tags/prosciutto" rel="tag">prosciutto</a><span>.</span>
+        </p>
+      
+        <dl>
+          <dt>Coordinates</dt>
+          <dd data-icon="world">48°52′4.8″N 2°21′6.5″E</dd>
+      
+          <dt>Location</dt>
+          <dd data-icon="pin">Paris <abbr title="France">FR</abbr></dd>
+      
+          <dt>Activity</dt>
+          <dd data-icon="plane">Flying</dd>
+      
+          <dt>Weather</dt>
+          <dd data-icon="snow"><data value="24.5°C">24°<abbr title="Celsius">C</abbr></data></dd>
+      
+          <dt>Currently Playing</dt>
+          <dd data-icon="music">Roadrunner</dd>
+      
+          <dt>Posted Via</dt>
+          <dd data-icon="transfer">Twitter</dd>
+      
+          <dt>Device</dt>
+          <dd data-icon="tablet">iPad</dd>
+      
+          <dt>Aperture</dt>
+          <dd data-icon="aperture">ƒ/2.4</dd>
+      
+          <dt>Shutter</dt>
+          <dd data-icon="shutter">1⁄500</dd>
+      
+          <dt>Camera</dt>
+          <dd data-icon="camera">iPhone 5</dd>
+        </dl>
+      </aside>
     """
   end
 
@@ -114,6 +222,33 @@ defmodule Foilsigh.JournalComponent do
           <li><a href="/tags/fish-sauce" rel="tag">fish-sauce</a></li>
         </ol>
       </aside>
+    """
+  end
+
+  def responses(assigns) do
+    ~H"""
+      <section class="responses">
+        <h3 class="vh">Responses to This Note</h3>
+      
+        <article>
+          <header>
+            <h4>
+              <a href="https://twitter.com/BrentChad" rel="external nofollow noopener">
+                <picture>
+                  <img alt=" " loading="lazy" src="/images/avatar@880w.jpg">
+                </picture>
+                <span>Brent Smith</span>
+              </a>
+              <a href="https://twitter.com/BrentChad/status/539761772497211392" rel="external nofollow noopener">Replied to This Note on Twitter</a>
+              <span>at</span> <time class="dt-published" datetime="2013-06-13 12:00:00">5:53 AM <abbr title="Central European Time">CET</abbr> <span>on</span> December 2nd, 2014</time><span>.</span>
+            </h4>
+          </header>
+      
+          <blockquote cite="https://twitter.com/BrentChad/status/539761772497211392">
+            <p>that's spot on</p>
+          </blockquote>
+        </article>
+      </section>
     """
   end
 

@@ -4,6 +4,7 @@ defmodule Foilsigh.JournalView do
   import Foilsigh.JournalComponent
   import Foilsigh.SharedComponent
 
+  def stylesheets("show.html", _assigns), do: ~w(/assets/templates/journal/show.css)
   def stylesheets("index.html", _assigns), do: ~w(/assets/templates/journal/index.css)
   def stylesheets(_action, _assigns), do: []
 
