@@ -1,0 +1,120 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Essay Responses
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/border';
+@use '../../utils/box';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/picture';
+@use '../../utils/position';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.responses {
+  @include layout.flow(val.rhythm(2));
+  padding-block-start: #{val.rhythm(1)};
+}
+
+.response {
+  display: flex;
+  flex-direction: column;
+}
+
+h3 + .response {
+  --flow-space: 0;
+}
+
+//
+// Header/meta info container
+// -----------------------------------------------------------------------------------------------
+
+.response header {
+  align-items: stretch;
+  display: flex;
+  gap: var(--grid-space);
+  position: relative;
+}
+
+//
+// Avatar
+// -----------------------------------------------------------------------------------------------
+
+.response picture {
+  @include picture.cover;
+  block-size: #{val.fragments(10)};
+  inline-size: #{val.fragments(10)};
+}
+
+//
+// Meta info
+// -----------------------------------------------------------------------------------------------
+
+.response h4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+//
+// Name link/homepage link
+// -----------------------------------------------------------------------------------------------
+
+.response h4 a:first-of-type {
+  @include text.style(sans, $step: -1);
+  align-self: start;
+  color: inherit;
+  text-decoration-color: transparent;
+}
+
+//
+// Reply link/icon
+// -----------------------------------------------------------------------------------------------
+
+.response h4 a:last-of-type {
+  @include box.hidden-contents($size: val.rhythm(1));
+  background-color: var(--color-journal-icon-bg);
+  border-radius: 50%;
+  transform: translate(calc((50% + var(--grid-space)) * -1), -25%);
+  position: absolute;
+  top: 0;
+  z-index: 3;
+
+  &:hover {
+    background-color: var(--color-faded-text);
+  }
+
+  @include icon.before("/images/fa/brands/twitter.svg", $color: palette.stone($lightness: 80%), $size: val.fragments(2)) {
+    @include position.center;
+  }
+}
+
+//
+// Timestamp
+// -----------------------------------------------------------------------------------------------
+
+.response h4 time {
+  @include text.style(mono, $color: tertiary, $step: -2, $weight: 500);
+
+  abbr {
+    @include border.pipe(after, $pipe: " —", $space: initial);
+  }
+}
+
+//
+// Reply content
+// -----------------------------------------------------------------------------------------------
+
+.response blockquote {
+  max-inline-size: 72ch;
+  padding-inline-start: calc(#{val.fragments(10)} + var(--grid-space));
+}

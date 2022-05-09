@@ -1,0 +1,98 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Entry Metadata
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/box';
+@use '../../utils/border';
+@use '../../utils/grid';
+@use '../../utils/icon';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: #{val.rhythm(1)};
+
+  & > p {
+    text-align: center;
+    line-height: #{val.fragments(3)};
+  }
+}
+
+//
+// Topic link
+// -----------------------------------------------------------------------------------------------
+
+.metadata a:not([href^="/tags"]) {
+  @include text.style(sans, $color: main, $kern: loose, $weight: 800);
+  align-self: center;
+  display: block;
+  line-height: #{val.rhythm(1)};
+  padding-block-end: #{val.fragments(2)};
+  text-align: center;
+  text-transform: uppercase;
+
+  &:hover {
+    color: var(--topic-link-hover-color);
+  }
+  &:active {
+    color: var(--topic-link-active-color);
+  }
+}
+
+//
+// Tag links
+// -----------------------------------------------------------------------------------------------
+
+.metadata a[href^="/tags"] {
+  @include text.tag-links;
+  @include text.step(-2);
+  display: inline-block;
+  line-height: #{val.fragments(1)};
+}
+
+.metadata a[href^="/tags"]:not(:last-of-type)::after {
+  content: " ";
+}
+
+//
+// Details
+// -----------------------------------------------------------------------------------------------
+
+.metadata dl {
+  @include border.all;
+  @include box.bg(darkened);
+  @include box.rounded;
+  @include text.style(mono, $step: -2, $weight: 600);
+  column-gap: #{val.rhythm(1)};
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-template-columns: 1fr 1fr;
+  padding: #{val.fragments(2)};
+}
+
+.metadata dt {
+  @include text.color(tertiary);
+  text-align: right;
+}
+
+.metadata dd {
+  padding-inline-start: #{calc(val.fragments(2) + 0.5ch)};
+  text-indent: #{calc((val.fragments(2) + 0.5ch) * -1)};
+  @each $name in (aperture arrow-down-to-arc camera circle-half-stroke globe location-dot music plane sun tablet-screen) {
+    &[data-icon="#{$name}"] {
+      @include icon.before("/images/fa/solid/#{$name}.svg", $color: var(--color-faded-text), $size: val.fragments(2)) {
+        transform: translateY(0.1em);
+      }
+    }
+  }
+}

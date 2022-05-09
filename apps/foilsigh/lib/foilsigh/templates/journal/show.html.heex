@@ -1,22 +1,5 @@
 <article class={@slug}>
-  <div>
-    <.entry_header slug={@slug} />
-
-    <div>
-      <%= case @slug do
-        "bookmark" -> render("_show_bookmark.html")
-        "checkin" -> render("_show_checkin.html")
-        "note" -> render("_show_note.html")
-        "photo" -> render("_show_photo.html")
-        "quote" -> render("_show_quote.html")
-        "video" -> render("_show_video.html")
-        _ -> :error
-      end %>
-    </div>
-
-    <.entry_footer />
-  </div>
-
+  <.entry_detail slug={@slug}/>
   <.location_map />
   <.metadata />
   <.responses />

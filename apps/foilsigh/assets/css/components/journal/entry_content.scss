@@ -1,0 +1,185 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Entry Content
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/border';
+@use '../../utils/grid';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.entry_content {
+  align-self: center;
+  flex-grow: 1;
+}
+
+//
+// Bookmark content
+// -----------------------------------------------------------------------------------------------
+
+.entry_content.bookmark {
+  figure {
+    @include text.style(mono, $color: emphasized, $step: 1, $weight: 900);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: #{val.rhythm(1)};
+    padding-block: #{val.rhythm(1)};
+    padding-inline: #{val.rhythm(2)};
+
+    a {
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+
+      &:not(:hover) {
+        color: inherit;
+      }
+    }
+  }
+
+  figcaption {
+    @include text.style(serif, $step: 0, $weight: 300);
+
+    p {
+      max-inline-size: 62ch;
+    }
+  }
+}
+
+//
+// Checkin content
+// -----------------------------------------------------------------------------------------------
+
+.entry_content.checkin {
+  figure {
+    @include text.style(sans, $color: emphasized, $step: 1, $weight: 700);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: #{val.rhythm(1)};
+    padding-block: #{val.rhythm(1)};
+    padding-inline: #{val.rhythm(2)};
+
+    a[href]:not(:hover) {
+      color: inherit;
+    }
+  }
+
+  figcaption {
+    @include text.style(serif, $step: 0, $weight: 300);
+  }
+}
+
+//
+// Note content
+// -----------------------------------------------------------------------------------------------
+
+.entry_content.note {
+  @include text.style($color: emphasized, $step: 1);
+  padding-block: #{val.rhythm(2)};
+  padding-inline: #{val.rhythm(1)};
+
+  p {
+    max-inline-size: 62ch;
+    line-height: #{val.fragments(6)};
+  }
+}
+
+//
+// Photo content
+// -----------------------------------------------------------------------------------------------
+
+.entry_content.photo {
+  figcaption {
+    @include text.color(emphasized);
+    display: flex;
+    flex-direction: column;
+    gap: #{val.rhythm(1)};
+    align-items: center;
+    padding: #{val.rhythm(1)};
+
+    p {
+      max-inline-size: 62ch;
+    }
+  }
+
+  img {
+    max-inline-size: 100%;
+  }
+
+  picture {
+    inline-size: 100%;
+  }
+}
+
+//
+// Quote content
+// -----------------------------------------------------------------------------------------------
+
+.entry_content.quote {
+  figure {
+    @include text.style($color: emphasized, $step: 1);
+    display: flex;
+    flex-direction: column;
+    gap: #{val.rhythm(1)};
+    padding-block: #{val.rhythm(2)};
+    padding-inline: #{val.rhythm(1)};
+
+    blockquote {
+      font-style: italic;
+      line-height: #{val.fragments(6)};
+      max-inline-size: 62ch;
+    }
+  }
+
+  figcaption {
+    @include border.pipe($pipe: "—") {
+      margin-inline-start: 0;
+    }
+    @include text.style(sans, $color: secondary, $step: 0, $weight: 700);
+
+    cite {
+      font-weight: 600;
+    }
+  }
+}
+
+//
+// Video content
+// -----------------------------------------------------------------------------------------------
+
+.entry_content.video {
+  inline-size: 100%;
+
+  figure {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  figcaption {
+    @include text.color(emphasized);
+    display: flex;
+    flex-direction: column;
+    gap: #{val.rhythm(1)};
+    align-items: center;
+    padding: #{val.rhythm(1)};
+
+    p {
+      max-inline-size: 62ch;
+    }
+  }
+
+  video {
+    block-size: auto !important;
+    inline-size: 100% !important;
+  }
+}

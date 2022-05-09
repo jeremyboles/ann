@@ -13,3 +13,82 @@
 // -----------------------------------------------------------------------------------------------
 
 @import url("/assets/components/journal.css");
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+main > article {
+  @include layout.grid;
+  @include layout.wrapper;
+  padding-block-end: #{val.rhythm(2)};
+
+  @include grid.columns(8) {
+    grid-template-rows: min-content min-content 1fr;
+  }
+
+  & > .entry_detail {
+    @include grid.columns(8) {
+      grid-column-end: span 5;
+    }
+
+    @include grid.columns(12) {
+      grid-column-end: span 8;
+    }
+
+    @include grid.columns(16) {
+      grid-column-start: 3;
+    }
+  }
+
+  & > .location_map {
+    @include grid.columns(8) {
+      grid-column-end: span 3;
+      grid-column-start: 6;
+      grid-row-start: 3;
+    }
+
+    @include grid.columns(12) {
+      grid-column-end: span 4;
+      grid-column-start: 9;
+    }
+
+    @include grid.columns(16) {
+      grid-column-start: 11;
+    }
+  }
+
+  & > .metadata {
+    @include grid.columns(8) {
+      grid-column-end: span 3;
+      grid-column-start: 6;
+      grid-row-start: 1;
+      grid-row-end: span 2;
+    }
+
+    @include grid.columns(12) {
+      grid-column-end: span 4;
+      grid-column-start: 9;
+    }
+
+    @include grid.columns(16) {
+      grid-column-start: 11;
+    }
+  }
+
+  & > .responses {
+    @include grid.columns(8) {
+      grid-column-end: span 5;
+      grid-row-end: span 2;
+      grid-row-start: 2;
+    }
+
+    @include grid.columns(12) {
+      grid-column-end: span 8;
+    }
+
+    @include grid.columns(16) {
+      grid-column-start: 4;
+    }
+  }
+}

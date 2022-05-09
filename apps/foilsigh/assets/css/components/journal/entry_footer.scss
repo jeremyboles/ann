@@ -1,0 +1,95 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Entry Header
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/border';
+@use '../../utils/box';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/position';
+@use '../../utils/picture';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.entry_footer {
+  @include border.block-start;
+  @include text.style(sans, $step: -2, $weight: 800);
+  display: flex;
+  justify-content: space-between;
+  padding-block: #{val.fragments(1)};
+  padding-inline: #{val.fragments(2)};
+}
+
+// Responses
+// -----------------------------------------------------------------------------------------------
+
+.entry_footer ul:first-of-type {
+  @include layout.cluster;
+
+  li {
+    align-items: center;
+    display: flex;
+    gap: 0.5ch;
+  }
+
+  li data {
+    @include text.color(secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  li span {
+    @include icon.replace($color: var(--color-faded-text), $size: 1em);
+    order: -1;
+  }
+
+  @each $name, $icon in (bookmarks: bookmark, checkins: location-dot, likes: star, notes: note, photos: image, quotes: quote-left, read: book, replies: reply, reposts: retweet, rsvps: calendar-check, videos: film, walks: person-walking) {
+    li.#{$name} span {
+      mask-image: url("/images/fa/solid/#{$icon}.svg");
+    }
+  }
+}
+
+//
+// Syndication
+// -----------------------------------------------------------------------------------------------
+
+.entry_footer ul:last-of-type {
+  @include layout.cluster;
+  align-content: center;
+
+  li {
+    display: contents;
+  }
+
+  a {
+    user-select: none;
+    text-decoration: none;
+  }
+
+  @each $url, $icon in ("boles.social": mastodon, "instagram.com": instagram, "twitter.com": twitter, "youtube.com": youtube) {
+    a[href*="#{$url}"] {
+      @include icon.replace("/images/fa/brands/#{$icon}.svg", $color: var(--color-faded-text), $size: 1.25em);
+    }
+  }
+
+  a[href]:link:hover {
+    color: var(--external-link-color-hover);
+    background-color: var(--external-link-color-hover);
+  }
+  a[href]:visited:hover {
+    color: var(--external-link-visited-color-hover);
+    background-color: var(--external-link-visited-color-hover);
+  }
+  a[href]:active {
+    color: var(--external-link-active-color);
+    background-color: var(--external-link-active-color);
+  }
+}

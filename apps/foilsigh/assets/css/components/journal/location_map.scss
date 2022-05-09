@@ -1,0 +1,23 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Entry Location
+//
+// -----------------------------------------------------------------------------------------------
+
+@use '../../utils/box';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.location_map svg {
+  @include box.rounded;
+  --map-fill: var(--color-land-map);
+  --previous-fill: var(--color-marker-secondary-map);
+  --recent-fill: var(--color-marker-primary-map);
+  background-color: var(--color-background-map);
+  border: var(--color-border-map) solid 1px;
+  min-block-size: #{val.fragments(34)};
+  order: -1;
+}

@@ -47,4 +47,5 @@
   @include block($size, inline-block);
   @include mask($size, $url);
   background-color: $color;
+  color: $color;
 }

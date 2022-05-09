@@ -22,9 +22,19 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
+  def entry_detail(assigns) do
+    ~H"""
+      <div class="entry_detail">
+        <.entry_header slug={@slug} />
+        <.entry_content type={@slug} />
+        <.entry_footer />
+      </div>
+    """
+  end
+
   def entry_header(assigns) do
     ~H"""
-      <header class="entry_header">
+      <header class={"entry_header #{@slug}"}>
         <h2>
           <a class="h-card p-author" href="/">
             <picture>
@@ -32,8 +42,8 @@ defmodule Foilsigh.JournalComponent do
             </picture>
           </a>
           <a class="u-uid u-url" href={"/journal/#{@slug}"}>Published the Following Note</a>
-          <span>at</span> <time class="dt-published" datetime="2013-06-13 12:00:00">5:53 AM <span>on</span> December 2nd, 2014</time><span>,</span>
-          <span>from</span> <a class="h-adr p-location" href="/map">Quartier de Bonne-Nouvelle</a><span>:</span>
+          <span class="vh">at</span> <time class="dt-published" datetime="2013-06-13 12:00:00"><span>5:53 AM</span> <span class="vh">on</span> December 2nd, 2014</time><span class="vh">,</span>
+          <span class="vh">from</span> <a class="h-adr p-location" href="/map">Quartier de Bonne-Nouvelle</a><span class="vh">:</span>
         </h2>
       </header>
     """
@@ -129,41 +139,41 @@ defmodule Foilsigh.JournalComponent do
         <h4 class="vh">Metadata about This Note</h4>
       
         <p>
-          <span>This note was posted under the topic “</span><a href="/topic">This is a Topic Title</a><span>” and was tagged with:</span>
-          <a href="/tags/pizza" rel="tag">pizza</a><span>,</span>
-          <a href="/tags/pizza" rel="tag">test</a><span>,</span>
-          <a href="/tags/pizza" rel="tag">more-test</a><span>,</span>
-          <a href="/tags/pizza" rel="tag">make-it-long</a><span>,</span>  
-          <a href="/tags/arugula" rel="tag">arugula</a><span>,&nbsp;and</span>&nbsp;<a href="/tags/prosciutto" rel="tag">prosciutto</a><span>.</span>
+          <span class="vh">This note was posted under the topic “</span><a href="/topic">This is a Topic Title</a><span class="vh">” and was tagged with:</span>
+          <a href="/tags/pizza" rel="tag">pizza</a><span class="vh">>,</span>
+          <a href="/tags/pizza" rel="tag">test</a><span class="vh">>,</span>
+          <a href="/tags/pizza" rel="tag">more-test</a><span class="vh">>,</span>
+          <a href="/tags/pizza" rel="tag">make-it-long</a><span class="vh">>,</span>  
+          <a href="/tags/arugula" rel="tag">arugula</a><span class="vh">>,&nbsp;and</span>&nbsp;<a href="/tags/prosciutto" rel="tag">prosciutto</a><span class="vh">.</span>
         </p>
       
         <dl>
           <dt>Coordinates</dt>
-          <dd data-icon="world">48°52′4.8″N 2°21′6.5″E</dd>
+          <dd data-icon="globe">48°52′4.8″N 2°21′6.5″E</dd>
       
           <dt>Location</dt>
-          <dd data-icon="pin">Paris <abbr title="France">FR</abbr></dd>
+          <dd data-icon="location-dot">Paris <abbr title="France">FR</abbr></dd>
       
           <dt>Activity</dt>
           <dd data-icon="plane">Flying</dd>
       
           <dt>Weather</dt>
-          <dd data-icon="snow"><data value="24.5°C">24°<abbr title="Celsius">C</abbr></data></dd>
+          <dd data-icon="sun"><data value="24.5°C">24°<abbr title="Celsius">C</abbr></data></dd>
       
           <dt>Currently Playing</dt>
           <dd data-icon="music">Roadrunner</dd>
       
           <dt>Posted Via</dt>
-          <dd data-icon="transfer">Twitter</dd>
+          <dd data-icon="arrow-down-to-arc">Twitter</dd>
       
           <dt>Device</dt>
-          <dd data-icon="tablet">iPad</dd>
+          <dd data-icon="tablet-screen">iPad</dd>
       
           <dt>Aperture</dt>
           <dd data-icon="aperture">ƒ/2.4</dd>
       
           <dt>Shutter</dt>
-          <dd data-icon="shutter">1⁄500</dd>
+          <dd data-icon="circle-half-stroke">1⁄500</dd>
       
           <dt>Camera</dt>
           <dd data-icon="camera">iPhone 5</dd>
@@ -230,22 +240,20 @@ defmodule Foilsigh.JournalComponent do
       <section class="responses">
         <h3 class="vh">Responses to This Note</h3>
       
-        <article>
+        <article class="response">
           <header>
+            <picture>
+              <img alt="Brent Smith’s avatar." loading="lazy" src="/images/avatar@880w.jpg">
+            </picture>
             <h4>
-              <a href="https://twitter.com/BrentChad" rel="external nofollow noopener">
-                <picture>
-                  <img alt=" " loading="lazy" src="/images/avatar@880w.jpg">
-                </picture>
-                <span>Brent Smith</span>
-              </a>
-              <a href="https://twitter.com/BrentChad/status/539761772497211392" rel="external nofollow noopener">Replied to This Note on Twitter</a>
-              <span>at</span> <time class="dt-published" datetime="2013-06-13 12:00:00">5:53 AM <abbr title="Central European Time">CET</abbr> <span>on</span> December 2nd, 2014</time><span>.</span>
+              <a href="https://twitter.com/BrentChad/" rel="external nofollow noopener">Brent Smith</a>
+              <a href="https://twitter.com/BrentChad/status/539761772497211392" rel="external nofollow noopener">Replied on Twitter</a>
+              <span class="vh">at</span> <time datetime="">6:43 am <abbr title="Central European Time">CET</abbr> <span class="vh">on</span> December 2nd, 2015</time>
             </h4>
           </header>
-      
+        
           <blockquote cite="https://twitter.com/BrentChad/status/539761772497211392">
-            <p>that's spot on</p>
+            <p>that’s spot on</p>
           </blockquote>
         </article>
       </section>
@@ -319,6 +327,89 @@ defmodule Foilsigh.JournalComponent do
           <p>I’ve never felt so out of place in my life.</p>
         </figcaption>
       </figure>
+    """
+  end
+
+  defp entry_content(%{type: "bookmark"} = assigns) do
+    ~H"""
+      <div class="entry_content bookmark">
+        <figure>
+          <p><a href="https://thepan-handler.com/griswold-cast-iron/" rel="external noopener">https://thepan-handler.com/griswold-cast-iron/</a></p>
+          <figcaption><p>This Airbnb that I booked is perfect for solo exploration during my first trip to Paris.</p></figcaption>
+        </figure>
+      </div>
+    """
+  end
+
+  defp entry_content(%{type: "checkin"} = assigns) do
+    ~H"""
+      <div class="entry_content checkin">
+        <figure>
+          <p>Checked in at <a href="https://www.schiphol.nl/">Amsterdam Airport Schiphol</a></p>
+          <figcaption><p>AMS ✈&nbsp;DAR</p></figcaption>
+        </figure>
+      </div>
+    """
+  end
+
+  defp entry_content(%{type: "note"} = assigns) do
+    ~H"""
+      <div class="entry_content note">
+        <p>This isn’t a particularly interesting note, but it is a&nbsp;note.</p>
+      </div>
+    """
+  end
+
+  defp entry_content(%{type: "photo"} = assigns) do
+    ~H"""
+      <div class="entry_content photo">
+        <figure>
+          <picture>
+            <source sizes="1124px" srcset="https://f000.backblazeb2.com/file/jeremyboles-com/topic_journal@800w.jpg 800w, https://f000.backblazeb2.com/file/jeremyboles-com/topic_journal@400w.jpg 400w" type="image/jpeg">
+            <img alt="Mansard rooftops in Paris, France" class="u-photo" loading="lazy" src="https://f000.backblazeb2.com/file/jeremyboles-com/topic_journal@400w.jpg">
+          </picture>
+          <figcaption class="e-content p-name">
+            <p>The view from my the window outside of my apartment in&nbsp;Paris.</p>
+          </figcaption>
+        </figure>
+      </div>
+    """
+  end
+
+  defp entry_content(%{type: "quote"} = assigns) do
+    ~H"""
+      <div class="entry_content quote">
+         <figure>
+           <blockquote>Travel changes you. As you move through this life and this world you change things slightly, you leave marks behind, however small. And in return, life—and travel—leaves marks on&nbsp;you.</blockquote>
+           <figcaption>Anthony Bourdain, <cite>The Nasty Bits</cite></figcaption>
+         </figure>
+      </div>
+    """
+  end
+
+  defp entry_content(%{type: "video"} = assigns) do
+    ~H"""
+      <div class="entry_content video">
+        <figure>
+          <video controls loop muted playsinline poster="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@240p.jpg" preload="none">
+            <source class="u-video" src="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@240p.mp4" type="video/mp4">
+            
+            <img alt="The view from inside of a car on a highway in Tanzania" src="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@240p.jpg" />
+            <p>Video downloads in h.264 format:</p>
+            <ul>
+              <li><a download href="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@240p.mp4" type="video/mp4">240p resolution</a> - 6.6 <abbr title="megabyte">MB</abbr></li>
+              <li><a download href="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@480p.mp4" type="video/mp4">480p resolution</a> - 8.9 <abbr title="megabyte">MB</abbr></li>
+              <li><a download href="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@540p.mp4" type="video/mp4">540p resolution</a> - 21.7 <abbr title="megabyte">MB</abbr></li>
+              <li><a download href="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@720p.mp4" type="video/mp4">720p resolution</a> - 42.5 <abbr title="megabyte">MB</abbr></li>
+              <li><a download href="https://f000.backblazeb2.com/file/jeremyboles-com/journal_video@1080p.mp4" type="video/mp4">1080p resolution</a> - 63.7 <abbr title="megabyte">MB</abbr></li>
+            </ul>
+          </video>
+        
+          <figcaption>
+            <p>I’ve never felt so out of place in my life.</p>
+          </figcaption>
+        </figure>
+      </div>
     """
   end
 end

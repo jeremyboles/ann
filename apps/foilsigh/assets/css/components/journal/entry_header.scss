@@ -1,2 +1,108 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Entry Header
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use '../../utils/border';
+@use '../../utils/box';
+@use '../../utils/icon';
+@use '../../utils/layout';
+@use '../../utils/position';
+@use '../../utils/picture';
+@use '../../utils/text';
+@use '../../utils/val';
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
 .entry_header {
+  padding-block-start: #{val.rhythm(1)};
+  padding-inline: #{val.rhythm(1)};
+}
+
+//
+// Authorship info
+// -----------------------------------------------------------------------------------------------
+
+.entry_header h2 {
+  @include border.block-end;
+  @include text.style(sans, $step: -1);
+  display: flex;
+  flex-direction: column;
+  line-height: #{val.rhythm(1)};
+  max-inline-size: initial;
+  padding-block-end: #{val.rhythm(1)};
+}
+
+//
+// Timestamp
+// -----------------------------------------------------------------------------------------------
+
+.entry_header h2 > time {
+  margin-inline-start: calc(#{val.rhythm(2)} + var(--grid-space));
+
+  & > span:first-of-type {
+    @include border.pipe(after, $pipe: "—");
+  }
+}
+
+//
+// Location information
+// -----------------------------------------------------------------------------------------------
+
+.entry_header h2 > a[href^="/map"] {
+  @include text.style($color: tertiary, $weight: 500);
+  margin-inline-start: calc(#{val.rhythm(2)} + var(--grid-space));
+
+  &:hover {
+    color: var(--map-link-hover-color);
+  }
+
+  &:active {
+    color: var(--map-link-active-color);
+  }
+}
+
+//
+// Entry-type icon
+// -----------------------------------------------------------------------------------------------
+
+.entry_header h2 a[href^="/journal"] {
+  @include box.hidden-contents($size: val.rhythm(1));
+  background-color: var(--color-journal-icon-bg);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(calc(#{val.rhythm(2)} - 50%), -50%);
+  z-index: 3;
+  &:hover {
+    background-color: var(--color-faded-text);
+  }
+}
+
+@each $name, $icon in (bookmark: bookmark, checkin: location-dot, like: star, note: note, photo: image, quote: quote-left, read: book, reply: reply, repost: retweet, rsvp: calendar-check, video: film, walk: person-walking) {
+  .entry_header.#{$name} h2 a[href^="/journal"] {
+    @include icon.before("/images/fa/solid/#{$icon}.svg", $color: palette.stone($lightness: 96%), $size: val.fragments(2)) {
+      @include position.center;
+      mix-blend-mode: lighten;
+    }
+  }
+}
+
+//
+// Avatar
+// -----------------------------------------------------------------------------------------------
+
+.entry_header picture {
+  @include box.rounded;
+  @include picture.cover;
+  block-size: #{val.rhythm(2)};
+  cursor: default;
+  inline-size: #{val.rhythm(2)};
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
 }
