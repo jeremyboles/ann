@@ -33,6 +33,7 @@ defmodule Taifead.Wiki.Article do
     |> cast_doc(attrs)
     |> cast_assoc(:revisions)
     |> extract_from_doc()
+    |> cast_url_slug(article)
     |> validate_not_id(:parent_id)
     |> unique_constraint(:url_slug)
   end
@@ -45,6 +46,24 @@ defmodule Taifead.Wiki.Article do
     changeset
   end
 
+  defp cast_url_slug(changeset = %Ecto.Changeset{changes: %{visibility: :published, url_slug: _}}, _article) do
+    changeset
+  end
+
+  defp cast_url_slug(changeset = %Ecto.Changeset{changes: %{visibility: :published}}, article = %Taifead.Wiki.Article{url_slug: nil}) do
+    cast(changeset, %{"url_slug" => derive_url_slug(changeset, article)}, [:url_slug])
+  end
+
+  defp cast_url_slug(changeset, _article) do
+    changeset
+  end
+
+  defp derive_url_slug(%Ecto.Changeset{changes: %{short_title: short_title}}, _article), do: slug(short_title)
+  defp derive_url_slug(%Ecto.Changeset{changes: %{title_text: title_text}}, _article), do: slug(title_text)
+  defp derive_url_slug(_changeset, %Taifead.Wiki.Article{short_title: short_title}) when not is_nil(short_title), do: slug(short_title)
+  defp derive_url_slug(_changeset, %Taifead.Wiki.Article{title_text: title_text}) when not is_nil(title_text), do: slug(title_text)
+  defp derive_url_slug(_changeset, _article), do: nil
+
   defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do
     {:ok, data} = Reathai.call(Taifead.Reathai, ["wiki", [doc]])
     cast(changeset, data, [:content_html, :content_text, :title_html, :title_text])
@@ -54,7 +73,20 @@ defmodule Taifead.Wiki.Article do
     changeset
   end
 
-  def validate_not_id(changeset, field) when is_atom(field) do
+  defp slug(str) when is_bitstring(str) do
+    str
+    |> String.downcase()
+    |> String.replace(~r/[^a-zA-Z0-9 &]/, "")
+    |> String.replace("&", "and")
+    |> String.split()
+    |> Enum.join("-")
+  end
+
+  defp slug(str) do
+    str
+  end
+
+  defp validate_not_id(changeset, field) when is_atom(field) do
     validate_change(changeset, field, fn field, value ->
       case value == get_field(changeset, :id) do
         true -> [{field, "cannot be the same as :id"}]
