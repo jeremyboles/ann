@@ -39,6 +39,7 @@ defmodule Taifead.MixProject do
       {:ecto_sql, "~> 3.6"},
       {:geo, "~> 3.4"},
       {:geo_postgis, "~> 3.4"},
+      {:hierarch, "~> 0.2.1"},
       {:jason, "~> 1.2"},
       {:phoenix_pubsub, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},

@@ -27,7 +27,7 @@ section.wiki article > aside {
 // Sidebar tabs
 // -----------------------------------------------------------------------------------------------
 
-section.wiki article > aside [role='tablist'] {
+section.wiki article > aside [role="tablist"] {
   --border-color: #{palette.stone($lightness: 88%)};
 
   @media (prefers-color-scheme: dark) {
@@ -44,7 +44,7 @@ section.wiki article > aside [role='tablist'] {
   -webkit-user-select: none;
 }
 
-section.wiki article > aside [role='tab'] {
+section.wiki article > aside [role="tab"] {
   --background-color: transparent;
 
   align-items: center;
@@ -53,7 +53,7 @@ section.wiki article > aside [role='tab'] {
   display: flex;
   justify-content: center;
 
-  input[type='radio'] {
+  input[type="radio"] {
     display: none;
   }
 
@@ -83,33 +83,33 @@ section.wiki article > aside [role='tab'] {
       background-color: var(--color);
       display: block;
       height: var(--size);
-      content: ' ';
+      content: " ";
       mask-position: center;
       mask-repeat: no-repeat;
       mask-size: var(--size) var(--size);
       width: var(--size);
     }
 
-    &[for|='glossary']::after {
-      mask-image: url('/images/fa/regular/note-sticky.svg');
+    &[for|="glossary"]::after {
+      mask-image: url("/images/fa/regular/note-sticky.svg");
     }
 
-    &[for|='history']::after {
-      mask-image: url('/images/fa/regular/clock-rotate-left.svg');
+    &[for|="history"]::after {
+      mask-image: url("/images/fa/regular/clock-rotate-left.svg");
     }
 
-    &[for|='links']::after {
-      mask-image: url('/images/fa/regular/link.svg');
+    &[for|="links"]::after {
+      mask-image: url("/images/fa/regular/link.svg");
       mask-size: calc(var(--size) + 2px) calc(var(--size) + 2px);
       width: calc(var(--size) + 1px);
     }
 
-    &[for|='metadata']::after {
-      mask-image: url('/images/fa/regular/database.svg');
+    &[for|="metadata"]::after {
+      mask-image: url("/images/fa/regular/database.svg");
     }
   }
 
-  &:has(input[type='radio']:checked) {
+  &:has(input[type="radio"]:checked) {
     --background-color: #{palette.stone($lightness: 91%)};
 
     @media (prefers-color-scheme: dark) {
@@ -126,7 +126,7 @@ section.wiki article > aside [role='tab'] {
   }
 }
 
-section.wiki article > aside [role='tabpanel'] {
+section.wiki article > aside [role="tabpanel"] {
   display: none;
 }
 
@@ -142,7 +142,7 @@ section.wiki article > aside [role='tablist']:has(input[id|='metadata']:checked)
 // Sidebar sections
 // -----------------------------------------------------------------------------------------------
 
-section.wiki article > aside [role='tabpanel'] details {
+section.wiki article > aside [role="tabpanel"] details {
   &:first-of-type summary {
     display: none;
   }
@@ -152,7 +152,7 @@ section.wiki article > aside [role='tabpanel'] details {
   }
 }
 
-section.wiki article > aside [role='tabpanel'] details + details {
+section.wiki article > aside [role="tabpanel"] details + details {
   --border-color: #{palette.stone($lightness: 88%)};
 
   @media (prefers-color-scheme: dark) {
@@ -162,7 +162,7 @@ section.wiki article > aside [role='tabpanel'] details + details {
   border-top: var(--border-color) solid 1px;
 }
 
-section.wiki article > aside [role='tabpanel'] details summary {
+section.wiki article > aside [role="tabpanel"] details summary {
   --color: #{palette.stone($lightness: 55%)};
 
   align-items: center;
@@ -184,10 +184,10 @@ section.wiki article > aside [role='tabpanel'] details summary {
     }
 
     background-color: var(--color);
-    content: '';
+    content: "";
     display: block;
     height: var(--size);
-    mask-image: url('/images/fa/regular/angle-right.svg');
+    mask-image: url("/images/fa/regular/angle-right.svg");
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: var(--size) var(--size);
@@ -213,7 +213,7 @@ section.wiki article > aside [role='tabpanel'] details summary {
     appearance: none;
     border: 0;
     background-color: var(--color);
-    content: '';
+    content: "";
     display: block;
     height: 0;
     margin-right: 8px;
@@ -225,12 +225,12 @@ section.wiki article > aside [role='tabpanel'] details summary {
     width: 12px;
 
     &.add-tag {
-      mask-image: url('/images/fa/regular/circle-plus.svg');
+      mask-image: url("/images/fa/regular/circle-plus.svg");
     }
 
     &.location-off {
       mask-size: 15px 15px;
-      mask-image: url('/images/fa/regular/location-dot-slash.svg');
+      mask-image: url("/images/fa/regular/location-dot-slash.svg");
     }
   }
 
@@ -243,13 +243,13 @@ section.wiki article > aside [role='tabpanel'] details summary {
   }
 }
 
-section.wiki article > aside [role='tabpanel'] details summary {
+section.wiki article > aside [role="tabpanel"] details summary {
   padding: 8px;
 }
 
-section.wiki article > aside [role='tabpanel'] details[open] summary {
+section.wiki article > aside [role="tabpanel"] details[open] summary {
   &::after {
-    mask-image: url('/images/fa/regular/angle-down.svg');
+    mask-image: url("/images/fa/regular/angle-down.svg");
   }
 }
 
@@ -257,16 +257,20 @@ section.wiki article > aside [role='tabpanel'] details[open] summary {
 // Form fields
 // -----------------------------------------------------------------------------------------------
 
-section.wiki article > aside [role='tabpanel'] details {
+section.wiki article > aside [role="tabpanel"] details {
   fieldset {
     border: 0;
     display: flex;
     gap: 10px;
     flex-direction: column;
     padding: 8px;
+
+    & > div {
+      display: contents;
+    }
   }
 
-  fieldset > input[type='text'] {
+  fieldset input[type="text"] {
     --background-color: #{palette.stone($lightness: 99%)};
     --border-color: #{palette.stone($lightness: 82%)};
     --box-shadow-color: #{palette.stone($alpha: 0.07, $lightness: 1%)};
@@ -319,7 +323,7 @@ section.wiki article > aside [role='tabpanel'] details {
     }
   }
 
-  fieldset > select {
+  fieldset select {
     --accent-color: #{palette.blue()};
 
     @media (prefers-color-scheme: dark) {
@@ -330,8 +334,8 @@ section.wiki article > aside [role='tabpanel'] details {
     font-size: small;
   }
 
-  fieldset > input[type='text'] + label,
-  fieldset > select + label {
+  fieldset input[type="text"] + label,
+  fieldset select + label {
     --color: #{palette.stone($lightness: 18%)};
 
     @media (prefers-color-scheme: dark) {
@@ -403,7 +407,7 @@ section.wiki article > aside [role='tabpanel'] details {
       border-top: var(--border-color) solid 1px;
     }
 
-    input[type='text'] {
+    input[type="text"] {
       background-color: transparent;
       border-width: 0px;
       box-shadow: none;

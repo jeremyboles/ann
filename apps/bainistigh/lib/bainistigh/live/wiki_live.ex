@@ -35,6 +35,8 @@ defmodule Bainistigh.WikiLive do
   def handle_event("modify-tags", _, socket), do: {:noreply, socket}
 
   def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
+    IO.inspect(article_params)
+
     case save(socket.assigns.article, article_params, revision_params) do
       {:ok, article} ->
         socket =
@@ -58,7 +60,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_params(%{"id" => id}, _url, socket) do
-    article = Wiki.get_article!(id) |> Taifead.Repo.preload([:children, :parent])
+    article = Wiki.get_article!(id)
 
     socket =
       assign(socket,
@@ -82,7 +84,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def mount(_params, _session, socket) do
-    articles = Wiki.ordered_articles() |> Taifead.Repo.preload([:children, :parent])
+    articles = Wiki.ordered_articles()
     {:ok, assign(socket, articles: articles)}
   end
 

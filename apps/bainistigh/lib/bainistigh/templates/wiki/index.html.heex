@@ -31,18 +31,6 @@
         <nav>
           <ol>
             <%= if @article do %>
-              <%= if @article.parent do %>
-                <li>
-                  <%= live_patch to: "/wiki/#{@article.parent.id}" do %>
-                    <%= if @article.parent.title_html do %>
-                      <%= @article.parent.title_html %>
-                    <% else %>
-                      <i>No Title</i>
-                    <% end %>
-                  <% end %>
-                </li>
-              <% end %>
-              
               <li>
                 <%= live_patch to: "/wiki/#{@article.id}" do %>
                   <%= if @article.title_html do %>
@@ -106,11 +94,7 @@
               <%= text_input f, :short_title %>
               <%= label f, :short_title, "Shortened Title" %>
 
-              <%= select f, :parent_id,
-                @articles |> Enum.reject(&(&1.id == input_value(f, :id))) |> Enum.map(&{&1.title_text, &1.id}),
-                disabled: @articles |> Enum.reject(&(&1.id == input_value(f, :id))) |> Enum.count == 0,
-                prompt: [key: ""] %>
-              <%= label f, :parent_id, "Parent Topic" %>
+              <.live_component module={Bainistigh.WikiLive.ParentTopicComponent} form={f} id="parent-topic" />
             </fieldset>
           </details>
           
