@@ -8,6 +8,10 @@ defmodule Taifead.Wiki do
 
   alias Taifead.Wiki.Article
 
+  def article_by_url_slug(slug) do
+    Repo.get_by!(Article, url_slug: slug)
+  end
+
   @doc """
   Returns the list of articles.
 

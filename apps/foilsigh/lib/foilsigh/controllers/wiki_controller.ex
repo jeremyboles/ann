@@ -1,14 +1,17 @@
 defmodule Foilsigh.WikiController do
   use Foilsigh, :controller
 
-  alias Taifead.Repo
-  alias Taifead.Wiki.Article
+  alias Taifead.Wiki
 
   def index(conn, _params) do
-    articles = Repo.all(Article)
+    articles = Wiki.list_articles()
     render(conn, "index.html", articles: articles)
   end
 
   def recipe(conn, _params), do: render(conn, "recipe.html")
-  def show(conn, _params), do: render(conn, "show.html")
+
+  def show(conn, %{"slug" => slug}) do
+    article = Wiki.article_by_url_slug(slug)
+    render(conn, "show.html", article: article)
+  end
 end

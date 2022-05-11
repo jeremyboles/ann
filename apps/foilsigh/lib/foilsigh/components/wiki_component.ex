@@ -21,49 +21,7 @@ defmodule Foilsigh.WikiComponent do
     ~H"""
       <div class="content">
         <.table_of_contents />
-      
-        <div>
-          <p>This trip was my first time leaving North America and, thus, my first overnight flight across the Atlantic. This was also the first&nbsp;major <a href="/solo-travel">solo&nbsp;travel</a> trek that I&nbsp;took.</p>
-          <p>
-            I used&nbsp;the <a href="http://2012.ull.ie" rel="external noopener">Úll&nbsp;conference</a> in Dublin as an excuse to travel to Ireland. However, my ulterior motive was selfish: with the quickly approaching birth of my daughter, I
-            thought that this was my last chance to go on a trip like&nbsp;this.
-          </p>
-          <p>I was away from home for seven days while I stayed in Dublin and took a small one-night trip down to&nbsp;Wicklow.</p>
-          <h2 id="theitinerary">The&nbsp;Itinerary</h2>
-          <ul>
-            <li>I left Springfield mid-afternoon on April 24th and arrived in Dublin the morning of the&nbsp;25th.</li>
-            <li>I stayed in a grubby hostel north of O’Connell Street that used to be a&nbsp;convent.</li>
-            <li>I attended the conference, which was held at Dublin Castle, on the 27th and&nbsp;28th.</li>
-            <li>On April 29th, I took the train down to Wicklow to escape hostel fatigue and stayed in a&nbsp;bed-and-breakfast.</li>
-            <li>On April 30th, I headed back to Dublin and rented a room at O’Shea’s&nbsp;pub.</li>
-            <li>I flew back home to Springfield on May&nbsp;1st.</li>
-          </ul>
-      
-          <h2 id="memorablefood">Memorable&nbsp;Food</h2>
-          <p>
-            Before this trip, I was a full-on craft beer stob and used to turn my nose at Guinness. After escaping the dreary weather inside a warm, cozy pub with a pint of Guinness, how can you not become romantically enthralled with
-            the&nbsp;drink?
-          </p>
-          <p>While staying at the inn in Wicklow, I was served a fish that was so tough that I couldn’t even cut through it with my knife. I think I offended the server by not eating&nbsp;it.</p>
-          <h2 id="notable-gearused">Notable Gear&nbsp;Used</h2>
-          <p>I used the heavy backpack that I used for overnight backpacking excursions on this trip, and it nearly killed me. Not only was it heavy, but it was also bulky, and I kept bumping into&nbsp;things.</p>
-          <p>
-            I had just started working&nbsp;with <a href="/hipstamatic">Hipstamatic</a> the year before&nbsp;and <em>heavily</em> into that style of mobile photography. Nearly all of my photos from that trip are heavily filtered and look like there
-            were taken on expired&nbsp;film.
-          </p>
-          <h2 id="favoritesmoments">Favorites&nbsp;Moments</h2>
-          <p>
-            I met one of Ireland’s barista champions at a cafe that I frequented while I was there. She gave me free coffee when she found out that my wife was also a barista. It was a pleasant environment to hang out in, especially when I felt
-            like a fish out of water being in a different culture for the first&nbsp;time.
-          </p>
-          <p>
-            I shared a few beers ins the hostel dormitory with a strange Irish man that kept asking me about guns in America. He had a thick Irish accent, wore old-timey striped pajamas, and kept asking how far a shotgun could shoot. It creeped me
-            out, but I had to sleep in the same room as him. To avoid seeing him again the next day, I snuck out very early in the morning to catch the train to&nbsp;Wicklow.
-          </p>
-          <h2 id="things-ilearned">Things I&nbsp;Learned</h2>
-          <p>Things like what side of the road you drive on the influence your instincts in ways you don’t realize. I kept running into people on the street because my instinct was to pass them on the right, and theirs was the&nbsp;opposite.</p>
-          <p>The Guinness factory is just a giant commercial. The view from the pub up top is nice,&nbsp;though.</p>
-        </div>
+        <div><%= raw @article.content_html %></div>
       </div>
     """
   end
@@ -122,14 +80,16 @@ defmodule Foilsigh.WikiComponent do
   def header(assigns) do
     ~H"""
       <header class="header">
-        <h1><a href="/" rel="bookmark">Trip to Scotland, 2018</a></h1>
-        <p>
-          <span class="vh">Tagged with:</span>
-          <a href="/tags/trip" rel="tag">trips</a>
-          <a href="/tags/scotland" rel="tag">scotland</a>
-          <a href="/tags/kids" rel="tag">kids</a>
-          <a href="/tags/europe" rel="tag">europe</a>
-        </p>
+        <h1><a href={"/#{@article.url_slug}"} rel="bookmark"><%= raw @article.title_html %></a></h1>
+        
+        <%= if Enum.count(@article.tags) > 0 do %>
+          <p>
+            <span class="vh">Tagged with:</span>
+            <%= for tag <- @article.tags do %>
+              <a href={"/tags/#{tag}"} rel="tag"><%= tag %></a>
+            <% end %>
+          </p>
+        <% end %>
       </header>
     """
   end
