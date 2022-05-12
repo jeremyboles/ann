@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------------------------
 
 @use "../../utils/box";
+@use "../../utils/media";
 @use "../../utils/text";
 
 //
@@ -22,5 +23,12 @@ body {
   @include text.style(sans, $color: main, $size: 16px);
   display: flex;
   flex-direction: column;
-  min-block-size: 100vh;
+  min-block-size: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+}
+
+main {
+  padding-block-start: 48px;
+  @include media.mouse {
+    padding-block-start: calc(48px + 35px);
+  }
 }

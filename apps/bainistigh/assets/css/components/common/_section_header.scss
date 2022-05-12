@@ -1,0 +1,41 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Tabbar Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.section_header {
+  @include border.block-end(tertiary);
+  @include box.bg(secondary);
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  font-weight: 700;
+  height: 48px;
+  left: 0;
+  padding-block-start: calc(env(safe-area-inset-top, 0));
+  padding-inline: 12px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+
+  @include media.mouse {
+    @include box.bg(tertiary);
+    border-block-end-color: #{colors.var(main, $ns: border)};
+    top: 35px;
+  }
+}
