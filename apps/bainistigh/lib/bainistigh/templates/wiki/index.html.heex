@@ -16,7 +16,7 @@
           <li id="article-link-#{article.id}">
             <%= live_patch "aria-current": current_page(article, @article), to: "/wiki/#{article.id}" do %>
               <%= if article.title_html do %>
-                <%= article.title_html %>
+                <%= raw article.title_html %>
               <% else %>
                 <i>No Title</i>
               <% end %>
@@ -34,7 +34,7 @@
               <li>
                 <%= live_patch to: "/wiki/#{@article.id}" do %>
                   <%= if @article.title_html do %>
-                    <%= @article.title_html %>
+                    <%= raw @article.title_html %>
                   <% else %>
                     <i>No Title</i>
                   <% end %>
