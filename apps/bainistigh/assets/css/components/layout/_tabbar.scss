@@ -1,0 +1,317 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Tabbar Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.tabbar {
+  $padding: 12px;
+  @include border.block-start(tertiary);
+  @include box.bg(secondary);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  padding-block-end: calc(env(safe-area-inset-bottom, 0) + $padding);
+  padding-block-start: $padding;
+  padding-inline-end: env(safe-area-inset-right);
+  padding-inline-start: env(safe-area-inset-left);
+  right: 0;
+  z-index: 100;
+
+  @include media.mouse {
+    @include box.bg(quaternary);
+    bottom: auto;
+    border-block-start-color: #{colors.var(main, $ns: border)};
+    padding-block: 0;
+    top: 0;
+  }
+
+  ul {
+    align-items: stretch;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+//
+// Individual tabs
+// -----------------------------------------------------------------------------------------------
+
+.tabbar .tab {
+  flex-basis: 0;
+  flex-grow: 1;
+
+  @include media.mouse {
+    @include border.block-end(main);
+    align-items: stretch;
+    display: flex;
+    justify-content: center;
+
+    &:has(a[aria-current="page"]) {
+      @include box.bg(tertiary);
+      border-block-end-color: #{colors.var(tertiary, $ns: bg)};
+    }
+
+    & ~ .tab {
+      @include border.inline-start;
+    }
+  }
+
+  a {
+    @extend %tab-container;
+
+    @include media.mouse {
+      $padding: 8px;
+      flex-grow: 1;
+      justify-content: center;
+      padding-block-start: calc(env(safe-area-inset-top, 0) + $padding);
+      padding-block-end: $padding;
+    }
+  }
+
+  span[role="img"] {
+    @extend %tab-icon;
+  }
+
+  a[aria-current="page"] span[role="img"] {
+    background-color: #{colors.var(accent, $ns: text)};
+
+    @include media.mouse {
+      background-color: #{colors.var(tertiary, $ns: text)};
+    }
+  }
+
+  span:not([role="img"]) {
+    @extend %tab-label;
+  }
+
+  @include media.mouse {
+    &:has([href^="/messages"]),
+    &:has([href^="/search"]) {
+      flex-grow: initial;
+      padding-inline: 8px;
+
+      span:not([role="img"]) {
+        display: none;
+      }
+    }
+  }
+
+  a[aria-current="page"] span:not([role="img"]) {
+    @include text.color(secondary);
+
+    @include media.mouse {
+      color: #{colors.var(tertiary, $ns: text)};
+    }
+  }
+}
+
+.tabbar:has(.more_tabs :checked) .tab a[aria-current="page"] {
+  span[role="img"] {
+    background-color: #{colors.var(faded, $ns: text)};
+  }
+
+  span:not([role="img"]) {
+    @include text.color(quaternary);
+  }
+}
+
+.tabbar:has(.more_tabs :checked) .more_tabs ~ .tab a[aria-current="page"] {
+  span[role="img"] {
+    background-color: #{colors.var(accent, $ns: text)};
+  }
+
+  span:not([role="img"]) {
+    @include text.color(secondary);
+  }
+}
+
+//
+// Icons
+// -----------------------------------------------------------------------------------------------
+
+@each $match, $icon in ('="/"': gauge, '^="/essays"': memo-pad, '^="/journal"': book-bookmark, '^="/media"': images, '^="/messages"': inbox, '^="/people"': circle-user, '^="/search"': magnifying-glass, '^="/wiki"': box-archive) {
+  .tabbar .tab a[href#{$match}] span[role="img"] {
+    mask-image: url("/images/fa/regular/#{$icon}.svg");
+  }
+}
+
+//
+// More tabs tab
+// -----------------------------------------------------------------------------------------------
+
+.tabbar .more_tabs {
+  flex-basis: 0;
+  flex-grow: 1;
+
+  @include media.ipad {
+    display: none;
+  }
+
+  @include media.mouse {
+    display: none;
+  }
+
+  label {
+    @extend %tab-container;
+  }
+
+  input[type="checkbox"] {
+    @extend %tab-icon;
+    @include icon.mask($url: "/images/fa/solid/ellipsis.svg", $size: 24px);
+    appearance: none;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: #{colors.var(tertiary, $ns: text)};
+  }
+
+  span {
+    @extend %tab-label;
+  }
+
+  input[type="checkbox"]:checked ~ span {
+    color: #{colors.var(secondary, $ns: text)};
+  }
+}
+
+.tabbar .more_tabs:has(~ .tab a[aria-current="page"]) input[type="checkbox"] {
+  background-color: #{colors.var(quaternary, $ns: text)};
+}
+
+.tabbar .more_tabs:has(~ .tab a[aria-current="page"]) span {
+  color: #{colors.var(tertiary, $ns: text)};
+}
+
+.tabbar:has(:checked) .more_tabs::before {
+  @include box.bg(mask);
+  bottom: 64px;
+  content: "";
+  display: block;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9;
+}
+
+.tabbar:has(:checked) .more_tabs::after {
+  $space: 12px;
+  @include border.all(emphasize);
+  @include box.bg(secondary);
+  @include box.rounded(12px);
+  bottom: calc(64px + $space);
+  box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 -4px 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+  content: "";
+  display: block;
+  height: 226px;
+  left: $space;
+  position: fixed;
+  right: $space;
+  z-index: 10;
+}
+
+//
+// "More" tabs
+// -----------------------------------------------------------------------------------------------
+
+@include media.ipad(max) {
+  .tabbar .more_tabs ~ .tab {
+    $space: 24px;
+    @include border.all(secondary);
+    @include box.bg(main);
+    @include box.rounded(6px);
+    bottom: calc(64px + env(safe-area-inset-bottom, 0) + $space);
+    display: none;
+    left: $space;
+    position: fixed;
+    right: $space;
+    z-index: 11;
+
+    a {
+      flex-direction: row;
+      gap: 8px;
+      padding-block: 12px;
+      padding-inline: 12px;
+
+      span[role="img"] {
+        block-size: 20px;
+        mask-size: 20px;
+        inline-size: 20px;
+      }
+
+      span:not([role="img"]) {
+        @include text.style($size: 14px, $weight: 600);
+      }
+    }
+
+    &:nth-of-type(7) {
+      bottom: 140px;
+    }
+
+    &:nth-of-type(8) {
+      bottom: 192px;
+    }
+
+    &:nth-of-type(9) {
+      bottom: 244px;
+    }
+  }
+
+  .tabbar:has(:checked) .more_tabs ~ .tab {
+    display: block;
+  }
+}
+
+//
+// Abstract classes
+// -----------------------------------------------------------------------------------------------
+
+%tab-container {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+
+  @include media.mouse {
+    flex-direction: row;
+    gap: 4px;
+  }
+}
+
+%tab-icon {
+  @include icon.mask($size: 24px);
+  background-color: #{colors.var(faded, $ns: text)};
+  block-size: 24px;
+  inline-size: 24px;
+
+  @include media.mouse {
+    background-color: #{colors.var(quaternary, $ns: text)};
+    block-size: 16px;
+    inline-size: 16px;
+    mask-size: 16px 16px;
+  }
+}
+
+%tab-label {
+  @include text.style($color: quaternary, $size: 10px, $weight: 700);
+  font-size: 10px;
+  text-align: center;
+
+  @include media.mouse {
+    @include text.style($color: quaternary, $size: 13px, $weight: 500);
+  }
+}

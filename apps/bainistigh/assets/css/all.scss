@@ -1,0 +1,21 @@
+// -----------------------------------------------------------------------------------------------
+//
+// All Styles for Bainistigh
+//
+// In contrast to the public-facing application, Foilsigh, all of the styles are bundled up into
+// a single CSS file and are only minimally optimized and minified.
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Stylesheets for templates
+// -----------------------------------------------------------------------------------------------
+
+@use "./templates/live";
+@use "./templates/root";
+
+//
+// Stylesheets for components
+// -----------------------------------------------------------------------------------------------
+
+@use "./components/layout";

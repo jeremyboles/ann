@@ -1,0 +1,97 @@
+// -----------------------------------------------------------------------------------------------
+//
+// CSS Reset
+// Resets some browser styling so we don't have to keep overriding things
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Box sizing rules
+// -----------------------------------------------------------------------------------------------
+
+*,
+*::before,
+*::after {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+//
+// Remove default padding and list styling on styled lists
+// -----------------------------------------------------------------------------------------------
+
+ol,
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+//
+// Remove default margins
+// -----------------------------------------------------------------------------------------------
+
+blockquote,
+body,
+dd,
+dl,
+figure,
+h1,
+h2,
+h3,
+h4,
+ol,
+p,
+ul {
+  margin: 0;
+}
+
+//
+// Normalize scroll behavior
+// -----------------------------------------------------------------------------------------------
+
+html {
+  scroll-behavior: smooth;
+}
+
+//
+// Set body defaults
+// -----------------------------------------------------------------------------------------------
+
+body {
+  text-rendering: optimizelegibility;
+}
+
+//
+// Make images easier to work with
+// -----------------------------------------------------------------------------------------------
+
+img,
+picture,
+svg {
+  display: block;
+  max-inline-size: 100%;
+}
+
+//
+// Set table defaults
+// -----------------------------------------------------------------------------------------------
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: start;
+}
+
+//
+// Links
+// -----------------------------------------------------------------------------------------------
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

@@ -1,0 +1,12 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Root Layout Styles
+// This is where the design system is defined and initialized
+//
+// -----------------------------------------------------------------------------------------------
+
+@use './root/reset';
+@use './root/settings';
+
+@use './root/globals';
+@use './root/utilities';

@@ -1,0 +1,59 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Named Color Definitions
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "sass:list";
+
+@use "../../../../../../../assets/css/palette";
+
+@use "../../../utils/colors";
+
+//
+// Define the base background colors for website
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  @each $name, $color-stack in colors.$bg {
+    @include colors.prop($name, list.nth($color-stack, 1), $ns: bg);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @each $name, $color-stack in colors.$bg {
+      @include colors.prop($name, list.nth($color-stack, -1), $ns: bg);
+    }
+  }
+}
+
+//
+// Define the text colors as CSS custom properties
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  @each $name, $color-stack in colors.$text {
+    @include colors.prop($name, list.nth($color-stack, 1), $ns: text);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @each $name, $color-stack in colors.$text {
+      @include colors.prop($name, list.nth($color-stack, -1), $ns: text);
+    }
+  }
+}
+
+//
+// Define the border colors as CSS custom properties
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  @each $name, $color-stack in colors.$border {
+    @include colors.prop($name, list.nth($color-stack, 1), $ns: border);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @each $name, $color-stack in colors.$border {
+      @include colors.prop($name, list.nth($color-stack, -1), $ns: border);
+    }
+  }
+}

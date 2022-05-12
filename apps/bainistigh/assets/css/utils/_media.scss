@@ -1,0 +1,39 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Mix-ins For Media Queries
+//
+// -----------------------------------------------------------------------------------------------
+
+//
+// Pointer  types
+// -----------------------------------------------------------------------------------------------
+
+@mixin mouse {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin finger {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+//
+// Device types
+// -----------------------------------------------------------------------------------------------
+
+@mixin ipad($type: min) {
+  $width: 768px;
+
+  @if $type == min {
+    @media (min-width: $width) {
+      @content;
+    }
+  } @else if $type == max {
+    @media (max-width: $width - 1px) {
+      @content;
+    }
+  }
+}

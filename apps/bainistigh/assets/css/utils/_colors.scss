@@ -1,0 +1,81 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Named Color Definitions
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../assets/css/palette";
+
+//
+// Define named text colors
+// -----------------------------------------------------------------------------------------------
+
+/* prettier-ignore */
+$text: (
+  main: palette.stone($lightness: 3%) palette.stone($lightness: 96%),
+  secondary: palette.stone($lightness: 10%) palette.stone($lightness: 90%),
+  tertiary: palette.stone($lightness: 32%) palette.stone($lightness: 65%),
+  quaternary: palette.stone($lightness: 44%) palette.stone($lightness: 52%),
+  
+  accent: palette.amber($lightness: 48%) palette.amber($lightness: 54%),
+  faded: palette.stone($lightness: 68%) palette.stone($lightness: 32%)
+);
+
+//
+// Defined named colors for background
+// -----------------------------------------------------------------------------------------------
+
+/* prettier-ignore */
+$bg: (
+  main: palette.stone($lightness: 98%) palette.stone($lightness: 9%),
+  secondary: palette.stone($lightness: 95%) palette.stone($lightness: 12%),
+  tertiary: palette.stone($lightness: 91%) palette.stone($lightness: 12%),
+  quaternary:  palette.stone($lightness: 88%) palette.stone($lightness: 15%),
+  
+  mask:  palette.stone($lightness: 28%, $alpha: 0.66) palette.stone($lightness: 15%, $alpha: 0.7)
+);
+
+//
+// Defined named colors for borders
+// -----------------------------------------------------------------------------------------------
+
+/* prettier-ignore */
+$border: (
+  main: palette.stone($lightness: 83%) palette.stone($lightness: 20%),
+  secondary: palette.stone($lightness: 88%) palette.stone($lightness: 20%),
+  tertiary: palette.stone($lightness: 91%) palette.stone($lightness: 20%),
+  
+  emphasize: palette.stone($lightness: 44%) palette.stone($lightness: 20%)
+);
+
+//
+// Mix-in for setting CSS custom properties for colors easily
+// -----------------------------------------------------------------------------------------------
+
+@mixin prop($name, $value, $ns: false) {
+  #{css-name($name, $ns)}: #{$value};
+}
+
+//
+// Function for getting the CSS property name for a given color name
+// -----------------------------------------------------------------------------------------------
+
+@function css-name($name, $ns: false) {
+  @if ($ns) {
+    @return --#{$name}-#{$ns}-color;
+  } @else {
+    @return --#{$name}-color;
+  }
+}
+
+//
+// Function for outputting a named color as a CSS variable
+// -----------------------------------------------------------------------------------------------
+
+@function var($name, $default: false, $ns: false) {
+  @if $default {
+    @return #{"var("}#{css-name($name, $ns: $ns)}#{", "}#{$default}#{")"};
+  } @else {
+    @return #{"var("}#{css-name($name, $ns: $ns)}#{")"};
+  }
+}

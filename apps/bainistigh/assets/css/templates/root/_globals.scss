@@ -1,0 +1,26 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Global Site Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../utils/box";
+@use "../../utils/text";
+
+//
+// Set up the global styles
+// -----------------------------------------------------------------------------------------------
+
+html {
+  min-block-size: 100%;
+  min-block-size: -webkit-fill-available;
+  max-inline-size: 100%;
+}
+
+body {
+  @include box.bg(main);
+  @include text.style(sans, $color: main, $size: 16px);
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+}

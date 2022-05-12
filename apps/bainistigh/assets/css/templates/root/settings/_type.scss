@@ -1,0 +1,39 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Fonts & typography
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../utils/fonts";
+
+//
+// Define the CSS font-face declarations for each of the fonts
+// -----------------------------------------------------------------------------------------------
+
+$font-stacks: (
+  fonts.$visby-round: fonts.$visby-round-stack,
+);
+
+@each $family, $stack in $font-stacks {
+  @each $style, $weights in $stack {
+    @each $weight, $path in $weights {
+      @font-face {
+        font-display: swap;
+        font-family: $family;
+        font-style: $style;
+        font-weight: $weight;
+        src: url("#{$path}.woff2") format("woff2"), url("#{path}.woff") format("woff");
+      }
+    }
+  }
+}
+
+//
+// Define CSS custom properties for font stacks
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  @each $font, $stack in fonts.$fonts {
+    --font-#{$font}: #{$stack};
+  }
+}

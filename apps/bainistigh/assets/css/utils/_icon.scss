@@ -1,0 +1,16 @@
+// -----------------------------------------------------------------------------------------------
+//
+// CSS-Based Icon Utility Mix-ins
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "./val";
+
+@mixin mask($size, $url: false) {
+  @if $url {
+    mask-image: #{val.url-escape($url)};
+  }
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  mask-size: #{val.var-escape($size)} #{val.var-escape($size)};
+}

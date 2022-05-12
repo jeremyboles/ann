@@ -1,0 +1,63 @@
+// -----------------------------------------------------------------------------------------------
+//
+// SASS Helpers for Dealing w/ Text Styling
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "sass:list";
+@use "sass:map";
+
+@use './colors';
+@use './fonts';
+
+//
+// Mix-ins for setting CSS custom properties with safe-guards
+// -----------------------------------------------------------------------------------------------
+
+@mixin color($color) {
+  color: #{colors.var($color, $ns: text)};
+  @if not map.has-key(colors.$text, $color) {
+    @warn "Unknown text color '#{$color}'.";
+  }
+}
+
+@mixin font($font) {
+  font-family: var(--font-#{$font});
+  @if not map.has-key(fonts.$fonts, $font) {
+    @warn "Unknown font name '#{$font}'.";
+  }
+}
+
+@mixin size($size) {
+  font-size: $size;
+}
+
+@mixin style($style) {
+  font-style: $style;
+}
+
+@mixin weight($weight) {
+  font-weight: $weight;
+}
+
+//
+// Mix-in for settings a bunch of text properties at once
+// -----------------------------------------------------------------------------------------------
+
+@mixin style($font: false, $color: false, $size: false, $style: false, $weight: false) {
+  @if $color {
+    @include color($color);
+  }
+  @if $font {
+    @include font($font);
+  }
+  @if $size {
+    @include size($size);
+  }
+  @if $style {
+    @include style($style);
+  }
+  @if $weight {
+    @include weight($weight);
+  }
+}

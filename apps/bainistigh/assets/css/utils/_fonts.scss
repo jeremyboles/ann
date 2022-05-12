@@ -1,0 +1,44 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Font Definitions
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../assets/css/palette";
+
+//
+// Font stacks
+// -----------------------------------------------------------------------------------------------
+
+$visby-round: "Visby Round";
+
+$visby-round-stack: (
+  normal: (
+    200: "/fonts/visby-round/VisbyRoundCF-ExtraLight",
+    300: "/fonts/visby-round/VisbyRoundCF-Light",
+    400: "/fonts/visby-round/VisbyRoundCF-Regular",
+    500: "/fonts/visby-round/VisbyRoundCF-Medium",
+    600: "/fonts/visby-round/VisbyRoundCF-DemiBold",
+    700: "/fonts/visby-round/VisbyRoundCF-Bold",
+    800: "/fonts/visby-round/VisbyRoundCF-ExtraBold",
+    900: "/fonts/visby-round/VisbyRoundCF-Heavy",
+  ),
+  italic: (
+    200: "/fonts/visby-round/VisbyRoundCF-ExtraLightOblique",
+    300: "/fonts/visby-round/VisbyRoundCF-LightOblique",
+    400: "/fonts/visby-round/VisbyRoundCF-RegularOblique",
+    500: "/fonts/visby-round/VisbyRoundCF-MediumOblique",
+    600: "/fonts/visby-round/VisbyRoundCF-DemiBoldOblique",
+    700: "/fonts/visby-round/VisbyRoundCF-BoldOblique",
+    800: "/fonts/visby-round/VisbyRoundCF-ExtraBoldOblique",
+    900: "/fonts/visby-round/VisbyRoundCF-HeavyOblique",
+  ),
+);
+
+//
+// Named font stacks
+// -----------------------------------------------------------------------------------------------
+
+$fonts: (
+  sans: "#{$visby-round}, ui-sans-serif, sans-serif",
+);
