@@ -12,6 +12,8 @@ defmodule Foilsigh.WikiController do
 
   def show(conn, %{"slug" => slug}) do
     article = Wiki.article_by_url_slug(slug)
-    render(conn, "show.html", article: article)
+    ancestors = Wiki.article_ancestors(article)
+
+    render(conn, "show.html", ancestors: ancestors, article: article)
   end
 end

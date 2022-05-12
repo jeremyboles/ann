@@ -9,9 +9,10 @@ defmodule Foilsigh.WikiComponent do
         <p class="vh"><span id="topic-breadcrumb-nav-label">Breadcrumb</span> navigation:</p>
         <ol>
           <li><a href="/wiki">Wiki</a></li>
-          <li><a href="/travel">Travel</a></li>
-          <li><a href="/trips">Trips</a></li>
-          <li><a aria-current="page" href="/scotland-2018">Scotland, 2018</a></li>
+          <%= for article <- @ancestors do %>
+            <li><a href={"/#{article.url_slug}"}><%= title(article) %></a></li>
+          <% end %>
+          <li><a aria-current="page" href={"/#{@article.url_slug}"}><%= title(@article) %></a></li>
         </ol>
       </nav>
     """

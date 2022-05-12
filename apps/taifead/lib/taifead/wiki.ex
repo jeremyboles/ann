@@ -12,6 +12,10 @@ defmodule Taifead.Wiki do
     Repo.get_by!(Article, url_slug: slug)
   end
 
+  def article_ancestors(%Article{} = article) do
+    Article.ancestors(article) |> Repo.all()
+  end
+
   @doc """
   Returns the list of articles.
 
