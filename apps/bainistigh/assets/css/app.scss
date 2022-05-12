@@ -3,6 +3,69 @@
 @use "../../../../assets/css/palette";
 
 //
+// Define the CSS font-face declarations for each of the fonts
+// -----------------------------------------------------------------------------------------------
+
+$visby-round-stack: (
+  normal: (
+    200: "/fonts/visby-round/VisbyRoundCF-ExtraLight",
+    300: "/fonts/visby-round/VisbyRoundCF-Light",
+    400: "/fonts/visby-round/VisbyRoundCF-Regular",
+    500: "/fonts/visby-round/VisbyRoundCF-Medium",
+    600: "/fonts/visby-round/VisbyRoundCF-DemiBold",
+    700: "/fonts/visby-round/VisbyRoundCF-Bold",
+    800: "/fonts/visby-round/VisbyRoundCF-ExtraBold",
+    900: "/fonts/visby-round/VisbyRoundCF-Heavy",
+  ),
+  italic: (
+    200: "/fonts/visby-round/VisbyRoundCF-ExtraLightOblique",
+    300: "/fonts/visby-round/VisbyRoundCF-LightOblique",
+    400: "/fonts/visby-round/VisbyRoundCF-RegularOblique",
+    500: "/fonts/visby-round/VisbyRoundCF-MediumOblique",
+    600: "/fonts/visby-round/VisbyRoundCF-DemiBoldOblique",
+    700: "/fonts/visby-round/VisbyRoundCF-BoldOblique",
+    800: "/fonts/visby-round/VisbyRoundCF-ExtraBoldOblique",
+    900: "/fonts/visby-round/VisbyRoundCF-HeavyOblique",
+  ),
+);
+
+$font-stacks: (
+  "Visby Round": $visby-round-stack,
+);
+
+//
+// Named font stacks
+// -----------------------------------------------------------------------------------------------
+
+$fonts: (
+  sans: "'Visby Round', ui-serif, serif",
+);
+
+@each $family, $stack in $font-stacks {
+  @each $style, $weights in $stack {
+    @each $weight, $path in $weights {
+      @font-face {
+        font-display: swap;
+        font-family: $family;
+        font-style: $style;
+        font-weight: $weight;
+        src: url("#{$path}.woff2") format("woff2"), url("#{path}.woff") format("woff");
+      }
+    }
+  }
+}
+
+//
+// Define CSS custom properties for font stacks
+// -----------------------------------------------------------------------------------------------
+
+:root {
+  @each $font, $stack in $fonts {
+    --font-#{$font}: #{$stack};
+  }
+}
+
+//
 // Global settings
 // -----------------------------------------------------------------------------------------------
 
@@ -35,7 +98,7 @@ body {
 
   background-color: var(--body-background-color);
   color: var(--body-color);
-  font-family: system-ui;
+  font-family: var(--font-sans);
   font-size: 12px;
   margin: 0;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -74,6 +137,6 @@ body {
 // Section imports
 // -----------------------------------------------------------------------------------------------
 
-@import './layout/banner';
+@import "./layout/banner";
 
-@import './wiki';
+@import "./wiki";

@@ -22,3 +22,6 @@
 	ignore = dirty
 	path = apps/foilsigh/priv/static/fonts/ellograph
 	url = git@github.com:jeremyboles/ellograph.git
+[submodule "apps/bainistigh/priv/static/fonts/visby-round"]
+	path = apps/bainistigh/priv/static/fonts/visby-round
+	url = git@github.com:jeremyboles/visby-round.git
