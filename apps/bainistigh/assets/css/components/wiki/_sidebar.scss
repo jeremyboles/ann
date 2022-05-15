@@ -1,0 +1,149 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Sidebar Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.sidebar {
+  $header-height: 48px;
+  @include border.block-start(quaternary);
+  @include box.bg(secondary);
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: calc($header-height - 1px);
+  z-index: 999;
+
+  @include media.mouse {
+    $header-height: 64px;
+    @include border.inline-end(separator);
+    @include box.bg(quaternary);
+    border-block-start: none;
+    display: initial;
+    right: auto;
+    top: calc($header-height + 35px);
+    width: 264px;
+  }
+}
+
+//
+// Sidebar toggle
+// -----------------------------------------------------------------------------------------------
+
+section:has(.header_button:checked) .sidebar {
+  display: initial;
+}
+
+//
+// Section search
+// -----------------------------------------------------------------------------------------------
+
+.sidebar .search {
+  align-items: end;
+  display: flex;
+  padding-block: 8px;
+  padding-inline: 8px;
+  position: relative;
+  z-index: 2;
+
+  @include media.mouse {
+    @include border.inline-end(secondary);
+    height: 40px;
+    margin-top: -64px;
+    padding-block: 0;
+    width: 264px;
+  }
+}
+
+.sidebar .search input {
+  @include border.all(secondary);
+  @include box.bg(main);
+  @include box.rounded;
+  @include text.style(sans, $size: 14px, $weight: 500);
+  appearance: textfield;
+  font-size: 16px;
+  padding-block: 8px;
+  padding-inline: 8px;
+  width: 100%;
+
+  @include media.mouse {
+    @include border.all(main);
+    font-size: 13px;
+    padding-block: 4px;
+  }
+}
+
+//
+// Tabs
+// -----------------------------------------------------------------------------------------------
+
+.sidebar .tabs {
+  @include border.block(tertiary);
+  @include text.style($color: quaternary, $size: 14px, $weight: 600);
+  display: flex;
+  padding-block: 8px;
+  padding-inline: 8px;
+  z-index: 1;
+
+  @include media.mouse {
+    @include border.inline-end(secondary);
+    @include text.style($color: quaternary, $size: 9px, $weight: 700);
+    align-items: end;
+    border-block-start: none;
+    border-block-end-color: #{palette.stone($lightness: 84%, $alpha: 0.58)};
+    border-end-end-radius: 2px;
+    gap: 8px;
+    height: 24px;
+    letter-spacing: 1px;
+    justify-content: space-around;
+    padding-block: 0;
+    text-transform: uppercase;
+    width: 264px;
+
+    @media (prefers-color-scheme: dark) {
+      border-block-end-color: #{palette.stone($lightness: 14%, $alpha: 0.58)};
+    }
+  }
+
+  li {
+    align-items: center;
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    padding-block: 4px;
+
+    @include media.mouse {
+      border-block-end: #{colors.var(tertiary, $ns: bg)} solid 2px;
+      border-block-start: #{colors.var(tertiary, $ns: bg)} solid 2px;
+      height: 24px;
+    }
+
+    &.selected {
+      background-color: #{colors.var(accent, $ns: text)};
+      border-radius: 4px;
+      color: #{palette.stone($lightness: 98%)};
+
+      @include media.mouse {
+        @include text.color(tertiary);
+        background-color: initial;
+        border-block-end-color: #{colors.var(accent, $ns: text)};
+        border-radius: 0;
+      }
+    }
+  }
+}

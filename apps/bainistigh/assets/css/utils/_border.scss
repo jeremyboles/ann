@@ -41,6 +41,10 @@
   border-block-start: #{color($color)} solid #{$width};
 }
 
+@mixin inline-end($color: main, $width: 1px) {
+  border-inline-end: #{color($color)} solid #{$width};
+}
+
 @mixin inline-start($color: main, $width: 1px) {
   border-inline-start: #{color($color)} solid #{$width};
 }

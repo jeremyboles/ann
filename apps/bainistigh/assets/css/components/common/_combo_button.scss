@@ -1,0 +1,163 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Combo Button Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.combo_button {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  position: relative;
+  z-index: 10;
+
+  @include media.mouse {
+    align-items: stretch;
+    gap: 0;
+  }
+}
+
+//
+// Main button
+// -----------------------------------------------------------------------------------------------
+
+.combo_button > button {
+  @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
+  appearance: none;
+  background-color: transparent;
+
+  @include media.mouse {
+    @include box.bg(control);
+    @include text.style(sans, $color: secondary, $size: 14px, $weight: 600);
+    border-start-start-radius: 6px;
+    border-end-start-radius: 6px;
+    padding-block: 6px;
+    padding-inline: 12px;
+  }
+}
+
+//
+// Toggle button
+// -----------------------------------------------------------------------------------------------
+
+.combo_button > input[type="checkbox"] {
+  @include icon.block(22px);
+  @include icon.mask($url: "/images/fa/regular/circle-ellipsis.svg", $size: 22px);
+  appearance: none;
+  background-color: #{colors.var(faded, $ns: text)};
+
+  &:checked {
+    background-color: #{colors.var(quaternary, $ns: text)};
+    mask-image: url("/images/fa/solid/circle-ellipsis.svg");
+  }
+
+  @include media.mouse {
+    @include box.bg(control);
+    @include icon.before($url: "/images/fa/solid/caret-down.svg", $size: 16px) {
+      transform: translate(2px, 7px);
+    }
+    @include text.color(tertiary);
+    block-size: initial;
+    border-color: #{colors.var(control, $ns: bg)};
+    border-inline-start-color: #{colors.var(main, $ns: border)};
+    border-end-end-radius: 6px;
+    border-start-end-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    display: initial;
+    inline-size: initial;
+    mask-image: initial;
+    padding-inline: 4px;
+
+    &:checked {
+      @include box.bg(quaternary);
+      @include border.all;
+      @include text.color(secondary);
+      border-inline-start-color: #{colors.var(control, $ns: bg)};
+      mask-image: initial;
+    }
+  }
+}
+
+// TODO: Move this to wiki page styles
+@include media.finger {
+  .section_header:has(.combo_button > input[type="checkbox"]:checked) {
+    &::after {
+      background-image: linear-gradient(#{palette.stone($lightness: 2%, $alpha: 0.8)}, #{palette.stone($lightness: 8%, $alpha: 0.7)});
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 48px;
+    }
+  }
+}
+
+//
+// Options
+// -----------------------------------------------------------------------------------------------
+
+.combo_button > .options {
+  @include border.all;
+  @include box.bg(secondary);
+  border-radius: 4px;
+  display: none;
+  left: 12px;
+  position: fixed;
+  right: 12px;
+  top: 130px;
+
+  z-index: 10;
+
+  @include media.mouse {
+    box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 4px 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+    left: initial;
+    position: absolute;
+    min-inline-size: 224px;
+    top: 36px;
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.combo_button > input[type="checkbox"]:checked ~ .options {
+  display: block;
+}
+
+.combo_button > .options button {
+  @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
+  align-items: center;
+  background-color: transparent;
+  break-inside: avoid;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  position: relative;
+
+  @include media.finger {
+    @include icon.after($url: "/images/fa/regular/file-slash.svg", $size: 24px);
+    inline-size: 100%;
+  }
+
+  @include media.mouse {
+    @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
+    padding-block: 8px;
+  }
+}

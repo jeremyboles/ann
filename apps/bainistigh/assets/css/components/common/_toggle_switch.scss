@@ -1,0 +1,125 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Toggle Switch Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.toggle_switch {
+  display: none;
+  flex-direction: row-reverse;
+
+  @include media.finger {
+    @include border.all;
+    @include box.bg(secondary);
+    border-radius: 4px;
+    left: 12px;
+    justify-content: space-between;
+    padding: 12px;
+    position: fixed;
+    right: 12px;
+    top: 60px;
+    z-index: 99;
+
+    &::after {
+      background-color: #{colors.var(emphasize, $ns: border)};
+      bottom: 0;
+      content: "";
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      transform: translateY(12px);
+      right: 0;
+    }
+  }
+
+  @include media.mouse {
+    gap: 8px;
+    display: flex;
+  }
+}
+
+// TODO: Move this to wiki page styles
+@include media.finger {
+  .section_header:has(.combo_button > input[type="checkbox"]:checked) .toggle_switch {
+    display: flex;
+  }
+}
+
+//
+// Switch control
+// -----------------------------------------------------------------------------------------------
+
+.toggle_switch > input {
+  appearance: none;
+
+  @include media.finger {
+    @include icon.after($url: "/images/fa/regular/circle.svg", $size: 24px) {
+      background-color: #{colors.var(faded, $ns: text)};
+      transform: translateX(-12px);
+    }
+
+    &:checked::after {
+      background-color: #{colors.var(accent, $ns: text)};
+      mask-image: url("/images/fa/solid/circle-check.svg");
+    }
+  }
+
+  @include media.mouse {
+    border-color: #{colors.var(emphasize, $ns: border)};
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    block-size: 16px;
+    inline-size: 32px;
+    position: relative;
+
+    &::before {
+      background-color: #{colors.var(emphasize, $ns: border)};
+      block-size: 8px;
+      border-radius: 4px;
+      content: "";
+      display: block;
+      inline-size: 8px;
+      left: 2px;
+      position: absolute;
+      top: 2px;
+    }
+
+    &:checked {
+      background-color: #{colors.var(emphasized, $ns: bg)};
+      border-color: #{colors.var(quaternary, $ns: text)};
+      &::before {
+        background-color: #{colors.var(accent, $ns: text)};
+        transform: translateX(16px);
+      }
+    }
+  }
+}
+
+//
+// Label
+// -----------------------------------------------------------------------------------------------
+
+.toggle_switch > span {
+  @include text.style(sans, $color: quaternary, $size: 18px, $weight: 600);
+
+  @include media.mouse {
+    @include text.style(sans, $color: quaternary, $size: 12px, $weight: 600);
+  }
+}
+
+.toggle_switch > input:checked + span {
+  @include text.color(secondary);
+}

@@ -17,7 +17,7 @@ $text: (
   tertiary: palette.stone($lightness: 32%) palette.stone($lightness: 65%),
   quaternary: palette.stone($lightness: 44%) palette.stone($lightness: 52%),
   
-  accent: palette.amber($lightness: 48%) palette.amber($lightness: 54%),
+  accent: palette.amber($lightness: 48%) palette.amber($lightness: 40%),
   faded: palette.stone($lightness: 68%) palette.stone($lightness: 32%)
 );
 
@@ -28,10 +28,12 @@ $text: (
 /* prettier-ignore */
 $bg: (
   main: palette.stone($lightness: 98%) palette.stone($lightness: 9%),
-  secondary: palette.stone($lightness: 95%) palette.stone($lightness: 12%),
+  secondary: palette.stone($lightness: 95%) palette.stone($lightness: 10%),
   tertiary: palette.stone($lightness: 91%) palette.stone($lightness: 12%),
-  quaternary:  palette.stone($lightness: 88%) palette.stone($lightness: 15%),
+  quaternary:  palette.stone($lightness: 88%) palette.stone($lightness: 13%),
   
+  control: palette.stone($lightness: 80%) palette.stone($lightness: 22%),
+  emphasized: palette.stone($lightness: 96%) palette.stone($lightness: 26%),
   mask:  palette.stone($lightness: 28%, $alpha: 0.66) palette.stone($lightness: 15%, $alpha: 0.7)
 );
 
@@ -42,10 +44,12 @@ $bg: (
 /* prettier-ignore */
 $border: (
   main: palette.stone($lightness: 83%) palette.stone($lightness: 20%),
-  secondary: palette.stone($lightness: 88%) palette.stone($lightness: 20%),
-  tertiary: palette.stone($lightness: 91%) palette.stone($lightness: 20%),
+  secondary: palette.stone($lightness: 88%) palette.stone($lightness: 18%),
+  tertiary: palette.stone($lightness: 91%) palette.stone($lightness: 16%),
+  quaternary: palette.stone($lightness: 93%) palette.stone($lightness: 14%),
   
-  emphasize: palette.stone($lightness: 44%) palette.stone($lightness: 20%)
+  emphasize: palette.stone($lightness: 44%) palette.stone($lightness: 34%),
+  separator: palette.stone($lightness: 84%) palette.stone($lightness: 4%)
 );
 
 //

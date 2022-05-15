@@ -2,6 +2,7 @@ defmodule Bainistigh.WikiView do
   use Bainistigh, :view
 
   import Bainistigh.CommonComponent
+  import Bainistigh.WikiComponent
 
   alias Taifead.Wiki.Article
 

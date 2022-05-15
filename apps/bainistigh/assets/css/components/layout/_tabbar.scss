@@ -24,7 +24,7 @@
   bottom: 0;
   left: 0;
   position: fixed;
-  padding-block-end: calc(env(safe-area-inset-bottom, 0) + $padding);
+  padding-block-end: calc(env(safe-area-inset-bottom) + $padding);
   padding-block-start: $padding;
   padding-inline-end: env(safe-area-inset-right);
   padding-inline-start: env(safe-area-inset-left);
@@ -77,7 +77,7 @@
       $padding: 8px;
       flex-grow: 1;
       justify-content: center;
-      padding-block-start: calc(env(safe-area-inset-top, 0) + $padding);
+      padding-block-start: calc(env(safe-area-inset-top) + $padding);
       padding-block-end: $padding;
     }
   }
@@ -234,7 +234,7 @@
     @include border.all(secondary);
     @include box.bg(main);
     @include box.rounded(6px);
-    bottom: calc(64px + env(safe-area-inset-bottom, 0) + $space);
+    bottom: calc(64px + env(safe-area-inset-bottom) + $space);
     display: none;
     left: $space;
     position: fixed;

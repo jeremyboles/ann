@@ -1,7 +1,10 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Layout Component Styles
+// Common Component Styles
 //
 // -----------------------------------------------------------------------------------------------
 
-@use "./layout/tabbar";
+@use "./common/combo_button";
+@use "./common/header_button";
+@use "./common/section_header";
+@use "./common/toggle_switch";

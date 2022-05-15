@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0, viewport-fit=cover,width=device-width">
     <%= csrf_meta_tag() %>
     
     <meta name="theme-color" content="hsl(25deg, 10%, 95%)" media="(prefers-color-scheme: light) and (hover: none) and (pointer: coarse)">
-    <meta name="theme-color" content="hsl(25deg, 10%, 12%)" media="(prefers-color-scheme: dark) and (hover: none) and (pointer: coarse)">
+    <meta name="theme-color" content="hsl(25deg, 10%, 10%)" media="(prefers-color-scheme: dark) and (hover: none) and (pointer: coarse)">
     <meta name="theme-color" content="hsl(25deg, 10%, 88%)" media="(prefers-color-scheme: light) and (hover: hover) and (pointer: fine)">
-    <meta name="theme-color" content="hsl(25deg, 10%, 15%)" media="(prefers-color-scheme: dark) and (hover: hover) and (pointer: fine)">
+    <meta name="theme-color" content="hsl(25deg, 10%, 13%)" media="(prefers-color-scheme: dark) and (hover: hover) and (pointer: fine)">
       
+    <%= live_title_tag assigns[:page_title] || "Bainistigh", suffix: " · Bainistigh" %>
     <link rel="icon" href="/images/favicon.png">
     <link rel="apple-touch-icon" type="image/png" href="/images/icon.png">
-    <%= live_title_tag assigns[:page_title] || "Bainistigh", suffix: " · Bainistigh" %>
     <link href={Routes.static_path(@conn, "/assets/all.css")} phx-track-static rel="stylesheet">
     
     <script defer src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>

@@ -1,0 +1,47 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Article Header Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.article_header {
+  display: flex;
+  flex-direction: column;
+}
+
+//
+// Article title
+// -----------------------------------------------------------------------------------------------
+
+.article_header > h1 {
+  @include text.style($color: main, $size: 20px, $weight: 700);
+
+  @include media.mouse {
+    font-size: 16px;
+  }
+}
+
+//
+// Article type
+// -----------------------------------------------------------------------------------------------
+
+.article_header > p {
+  @include text.style($color: quaternary, $size: 11px, $weight: 600);
+
+  @include media.finger {
+    display: none;
+  }
+}

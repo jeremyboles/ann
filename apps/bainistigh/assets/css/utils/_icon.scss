@@ -6,6 +6,33 @@
 
 @use "./val";
 
+@mixin after($url, $color: currentcolor, $size: 0.85em) {
+  &::after {
+    @include block($size, inline-block);
+    @include mask($size, $url);
+    background-color: $color;
+    margin-inline-end: 0.5ch;
+    @content;
+  }
+}
+
+@mixin before($url, $color: currentcolor, $size: 0.85em) {
+  &::before {
+    @include block($size, inline-block);
+    @include mask($size, $url);
+    background-color: $color;
+    margin-inline-end: 0.5ch;
+    @content;
+  }
+}
+
+@mixin block($size, $display: inline-block) {
+  content: "";
+  display: $display;
+  height: #{val.var-escape($size)};
+  width: #{val.var-escape($size)};
+}
+
 @mixin mask($size, $url: false) {
   @if $url {
     mask-image: #{val.url-escape($url)};

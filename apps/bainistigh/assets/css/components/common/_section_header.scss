@@ -22,9 +22,10 @@
   @include box.bg(secondary);
   align-items: center;
   display: flex;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   height: 48px;
+  justify-content: space-between;
   left: 0;
   padding-block-start: calc(env(safe-area-inset-top, 0));
   padding-inline: 12px;
@@ -35,7 +36,16 @@
 
   @include media.mouse {
     @include box.bg(tertiary);
-    border-block-end-color: #{colors.var(main, $ns: border)};
+    border-block-end-color: #{colors.var(separator, $ns: border)};
+    font-size: 16px;
+    height: 64px;
+    padding-inline-start: calc(264px + 12px);
     top: 35px;
+  }
+
+  & > div {
+    align-items: center;
+    display: flex;
+    gap: 24px;
   }
 }

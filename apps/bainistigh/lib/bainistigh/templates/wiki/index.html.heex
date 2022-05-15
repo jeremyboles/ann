@@ -1,17 +1,24 @@
 
-<.form for={@changeset} let={f} phx-change="validate" phx-submit="save">
+
   <section class="wiki">
-    <.section_header>Wiki</.section_header>
-    
-    <header class="section-header">
-      <h1>Wiki</h1>
+    <.section_header>
+      <.header_button />
+      <.article_header>Colophon</.article_header>
       
-      <button title="New Wiki Article" type="button">
-        <span role="img"/>
-        <span>New Article</span>
-      </button>
-    </header>
+      <:controls>
+        <.toggle_switch>Public Article?</.toggle_switch>
+        
+        <.combo_button>
+          <button>Save</button>
+          
+          <:options>
+            <button>Save Over Current Revision</button>
+          </:options>
+        </.combo_button>
+      </:controls>
+    </.section_header>    
     
+    <.sidebar />
     
     <aside class="wiki-sidebar">
       <ol>
@@ -29,6 +36,7 @@
       </ol>
     </aside>
     
+    <.form for={@changeset} id="article-form" let={f} phx-change="validate" phx-submit="save">
     <article>
       <header>
         <nav>
@@ -144,5 +152,6 @@
         </section>
       </aside>
     </article>
+    </.form>
+
   </section> 
-</.form>

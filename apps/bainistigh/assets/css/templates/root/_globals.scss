@@ -12,6 +12,10 @@
 // Set up the global styles
 // -----------------------------------------------------------------------------------------------
 
+* {
+  color-scheme: light dark;
+}
+
 html {
   min-block-size: 100%;
   min-block-size: -webkit-fill-available;
@@ -27,8 +31,11 @@ body {
 }
 
 main {
-  padding-block-start: 48px;
+  $header-height: 48px;
+  padding-block-start: $header-height;
+
   @include media.mouse {
-    padding-block-start: calc(48px + 35px);
+    $header-height: 64px;
+    padding-block-start: calc($header-height + 35px);
   }
 }

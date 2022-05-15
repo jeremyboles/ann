@@ -1,0 +1,29 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Menu Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.header_button {
+  @include icon.mask($url: "/images/fa/solid/bars.svg", $size: 24px);
+  appearance: none;
+  background-color: #{colors.var(quaternary, $ns: text)};
+  block-size: 24px;
+  inline-size: 24px;
+
+  @include media.mouse {
+    display: none;
+  }
+
+  &:checked {
+    background-color: #{colors.var(tertiary, $ns: text)};
+  }
+}
