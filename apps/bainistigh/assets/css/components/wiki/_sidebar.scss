@@ -29,15 +29,25 @@
   top: calc($header-height - 1px);
   z-index: 999;
 
+  @include media.ipad(min) {
+    bottom: calc(85px + env(safe-area-inset-left));
+    box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 4px 0 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+    right: auto;
+    width: 404px;
+    z-index: 2;
+  }
+
   @include media.mouse {
     $header-height: 64px;
     @include border.inline-end(separator);
     @include box.bg(quaternary);
     border-block-start: none;
+    bottom: 0;
     display: initial;
     right: auto;
     top: calc($header-height + 35px);
     width: 264px;
+    z-index: 999;
   }
 }
 
