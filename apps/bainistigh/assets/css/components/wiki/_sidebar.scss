@@ -31,7 +31,7 @@
 
   @include media.ipad(min) {
     bottom: calc(85px + env(safe-area-inset-left));
-    box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 4px 0 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+    box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.06)}, 4px 0 24px #{palette.stone($lightness: 8%, $alpha: 0.1)};
     right: auto;
     width: 404px;
     z-index: 2;
@@ -43,6 +43,7 @@
     @include box.bg(quaternary);
     border-block-start: none;
     bottom: 0;
+    box-shadow: none;
     display: initial;
     right: auto;
     top: calc($header-height + 35px);

@@ -43,7 +43,28 @@ defmodule Bainistigh.WikiComponent do
 
   defp article_list(assigns) do
     ~H"""
-      <div class="article_list">Article List</div>
+      <div class="article_list">
+        <.new_article_button />
+        <ul>
+          <li>Article List</li>
+        </ul>
+      </div>
+    """
+  end
+
+  defp new_article_button(assigns) do
+    ~H"""
+      <div class="new_article_button">
+        <label>
+          <span>New Article</span>
+          <input form="none" type="checkbox"/>
+        </label>
+        <div class="options">
+          <button accesskey="q">Quick Topic</button>
+          <button accesskey="l">Long-Form Topic</button>
+          <button accesskey="r">Recipe-Type Topic</button>
+        </div>
+      </div>
     """
   end
 

@@ -1,0 +1,201 @@
+// -----------------------------------------------------------------------------------------------
+//
+// New Article Button Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.new_article_button {
+  position: relative;
+
+  @include media.ipad(max) {
+    @include box.bg(secondary);
+    align-items: center;
+    display: flex;
+    height: 47px;
+    inline-size: 50%;
+    justify-content: end;
+    padding-inline: 12px;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+
+  @include media.mouse {
+    @include border.block-start;
+    bottom: 0;
+    inline-size: calc(264px - 1px);
+    left: 0;
+    padding-block: 2px;
+    position: fixed;
+  }
+}
+
+//
+// Initial "button"
+// -----------------------------------------------------------------------------------------------
+
+.new_article_button label {
+  @include media.ipad(max) {
+    @include icon.replace($url: "/images/fa/regular/pen-to-square.svg", $size: 24px);
+    @include text.color(accent);
+  }
+
+  @include media.ipad(min) {
+    @include box.bg(quaternary);
+    @include icon.after($url: "/images/fa/solid/circle-plus.svg", $size: 20px);
+    @include text.style(sans, $color: tertiary, $size: 18px, $weight: 600);
+    align-items: center;
+    border-radius: 4px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  @include media.mouse {
+    @include icon.after($url: "/images/fa/regular/plus.svg", $size: 16px);
+    @include text.style(sans, $color: quaternary, $size: 13px, $weight: 600);
+    flex-direction: row-reverse;
+    gap: 4px;
+    justify-content: start;
+    padding-inline: 16px;
+
+    &:has(input:checked),
+    &:hover {
+      @include text.color(main);
+    }
+  }
+}
+
+.new_article_button label input {
+  display: none;
+}
+
+//
+// Options
+// -----------------------------------------------------------------------------------------------
+
+.new_article_button .options {
+  display: none;
+  flex-direction: column;
+
+  @include media.ipad(max) {
+    background-image: linear-gradient(#{palette.stone($lightness: 2%, $alpha: 0.8)}, #{palette.stone($lightness: 8%, $alpha: 0.7)});
+    content: "";
+    gap: 8px;
+    height: 100%;
+    left: 0;
+    padding: 12px;
+    position: fixed;
+    right: 0;
+    top: 48px;
+    z-index: 9999;
+  }
+
+  @include media.ipad(min) {
+    @include box.bg(main);
+    border-radius: 4px;
+    box-shadow: 0 4px 32px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+    position: absolute;
+    left: 50%;
+    transform: translate(72px, -6px);
+    top: 0;
+
+    &::after {
+      block-size: 0;
+      border-block: transparent solid 8px;
+      border-inline-end: #{colors.var(main, $ns: bg)} solid 8px;
+      content: "";
+      display: block;
+      inline-size: 0;
+      left: 0;
+      position: absolute;
+      transform: translate(-12px, 18px);
+      top: 0;
+    }
+  }
+
+  @include media.mouse {
+    @include border.all(main);
+    @include box.bg(secondary);
+    box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 4px 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+    bottom: 0;
+    gap: 4px;
+    padding: 4px;
+    transform: translate(0, -18px);
+    top: auto;
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.new_article_button label:has(input:checked) ~ .options {
+  display: flex;
+}
+
+.new_article_button .options button {
+  @include box.bg(secondary);
+  @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+
+  @include media.ipad(max) {
+    border-radius: 4px;
+  }
+
+  @include media.ipad(min) {
+    background-color: transparent;
+    padding-inline: 16px;
+    min-inline-size: 320px;
+  }
+
+  @include media.mouse {
+    @include text.style(sans, $color: tertiary, $size: 12px, $weight: 500);
+    border-radius: 4px;
+    justify-content: space-between;
+    min-inline-size: 224px;
+    padding-block: 6px;
+    padding-inline: 8px;
+
+    &::after {
+      @include text.color(faded);
+      content: "⌥⌃" attr(accesskey);
+      text-transform: uppercase;
+    }
+
+    &:hover {
+      background-color: #{colors.var(accent, $ns: text)};
+      color: #{palette.stone($lightness: 98%)};
+
+      &::after {
+        color: #{palette.stone($lightness: 98%)};
+      }
+    }
+  }
+}
+
+.new_article_button .options button + button {
+  @include media.ipad(min) {
+    @include border.block-start(secondary);
+  }
+
+  @include media.mouse {
+    border-block-start: none;
+  }
+}

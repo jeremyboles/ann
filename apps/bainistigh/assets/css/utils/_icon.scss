@@ -41,3 +41,10 @@
   mask-position: center center;
   mask-size: #{val.var-escape($size)} #{val.var-escape($size)};
 }
+
+@mixin replace($url: false, $color: currentcolor, $size: 0.85em) {
+  @include block($size, inline-block);
+  @include mask($size, $url);
+  background-color: $color;
+  color: $color;
+}
