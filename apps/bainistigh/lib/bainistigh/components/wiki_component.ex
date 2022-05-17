@@ -10,6 +10,27 @@ defmodule Bainistigh.WikiComponent do
     """
   end
 
+  def public_toggle(assigns) do
+    ~H"""
+      <label class="public_toggle">
+        <input type="checkbox" />
+        <span><%= render_slot(@inner_block) %></span>
+      </label>
+    """
+  end
+
+  def save_button(assigns) do
+    ~H"""
+      <div class="save_button">
+        <button>Save</button>
+        <input form="none" type="checkbox"/>
+        <div class="options">
+          <button>Save Over Current Revision</button>
+        </div>
+      </div>
+    """
+  end
+
   def sidebar(assigns) do
     ~H"""
       <aside class="sidebar">

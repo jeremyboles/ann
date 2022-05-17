@@ -11,8 +11,8 @@
 // Stylesheets for templates
 // -----------------------------------------------------------------------------------------------
 
-@use "./templates/live";
-@use "./templates/root";
+@use "./templates/layout" as _layout;
+@use "./templates/wiki" as _wiki;
 
 //
 // Stylesheets for components

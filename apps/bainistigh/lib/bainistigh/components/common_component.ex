@@ -1,16 +1,6 @@
 defmodule Bainistigh.CommonComponent do
   use Bainistigh, :component
 
-  def combo_button(assigns) do
-    ~H"""
-      <div class="combo_button">
-        <%= render_slot(@inner_block) %>
-        <input form="none" type="checkbox"/>
-        <div class="options"><%= render_slot(@options) %></div>
-      </div>
-    """
-  end
-
   def header_button(assigns) do
     ~H"""
       <input class="header_button" type="checkbox">
@@ -33,15 +23,6 @@ defmodule Bainistigh.CommonComponent do
           <div class="controls"><%= render_slot(@controls) %></div>
         <% end %>
       </header>
-    """
-  end
-
-  def toggle_switch(assigns) do
-    ~H"""
-      <label class="toggle_switch">
-        <input type="checkbox" />
-        <span><%= render_slot(@inner_block) %></span>
-      </label>
     """
   end
 end

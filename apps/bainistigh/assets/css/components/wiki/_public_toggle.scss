@@ -15,11 +15,11 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-.toggle_switch {
+.public_toggle {
   display: none;
   flex-direction: row-reverse;
 
-  @include media.finger {
+  @include media.ipad(max) {
     @include border.all;
     @include box.bg(secondary);
     border-radius: 4px;
@@ -38,21 +38,16 @@
       display: block;
       height: 1px;
       left: 0;
+      mix-blend-mode: overlay;
+      opacity: 0.5;
       position: absolute;
       transform: translateY(12px);
       right: 0;
     }
   }
 
-  @include media.mouse {
+  @include media.ipad(min) {
     gap: 8px;
-    display: flex;
-  }
-}
-
-// TODO: Move this to wiki page styles
-@include media.finger {
-  .section_header:has(.combo_button > input[type="checkbox"]:checked) .toggle_switch {
     display: flex;
   }
 }
@@ -61,10 +56,10 @@
 // Switch control
 // -----------------------------------------------------------------------------------------------
 
-.toggle_switch > input {
+.public_toggle > input {
   appearance: none;
 
-  @include media.finger {
+  @include media.ipad(max) {
     @include icon.after($url: "/images/fa/regular/circle.svg", $size: 24px) {
       background-color: #{colors.var(faded, $ns: text)};
       transform: translateX(-12px);
@@ -76,7 +71,7 @@
     }
   }
 
-  @include media.mouse {
+  @include media.ipad(min) {
     border-color: #{colors.var(emphasize, $ns: border)};
     border-radius: 8px;
     border-style: solid;
@@ -112,14 +107,14 @@
 // Label
 // -----------------------------------------------------------------------------------------------
 
-.toggle_switch > span {
+.public_toggle > span {
   @include text.style(sans, $color: quaternary, $size: 18px, $weight: 600);
 
-  @include media.mouse {
+  @include media.ipad(min) {
     @include text.style(sans, $color: quaternary, $size: 12px, $weight: 600);
   }
 }
 
-.toggle_switch > input:checked + span {
+.public_toggle > input:checked + span {
   @include text.color(secondary);
 }

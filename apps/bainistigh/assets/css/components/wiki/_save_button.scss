@@ -17,7 +17,7 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-.combo_button {
+.save_button {
   align-items: center;
   display: flex;
   gap: 16px;
@@ -34,7 +34,7 @@
 // Main button
 // -----------------------------------------------------------------------------------------------
 
-.combo_button > button {
+.save_button > button {
   @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
   appearance: none;
   background-color: transparent;
@@ -53,7 +53,7 @@
 // Toggle button
 // -----------------------------------------------------------------------------------------------
 
-.combo_button > input[type="checkbox"] {
+.save_button > input[type="checkbox"] {
   @include icon.block(22px);
   @include icon.mask($url: "/images/fa/regular/circle-ellipsis.svg", $size: 22px);
   appearance: none;
@@ -92,27 +92,11 @@
   }
 }
 
-// TODO: Move this to wiki page styles
-@include media.finger {
-  .section_header:has(.combo_button > input[type="checkbox"]:checked) {
-    &::after {
-      background-image: linear-gradient(#{palette.stone($lightness: 2%, $alpha: 0.8)}, #{palette.stone($lightness: 8%, $alpha: 0.7)});
-      content: "";
-      display: block;
-      height: 100%;
-      left: 0;
-      position: fixed;
-      right: 0;
-      top: 48px;
-    }
-  }
-}
-
 //
 // Options
 // -----------------------------------------------------------------------------------------------
 
-.combo_button > .options {
+.save_button > .options {
   @include border.all;
   @include box.bg(secondary);
   border-radius: 4px;
@@ -121,10 +105,9 @@
   position: fixed;
   right: 12px;
   top: 130px;
-
   z-index: 10;
 
-  @include media.mouse {
+  @include media.ipad(min) {
     box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 4px 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
     left: initial;
     position: absolute;
@@ -134,22 +117,28 @@
     &::after {
       display: none;
     }
+
+    @include media.finger {
+      transform: translate(16px, 8px);
+    }
   }
 }
 
-.combo_button > input[type="checkbox"]:checked ~ .options {
+.save_button > input[type="checkbox"]:checked ~ .options {
   display: block;
 }
 
-.combo_button > .options button {
+.save_button > .options button {
   @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
   align-items: center;
   background-color: transparent;
   break-inside: avoid;
   display: flex;
+  gap: 8px;
   justify-content: space-between;
   padding: 12px;
   position: relative;
+  white-space: nowrap;
 
   @include media.finger {
     @include icon.after($url: "/images/fa/regular/file-slash.svg", $size: 24px);
