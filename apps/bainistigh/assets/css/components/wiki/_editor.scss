@@ -1,0 +1,78 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Editor Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.editor {
+  padding-block: 24px;
+  padding-inline: 12px;
+
+  @include media.ipad(min) {
+    margin-block-start: 28px;
+    margin-block-end: 16px;
+    margin-inline-start: 264px;
+    margin-inline-end: 220px;
+    padding-block: 64px;
+    padding-inline: 64px;
+  }
+}
+
+//
+// WYSIWYG
+// -----------------------------------------------------------------------------------------------
+
+.editor [contenteditable="true"] {
+  @include text.style(serif, $color: secondary, $size: 24px, $weight: 300);
+  outline: none;
+
+  @include media.ipad(max) {
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 200%;
+    font-weight: 100;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  p strong {
+    font-weight: 650;
+  }
+
+  h1 + p {
+    margin-top: 1em;
+  }
+
+  p + p {
+    margin-top: 1em;
+  }
+
+  [data-placeholder]:first-of-type {
+    @include text.color(faded);
+  }
+
+  [data-placeholder]:first-of-type::before {
+    @include text.color(faded);
+    content: attr(data-placeholder);
+    pointer-events: none;
+    position: absolute;
+  }
+}

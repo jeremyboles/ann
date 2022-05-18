@@ -1,0 +1,62 @@
+// -----------------------------------------------------------------------------------------------
+//
+// Breadcrumbs Component
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumbs {
+  @include border.block-end(separator);
+  @include box.bg(secondary);
+  align-items: stretch;
+  block-size: 32px;
+  display: flex;
+  left: calc(env(safe-area-inset-left) + 264px);
+  padding-inline: 12px;
+  position: fixed;
+  right: env(safe-area-inset-right, 0);
+  top: calc(env(safe-area-inset-top) + 98px);
+
+  @include media.ipad(max) {
+    display: none;
+  }
+
+  nav {
+    display: contents;
+  }
+}
+
+//
+// Article list
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumbs ol {
+  @include text.style($size: 12px, $weight: 500);
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+//
+// Article
+// -----------------------------------------------------------------------------------------------
+
+.breadcrumbs li + li {
+  @include icon.before($url: "/images/fa/solid/angle-right.svg", $size: 10px) {
+    @include text.color(faded);
+    margin-inline-end: 8px;
+    transform: translateY(1px);
+  }
+}

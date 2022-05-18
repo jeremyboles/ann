@@ -25,3 +25,6 @@
 [submodule "apps/bainistigh/priv/static/fonts/visby-round"]
 	path = apps/bainistigh/priv/static/fonts/visby-round
 	url = git@github.com:jeremyboles/visby-round.git
+[submodule "apps/bainistigh/priv/static/fonts/addington"]
+	path = apps/bainistigh/priv/static/fonts/addington
+	url = git@github.com:jeremyboles/addington.git

@@ -10,7 +10,29 @@
 // Font stacks
 // -----------------------------------------------------------------------------------------------
 
+$addington: "Addington";
 $visby-round: "Visby Round";
+
+$addington-stack: (
+  normal: (
+    100: "/fonts/addington/AddingtonCF-Thin",
+    300: "/fonts/addington/AddingtonCF-Light",
+    400: "/fonts/addington/AddingtonCF-Regular",
+    500: "/fonts/addington/AddingtonCF-Medium",
+    600: "/fonts/addington/AddingtonCF-DemiBold",
+    700: "/fonts/addington/AddingtonCF-Bold",
+    800: "/fonts/addington/AddingtonCF-ExtraBold",
+  ),
+  italic: (
+    100: "/fonts/addington/AddingtonCF-ThinItalic",
+    300: "/fonts/addington/AddingtonCF-LightItalic",
+    400: "/fonts/addington/AddingtonCF-RegularItalic",
+    500: "/fonts/addington/AddingtonCF-MediumItalic",
+    600: "/fonts/addington/AddingtonCF-DemiBoldItalic",
+    700: "/fonts/addington/AddingtonCF-BoldItalic",
+    800: "/fonts/addington/AddingtonCF-ExtraBoldItalic",
+  ),
+);
 
 $visby-round-stack: (
   normal: (
@@ -41,4 +63,5 @@ $visby-round-stack: (
 
 $fonts: (
   sans: "#{$visby-round}, ui-sans-serif, sans-serif",
+  serif: "#{$addington}, ui-serif, serif",
 );

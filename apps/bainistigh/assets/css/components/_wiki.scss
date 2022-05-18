@@ -6,6 +6,9 @@
 
 @use "./wiki/article_header";
 @use "./wiki/article_list";
+@use "./wiki/breadcrumbs";
+@use "./wiki/catalog";
+@use "./wiki/editor";
 @use "./wiki/new_article_button";
 @use "./wiki/public_toggle";
 @use "./wiki/save_button";
