@@ -105,7 +105,7 @@
   position: fixed;
   right: 12px;
   top: 130px;
-  z-index: 10;
+  z-index: 999;
 
   @include media.ipad(min) {
     box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 4px 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};

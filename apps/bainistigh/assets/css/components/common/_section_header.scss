@@ -32,7 +32,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 999;
+  z-index: 699;
 
   @include media.mouse {
     @include box.bg(tertiary);

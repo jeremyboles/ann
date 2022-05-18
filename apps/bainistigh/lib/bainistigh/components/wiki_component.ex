@@ -65,6 +65,7 @@ defmodule Bainistigh.WikiComponent do
 
   def sidebar(assigns) do
     ~H"""
+      <.sidebar_toggle />
       <aside class="sidebar">
         <.sidebar_tabs />
         
@@ -108,7 +109,7 @@ defmodule Bainistigh.WikiComponent do
   defp history_panel(assigns) do
     ~H"""
       <section class="history_panel" id="history-panel" role="tabpanel">
-        Glossary
+        History
       </section>
     """
   end
@@ -199,6 +200,12 @@ defmodule Bainistigh.WikiComponent do
           }
         </script>
       </ul>
+    """
+  end
+
+  defp sidebar_toggle(assigns) do
+    ~H"""
+      <input checked class="sidebar_toggle" form="none" title="Toggle Sidebar" type="checkbox" />
     """
   end
 end

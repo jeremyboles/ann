@@ -19,13 +19,26 @@
 
 .sidebar {
   @include media.ipad(min) {
-    @include box.bg(tertiary);
-    @include border.inline-start(separator);
+    @include border.inline-start(secondary);
+    @include box.bg(secondary);
     bottom: env(safe-area-inset-bottom, 0);
     position: fixed;
-    inline-size: 220px;
+    inline-size: 304px;
     right: env(safe-area-inset-right, 0);
+    top: calc(env(safe-area-inset-top) + 88px);
+  }
+
+  @include media.mouse {
+    @include border.inline-start(separator);
+    inline-size: 220px;
     top: calc(env(safe-area-inset-top) + 130px);
+  }
+}
+
+.sidebar_toggle:not(:checked) + .sidebar {
+  @include media.ipad(min) {
+    inline-size: 0;
+    overflow: hidden;
   }
 }
 
@@ -39,21 +52,29 @@
   @include media.ipad(max) {
     @include box.bg(main);
     align-items: center;
+    block-size: 40px;
     border-radius: 20px;
     bottom: calc(env(safe-area-inset-bottom, 0) + 88px);
     box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.02)}, 0 4px 24px #{palette.stone($lightness: 8%, $alpha: 0.15)};
-    height: 40px;
     left: 50%;
     padding-inline: 4px;
     position: fixed;
     transform: translateX(-50%);
-    z-index: 1001;
+    z-index: 800;
   }
 
   @include media.ipad(min) {
-    @include border.block-end;
-    justify-content: space-evenly;
+    @include border.block-end(secondary);
+    justify-content: space-around;
     padding-block: 4px;
+  }
+
+  @include media.mouse {
+    justify-content: space-evenly;
+  }
+
+  @include media.mouse {
+    @include border.block-end;
   }
 
   input[type="radio"] {
@@ -61,9 +82,9 @@
   }
 }
 
-// .sidebar:has([role="tab"] > input:checked) .sidebar_tabs {
-//   bottom: calc(env(safe-area-inset-bottom, 0) + 44px);
-// }
+section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sidebar_tabs {
+  z-index: 500;
+}
 
 //
 // Individual tab
@@ -82,6 +103,9 @@
 
   @include media.ipad(min) {
     @include text.color(quaternary);
+  }
+
+  @include media.mouse {
     border-radius: 4px;
     min-inline-size: 34px;
     padding-block: 2px;
@@ -94,6 +118,9 @@
 .sidebar .sidebar_tabs:not(:has([role="tab"] > input:checked)) li:first-of-type {
   @include media.ipad(min) {
     @include text.color(accent);
+  }
+
+  @include media.mouse {
     @include box.bg(faded);
   }
 }
@@ -115,47 +142,47 @@
 // -----------------------------------------------------------------------------------------------
 
 .sidebar .sidebar_tabs label[for|="glossary"] {
-  @include media.ipad(max) {
-    @include icon.replace($url: "/images/fa/regular/book.svg", $size: 18px);
-  }
+  @include icon.replace($url: "/images/fa/regular/book.svg", $size: 18px);
 
-  @include media.ipad(min) {
+  @include media.mouse {
     @include icon.replace($url: "/images/fa/regular/book.svg", $size: 14px);
   }
 }
 
 .sidebar .sidebar_tabs label[for|="history"] {
-  @include media.ipad(max) {
-    @include icon.replace($url: "/images/fa/regular/clock-rotate-left.svg", $size: 18px);
-  }
+  @include icon.replace($url: "/images/fa/regular/clock-rotate-left.svg", $size: 18px);
 
-  @include media.ipad(min) {
+  @include media.mouse {
     @include icon.replace($url: "/images/fa/regular/clock-rotate-left.svg", $size: 14px);
   }
 }
 
 .sidebar .sidebar_tabs label[for|="metadata"] {
-  @include media.ipad(max) {
-    @include icon.replace($url: "/images/fa/regular/rectangle-list.svg", $size: 18px);
-  }
+  @include icon.replace($url: "/images/fa/regular/rectangle-list.svg", $size: 18px);
 
-  @include media.ipad(min) {
+  @include media.mouse {
     @include icon.replace($url: "/images/fa/regular/rectangle-list.svg", $size: 14px);
   }
 }
 
 .sidebar .sidebar_tabs label[for|="links"] {
-  @include media.ipad(max) {
-    @include icon.replace($url: "/images/fa/regular/link.svg", $size: 22px);
-  }
+  @include icon.replace($url: "/images/fa/regular/link.svg", $size: 22px);
 
-  @include media.ipad(min) {
+  @include media.mouse {
     @include icon.replace($url: "/images/fa/regular/link.svg", $size: 18px);
   }
 }
 
 .sidebar .sidebar_tabs label[for] {
   padding-inline: 8px;
+
+  @include media.ipad(min) {
+    padding-block: 20px;
+  }
+
+  @include media.mouse {
+    padding-block: 0;
+  }
 }
 
 //
@@ -174,19 +201,21 @@
     position: fixed;
     right: calc(env(safe-area-inset-right, 0) + 8px);
     top: calc(env(safe-area-inset-top, 0) + 40px);
-    z-index: 999;
+    z-index: 799;
   }
 }
 
-.sidebar:has([role="tab"] > input:checked)::before {
-  @include box.bg(mask);
-  bottom: 0;
-  content: "";
-  left: 0;
-  right: 0;
-  position: fixed;
-  top: 0;
-  z-index: 999;
+@include media.ipad(max) {
+  .sidebar:has([role="tab"] > input:checked)::before {
+    @include box.bg(mask);
+    bottom: 0;
+    content: "";
+    left: 0;
+    right: 0;
+    position: fixed;
+    top: 0;
+    z-index: 798;
+  }
 }
 
 .sidebar:has(input[id|="glossary"]:checked) [role="tabpanel"][id|="glossary"],
@@ -200,5 +229,37 @@
 .sidebar .sidebar_tabs:not(:has([role="tab"] > input:checked)) ~ [role="tabpanel"]:first-of-type {
   @include media.ipad(min) {
     display: initial;
+  }
+}
+
+//
+// Sidebar toggle
+// -----------------------------------------------------------------------------------------------
+
+.sidebar_toggle {
+  @include icon.mask($url: "/images/fa/regular/sidebar-flip.svg", $size: 20px);
+  appearance: none;
+  background-color: #{colors.var(faded, $ns: text)};
+  block-size: 20px;
+  display: none;
+  inline-size: 20px;
+  position: fixed;
+  right: calc(env(safe-area-inset-right, 0) + 12px);
+  top: calc(env(safe-area-inset-top, 0) + 58px);
+  z-index: 800;
+
+  @include media.ipad(min) {
+    display: initial;
+  }
+
+  @include media.mouse {
+    block-size: 16px;
+    inline-size: 16px;
+    mask-size: 16px 16px;
+    top: calc(env(safe-area-inset-top, 0) + 106px);
+  }
+
+  &:checked {
+    background-color: #{colors.var(quaternary, $ns: text)};
   }
 }

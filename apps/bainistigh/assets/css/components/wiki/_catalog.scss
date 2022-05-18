@@ -73,11 +73,15 @@ section:has(.header_button:checked) .catalog {
   z-index: 2;
 
   @include media.mouse {
-    @include border.inline-end(quaternary);
+    @include border.inline-end(secondary);
     height: 40px;
     margin-top: -64px;
     padding-block: 0;
     width: 264px;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.inline-end(quaternary);
+    }
   }
 }
 
@@ -113,7 +117,7 @@ section:has(.header_button:checked) .catalog {
 
   @include media.mouse {
     @include border.block-end(separator);
-    @include border.inline-end(quaternary);
+    @include border.inline-end(secondary);
     @include text.style($color: quaternary, $size: 9px, $weight: 700);
     align-items: end;
     border-block-start: none;
@@ -125,6 +129,10 @@ section:has(.header_button:checked) .catalog {
     padding-block: 0;
     text-transform: uppercase;
     width: 264px;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.inline-end(quaternary);
+    }
   }
 
   li {

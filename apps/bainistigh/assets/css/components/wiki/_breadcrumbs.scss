@@ -21,13 +21,19 @@
   @include border.block-end(separator);
   @include box.bg(secondary);
   align-items: stretch;
-  block-size: 32px;
+  block-size: 40px;
   display: flex;
-  left: calc(env(safe-area-inset-left) + 264px);
+  left: env(safe-area-inset-left, 0);
   padding-inline: 12px;
   position: fixed;
   right: env(safe-area-inset-right, 0);
-  top: calc(env(safe-area-inset-top) + 98px);
+  top: calc(env(safe-area-inset-top) + 48px);
+
+  @include media.mouse {
+    block-size: 32px;
+    left: calc(env(safe-area-inset-left) + 264px);
+    top: calc(env(safe-area-inset-top) + 98px);
+  }
 
   @include media.ipad(max) {
     display: none;
@@ -43,10 +49,14 @@
 // -----------------------------------------------------------------------------------------------
 
 .breadcrumbs ol {
-  @include text.style($size: 12px, $weight: 500);
+  @include text.style($size: 16px, $weight: 500);
   align-items: center;
   display: flex;
   gap: 8px;
+
+  @include media.mouse {
+    @include text.size(12px);
+  }
 }
 
 //

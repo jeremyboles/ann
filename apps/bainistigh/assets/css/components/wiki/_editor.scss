@@ -23,11 +23,28 @@
 
   @include media.ipad(min) {
     margin-block-start: 28px;
+    margin-inline-end: 304px;
+    padding-inline: 24px;
+  }
+
+  @include media.mouse {
     margin-block-end: 16px;
     margin-inline-start: 264px;
-    margin-inline-end: 220px;
+    margin-inline-end: 240px;
     padding-block: 64px;
     padding-inline: 64px;
+  }
+
+  & > div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
+  @include media.ipad(min) {
+    margin-inline-end: 0;
   }
 }
 
@@ -37,6 +54,8 @@
 
 .editor [contenteditable="true"] {
   @include text.style(serif, $color: secondary, $size: 24px, $weight: 300);
+  inline-size: 100%;
+  max-inline-size: 72pc;
   outline: none;
 
   @include media.ipad(max) {
