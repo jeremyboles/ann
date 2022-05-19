@@ -18,6 +18,9 @@
 // -----------------------------------------------------------------------------------------------
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
+
   @include media.ipad(min) {
     @include border.inline-start(secondary);
     @include box.bg(secondary);
@@ -79,6 +82,10 @@
 
   @include media.mouse {
     @include border.block-end;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.block-end(quaternary);
+    }
   }
 
   input[type="radio"] {
@@ -205,7 +212,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
   display: none;
 
   @include media.ipad(max) {
-    @include box.bg(main);
+    @include box.bg(tertiary);
     border-radius: 8px;
     bottom: calc(env(safe-area-inset-bottom, 0) + 68px);
     box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.1)}, 0 4px 24px #{palette.stone($lightness: 8%, $alpha: 0.25)};
@@ -273,5 +280,321 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
 
   &:checked {
     background-color: #{colors.var(quaternary, $ns: text)};
+  }
+}
+
+//
+// Sidebar panels
+// -----------------------------------------------------------------------------------------------
+
+.sidebar [role="tabpanel"] {
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  @include media.ipad(max) {
+    padding-block-end: 80px;
+  }
+}
+
+//
+// Topic attributes
+// -----------------------------------------------------------------------------------------------
+
+.sidebar .topic_attributes {
+  summary {
+    @include text.style($color: tertiary, $size: 13px, $weight: 600);
+    align-items: center;
+    cursor: default;
+    display: flex;
+    letter-spacing: 0.05em;
+    justify-content: space-between;
+    padding: 20px 8px 8px 20px;
+    text-transform: uppercase;
+    -webkit-user-select: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    @include media.ipad(min) {
+      display: none;
+    }
+  }
+
+  fieldset {
+    border: 0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px;
+
+    @include media.ipad(max) {
+      @include box.bg(main);
+      margin: 0 12px 0 12px;
+    }
+
+    @include media.ipad(min) {
+      padding: 8px;
+    }
+
+    & > div {
+      display: contents;
+    }
+  }
+}
+
+.sidebar .topic_attributes input[type="text"] {
+  @include text.style(sans, $color: main, $size: 18px, $weight: 500);
+  background-color: transparent;
+  outline: none;
+  z-index: 2;
+
+  &::placeholder {
+    opacity: 0;
+  }
+
+  @include media.ipad(min) {
+    @include box.bg(faded);
+    @include border.all(secondary);
+    @include text.style(sans, $color: main, $size: 12px, $weight: 500);
+    accent-color: #{colors.var(accent, $ns: text)};
+
+    border-radius: 4px;
+    padding: 4px;
+
+    &::placeholder {
+      opacity: initial;
+    }
+  }
+}
+
+.sidebar .topic_attributes label {
+  @include text.style(sans, $color: faded, $size: 18px, $weight: 500);
+  margin-block-start: -24px;
+  z-index: 1;
+
+  @include media.ipad(min) {
+    @include text.style(sans, $color: tertiary, $size: 11px, $weight: 500);
+    margin-block-start: 4px;
+    transform: none;
+  }
+}
+
+.sidebar .topic_attributes fieldset > label {
+  margin-block-end: 12px;
+
+  @include media.ipad(max) {
+    @include border.block-end(secondary);
+    padding-block-end: 12px;
+  }
+}
+
+.sidebar .topic_attributes input:not(:placeholder-shown) + label,
+.sidebar .topic_attributes select:has(option:first-child:not(:checked)) + label {
+  @include media.ipad(max) {
+    color: #{colors.var(main, $ns: bg)};
+  }
+}
+
+.sidebar .topic_attributes select {
+  background-color: transparent;
+  accent-color: #{colors.var(accent, $ns: text)};
+  font-size: small;
+  z-index: 2;
+
+  @include media.ipad(max) {
+    margin-block-start: 8px;
+  }
+}
+
+//
+// Location input
+// -----------------------------------------------------------------------------------------------
+
+.sidebar .location_input {
+  margin-block-start: 16px;
+
+  @include media.ipad(min) {
+    @include border.block-start;
+    margin-block-start: 0;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.block-start(quaternary);
+    }
+  }
+}
+
+.sidebar .location_input summary {
+  @include text.style($color: tertiary, $size: 13px, $weight: 600);
+  align-items: center;
+  cursor: default;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.05em;
+  padding: 8px 8px 8px 20px;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+
+  @include media.ipad(min) {
+    @include icon.after($url: "/images/fa/solid/angle-right.svg", $size: 12px) {
+      color: #{colors.var(faded, $ns: text)};
+    }
+    @include text.style($color: tertiary, $size: 10px, $weight: 700);
+    padding-inline-start: 8px;
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  span {
+    flex-grow: 1;
+  }
+
+  button {
+    @include icon.replace($url: "/images/fa/regular/location-dot-slash.svg", $size: 16px);
+    color: #{colors.var(quaternary, $ns: text)};
+    margin-inline-end: 8px;
+  }
+}
+
+.sidebar .location_input[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.sidebar .location_input .map {
+  aspect-ratio: 4 /3;
+  border-radius: 8px;
+  overflow: hidden;
+
+  @include media.ipad(max) {
+    @include box.bg(main);
+    margin: 0 12px 12px 12px;
+  }
+
+  @include media.ipad(min) {
+    @include box.bg(faded);
+    @include border.all(secondary);
+    border-radius: 2px;
+    margin: 0 8px 8px 8px;
+  }
+}
+
+//
+// Tags input
+// -----------------------------------------------------------------------------------------------
+
+.sidebar .tags_input {
+  margin-block-start: 16px;
+
+  @include media.ipad(min) {
+    @include border.block;
+    margin-block-start: 0;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.block(quaternary);
+    }
+  }
+}
+
+.sidebar .tags_input summary {
+  @include text.style($color: tertiary, $size: 13px, $weight: 600);
+  align-items: center;
+  cursor: default;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.05em;
+  padding: 8px 8px 8px 20px;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+
+  @include media.ipad(min) {
+    @include icon.after($url: "/images/fa/solid/angle-right.svg", $size: 12px) {
+      color: #{colors.var(faded, $ns: text)};
+    }
+    @include text.style($color: tertiary, $size: 10px, $weight: 700);
+    padding-inline-start: 8px;
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  span {
+    flex-grow: 1;
+  }
+
+  button {
+    @include icon.replace($url: "/images/fa/regular/circle-plus.svg", $size: 16px);
+    color: #{colors.var(faded, $ns: text)};
+    margin-inline-end: 8px;
+
+    @include media.ipad(min) {
+      @include icon.replace($url: "/images/fa/regular/circle-plus.svg", $size: 14px);
+      color: #{colors.var(quaternary, $ns: text)};
+    }
+  }
+}
+
+.sidebar .tags_input[open] {
+  border-block-end: none;
+}
+
+.sidebar .tags_input[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.sidebar .tags_input ul {
+  @include media.ipad(max) {
+    @include box.bg(main);
+    border-radius: 8px;
+    margin: 0 12px 0 12px;
+  }
+
+  @include media.ipad(min) {
+    padding: 0 8px;
+    @include border.block-start;
+    @media (prefers-color-scheme: dark) {
+      @include border.block-start(quaternary);
+    }
+  }
+
+  &:has(li) {
+    @include media.ipad(min) {
+      @include border.block-end;
+
+      @media (prefers-color-scheme: dark) {
+        @include border.block-end(quaternary);
+      }
+    }
+  }
+
+  li {
+    display: flex;
+    padding: 4px 0;
+  }
+
+  li + li {
+    @include border.block-start;
+    align-items: center;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.block-start(quaternary);
+    }
+  }
+}
+
+.sidebar .tags_input input[type="text"] {
+  @include text.style(sans, $color: main, $size: 18px, $weight: 500);
+  background-color: transparent;
+  border-width: none;
+  box-shadow: none;
+  flex-grow: 1;
+  outline: none;
+  padding: 8px;
+
+  @include media.ipad(min) {
+    @include text.style(sans, $color: main, $size: 12px, $weight: 500);
   }
 }
