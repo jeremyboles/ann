@@ -33,6 +33,7 @@ body {
 main {
   $header-height: 48px;
   padding-block-start: $header-height;
+  position: relative;
 
   @include media.mouse {
     $header-height: 64px;

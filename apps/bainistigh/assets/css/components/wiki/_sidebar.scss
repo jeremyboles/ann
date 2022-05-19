@@ -61,6 +61,10 @@
     position: fixed;
     transform: translateX(-50%);
     z-index: 800;
+
+    @media (prefers-color-scheme: dark) {
+      @include box.bg(control);
+    }
   }
 
   @include media.ipad(min) {
@@ -80,6 +84,10 @@
   input[type="radio"] {
     display: none;
   }
+}
+
+.tabbar:has(.more_tabs :checked) + main {
+  z-index: -1;
 }
 
 section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sidebar_tabs {
@@ -134,6 +142,10 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
 .sidebar .sidebar_tabs li + li {
   @include media.ipad(max) {
     @include border.inline-start(secondary);
+
+    @media (prefers-color-scheme: dark) {
+      @include border.inline-start(emphasize);
+    }
   }
 }
 

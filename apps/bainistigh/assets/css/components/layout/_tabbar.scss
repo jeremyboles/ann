@@ -213,15 +213,19 @@
   @include border.all(emphasize);
   @include box.bg(secondary);
   @include box.rounded(12px);
+  block-size: 254px;
   bottom: calc(64px + $space);
   box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 -4px 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
   content: "";
   display: block;
-  height: 226px;
   left: $space;
   position: fixed;
   right: $space;
   z-index: 10;
+
+  @media (prefers-color-scheme: dark) {
+    @include border.all(main);
+  }
 }
 
 //
@@ -243,7 +247,7 @@
 
     a {
       flex-direction: row;
-      gap: 8px;
+      gap: 12px;
       padding-block: 12px;
       padding-inline: 12px;
 
@@ -254,20 +258,20 @@
       }
 
       span:not([role="img"]) {
-        @include text.style($size: 14px, $weight: 600);
+        @include text.style($size: 18px, $weight: 600);
       }
     }
 
     &:nth-of-type(7) {
-      bottom: 140px;
+      bottom: calc(124px + env(safe-area-inset-bottom) + $space);
     }
 
     &:nth-of-type(8) {
-      bottom: 192px;
+      bottom: calc(184px + env(safe-area-inset-bottom) + $space);
     }
 
     &:nth-of-type(9) {
-      bottom: 244px;
+      bottom: calc(244px + env(safe-area-inset-bottom) + $space);
     }
   }
 
