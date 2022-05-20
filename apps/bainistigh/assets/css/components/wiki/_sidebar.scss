@@ -13,6 +13,8 @@
 @use "../../utils/media";
 @use "../../utils/text";
 
+/* NOTE: The subcomponents within should be broken up a bit - 2022-05-20 */
+
 //
 // Main container
 // -----------------------------------------------------------------------------------------------
@@ -347,7 +349,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
 .sidebar .topic_attributes input[type="text"] {
   @include text.style(sans, $color: main, $size: 18px, $weight: 500);
   background-color: transparent;
-  outline: none;
+  // outline: none;
   z-index: 2;
 
   &::placeholder {
@@ -359,12 +361,20 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
     @include border.all(secondary);
     @include text.style(sans, $color: main, $size: 12px, $weight: 500);
     accent-color: #{colors.var(accent, $ns: text)};
-
     border-radius: 4px;
+
     padding: 4px;
 
     &::placeholder {
       opacity: initial;
+    }
+  }
+
+  @include media.mouse {
+    outline: revert;
+
+    &:focus {
+      outline-color: #{colors.var(accent, $ns: text)};
     }
   }
 }
@@ -393,18 +403,62 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
 .sidebar .topic_attributes input:not(:placeholder-shown) + label,
 .sidebar .topic_attributes select:has(option:first-child:not(:checked)) + label {
   @include media.ipad(max) {
-    color: #{colors.var(main, $ns: bg)};
+    color: transparent;
   }
 }
 
 .sidebar .topic_attributes select {
+  @include text.style(sans, $color: main, $size: 18px, $weight: 500);
   background-color: transparent;
   accent-color: #{colors.var(accent, $ns: text)};
-  font-size: small;
-  z-index: 2;
+  outline: 0;
+  z-index: 10;
 
-  @include media.ipad(max) {
-    margin-block-start: 8px;
+  // @include media.ipad(max) {
+  //   margin-block-start: 8px;
+  // }
+
+  @include media.ipad(min) {
+    @include box.bg(faded);
+    @include border.all(secondary);
+    @include text.style(sans, $color: main, $size: 12px, $weight: 500);
+    accent-color: #{colors.var(accent, $ns: text)};
+    appearance: none;
+    border-radius: 4px;
+    padding: 4px;
+  }
+}
+
+.sidebar .topic_attributes select + label {
+  position: relative;
+  z-index: 11;
+
+  @include icon.before($url: "/images/fa/solid/chevron-up.svg", $size: 10px) {
+    color: #{colors.var(quaternary, $ns: text)};
+    position: absolute;
+    right: -4px;
+    top: 3px;
+  }
+
+  @include icon.after($url: "/images/fa/solid/chevron-down.svg", $size: 10px) {
+    color: #{colors.var(quaternary, $ns: text)};
+    position: absolute;
+    right: -4px;
+    top: 10px;
+  }
+
+  @include media.mouse {
+    @include icon.before($url: "/images/fa/solid/chevron-up.svg", $size: 8px) {
+      right: 4px;
+      top: -24px;
+    }
+  }
+
+  @include media.mouse {
+    @include icon.after($url: "/images/fa/solid/chevron-down.svg", $size: 8px) {
+      right: 4px;
+      top: -18px;
+    }
   }
 }
 
