@@ -414,10 +414,6 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
   outline: 0;
   z-index: 10;
 
-  // @include media.ipad(max) {
-  //   margin-block-start: 8px;
-  // }
-
   @include media.ipad(min) {
     @include box.bg(faded);
     @include border.all(secondary);
@@ -426,6 +422,14 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .sidebar .sideba
     appearance: none;
     border-radius: 4px;
     padding: 4px;
+  }
+
+  @include media.mouse {
+    outline: revert;
+
+    &:focus {
+      outline-color: #{colors.var(accent, $ns: text)};
+    }
   }
 }
 
