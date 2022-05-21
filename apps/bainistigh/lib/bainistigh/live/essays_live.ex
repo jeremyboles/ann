@@ -9,7 +9,7 @@ defmodule Bainistigh.EssaysLive do
 
   def render(assigns) do
     ~H"""
-      <.section_header>Essays</.section_header>
+    <.section_header>Essays</.section_header>
     """
   end
 end

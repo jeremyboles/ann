@@ -9,7 +9,7 @@ defmodule Bainistigh.JournalLive do
 
   def render(assigns) do
     ~H"""
-      <.section_header>Journal</.section_header>
+    <.section_header>Journal</.section_header>
     """
   end
 end

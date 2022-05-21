@@ -9,7 +9,7 @@ defmodule Bainistigh.MessagesLive do
 
   def render(assigns) do
     ~H"""
-      <.section_header>Messages</.section_header>
+    <.section_header>Messages</.section_header>
     """
   end
 end

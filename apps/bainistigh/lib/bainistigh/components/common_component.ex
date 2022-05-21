@@ -3,7 +3,7 @@ defmodule Bainistigh.CommonComponent do
 
   def header_button(assigns) do
     ~H"""
-      <input class="header_button" type="checkbox">
+    <input class="header_button" type="checkbox" />
     """
   end
 
@@ -14,15 +14,15 @@ defmodule Bainistigh.CommonComponent do
       |> assign_new(:inner_block, fn -> [] end)
 
     ~H"""
-      <header class="section_header">
-        <%= if render_slot(@inner_block) do %>
-          <div><%= render_slot(@inner_block) %></div>
-        <% end %>
-        
-        <%= if render_slot(@controls) do %>
-          <div class="controls"><%= render_slot(@controls) %></div>
-        <% end %>
-      </header>
+    <header class="section_header">
+      <%= if render_slot(@inner_block) do %>
+        <div><%= render_slot(@inner_block) %></div>
+      <% end %>
+
+      <%= if render_slot(@controls) do %>
+        <div class="controls"><%= render_slot(@controls) %></div>
+      <% end %>
+    </header>
     """
   end
 end

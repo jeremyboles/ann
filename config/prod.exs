@@ -145,4 +145,3 @@ config :logger, level: :info
 # Set the origin that is used in MapKit JWTs
 
 config :bainistigh, Token, origin: "https://boles.app"
-

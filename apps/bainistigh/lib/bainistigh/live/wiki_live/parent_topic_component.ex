@@ -12,10 +12,10 @@ defmodule Bainistigh.WikiLive.ParentTopicComponent do
     assigns = assign(assigns, articles: articles)
 
     ~H"""
-      <div>
-        <%= select @form, :path, values(@articles), disabled: disabled?(@articles), prompt: [key: ""] %>
-        <%= label @form, :path, "Parent Topic" %>
-      </div>
+    <div>
+      <%= select(@form, :path, values(@articles), disabled: disabled?(@articles), prompt: [key: ""]) %>
+      <%= label(@form, :path, "Parent Topic") %>
+    </div>
     """
   end
 

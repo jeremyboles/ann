@@ -9,7 +9,7 @@ defmodule Bainistigh.SearchLive do
 
   def render(assigns) do
     ~H"""
-      <.section_header>Search</.section_header>
+    <.section_header>Search</.section_header>
     """
   end
 end

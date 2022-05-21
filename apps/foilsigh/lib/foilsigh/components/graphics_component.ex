@@ -1,6 +1,6 @@
 defmodule Foilsigh.GraphicsComponent do
   use Foilsigh, :component
-  
+
   def map(%{inner_block: _} = assigns) do
     ~H"""
       <svg class="map" role="img" viewBox={"0 0 #{@width} #{@height}"}>
@@ -10,7 +10,7 @@ defmodule Foilsigh.GraphicsComponent do
       </svg>
     """
   end
-  
+
   def map(assigns) do
     ~H"""
       <svg class="map" role="img" viewBox={"0 0 #{@width} #{@height}"}>

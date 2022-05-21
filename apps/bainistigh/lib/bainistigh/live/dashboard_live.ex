@@ -9,10 +9,10 @@ defmodule Bainistigh.DashboardLive do
 
   def render(assigns) do
     ~H"""
-      <section>
-        <.section_header>Dashboard</.section_header>
-        <p>Test</p>
-      </section>
+    <section>
+      <.section_header>Dashboard</.section_header>
+      <p>Test</p>
+    </section>
     """
   end
 end

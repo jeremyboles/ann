@@ -36,7 +36,13 @@ defmodule Taifead.WikiTest do
 
     test "update_article/2 with valid data updates the article" do
       article = article_fixture()
-      update_attrs = %{content_html: "some updated content_html", doc: "some updated doc", title_html: "some updated title_html", url_slug: "some updated url_slug"}
+
+      update_attrs = %{
+        content_html: "some updated content_html",
+        doc: "some updated doc",
+        title_html: "some updated title_html",
+        url_slug: "some updated url_slug"
+      }
 
       assert {:ok, %Article{} = article} = Wiki.update_article(article, update_attrs)
       assert article.content_html == "some updated content_html"

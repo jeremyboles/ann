@@ -9,7 +9,7 @@ defmodule Bainistigh.PeopleLive do
 
   def render(assigns) do
     ~H"""
-      <.section_header>People</.section_header>
+    <.section_header>People</.section_header>
     """
   end
 end
