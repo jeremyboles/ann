@@ -1,6 +1,9 @@
 defmodule Bainistigh.WikiLive do
   use Bainistigh, :live_view
 
+  import Bainistigh.CommonComponent
+  import Bainistigh.WikiComponent
+
   alias Taifead.Wiki
 
   def handle_event("add-tag", _, socket) do
@@ -88,7 +91,7 @@ defmodule Bainistigh.WikiLive do
     {:ok, assign(socket, articles: articles)}
   end
 
-  def render(assigns), do: Phoenix.View.render(Bainistigh.WikiView, "index.html", assigns)
+  # def render(assigns), do: Phoenix.View.render(Bainistigh.WikiView, "index.html", assigns)
 
   defp add_tag(changeset = %Ecto.Changeset{}) do
     tags = changeset.changes |> Map.get(:tags, [])

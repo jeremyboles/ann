@@ -36,7 +36,7 @@ defmodule Taifead.Wiki do
 
       iex> ordered_articles(
       [%Article{}, ...]
-      
+
   """
   def ordered_articles do
     Article
