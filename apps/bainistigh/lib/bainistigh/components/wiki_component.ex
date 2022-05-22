@@ -23,16 +23,6 @@ defmodule Bainistigh.WikiComponent do
     """
   end
 
-  def catalog(assigns) do
-    ~H"""
-    <aside class="catalog">
-      <.search />
-      <.catalog_tabs />
-      <.article_list />
-    </aside>
-    """
-  end
-
   def editor(assigns) do
     ~H"""
     <div class="editor">
@@ -74,27 +64,6 @@ defmodule Bainistigh.WikiComponent do
       <.links_panel />
       <.history_panel />
     </aside>
-    """
-  end
-
-  defp article_list(assigns) do
-    ~H"""
-    <div class="article_list">
-      <.new_article_button />
-      <ul>
-        <li>Article List</li>
-      </ul>
-    </div>
-    """
-  end
-
-  defp catalog_tabs(assigns) do
-    ~H"""
-    <ul class="catalog_tabs">
-      <li class="selected">All</li>
-      <li>New</li>
-      <li>Recent</li>
-    </ul>
     """
   end
 
@@ -160,30 +129,6 @@ defmodule Bainistigh.WikiComponent do
     """
   end
 
-  defp new_article_button(assigns) do
-    ~H"""
-    <div class="new_article_button">
-      <label>
-        <span>New Article</span>
-        <input form="none" type="checkbox" />
-      </label>
-      <div class="options">
-        <button accesskey="q">Quick Topic</button>
-        <button accesskey="l">Long-Form Topic</button>
-        <button accesskey="r">Recipe-Type Topic</button>
-      </div>
-    </div>
-    """
-  end
-
-  defp search(assigns) do
-    ~H"""
-    <form class="search">
-      <input placeholder="Search Wiki Articles" type="search" />
-    </form>
-    """
-  end
-
   defp sidebar_tabs(assigns) do
     ~H"""
     <ul class="sidebar_tabs" id="sidebar-tabs" phx-update="ignore" role="tablist">
@@ -211,11 +156,11 @@ defmodule Bainistigh.WikiComponent do
             const radio = document.getElementById(event.currentTarget.getAttribute('for'))
             if (radio) radio.dataset.wasChecked = radio.checked
           })
-          
+
           tab.addEventListener('click', (event) => {
             const radio = document.getElementById(event.currentTarget.getAttribute('for'))
-            if (!radio) return 
-            
+            if (!radio) return
+
             if (radio.dataset.wasChecked === 'true') {
               window.setTimeout(() => {
                 const query = window.matchMedia('(max-width: 767px)');

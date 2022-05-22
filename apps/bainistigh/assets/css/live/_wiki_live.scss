@@ -1,12 +1,7 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Wiki Component Styles
+// Wiki LiveView Styles
 //
 // -----------------------------------------------------------------------------------------------
 
-@use "./wiki/article_header";
-@use "./wiki/breadcrumbs";
-@use "./wiki/editor";
-@use "./wiki/public_toggle";
-@use "./wiki/save_button";
-@use "./wiki/sidebar";
+@use "./wiki_live/catalog_component";

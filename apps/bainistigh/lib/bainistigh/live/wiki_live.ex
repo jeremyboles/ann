@@ -87,8 +87,8 @@ defmodule Bainistigh.WikiLive do
   end
 
   def mount(_params, _session, socket) do
-    articles = Wiki.ordered_articles()
-    {:ok, assign(socket, articles: articles)}
+    socket = assign(socket, :articles, Wiki.ordered_articles())
+    {:ok, socket}
   end
 
   # def render(assigns), do: Phoenix.View.render(Bainistigh.WikiView, "index.html", assigns)
