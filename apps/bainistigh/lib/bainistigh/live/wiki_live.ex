@@ -87,7 +87,6 @@ defmodule Bainistigh.WikiLive do
   end
 
   def mount(_params, _session, socket) do
-    socket = assign(socket, :articles, Wiki.ordered_articles())
     {:ok, socket}
   end
 

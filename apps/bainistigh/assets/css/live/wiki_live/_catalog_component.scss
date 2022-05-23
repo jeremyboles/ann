@@ -13,7 +13,6 @@
 @use "../../utils/media";
 @use "../../utils/text";
 
-
 //
 // Main Containers
 // -----------------------------------------------------------------------------------------------
@@ -101,7 +100,6 @@ section:has(.header_button:checked) .CatalogComponent {
   }
 }
 
-
 //
 // Tabs
 // -----------------------------------------------------------------------------------------------
@@ -167,9 +165,37 @@ section:has(.header_button:checked) .CatalogComponent {
 // -----------------------------------------------------------------------------------------------
 
 .CatalogComponent .list {
-  padding: 8px;
+  padding: 12px;
   position: relative;
   z-index: 3;
+
+  li a {
+    @include box.rounded;
+    @include icon.before($url: "/images/fa/regular/file.svg", $size: 16px) {
+      background-color: #{colors.var(quaternary, $ns: text)};
+      display: inline-block;
+      transform: translateY(-1px);
+      vertical-align: text-bottom;
+    }
+    @include text.style($color: secondary, $size: 13px, $weight: 500);
+    align-items: center;
+    display: block;
+    padding-block: 8px;
+    padding-inline: 12px;
+
+    &[aria-current="page"] {
+      background-color: #{colors.var(accent, $ns: text)};
+      color: #{palette.stone($lightness: 98%)};
+
+      &::before {
+        background-color: #{palette.stone($lightness: 98%, $alpha: 0.72)};
+      }
+    }
+  }
+
+  li ul {
+    padding-inline-start: 12px;
+  }
 }
 
 //
@@ -238,7 +264,6 @@ section:has(.header_button:checked) .CatalogComponent {
 .new_article_button label input {
   display: none;
 }
-
 
 .CatalogComponent .new_article_button .options {
   display: none;

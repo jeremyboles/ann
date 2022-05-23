@@ -1,13 +1,37 @@
 defmodule Bainistigh.WikiLive.CatalogComponent do
   use Bainistigh, :live_component
 
+  alias Taifead.Wiki
+
+  def mount(socket) do
+    socket = assign(socket, :articles, Wiki.ordered_articles())
+    {:ok, socket}
+  end
+
   def render(assigns) do
     ~H"""
       <aside class="CatalogComponent">
         <.search />
         <.tabs />
-        <.list />
+        <.list articles={@articles} current={@current} />
       </aside>
+    """
+  end
+
+  defp article_li(assigns) do
+    current =
+      if Map.get(assigns.current, :id, nil) === Map.get(assigns.article, :id) do
+        'page'
+      else
+        false
+      end
+
+    ~H"""
+    <li>
+      <%= live_patch 'aria-current': current, to: "/wiki/#{@article.id}" do %>
+        <%= raw @article.title_html %>
+      <% end %>
+    </li>
     """
   end
 
@@ -16,7 +40,9 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
     <div class="list">
       <.new_article_button />
       <ul>
-        <li>Article List</li>
+        <%= for article <- @articles do %>
+          <.article_li current={@current} article={article} />
+        <% end %>
       </ul>
     </div>
     """

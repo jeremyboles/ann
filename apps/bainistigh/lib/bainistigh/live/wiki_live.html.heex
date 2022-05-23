@@ -9,8 +9,7 @@
     </:controls>
   </.section_header>    
   
-  <.live_component id="catalog" module={Bainistigh.WikiLive.CatalogComponent} />
-  <%# <.catalog articles={@articles}/> %>
+  <.live_component current={@article} id="catalog" module={Bainistigh.WikiLive.CatalogComponent} />
     
   <.form for={@changeset} id="article-form" let={f} phx-change="validate" phx-submit="save">
     <article>

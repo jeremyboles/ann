@@ -100,13 +100,4 @@ defmodule Taifead.Wiki.Article do
   defp slug(str) do
     str
   end
-
-  defp validate_not_id(changeset, field) when is_atom(field) do
-    validate_change(changeset, field, fn field, value ->
-      case value == get_field(changeset, :id) do
-        true -> [{field, "cannot be the same as :id"}]
-        _ -> []
-      end
-    end)
-  end
 end
