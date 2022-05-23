@@ -193,8 +193,16 @@ section:has(.header_button:checked) .CatalogComponent {
     }
   }
 
-  li ul {
-    padding-inline-start: 12px;
+  li li a {
+    padding-inline-start: 24px;
+  }
+
+  li li li a {
+    padding-inline-start: 36px;
+  }
+
+  li li li li a {
+    padding-inline-start: 48px;
   }
 }
 

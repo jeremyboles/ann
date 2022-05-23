@@ -19,20 +19,31 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
   end
 
   defp article_li(assigns) do
+    path = Hierarch.LTree.concat(assigns.article.path, assigns.article.id)
+    children = children_of(assigns.articles, path)
+
     current =
-      if Map.get(assigns.current, :id, nil) === Map.get(assigns.article, :id) do
-        'page'
-      else
-        false
-      end
+      if Map.get(assigns.current, :id) === Map.get(assigns.article, :id), do: 'page', else: false
 
     ~H"""
     <li>
       <%= live_patch 'aria-current': current, to: "/wiki/#{@article.id}" do %>
         <%= raw @article.title_html %>
       <% end %>
+
+      <%= if Enum.count(children) > 0 do %>
+        <ul>
+          <%= for article <- children do %>
+            <.article_li article={article} articles={@articles} current={@current} />
+          <% end %>
+        </ul>
+      <% end %>
     </li>
     """
+  end
+
+  defp children_of(articles, path \\ "") do
+    articles |> Enum.filter(&(&1.path == path)) |> Enum.sort_by(&{&1.title_text})
   end
 
   defp list(assigns) do
@@ -40,8 +51,8 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
     <div class="list">
       <.new_article_button />
       <ul>
-        <%= for article <- @articles do %>
-          <.article_li current={@current} article={article} />
+        <%= for article <- children_of(@articles) do %>
+          <.article_li current={@current} article={article} articles={@articles} />
         <% end %>
       </ul>
     </div>
