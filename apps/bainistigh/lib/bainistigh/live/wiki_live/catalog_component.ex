@@ -18,16 +18,20 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
     """
   end
 
+  @doc """
+  For setting the value of the `aria-current` attribute to `"page"`, if the given article
+  matches the current one.
+  """
+  defp aria_current(%{id: id}, %{id: id}), do: 'page'
+  defp aria_current(_article, _current), do: false
+
   defp article_li(assigns) do
     path = Hierarch.LTree.concat(assigns.article.path, assigns.article.id)
     children = children_of(assigns.articles, path)
 
-    current =
-      if Map.get(assigns.current, :id) === Map.get(assigns.article, :id), do: 'page', else: false
-
     ~H"""
     <li>
-      <%= live_patch 'aria-current': current, to: "/wiki/#{@article.id}" do %>
+      <%= live_patch 'aria-current': aria_current(@article, @current), to: "/wiki/#{@article.id}" do %>
         <%= raw @article.title_html %>
       <% end %>
 

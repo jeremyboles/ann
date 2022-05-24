@@ -180,8 +180,8 @@ section:has(.header_button:checked) .CatalogComponent {
     @include text.style($color: secondary, $size: 13px, $weight: 500);
     align-items: center;
     display: block;
-    padding-block: 8px;
-    padding-inline: 12px;
+    padding-block: 6px;
+    padding-inline: 16px;
 
     &[aria-current="page"] {
       background-color: #{colors.var(accent, $ns: text)};

@@ -9,13 +9,14 @@
     </:controls>
   </.section_header>    
   
-  <.live_component current={@article} id="catalog" module={Bainistigh.WikiLive.CatalogComponent} />
+  <.live_component current={@article} id="wiki-catalog" module={Bainistigh.WikiLive.CatalogComponent} />
     
-  <.form for={@changeset} id="article-form" let={f} phx-change="validate" phx-submit="save">
+  <.form for={@changeset} id="article-form" let={form} phx-change="validate" phx-submit="save">
     <article>
       <.breadcrumbs />
-      <.editor form={f} />
-      <.sidebar form={f}/>
+      <.editor form={form} />
+      
+      <.live_component form={form} id="wiki-sidebar" module={Bainistigh.WikiLive.SidebarComponent} />
     </article>
   </.form> 
 </section> 
