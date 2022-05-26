@@ -2,11 +2,17 @@
   <.form for={@changeset} id="article-form" let={form} phx-change="validate" phx-submit="save">
     <.section_header>
       <.header_button />
-      <.article_header>Colophon</.article_header>
+      <.article_header>
+        <%= if @article != nil and @article.title_html do %>
+          <%= raw @article.title_html %>
+        <% else %>
+          <i>No Title</i>
+        <% end %>
+      </.article_header>
       
       <:controls>
-        <.public_toggle>Public Article?</.public_toggle>
-        <.save_button />
+        <.public_toggle form={form}>Public Article?</.public_toggle>
+        <.save_button article={@article} form={form} />
       </:controls>
     </.section_header>    
     

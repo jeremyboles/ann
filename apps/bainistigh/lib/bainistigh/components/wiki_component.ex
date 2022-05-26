@@ -35,7 +35,7 @@ defmodule Bainistigh.WikiComponent do
   def public_toggle(assigns) do
     ~H"""
     <label class="public_toggle">
-      <input type="checkbox" />
+      <%= checkbox @form, :visibility, checked_value: :published, unchecked_value: :private %>
       <span><%= render_slot(@inner_block) %></span>
     </label>
     """
@@ -44,11 +44,31 @@ defmodule Bainistigh.WikiComponent do
   def save_button(assigns) do
     ~H"""
     <div class="save_button">
-      <button type="submit">Save</button>
-      <input form="none" type="checkbox" />
-      <div class="options">
-        <button name={input_name(:revision, :overwrite)} type="submit" value="true">Save Over Current Revision</button>
-      </div>
+      <%= if @article != nil and @article.visibility == :published do %>
+        <button type="submit">
+          <%= if input_value(assigns.form, :visibility) === "private" do %>
+            Unpublish
+          <% else %>
+            Update
+          <% end %>
+        </button>
+        <input disabled={input_value(assigns.form, :visibility) === "private"} form="none" type="checkbox" />
+        <div class="options">
+          <button name={input_name(:revision, :overwrite)} type="submit">Update Over Current Revision</button>
+        </div>
+      <% else %>
+        <button name={input_name(:revision, :overwrite)} type="submit">
+          <%= if input_value(assigns.form, :visibility) === :published do %>
+            Publish
+          <% else %>
+            Save
+          <% end %>
+        </button>
+        <input disabled={input_value(assigns.form, :visibility) === :published} form="none" type="checkbox" />
+        <div class="options">
+          <button type="submit">Save With a New Revision</button>
+        </div>
+      <% end %>
     </div>
     """
   end
