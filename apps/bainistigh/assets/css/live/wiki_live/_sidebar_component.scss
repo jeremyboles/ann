@@ -211,6 +211,8 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 
 .SidebarComponent [role="tabpanel"] {
   display: none;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   @include media.ipad(max) {
     @include box.bg(tertiary);
@@ -218,6 +220,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
     bottom: calc(env(safe-area-inset-bottom, 0) + 68px);
     box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.1)}, 0 4px 24px #{palette.stone($lightness: 8%, $alpha: 0.25)};
     left: calc(env(safe-area-inset-left, 0) + 8px);
+    padding-block-end: 80px;
     position: fixed;
     right: calc(env(safe-area-inset-right, 0) + 8px);
     top: calc(env(safe-area-inset-top, 0) + 40px);
@@ -226,7 +229,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 }
 
 @include media.ipad(max) {
-  .sidebar:has([role="tab"] > input:checked)::before {
+  .SidebarComponent:has([role="tab"] > input:checked)::before {
     @include box.bg(mask);
     bottom: 0;
     content: "";

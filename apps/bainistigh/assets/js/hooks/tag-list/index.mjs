@@ -3,13 +3,10 @@
 // -----------------------------------------------------------------------------------------------
 
 export function destroyed() {
-  console.info("TagList destroyed()")
   this.observer.disconnect()
 }
 
 export function mounted() {
-  console.info("TagList mounted()")
-
   // Set up a listener function to deal with "advanced" key bindings while adding tags
   this.keydown = (event) => {
     if (event.key === "Enter" && event.shiftKey) {

@@ -8,7 +8,7 @@
 
 export function destroyed() {
   // console.log('[DESTROYED]')
-  this.preference.removeEventListener('change', this.changeColorScheme)
+  this.preference.removeEventListener("change", this.changeColorScheme)
   this.map?.destroy()
 }
 
@@ -17,18 +17,16 @@ export function destroyed() {
 // }
 
 export function mounted() {
-  console.log('[MOUNTED]')
+  console.log("[MOUNTED]", this.el)
 
   this.geocoder = new mapkit.Geocoder({ getsUserLocation: true })
   this.map = new mapkit.Map(this.el, {
-    colorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? mapkit.Map.ColorSchemes.Dark
-      : mapkit.Map.ColorSchemes.Light,
+    colorScheme: window.matchMedia("(prefers-color-scheme: dark)").matches ? mapkit.Map.ColorSchemes.Dark : mapkit.Map.ColorSchemes.Light,
     showsUserLocation: true,
     tracksUserLocation: true,
   })
 
-  this.map.addEventListener('user-location-change', ({ coordinate }) => {
+  this.map.addEventListener("user-location-change", ({ coordinate }) => {
     const { latitude, longitude } = coordinate
     document.getElementById(this.el.dataset.coordsInput).value = `${latitude} ${longitude}`
 
@@ -39,8 +37,8 @@ export function mounted() {
 
   this.changeColorScheme = changeColorScheme.bind(this.map)
 
-  this.preference = window.matchMedia('(prefers-color-scheme: dark)')
-  this.preference.addEventListener('change', this.changeColorScheme)
+  this.preference = window.matchMedia("(prefers-color-scheme: dark)")
+  this.preference.addEventListener("change", this.changeColorScheme)
 }
 
 // export function reconnected() {
@@ -48,7 +46,7 @@ export function mounted() {
 // }
 //
 export function updated() {
-  console.log('[UPDATED]', this.map)
+  console.log("[UPDATED]", this.map)
 }
 
 //
