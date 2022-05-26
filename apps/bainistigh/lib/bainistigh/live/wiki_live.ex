@@ -7,7 +7,7 @@ defmodule Bainistigh.WikiLive do
   alias Taifead.Wiki
 
   def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
-    IO.inspect(article_params)
+    IO.inspect(revision_params)
 
     case save(socket.assigns.article, article_params, revision_params) do
       {:ok, article} ->
@@ -27,46 +27,40 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_event("validate", %{"article" => params}, socket) do
-    article = socket.assigns.article
-    {:noreply, assign(socket, changeset: Wiki.change_article(article, params))}
+    {:noreply, assign(socket, changeset: Wiki.change_article(%Wiki.Article{}, params))}
   end
 
   def handle_params(%{"id" => id}, _url, socket) do
     article = Wiki.get_article!(id)
-
-    socket =
-      assign(socket,
-        article: article,
-        changeset: Wiki.change_article(article),
-        page_title: page_title(article)
-      )
-
-    {:noreply, socket}
+    {:noreply, assign_article(socket, article)}
   end
 
   def handle_params(_params, _url, socket) do
-    socket =
-      assign(socket,
-        article: nil,
-        changeset: Wiki.change_article(%Wiki.Article{tags: []}),
-        page_title: page_title(nil)
-      )
-
-    {:noreply, socket}
+    {:noreply, assign_article(socket, nil)}
   end
 
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
 
+  defp assign_article(socket, nil) do
+    changeset = Wiki.change_article(%Wiki.Article{})
+    assign(socket, article: nil, changeset: changeset, page_title: "New Article - Wiki")
+  end
+
+  defp assign_article(socket, %Wiki.Article{title_text: title} = article) do
+    changeset = Wiki.change_article(article)
+    assign(socket, article: article, changeset: changeset, page_title: "#{title} - Wiki")
+  end
+
   defp page_title(%Wiki.Article{title_text: title}), do: "#{title} - Wiki"
   defp page_title(_), do: "New Article - Wiki"
 
-  def save(nil, article_params, revision_params) do
+  defp save(nil, article_params, revision_params) do
     Wiki.create_article(article_params, revision_params)
   end
 
-  def save(article, article_params, revision_params) do
+  defp save(article, article_params, revision_params) do
     Wiki.update_article(article, article_params, revision_params)
   end
 end

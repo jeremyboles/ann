@@ -47,7 +47,7 @@ defmodule Bainistigh.WikiComponent do
       <button type="submit">Save</button>
       <input form="none" type="checkbox" />
       <div class="options">
-        <button>Save Over Current Revision</button>
+        <button name={input_name(:revision, :overwrite)} type="submit" value="true">Save Over Current Revision</button>
       </div>
     </div>
     """

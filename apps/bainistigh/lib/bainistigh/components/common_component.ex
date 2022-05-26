@@ -3,7 +3,7 @@ defmodule Bainistigh.CommonComponent do
 
   def header_button(assigns) do
     ~H"""
-    <input class="header_button" type="checkbox" />
+    <input class="header_button" form="none" type="checkbox" />
     """
   end
 
