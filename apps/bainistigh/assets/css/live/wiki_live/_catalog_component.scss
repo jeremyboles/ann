@@ -173,7 +173,7 @@ section:has(.header_button:checked) .CatalogComponent {
     @include box.rounded;
     @include border.block-end(secondary);
     @include icon.before($url: "/images/fa/regular/file.svg", $size: 18px) {
-      background-color: #{colors.var(quaternary, $ns: text)};
+      background-color: #{colors.var(faded, $ns: text)};
       display: inline-block;
       transform: translateY(-4px);
       vertical-align: text-bottom;
@@ -197,25 +197,45 @@ section:has(.header_button:checked) .CatalogComponent {
     }
 
     &[aria-current="page"] {
-      background-color: #{colors.var(accent, $ns: text)};
-      color: #{palette.stone($lightness: 98%)};
+      @include text.color(accent);
 
       &::before {
-        background-color: #{palette.stone($lightness: 98%, $alpha: 0.72)};
+        background-color: #{colors.var(quaternary, $ns: text)};
+      }
+
+      @include media.mouse {
+        background-color: #{colors.var(accent, $ns: text)};
+        color: #{palette.stone($lightness: 98%)};
+
+        &::before {
+          background-color: #{palette.stone($lightness: 98%, $alpha: 0.72)};
+        }
       }
     }
   }
 
   li li a {
-    padding-inline-start: 24px;
+    margin-inline-start: 24px;
+    @include media.mouse {
+      margin-inline-start: 0;
+      padding-inline-start: 24px;
+    }
   }
 
   li li li a {
-    padding-inline-start: 36px;
+    margin-inline-start: 36px;
+    @include media.mouse {
+      margin-inline-start: 0;
+      padding-inline-start: 36px;
+    }
   }
 
   li li li li a {
-    padding-inline-start: 48px;
+    margin-inline-start: 48px;
+    @include media.mouse {
+      margin-inline-start: 0;
+      padding-inline-start: 48px;
+    }
   }
 }
 
