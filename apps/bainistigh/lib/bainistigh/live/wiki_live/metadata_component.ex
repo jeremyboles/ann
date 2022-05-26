@@ -6,7 +6,8 @@ defmodule Bainistigh.WikiLive.MetadataComponent do
     <section class="MetadataComponent" role="tabpanel">
       <.topic_attributes form={@form} />
       <.location_input form={@form} />
-      <.tags_input form={@form} />
+      
+      <.live_component form={@form} id="wiki-tags" module={Bainistigh.WikiLive.TagsComponent} />
     </section>
     """
   end
@@ -32,33 +33,6 @@ defmodule Bainistigh.WikiLive.MetadataComponent do
         <%= hidden_input(:revision, :coords) %>
         <%= hidden_input(:revision, :mapkit_response) %>
       </div>
-    </details>
-    """
-  end
-
-  defp tags_input(assigns) do
-    ~H"""
-    <details class="tags_input" open>
-      <summary>
-        <span>Tags</span>
-        <button class="add-tag" phx-click="add-tag" type="button">Add Tag</button>
-      </summary>
-
-      <ul id="wiki-tags" phx-hook="TagList">
-        <%= for {tag, index} <- Enum.with_index(input_value(@form, :tags)) do %>
-          <li>
-            <input
-              autocomplete="off"
-              name={"#{input_name(@form, :tags)}[]"}
-              id={input_id(@form, :tags, index)}
-              phx-keydown="modify-tags"
-              phx-value-index={index}
-              type="text"
-              value={tag}
-            />
-          </li>
-        <% end %>
-      </ul>
     </details>
     """
   end

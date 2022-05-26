@@ -81,9 +81,9 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
 
   defp search(assigns) do
     ~H"""
-    <form class="search">
+    <div class="search">
       <input placeholder="Search Wiki Articles" type="search" />
-    </form>
+    </div>
     """
   end
 

@@ -4,7 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
-@use "../../../../../../../assets/css/palette";
+@use "../../../../../../assets/css/palette";
 
 @use "../../utils/media";
 
@@ -41,4 +41,12 @@ section.wiki .section_header {
   @include media.mouse {
     padding-inline-start: calc(264px + 12px);
   }
+}
+
+//
+// Main form
+// -----------------------------------------------------------------------------------------------
+
+section.wiki form {
+  display: contents;
 }

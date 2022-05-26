@@ -1,17 +1,17 @@
 <section class="wiki">
-  <.section_header>
-    <.header_button />
-    <.article_header>Colophon</.article_header>
-    
-    <:controls>
-      <.public_toggle>Public Article?</.public_toggle>
-      <.save_button />
-    </:controls>
-  </.section_header>    
-  
-  <.live_component current={@article} id="wiki-catalog" module={Bainistigh.WikiLive.CatalogComponent} />
-    
   <.form for={@changeset} id="article-form" let={form} phx-change="validate" phx-submit="save">
+    <.section_header>
+      <.header_button />
+      <.article_header>Colophon</.article_header>
+      
+      <:controls>
+        <.public_toggle>Public Article?</.public_toggle>
+        <.save_button />
+      </:controls>
+    </.section_header>    
+    
+    <.live_component current={@article} id="wiki-catalog" module={Bainistigh.WikiLive.CatalogComponent} />
+      
     <article>
       <.breadcrumbs />
       <.editor form={form} />

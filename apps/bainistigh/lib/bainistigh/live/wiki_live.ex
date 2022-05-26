@@ -6,37 +6,6 @@ defmodule Bainistigh.WikiLive do
 
   alias Taifead.Wiki
 
-  def handle_event("add-tag", _, socket) do
-    changeset = add_tag(socket.assigns.changeset)
-    {:noreply, assign(socket, changeset: changeset)}
-  end
-
-  def handle_event("modify-tags", %{"key" => "Enter", "value" => ""}, socket) do
-    {:noreply, socket}
-  end
-
-  def handle_event("modify-tags", %{"key" => "Enter"}, socket) do
-    changeset = add_tag(socket.assigns.changeset)
-    {:noreply, assign(socket, changeset: changeset)}
-  end
-
-  def handle_event("modify-tags", params = %{"key" => "Backspace", "value" => ""}, socket) do
-    {index, _} = Integer.parse(params["index"])
-
-    tags =
-      socket.assigns.changeset.changes
-      |> Map.get(:tags)
-      |> List.delete_at(index)
-
-    changeset =
-      socket.assigns.changeset
-      |> Ecto.Changeset.change(tags: tags)
-
-    {:noreply, assign(socket, changeset: changeset)}
-  end
-
-  def handle_event("modify-tags", _, socket), do: {:noreply, socket}
-
   def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
     IO.inspect(article_params)
 
@@ -88,14 +57,6 @@ defmodule Bainistigh.WikiLive do
 
   def mount(_params, _session, socket) do
     {:ok, socket}
-  end
-
-  # def render(assigns), do: Phoenix.View.render(Bainistigh.WikiView, "index.html", assigns)
-
-  defp add_tag(changeset = %Ecto.Changeset{}) do
-    tags = changeset.changes |> Map.get(:tags, [])
-    tags = if !Enum.any?(tags, &(&1 === "")), do: Enum.concat(tags, [""]), else: tags
-    Ecto.Changeset.change(changeset, tags: tags)
   end
 
   defp page_title(%Wiki.Article{title_text: title}), do: "#{title} - Wiki"

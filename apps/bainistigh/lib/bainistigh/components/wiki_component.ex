@@ -44,7 +44,7 @@ defmodule Bainistigh.WikiComponent do
   def save_button(assigns) do
     ~H"""
     <div class="save_button">
-      <button>Save</button>
+      <button type="submit">Save</button>
       <input form="none" type="checkbox" />
       <div class="options">
         <button>Save Over Current Revision</button>
