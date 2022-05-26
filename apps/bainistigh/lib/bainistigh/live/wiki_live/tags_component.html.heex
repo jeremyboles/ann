@@ -1,7 +1,9 @@
-<details class="tags_input" open>
+<details class="TagsComponent" open>
   <summary>
     <span>Tags</span>
-    <button class="add-tag" id="add-tag-button" phx-click="add-tag" phx-target={@myself} type="button">Add Tag</button>
+    <button class="add-tag" id="add-tag-button" phx-click="add-tag" phx-target={@myself} type="button">
+      Add Tag
+    </button>
   </summary>
 
   <ul id="wiki-tags" phx-hook="TagList">

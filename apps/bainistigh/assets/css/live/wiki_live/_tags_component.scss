@@ -1,0 +1,144 @@
+// -----------------------------------------------------------------------------------------------
+//
+// TagsComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.TagsComponent {
+  margin-block-start: 16px;
+
+  @include media.ipad(min) {
+    @include border.block;
+    margin-block-start: 0;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.block(quaternary);
+    }
+  }
+
+  &[open] {
+    border-block-end: none;
+  }
+}
+
+//
+// Panel toggle/title
+// -----------------------------------------------------------------------------------------------
+
+.TagsComponent summary {
+  @include text.style($color: tertiary, $size: 13px, $weight: 600);
+  align-items: center;
+  cursor: default;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.05em;
+  padding: 8px 8px 8px 20px;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+
+  @include media.ipad(min) {
+    @include icon.after($url: "/images/fa/solid/angle-right.svg", $size: 12px) {
+      color: #{colors.var(faded, $ns: text)};
+    }
+    @include text.style($color: tertiary, $size: 10px, $weight: 700);
+    padding-inline-start: 8px;
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  span {
+    flex-grow: 1;
+  }
+
+  button {
+    @include icon.replace($url: "/images/fa/regular/circle-plus.svg", $size: 16px);
+    color: #{colors.var(faded, $ns: text)};
+    margin-inline-end: 8px;
+
+    @include media.ipad(min) {
+      @include icon.replace($url: "/images/fa/regular/circle-plus.svg", $size: 14px);
+      color: #{colors.var(quaternary, $ns: text)};
+    }
+  }
+}
+
+.TagsComponent[open] summary::after {
+  transform: rotate(90deg);
+}
+
+//
+// List of tags
+// -----------------------------------------------------------------------------------------------
+
+.TagsComponent ul {
+  @include media.ipad(max) {
+    @include box.bg(main);
+    border-radius: 8px;
+    margin: 0 12px 0 12px;
+  }
+
+  @include media.ipad(min) {
+    padding: 0 8px;
+    @include border.block-start;
+    @media (prefers-color-scheme: dark) {
+      @include border.block-start(quaternary);
+    }
+  }
+
+  &:has(li) {
+    @include media.ipad(min) {
+      @include border.block-end;
+
+      @media (prefers-color-scheme: dark) {
+        @include border.block-end(quaternary);
+      }
+    }
+  }
+
+  li {
+    display: flex;
+    padding: 4px 0;
+  }
+
+  li + li {
+    @include border.block-start;
+    align-items: center;
+
+    @media (prefers-color-scheme: dark) {
+      @include border.block-start(quaternary);
+    }
+  }
+}
+
+//
+// Tag input
+// -----------------------------------------------------------------------------------------------
+
+.TagsComponent input[type="text"] {
+  @include text.style(sans, $color: main, $size: 18px, $weight: 500);
+  background-color: transparent;
+  border-width: none;
+  box-shadow: none;
+  flex-grow: 1;
+  outline: none;
+  padding: 8px;
+
+  @include media.ipad(min) {
+    @include text.style(sans, $color: main, $size: 12px, $weight: 500);
+  }
+}

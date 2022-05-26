@@ -211,6 +211,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 
 .SidebarComponent [role="tabpanel"] {
   display: none;
+  flex-grow: 1;
   overflow-x: hidden;
   overflow-y: auto;
 
