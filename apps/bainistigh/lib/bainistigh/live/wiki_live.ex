@@ -7,8 +7,6 @@ defmodule Bainistigh.WikiLive do
   alias Taifead.Wiki
 
   def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
-    IO.inspect(revision_params)
-
     case save(socket.assigns.article, article_params, revision_params) do
       {:ok, article} ->
         socket =
@@ -31,7 +29,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_params(%{"id" => id}, _url, socket) do
-    article = Wiki.get_article!(id)
+    article = Wiki.get_article!(id) |> Taifead.Repo.preload(:revisions)
     {:noreply, assign_article(socket, article)}
   end
 

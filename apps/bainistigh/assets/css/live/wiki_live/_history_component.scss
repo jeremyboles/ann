@@ -1,0 +1,137 @@
+// -----------------------------------------------------------------------------------------------
+//
+// HistoryComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main Containers
+// -----------------------------------------------------------------------------------------------
+
+.HistoryComponent {
+  flex-direction: column;
+  min-height: max-content;
+}
+
+.SidebarComponent:has(input[id|="history"]:not(:checked)) .HistoryComponent[role="tabpanel"] {
+  display: none !important;
+}
+
+.SidebarComponent:has(input[id|="history"]:checked) .HistoryComponent[role="tabpanel"] {
+  display: flex !important;
+}
+
+//
+// Table
+// -----------------------------------------------------------------------------------------------
+
+.HistoryComponent table {
+  @include text.style($color: secondary, $size: 18px, $weight: 500);
+  border-collapse: collapse;
+  flex-basis: 40%;
+  flex-grow: 1;
+
+  @include media.mouse {
+    @include text.size(11px);
+  }
+}
+
+//
+// Table header
+// -----------------------------------------------------------------------------------------------
+
+.HistoryComponent thead th {
+  @include border.block-end(secondary);
+  @include text.style($color: quaternary, $size: 11px, $weight: 800);
+  letter-spacing: 0.05em;
+  padding-block: 8px;
+  padding-inline-end: 12px;
+  text-transform: uppercase;
+
+  &:first-of-type {
+    padding-inline-start: 12px;
+  }
+
+  @include media.mouse {
+    @include text.style($color: secondary, $size: 11px, $weight: 700);
+    letter-spacing: unset;
+    padding-block: 4px;
+    padding-inline-end: 13px;
+    text-transform: unset;
+
+    &:first-of-type {
+      padding-inline-start: 6px;
+    }
+
+    &:last-of-type {
+      padding-inline-end: 6px;
+    }
+  }
+}
+
+@include media.mouse {
+  .HistoryComponent thead th + th::before {
+    background-color: #{colors.var(secondary, $ns: border)};
+    block-size: 12px;
+    content: "";
+    display: block;
+    float: left;
+    margin-left: -1px;
+    inline-size: 1px;
+    transform: translate(-6px, 1px);
+  }
+}
+
+//
+// Table body
+// -----------------------------------------------------------------------------------------------
+
+.HistoryComponent tbody td {
+  padding-block: 8px;
+  padding-inline-end: 12px;
+
+  &:first-of-type {
+    padding-inline-start: 12px;
+  }
+
+  @include media.mouse {
+    padding-block: 4px;
+    padding-inline-end: 13px;
+
+    &:first-of-type {
+      padding-inline-start: 6px;
+      white-space: nowrap;
+    }
+
+    &:last-of-type {
+      padding-inline-end: 6px;
+    }
+  }
+}
+
+//
+// Preview container
+// -----------------------------------------------------------------------------------------------
+
+.HistoryComponent .preview {
+  @include border.block-start(secondary);
+  @include box.bg(quaternary);
+  @include text.style(serif, $size: 18px, $weight: 300);
+  flex-basis: 60%;
+  flex-grow: 1;
+  padding: 12px;
+
+  @include media.mouse {
+    @include text.size(14px);
+    padding: 6px;
+  }
+}

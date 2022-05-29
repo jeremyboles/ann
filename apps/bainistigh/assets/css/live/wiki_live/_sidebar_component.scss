@@ -210,7 +210,6 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 // -----------------------------------------------------------------------------------------------
 
 .SidebarComponent [role="tabpanel"] {
-  display: none;
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: auto;
@@ -242,17 +241,21 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
+.SidebarComponent:has(input[id]) [role="tabpanel"] {
+  display: none;
+}
+
 .SidebarComponent:has(input[id|="glossary"]:checked) [role="tabpanel"].GlossaryComponent,
 .SidebarComponent:has(input[id|="history"]:checked) [role="tabpanel"].HistoryComponent,
 .SidebarComponent:has(input[id|="links"]:checked) [role="tabpanel"].LinksComponent,
 .SidebarComponent:has(input[id|="metadata"]:checked) [role="tabpanel"].MetadataComponent {
-  display: initial;
+  display: unset;
 }
 
 // If there isn't a selected tab, show the first tab
 .SidebarComponent .tabs:not(:has([role="tab"] > input:checked)) ~ [role="tabpanel"]:first-of-type {
   @include media.ipad(min) {
-    display: initial;
+    display: unset;
   }
 }
 

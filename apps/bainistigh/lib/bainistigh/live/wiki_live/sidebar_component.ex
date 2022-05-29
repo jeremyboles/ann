@@ -10,7 +10,7 @@ defmodule Bainistigh.WikiLive.SidebarComponent do
         <.live_component form={@form} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
         <.live_component form={@form} id="glossary-panel" module={Bainistigh.WikiLive.GlossaryComponent} />
         <.live_component form={@form} id="links-panel" module={Bainistigh.WikiLive.LinksComponent} />
-        <.live_component form={@form} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
+        <.live_component article={@article} form={@form} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
       </aside>
     """
   end
