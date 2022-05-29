@@ -1,17 +1,15 @@
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 // Establish Phoenix Socket and LiveView configuration.
-import { Socket } from 'phoenix'
-import { LiveSocket } from 'phoenix_live_view'
+import { Socket } from "phoenix"
+import { LiveSocket } from "phoenix_live_view"
 
-import 'phoenix_html' // handles method=PUT/DELETE in forms and buttons
+import "phoenix_html" // handles method=PUT/DELETE in forms and buttons
 
-import * as hooks from './hooks/index.mjs'
+import * as hooks from "./hooks/index.mjs"
 
-let csrfToken = document
-  .querySelector("meta[name='csrf-token']")
-  .getAttribute('content')
+let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 
-let liveSocket = new LiveSocket('/live', Socket, {
+let liveSocket = new LiveSocket("/live", Socket, {
   hooks,
   params: { _csrf_token: csrfToken },
 })
@@ -27,7 +25,9 @@ window.liveSocket = liveSocket
 
 mapkit.init({
   async authorizationCallback(done) {
-    const resp = await fetch('/token')
+    console.debug("Fetching JWT token for MapKit…")
+    const resp = await fetch("/token")
+    console.debug("JWT Fetched! Sending token to MapKit…")
     done(await resp.text())
   },
 })
