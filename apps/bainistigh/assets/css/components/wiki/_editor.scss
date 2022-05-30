@@ -81,8 +81,25 @@ section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
     margin-top: 1em;
   }
 
-  p + p {
+  p + p,
+  ol,
+  ol + p,
+  ul,
+  ul + p {
     margin-top: 1em;
+  }
+
+  ol,
+  ul {
+    padding-left: 2em;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul {
+    list-style: disc;
   }
 
   [data-placeholder]:first-of-type {

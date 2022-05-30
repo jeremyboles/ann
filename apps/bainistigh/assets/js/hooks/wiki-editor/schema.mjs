@@ -1,52 +1,15 @@
-import { Schema } from 'prosemirror-model'
+import { Schema } from "prosemirror-model"
+import { schema } from "prosemirror-schema-basic"
+import { addListNodes } from "prosemirror-schema-list"
 
 //
 // Schema definition
 // -------------------------------------------------------------------------------------------------
 
-const schema = new Schema({
-  marks: {
-    em: {
-      parseDOM: [{ tag: 'em' }, { tag: 'i' }, { style: 'font-style=italic' }],
-      toDOM() {
-        return ['em', 0]
-      },
-    },
-    strong: {
-      parseDOM: [{ tag: 'b' }, { tag: 'string' }, { style: 'font-style=bold' }],
-      toDOM() {
-        return ['strong', 0]
-      },
-    },
-  },
+// Require the the document starts with a heading
+schema.topNodeType.spec.content = "heading+ block+"
 
-  nodes: {
-    doc: { content: 'heading+ block+' },
-
-    paragraph: {
-      content: 'inline*',
-      group: 'block',
-      parseDOM: [{ tag: 'p' }],
-      toDOM() {
-        return ['p', 0]
-      },
-    },
-
-    heading: {
-      attrs: { level: { default: 1 } },
-      content: 'inline*',
-      defining: true,
-      group: 'block',
-      parseDOM: [
-        { tag: 'h1', attrs: { level: 1 } },
-        { tag: 'h2', attrs: { level: 2 } },
-      ],
-      toDOM(node) {
-        return [`h${node.attrs.level}`, 0]
-      },
-    },
-    text: { group: 'inline' },
-  },
+export default new Schema({
+  marks: schema.spec.marks,
+  nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
 })
-
-export default schema

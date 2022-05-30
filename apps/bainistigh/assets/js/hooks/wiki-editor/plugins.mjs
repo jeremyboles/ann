@@ -1,23 +1,11 @@
-import { baseKeymap, toggleMark } from 'prosemirror-commands'
-import { history, redo, undo } from 'prosemirror-history'
-import { keymap } from 'prosemirror-keymap'
-import { Plugin } from 'prosemirror-state'
-import { Decoration, DecorationSet } from 'prosemirror-view'
+import { exampleSetup } from "prosemirror-example-setup"
 
-import schema from './schema.mjs'
+import { Plugin } from "prosemirror-state"
+import { Decoration, DecorationSet } from "prosemirror-view"
 
-const plugins = [
-  history(),
-  keymap(baseKeymap),
-  keymap({ 'Mod-z': undo, 'Mod-Shift-z': redo }),
+import schema from "./schema.mjs"
 
-  keymap({
-    'Mod-b': toggleMark(schema.marks.strong),
-    'Mod-i': toggleMark(schema.marks.em),
-  }),
-
-  placeholders(),
-]
+const plugins = [...exampleSetup({ menuBar: false, schema }), placeholders()]
 
 export default plugins
 
@@ -37,16 +25,14 @@ function placeholders() {
         const decorations = []
 
         if (isEmptyHeading(doc.firstChild)) {
-          decorations.push(
-            Decoration.node(0, 2, { 'data-placeholder': 'Wiki Article Title' })
-          )
+          decorations.push(Decoration.node(0, 2, { "data-placeholder": "Wiki Article Title" }))
         }
 
         if (doc.childCount === 2 && isEmptyParagraph(doc.lastChild)) {
           const offset = doc.firstChild.nodeSize
           decorations.push(
             Decoration.node(offset, offset + 2, {
-              'data-placeholder': 'Type something…',
+              "data-placeholder": "Type something…",
             })
           )
         }
@@ -63,13 +49,9 @@ function placeholders() {
 // -------------------------------------------------------------------------------------------------
 
 function isEmptyHeading(node) {
-  return (
-    node.type.name === 'heading' && node.isTextblock && node.content.size == 0
-  )
+  return node.type.name === "heading" && node.isTextblock && node.content.size == 0
 }
 
 function isEmptyParagraph(node) {
-  return (
-    node.type.name === 'paragraph' && node.isTextblock && node.content.size == 0
-  )
+  return node.type.name === "paragraph" && node.isTextblock && node.content.size == 0
 }
