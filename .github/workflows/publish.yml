@@ -11,7 +11,6 @@ jobs:
 
     env:
       MIX_ENV: prod
-      SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -50,10 +49,7 @@ jobs:
           key: prod-${{ runner.os }}-build-${{ hashFiles('**/mix.lock') }}
           restore-keys: prod-${{ runner.os }}-build-
       - name: Install dependencies
-        run: |
-          mix deps.get --only prod
-          mix esbuild.install
-          mix sass.install
+        run: mix deps.get --only prod
       - name: Install NPM dependencies
         run: mix npm.get
       - name: Compile app code
