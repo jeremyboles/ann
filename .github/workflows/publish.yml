@@ -50,7 +50,10 @@ jobs:
           key: prod-${{ runner.os }}-build-${{ hashFiles('**/mix.lock') }}
           restore-keys: prod-${{ runner.os }}-build-
       - name: Install dependencies
-        run: mix deps.get --only prod
+        run: |
+          mix deps.get --only prod
+          mix esbuild.install
+          mix sass.install
       - name: Install NPM dependencies
         run: mix npm.get
       - name: Compile app code
