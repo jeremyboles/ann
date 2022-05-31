@@ -1,6 +1,6 @@
 import { baseKeymap, toggleMark } from "prosemirror-commands"
 import { history, redo, undo } from "prosemirror-history"
-import { inputRules, wrappingInputRule } from "prosemirror-inputrules"
+import { ellipsis, emDash, inputRules, smartQuotes, wrappingInputRule } from "prosemirror-inputrules"
 import { keymap } from "prosemirror-keymap"
 import { Fragment, Slice } from "prosemirror-model"
 import { Plugin } from "prosemirror-state"
@@ -12,6 +12,7 @@ import schema from "./schema.mjs"
 const plugins = [
   history(),
 
+  // Markdown-esque shortcuts for lists
   inputRules({
     rules: [
       wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list),
@@ -24,13 +25,21 @@ const plugins = [
     ],
   }),
 
+  // Smartypants-esque shortcuts for nice typography
+  inputRules({
+    rules: [...smartQuotes, ellipsis, emDash],
+  }),
+
+  // Keyboard shortcuts for undo/redo
   keymap({ "Mod-z": undo, "Mod-Shift-z": redo }),
 
+  // Keyboard shortcuts for bold/italic
   keymap({
     "Mod-b": toggleMark(schema.marks.strong),
     "Mod-i": toggleMark(schema.marks.em),
   }),
 
+  // Keyboard shortcuts for creating lists
   keymap({
     "Mod-Alt-8": wrapInList(schema.nodes.bullet_list),
     "Mod-Alt-9": wrapInList(schema.nodes.ordered_list),
