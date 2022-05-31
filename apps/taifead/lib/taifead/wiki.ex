@@ -18,7 +18,7 @@ defmodule Taifead.Wiki do
   @doc """
   Fetches an article that has had its visibility set to :published.
   """
-  def get_published_article!(slug) when is_binary(slug) do
+  def get_published_article!(slug) when is_bitstring(slug) do
     Repo.get_by!(Article, url_slug: slug, visibility: :published)
   end
 
@@ -27,7 +27,9 @@ defmodule Taifead.Wiki do
   @doc """
   Lists all of the wiki articles that have had their visibility set to :published
   """
-  def list_published_articles(), do: Repo.all(from a in Article, where: a.visibility == :published)
+  def list_published_articles(),
+    do: Repo.all(from(a in Article, where: a.visibility == :published))
+
   def ordered_articles, do: Article |> order_by([{:asc, :title_text}]) |> Repo.all()
 
   def create_article(article_attrs \\ %{}, revision_attrs \\ %{}) do
@@ -52,14 +54,18 @@ defmodule Taifead.Wiki do
   def update_article(%Article{} = article, article_attrs, %{"overwrite" => _} = revision_attrs) do
     changeset = Article.changeset(article, article_attrs)
 
+    IO.inspect(changeset)
+
     result =
       Ecto.Multi.new()
       |> Ecto.Multi.update(:article, changeset)
       |> Ecto.Multi.update(:revision, fn %{article: article} ->
-        article
-        |> latest_revision()
+        latest = latest_revision(article)
+        changes = Map.merge(latest.changes, stringify_keys(changeset.changes))
+
+        latest
         |> ArticleRevision.changeset(revision_attrs)
-        |> Ecto.Changeset.put_change(:changes, changeset.changes)
+        |> Ecto.Changeset.put_change(:changes, changes)
       end)
 
     case Repo.transaction(result) do
@@ -96,4 +102,14 @@ defmodule Taifead.Wiki do
 
     Repo.one!(query)
   end
+
+  def stringify_keys(map) when is_map(map) do
+    for {k, v} <- map, into: %{}, do: {to_string(k), stringify_keys(v)}
+  end
+
+  def stringify_keys(list) when is_list(list) do
+    for item <- list, into: [], do: stringify_keys(item)
+  end
+
+  def stringify_keys(value), do: value
 end
