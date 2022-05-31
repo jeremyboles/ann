@@ -1,14 +1,14 @@
-import { EditorState } from 'prosemirror-state'
-import { EditorView } from 'prosemirror-view'
+import { EditorState } from "prosemirror-state"
+import { EditorView } from "prosemirror-view"
 
-import plugins from './plugins.mjs'
-import schema from './schema.mjs'
+import plugins from "./plugins.mjs"
+import schema from "./schema.mjs"
 
 //
 // Settings & constants
 // -----------------------------------------------------------------------------------------------
 
-const DEFAULT_JSON = { content: [{ type: 'heading', attrs: { level: 1 } }, { type: 'paragraph' }], type: 'doc' }
+const DEFAULT_JSON = { content: [{ type: "heading", attrs: { level: 1 } }, { type: "paragraph" }], type: "doc" }
 
 //
 // Exported functions
@@ -23,9 +23,7 @@ export function destroyed() {
 }
 
 export function mounted() {
-  const json = document.getElementById(this.el.dataset.input)?.value
-    ? JSON.parse(document.getElementById(this.el.dataset.input)?.value)
-    : DEFAULT_JSON
+  const json = document.getElementById(this.el.dataset.input)?.value ? JSON.parse(document.getElementById(this.el.dataset.input)?.value) : DEFAULT_JSON
 
   const doc = schema.nodeFromJSON(json)
   const state = EditorState.create({ doc, plugins, schema })
@@ -39,9 +37,7 @@ export function mounted() {
 }
 
 export function updated() {
-  const json = document.getElementById(this.el.dataset.input)?.value
-    ? JSON.parse(document.getElementById(this.el.dataset.input)?.value)
-    : DEFAULT_JSON
+  const json = document.getElementById(this.el.dataset.input)?.value ? JSON.parse(document.getElementById(this.el.dataset.input)?.value) : DEFAULT_JSON
 
   const doc = schema.nodeFromJSON(json)
   const state = EditorState.create({ doc, plugins, schema })
