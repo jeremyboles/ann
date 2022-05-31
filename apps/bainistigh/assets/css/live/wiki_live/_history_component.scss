@@ -34,11 +34,15 @@
 // Table
 // -----------------------------------------------------------------------------------------------
 
+.HistoryComponent .history {
+  flex-basis: 40%;
+  flex-grow: 1;
+}
+
 .HistoryComponent table {
   @include text.style($color: secondary, $size: 18px, $weight: 500);
   border-collapse: collapse;
-  flex-basis: 40%;
-  flex-grow: 1;
+  inline-size: 100%;
 
   @include media.mouse {
     @include text.size(11px);
@@ -96,6 +100,7 @@
 // -----------------------------------------------------------------------------------------------
 
 .HistoryComponent tbody td {
+  block-size: max-content;
   padding-block: 8px;
   padding-inline-end: 12px;
 

@@ -10,5 +10,5 @@ defmodule Foilsigh.WikiView do
 
   def title("index.html", _assigns), do: "Wiki · Jeremy Boles"
   def title("recipe.html", _assigns), do: "Recipe · Jeremy Boles"
-  def title("show.html", _assigns), do: "Topic Title - Wiki · Jeremy Boles"
+  def title("show.html", %{article: article}), do: "#{article.title_text} - Wiki · Jeremy Boles"
 end

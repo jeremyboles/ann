@@ -14,7 +14,20 @@ defmodule Taifead.Wiki do
   def change_article(%Article{} = article, attrs \\ %{}), do: Article.changeset(article, attrs)
   def delete_article(%Article{} = article), do: Repo.delete(article)
   def get_article!(id), do: Repo.get!(Article, id)
+
+  @doc """
+  Fetches an article that has had its visibility set to :published.
+  """
+  def get_published_article!(slug) when is_binary(slug) do
+    Repo.get_by!(Article, url_slug: slug, visibility: :published)
+  end
+
   def list_articles, do: Repo.all(Article)
+
+  @doc """
+  Lists all of the wiki articles that have had their visibility set to :published
+  """
+  def list_published_articles(), do: Repo.all(from a in Article, where: a.visibility == :published)
   def ordered_articles, do: Article |> order_by([{:asc, :title_text}]) |> Repo.all()
 
   def create_article(article_attrs \\ %{}, revision_attrs \\ %{}) do

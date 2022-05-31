@@ -6,26 +6,28 @@ defmodule Bainistigh.WikiLive.HistoryComponent do
   def render(assigns) do
     ~H"""
       <section class="HistoryComponent" role="tabpanel">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= if @article do %>
-              <%= for revision <- @article.revisions do %>
-                <tr>
-                  <td><%= Date.to_string(revision.updated_at) %></td>
-                  <td><%= location revision %></td>
-                </tr>
+        <div class="history">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= if @article do %>
+                <%= for revision <- @article.revisions do %>
+                  <tr>
+                    <td><%= Date.to_string(revision.updated_at) %></td>
+                    <td><%= location revision %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr><td colspan="2" /></tr>
               <% end %>
-            <% else %>
-              <tr><td colspan="2" /></tr>
-            <% end %>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
         
         <div class="preview">
           This section will contain the <i>revision preview</i>.
