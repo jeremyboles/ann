@@ -103,13 +103,5 @@ defmodule Taifead.Wiki do
     Repo.one!(query)
   end
 
-  def stringify_keys(map) when is_map(map) do
-    for {k, v} <- map, into: %{}, do: {to_string(k), stringify_keys(v)}
-  end
-
-  def stringify_keys(list) when is_list(list) do
-    for item <- list, into: [], do: stringify_keys(item)
-  end
-
-  def stringify_keys(value), do: value
+  defp stringify_keys(data), do: data |> Jason.encode!() |> Jason.decode!()
 end
