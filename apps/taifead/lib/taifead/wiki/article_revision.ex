@@ -11,7 +11,9 @@ defmodule Taifead.Wiki.ArticleRevision do
     belongs_to :article, Taifead.Wiki.Article
 
     field :changes, :map
+    field(:content_html, :string)
     field :coords, Geo.PostGIS.Geometry
+    field(:doc, :map)
     field :mapkit_response, :map
     field :note, :string
 

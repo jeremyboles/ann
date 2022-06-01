@@ -3,6 +3,15 @@ defmodule Bainistigh.WikiLive.HistoryComponent do
 
   alias Taifead.Wiki.ArticleRevision
 
+  def handle_event("select", %{"id" => id}, socket) do
+    selected = socket.assigns.article.revisions |> Enum.find(&(&1.id == id))
+    {:noreply, assign(socket, :selected, selected)}
+  end
+
+  def mount(socket) do
+    {:ok, assign(socket, :selected, nil)}
+  end
+
   def render(assigns) do
     ~H"""
       <section class="HistoryComponent" role="tabpanel">
@@ -17,7 +26,7 @@ defmodule Bainistigh.WikiLive.HistoryComponent do
             <tbody>
               <%= if @article do %>
                 <%= for revision <- @article.revisions do %>
-                  <tr>
+                <tr aria-selected={if @selected && @selected.id == revision.id, do: "true"} phx-click="select" phx-target={@myself} phx-value-id={revision.id}>
                     <td><%= Date.to_string(revision.updated_at) %></td>
                     <td><%= location revision %></td>
                   </tr>
@@ -30,7 +39,9 @@ defmodule Bainistigh.WikiLive.HistoryComponent do
         </div>
         
         <div class="preview">
-          This section will contain the <i>revision preview</i>.
+          <%= if @selected do %>
+            <%= raw @selected.content_html %>
+          <% end %>
         </div>
       </section>
     """

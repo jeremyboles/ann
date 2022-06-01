@@ -10,6 +10,8 @@ defmodule Taifead.Wiki do
   alias Taifead.Wiki.ArticleRevision
 
   def article_ancestors(%Article{} = article), do: Article.ancestors(article) |> Repo.all()
+  def article_ancestors(nil), do: []
+
   def article_by_url_slug(slug), do: Repo.get_by!(Article, url_slug: slug)
   def change_article(%Article{} = article, attrs \\ %{}), do: Article.changeset(article, attrs)
   def delete_article(%Article{} = article), do: Repo.delete(article)
@@ -43,6 +45,8 @@ defmodule Taifead.Wiki do
         |> Ecto.build_assoc(:revisions)
         |> ArticleRevision.changeset(revision_attrs)
         |> Ecto.Changeset.put_change(:changes, changeset.changes)
+        |> Ecto.Changeset.put_change(:content_html, article.content_html)
+        |> Ecto.Changeset.put_change(:doc, article.doc)
       end)
 
     case Repo.transaction(result) do
@@ -66,6 +70,8 @@ defmodule Taifead.Wiki do
         latest
         |> ArticleRevision.changeset(revision_attrs)
         |> Ecto.Changeset.put_change(:changes, changes)
+        |> Ecto.Changeset.put_change(:content_html, article.content_html)
+        |> Ecto.Changeset.put_change(:doc, article.doc)
       end)
 
     case Repo.transaction(result) do
@@ -85,6 +91,8 @@ defmodule Taifead.Wiki do
         |> Ecto.build_assoc(:revisions)
         |> ArticleRevision.changeset(revision_attrs)
         |> Ecto.Changeset.put_change(:changes, changeset.changes)
+        |> Ecto.Changeset.put_change(:content_html, article.content_html)
+        |> Ecto.Changeset.put_change(:doc, article.doc)
       end)
 
     case Repo.transaction(result) do

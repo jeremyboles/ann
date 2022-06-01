@@ -123,6 +123,10 @@
   }
 }
 
+.HistoryComponent tbody tr[aria-selected="true"] {
+  @include box.bg(faded);
+}
+
 //
 // Preview container
 // -----------------------------------------------------------------------------------------------
@@ -133,10 +137,38 @@
   @include text.style(serif, $size: 18px, $weight: 300);
   flex-basis: 60%;
   flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 12px;
 
   @include media.mouse {
     @include text.size(14px);
     padding: 6px;
+  }
+
+  a {
+    text-decoration: underline;
+    pointer-events: none;
+  }
+
+  ol + p,
+  p + ol,
+  p + p,
+  p + ul,
+  ul + p {
+    margin-block-start: 6px;
+  }
+
+  ol,
+  ul {
+    padding-inline-start: 20px;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul {
+    list-style: disc;
   }
 }
