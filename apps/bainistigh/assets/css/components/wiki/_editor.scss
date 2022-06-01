@@ -58,9 +58,36 @@ section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
   inline-size: 100%;
   max-inline-size: 72pc;
   outline: none;
+  position: relative;
 
   @include media.ipad(max) {
     font-size: 20px;
+  }
+
+  a {
+    position: relative;
+    text-decoration: underline;
+
+    &:hover::after {
+      @include text.style(sans, $color: secondary, $size: 11px, $weight: 600);
+      background-color: #{palette.stone($lightness: 86%)};
+      border: #{palette.stone($lightness: 74%)} solid 0.5px;
+      box-shadow: 0 2px 4px #{palette.stone($lightness: 8%, $alpha: 0.2)};
+      content: attr(href);
+      left: 50%;
+      padding-block: 2px;
+      padding-inline: 8px;
+      position: absolute;
+      transform: translate(-50%, 4px);
+      top: 100%;
+      z-index: 100;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: #{palette.stone($lightness: 22%)};
+        border: #{palette.stone($lightness: 34%)} solid 0.5px;
+        box-shadow: 0 2px 4px #{palette.stone($lightness: 8%)};
+      }
+    }
   }
 
   h1 {
@@ -111,5 +138,77 @@ section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
     content: attr(data-placeholder);
     pointer-events: none;
     position: absolute;
+  }
+}
+
+//
+// Tooltip
+// -----------------------------------------------------------------------------------------------
+
+.tooltip {
+  background-color: #{palette.stone($lightness: 28%)};
+  border-radius: 2px;
+  color: #{colors.var(secondary, $ns: text)};
+  cursor: point;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  min-inline-size: 180px;
+  padding-block: 12px;
+  padding-inline: 16px;
+  margin-block-end: 8px;
+  position: absolute;
+  transform: translateX(-50%);
+  -webkit-user-select: none;
+  z-index: 20;
+}
+
+.tooltip::after {
+  $size: 6px;
+  block-size: 0;
+  border: $size solid transparent;
+  border-block-start-color: #{palette.stone($lightness: 28%)};
+  border-block-end-width: 0;
+  bottom: 0 - $size;
+  content: "";
+  inline-size: 0;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.tooltip button {
+  pointer-events: auto;
+
+  &.bold {
+    @include icon.replace($url: "/images/fa/solid/bold.svg", $size: 16px);
+  }
+  &.italic {
+    @include icon.replace($url: "/images/fa/solid/italic.svg", $size: 16px);
+  }
+  &.link {
+    @include icon.replace($url: "/images/fa/solid/link.svg", $size: 16px);
+  }
+
+  &:hover {
+    color: #{colors.var(tertiary, $ns: text)};
+  }
+}
+
+.tooltip input {
+  @include text.style(sans, $color: main, $size: 14px, $weight: 500);
+  background-color: #{palette.stone($lightness: 28%)};
+  border-radius: 2px;
+  bottom: 0;
+  display: none;
+  left: 0;
+  outline: none;
+  padding-inline: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &::placeholder {
+    @include text.color(quaternary);
   }
 }

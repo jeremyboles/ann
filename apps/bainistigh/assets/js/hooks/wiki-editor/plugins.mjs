@@ -49,6 +49,7 @@ const plugins = [
   keymap(baseKeymap),
 
   placeholders(),
+  tooltips(),
 ]
 
 export default plugins
@@ -87,8 +88,125 @@ function placeholders() {
   return plugin
 }
 
+function tooltips() {
+  const plugin = new Plugin({
+    view(editorView) {
+      return new SelectionSizeTooltip(editorView)
+    },
+  })
+  return plugin
+}
+
 //
-// Private function
+// Private classes
+// -----------------------------------------------------------------------------------------------
+
+class SelectionSizeTooltip {
+  constructor(view) {
+    this.tooltip = document.createElement("div")
+    this.tooltip.className = "tooltip"
+
+    this.boldButton = document.createElement("button")
+    this.boldButton.addEventListener("pointerdown", (event) => {
+      event.preventDefault()
+      toggleMark(schema.marks.strong)(view.state, view.dispatch)
+    })
+    this.boldButton.className = "bold"
+    this.boldButton.setAttribute("type", "button")
+    this.boldButton.textContent = "Bold"
+    this.tooltip.appendChild(this.boldButton)
+
+    this.italicButton = document.createElement("button")
+    this.italicButton.addEventListener("pointerdown", (event) => {
+      event.preventDefault()
+      toggleMark(schema.marks.em)(view.state, view.dispatch)
+    })
+    this.italicButton.className = "italic"
+    this.italicButton.setAttribute("type", "button")
+    this.italicButton.textContent = "Italic"
+    this.tooltip.appendChild(this.italicButton)
+
+    this.linkButton = document.createElement("button")
+    this.linkButton.addEventListener("pointerdown", (event) => {
+      event.preventDefault()
+      this.linkInput.style.display = "unset"
+      this.linkInput.focus()
+    })
+    this.linkButton.className = "link"
+    this.linkButton.setAttribute("type", "button")
+    this.linkButton.textContent = "Link"
+    this.tooltip.appendChild(this.linkButton)
+
+    this.linkInput = document.createElement("input")
+    this.linkInput.addEventListener("blur", () => {
+      this.linkInput.style.display = "none"
+      this.linkInput.value = ""
+    })
+    this.linkInput.addEventListener("focus", () => {})
+    this.linkInput.addEventListener("keydown", (event) => {
+      event.stopPropagation()
+
+      if (event.key === "Escape") {
+        this.linkInput.blur()
+      } else if (event.key === "Enter") {
+        if (this.linkInput.checkValidity()) {
+          toggleMark(schema.marks.link, { href: this.linkInput.value })(view.state, view.dispatch)
+          this.linkInput.blur()
+          this.tooltip.style.display = "none"
+        }
+      } else {
+        console.log(event)
+      }
+      // event.stopImmediatePropagation()
+    })
+    this.linkInput.setAttribute("autocomplete", "off")
+    this.linkInput.setAttribute("form", "none")
+    this.linkInput.setAttribute("placeholder", "Paste or type a link…")
+    this.linkInput.setAttribute("required", true)
+    this.linkInput.setAttribute("type", "text")
+    this.tooltip.appendChild(this.linkInput)
+
+    view.dom.parentNode.appendChild(this.tooltip)
+    this.update(view, null)
+  }
+
+  update(view, lastState) {
+    const state = view.state
+    // Don't do anything if the document/selection didn't change
+    if (lastState && lastState.doc.eq(state.doc) && lastState.selection.eq(state.selection)) return
+
+    console.log(this.tooltip.dataset)
+    // Hide the tooltip if the selection is empty
+    if (state.selection.empty) {
+      this.tooltip.style.display = "none"
+      return
+    }
+
+    // Otherwise, reposition it and update its content
+    this.tooltip.style.display = ""
+
+    const { from, to } = state.selection
+
+    // These are in screen coordinates
+    const start = view.coordsAtPos(from)
+    const end = view.coordsAtPos(to)
+    // The box in which the tooltip is positioned, to use as base
+    const box = this.tooltip.offsetParent.getBoundingClientRect()
+
+    // Find a center-ish x position from the selection endpoints (when
+    // crossing lines, end may be more to the left)
+    const left = Math.max((start.left + end.left) / 2, start.left + 3)
+    this.tooltip.style.left = left - box.left + "px"
+    this.tooltip.style.bottom = box.bottom - start.top + "px"
+  }
+
+  destroy() {
+    this.tooltip.remove()
+  }
+}
+
+//
+// Private functions
 // -------------------------------------------------------------------------------------------------
 
 function isEmptyHeading(node) {
