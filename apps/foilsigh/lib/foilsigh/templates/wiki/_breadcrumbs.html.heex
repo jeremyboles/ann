@@ -1,0 +1,10 @@
+<nav aria-labelledby="wiki-breadcrumb-nav-label" class="breadcrumbs" id="wiki-breadcrumb">
+  <p class="vh"><span id="wiki-breadcrumb-nav-label">Breadcrumb</span> navigation:</p>
+  <ol>
+    <li><a href="/wiki">Wiki</a></li>
+    <%= for article <- @ancestors do %>
+      <li><a href={"/#{article.url_slug}"}><%= display_title(article) %></a></li>
+    <% end %>
+    <li><a aria-current="page" href={"/#{@article.url_slug}"}><%= display_title(@article) %></a></li>
+  </ol>
+</nav>

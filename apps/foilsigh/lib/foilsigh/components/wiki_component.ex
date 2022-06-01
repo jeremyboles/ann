@@ -3,21 +3,6 @@ defmodule Foilsigh.WikiComponent do
 
   alias Taifead.Wiki.Article
 
-  def breadcrumbs(assigns) do
-    ~H"""
-      <nav aria-labelledby="topic-breadcrumb-nav-label" class="breadcrumbs" id="topic-breadcrumb">
-        <p class="vh"><span id="topic-breadcrumb-nav-label">Breadcrumb</span> navigation:</p>
-        <ol>
-          <li><a href="/wiki">Wiki</a></li>
-          <%= for article <- @ancestors do %>
-            <li><a href={"/#{article.url_slug}"}><%= title(article) %></a></li>
-          <% end %>
-          <li><a aria-current="page" href={"/#{@article.url_slug}"}><%= title(@article) %></a></li>
-        </ol>
-      </nav>
-    """
-  end
-
   def content(assigns) do
     ~H"""
       <div class="content">

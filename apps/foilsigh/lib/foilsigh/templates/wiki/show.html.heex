@@ -1,7 +1,7 @@
 <div>
   <div>
-    <.breadcrumbs ancestors={@ancestors} article={@article} />
-
+    <%= render "_breadcrumbs.html", ancestors: @ancestors, article: @article %>
+    
     <article>
       <.header article={@article}/>
       <.content article={@article}/>
