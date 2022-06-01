@@ -28,7 +28,7 @@
   position: fixed;
   right: env(safe-area-inset-right, 0);
   top: calc(env(safe-area-inset-top) + 48px);
-  z-index: 698;
+  z-index: 1;
 
   @include media.mouse {
     block-size: 32px;
