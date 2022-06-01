@@ -146,13 +146,14 @@ section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
 // -----------------------------------------------------------------------------------------------
 
 .tooltip {
+  align-content: center;
   background-color: #{palette.stone($lightness: 28%)};
-  border-radius: 2px;
-  color: #{colors.var(secondary, $ns: text)};
+  border-radius: 4px;
+  color: #{palette.stone($lightness: 96%)};
   cursor: point;
   display: flex;
   gap: 12px;
-  justify-content: center;
+  justify-content: space-around;
   min-inline-size: 180px;
   padding-block: 12px;
   padding-inline: 16px;
@@ -191,14 +192,15 @@ section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
   }
 
   &:hover {
-    color: #{colors.var(tertiary, $ns: text)};
+    color: #{palette.stone($lightness: 82%)};
   }
 }
 
 .tooltip input {
-  @include text.style(sans, $color: main, $size: 14px, $weight: 500);
+  @include text.style(sans, $size: 14px, $weight: 500);
   background-color: #{palette.stone($lightness: 28%)};
   border-radius: 2px;
+  color: currentcolor;
   bottom: 0;
   display: none;
   left: 0;
@@ -209,6 +211,6 @@ section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
   top: 0;
 
   &::placeholder {
-    @include text.color(quaternary);
+    color: #{palette.stone($lightness: 62%)};
   }
 }

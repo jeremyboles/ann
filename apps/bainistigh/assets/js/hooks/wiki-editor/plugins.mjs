@@ -154,10 +154,7 @@ class SelectionSizeTooltip {
           this.linkInput.blur()
           this.tooltip.style.display = "none"
         }
-      } else {
-        console.log(event)
       }
-      // event.stopImmediatePropagation()
     })
     this.linkInput.setAttribute("autocomplete", "off")
     this.linkInput.setAttribute("form", "none")
@@ -175,7 +172,6 @@ class SelectionSizeTooltip {
     // Don't do anything if the document/selection didn't change
     if (lastState && lastState.doc.eq(state.doc) && lastState.selection.eq(state.selection)) return
 
-    console.log(this.tooltip.dataset)
     // Hide the tooltip if the selection is empty
     if (state.selection.empty) {
       this.tooltip.style.display = "none"
