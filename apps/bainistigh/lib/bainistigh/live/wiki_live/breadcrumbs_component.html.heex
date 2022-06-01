@@ -1,0 +1,10 @@
+<header class="BreadcrumbsComponent">
+  <nav>
+    <ol>
+      <%= for article <- @ancestors do %>
+        <li><%= article.title_html %></li>
+      <% end %>
+      <li><i><%= @article.title_html %></i></li>
+    </ol>
+  </nav>
+</header>

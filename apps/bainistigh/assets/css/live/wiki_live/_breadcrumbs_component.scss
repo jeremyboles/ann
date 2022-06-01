@@ -17,7 +17,7 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-.breadcrumbs {
+.BreadcrumbsComponent {
   @include border.block-end(separator);
   @include box.bg(secondary);
   align-items: stretch;
@@ -49,7 +49,7 @@
 // Article list
 // -----------------------------------------------------------------------------------------------
 
-.breadcrumbs ol {
+.BreadcrumbsComponent ol {
   @include text.style($size: 16px, $weight: 500);
   align-items: center;
   display: flex;
@@ -64,7 +64,7 @@
 // Article
 // -----------------------------------------------------------------------------------------------
 
-.breadcrumbs li + li {
+.BreadcrumbsComponent li + li {
   @include icon.before($url: "/images/fa/solid/angle-right.svg", $size: 10px) {
     @include text.color(faded);
     margin-inline-end: 8px;

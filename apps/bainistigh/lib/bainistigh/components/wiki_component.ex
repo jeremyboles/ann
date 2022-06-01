@@ -10,19 +10,6 @@ defmodule Bainistigh.WikiComponent do
     """
   end
 
-  def breadcrumbs(assigns) do
-    ~H"""
-    <header class="breadcrumbs">
-      <nav>
-        <ol>
-          <li>Test</li>
-          <li><i>No Title</i></li>
-        </ol>
-      </nav>
-    </header>
-    """
-  end
-
   def editor(assigns) do
     ~H"""
     <div class="editor">
