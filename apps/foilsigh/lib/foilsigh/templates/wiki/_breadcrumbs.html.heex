@@ -5,6 +5,6 @@
     <%= for article <- @ancestors do %>
       <li><a href={"/#{article.url_slug}"}><%= display_title(article) %></a></li>
     <% end %>
-    <li><a aria-current="page" href={"/#{@article.url_slug}"}><%= display_title(@article) %></a></li>
+    <li><a aria-current="page" href={"/#{@article.url_slug}"}><%= @article.title_text %></a></li>
   </ol>
 </nav>
