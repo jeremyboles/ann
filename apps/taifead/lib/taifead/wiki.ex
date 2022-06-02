@@ -21,7 +21,13 @@ defmodule Taifead.Wiki do
   Fetches an article that has had its visibility set to :published.
   """
   def get_published_article!(slug) when is_bitstring(slug) do
-    Repo.get_by!(Article, url_slug: slug, visibility: :published)
+    query =
+      from(a in Article,
+        where: a.url_slug == ^slug and a.visibility == :published,
+        preload: [revisions: ^from(r in ArticleRevision, order_by: [asc: r.updated_at])]
+      )
+
+    Repo.one!(query)
   end
 
   def list_articles, do: Repo.all(Article)

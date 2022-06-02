@@ -30,6 +30,7 @@ defmodule Foilsigh.Router do
 
     # Map
     get "/map", MapController, :index
+    get "/map/:geohash", MapController, :show
 
     # Contact
     get "/contact", ContactController, :index

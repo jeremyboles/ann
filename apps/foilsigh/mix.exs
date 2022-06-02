@@ -39,8 +39,11 @@ defmodule Foilsigh.MixProject do
     [
       {:dart_sass, "~> 0.4", runtime: Mix.env() == :dev},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:ex_cldr_numbers, "~> 2.27.0"},
       {:ex_postcss, "~> 0.1", runtime: Mix.env() == :dev},
+      {:geohash, "~> 1.2.2"},
       {:floki, ">= 0.30.0", only: :test},
+      {:inflex, "~> 2.1.0"},
       {:jason, "~> 1.2"},
       {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.4"},
@@ -51,7 +54,8 @@ defmodule Foilsigh.MixProject do
       {:reathai, in_umbrella: true},
       {:taifead, in_umbrella: true},
       {:telemetry_metrics, "~> 0.6"},
-      {:telemetry_poller, "~> 1.0"}
+      {:telemetry_poller, "~> 1.0"},
+      {:timex, "~> 3.7.8"}
     ]
   end
 
