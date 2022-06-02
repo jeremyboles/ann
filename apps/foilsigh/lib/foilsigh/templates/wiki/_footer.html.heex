@@ -3,7 +3,7 @@
     <figcaption>
       <p>
         The topic <i><%= raw @article.title_html %></i> was created <%= created_at @article %>
-        from <%= created_from @article %>. It’s currently considered a <%= topic_type @article %>
+        from <%= created_from @article %>. It’s currently considered a <%= raw topic_type @article %>
         and has
           <%= if Enum.count(@article.revisions) > 1 do %>
             been updated <%= updates_count @article %>, the last time being <%= updated_at @article %>,

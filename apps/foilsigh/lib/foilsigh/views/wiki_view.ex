@@ -20,10 +20,7 @@ defmodule Foilsigh.WikiView do
     end
   end
 
-  def coords(%ArticleRevision{coords: coords}) do
-    %Geo.Point{coordinates: {lat, lng}} = round_coords(coords)
-    "#{lat} #{lng}"
-  end
+  def coords(%ArticleRevision{coords: coords}), do: Foilsigh.Geo.to_decimal_string(coords)
 
   def created_at(%Article{revisions: [revision | _]}) do
     assigns = %{revision: revision, time_zone: time_zone(revision)}
@@ -40,14 +37,9 @@ defmodule Foilsigh.WikiView do
   def display_title(%Article{short_title: nil, title_text: title_text}), do: title_text
   def display_title(%Article{short_title: short_title}), do: short_title
 
-  def dms(%ArticleRevision{coords: coords}) do
-    %Geo.Point{coordinates: {lat, lng}} = round_coords(coords)
-    "#{lat_dms(lat)} #{lng_dms(lng)}"
-  end
+  def dms(%ArticleRevision{coords: coords}), do: Foilsigh.Geo.to_dms_string(coords)
 
-  def geohash(%ArticleRevision{coords: %Geo.Point{coordinates: {lat, lng}}}, precision \\ 5) do
-    Geohash.encode(lat, lng, precision)
-  end
+  def geohash(%ArticleRevision{coords: coords}), do: Foilsigh.Geo.to_geohash_string(coords, 5)
 
   def locations_query(%Article{revisions: revisions}) do
     [primary | secondary] = revisions |> Enum.map(&geohash/1) |> Enum.uniq()
@@ -86,13 +78,7 @@ defmodule Foilsigh.WikiView do
     "#{Number.to_string!(count, format: :spellout)} #{Inflex.inflect("time", count)}"
   end
 
-  def topic_type(%Article{} = _) do
-    assigns = %{}
-
-    ~H"""
-      <b><i>seedling topic</i></b>
-    """
-  end
+  def topic_type(%Article{} = _), do: "<b><i>seedling topic</i></b>"
 
   defp datetime(date), do: date |> DateTime.truncate(:second) |> DateTime.to_iso8601()
   defp datetime(date, nil), do: date |> datetime()
@@ -100,45 +86,7 @@ defmodule Foilsigh.WikiView do
 
   defp time_ago(date), do: Timex.from_now(date)
 
-  defp time_zone(%ArticleRevision{mapkit_response: %{"results" => [result | _]}}) do
-    result["timezone"]
-  end
-
-  defp time_zone(%ArticleRevision{mapkit_response: nil}) do
-    nil
-  end
-
-  defp lat_dms(decimal) do
-    direction = if decimal > 0, do: "N", else: "S"
-    "#{degrees(decimal)}°#{minutes(decimal)}'#{seconds(decimal)}\"#{direction}"
-  end
-
-  defp lng_dms(decimal) do
-    direction = if decimal > 0, do: "E", else: "W"
-    "#{degrees(decimal)}°#{minutes(decimal)}'#{seconds(decimal)}\"#{direction}"
-  end
-
-  defp degrees(decimal) do
-    decimal
-    |> Kernel.abs()
-    |> Float.floor()
-    |> Kernel.trunc()
-  end
-
-  defp minutes(decimal) do
-    ((Kernel.abs(decimal) - degrees(decimal)) * 60)
-    |> Float.floor()
-    |> Kernel.trunc()
-  end
-
-  defp round_coords(%Geo.Point{coordinates: {lat, lng}}, precision \\ 4) do
-    coordinates = {Float.round(lat, precision), Float.round(lng, precision)}
-    %Geo.Point{coordinates: coordinates}
-  end
-
-  defp seconds(decimal) do
-    (((Kernel.abs(decimal) - degrees(decimal)) * 60 - minutes(decimal)) * 60)
-    |> Decimal.from_float()
-    |> Decimal.round(1)
-  end
+  defp time_zone(%ArticleRevision{mapkit_response: response}), do: time_zone(response)
+  defp time_zone(%{"results" => [result | _]}), do: result["timezone"]
+  defp time_zone(%ArticleRevision{mapkit_response: nil}), do: nil
 end
