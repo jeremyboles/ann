@@ -3,27 +3,8 @@ defmodule Foilsigh.Geo do
 
   alias Geocalc.Shape.Circle
 
-  # TODO: move this ugly bit into some macros
-  @translate (Application.get_env(:foilsigh, __MODULE__) || [])
-             |> Keyword.get(:translate_coords, "")
-             |> String.split(",")
-             |> Enum.map(fn str ->
-               case String.split(str, ":") do
-                 [from | [to | _]] ->
-                   {from_lat, from_lng} = Geohash.decode(from)
-                   {to_lat, to_lng} = Geohash.decode(to)
-
-                   {%Circle{latitude: from_lat, longitude: from_lng, radius: 150},
-                    %Geo.Point{coordinates: {to_lat, to_lng}}}
-
-                 _ ->
-                   nil
-               end
-             end)
-             |> Enum.reject(&is_nil/1)
-
-  def obfuscate_point(%Geo.Point{coordinates: {lat, lng}} = point) do
-    case Enum.find(@translate, fn {from, _to} -> in_area?(from, %{lat: lat, lng: lng}) end) do
+  def obfuscate_point(%Geo.Point{} = point) do
+    case translate_to(point) do
       {_, to} -> to
       _ -> point
     end
@@ -65,15 +46,40 @@ defmodule Foilsigh.Geo do
     |> Kernel.trunc()
   end
 
+  # TODO: figure out how to calculate this at build or boot time
+  def from_env() do
+    IO.inspect(System.get_env("TRANSLATE_COORDS"))
+    IO.inspect(Application.get_env(:foilsigh, __MODULE__, []))
+
+    Application.get_env(:foilsigh, __MODULE__, [])
+    |> Keyword.get(:translate_coords, "")
+    |> String.split(",")
+    |> Enum.map(&parse_pair/1)
+    |> Enum.reject(&is_nil/1)
+  end
+
   defp minutes(decimal) do
     ((Kernel.abs(decimal) - degrees(decimal)) * 60)
     |> Float.floor()
     |> Kernel.trunc()
   end
 
+  defp parse_pair(pair) when is_binary(pair), do: pair |> String.split(":") |> parse_pair()
+  defp parse_pair([from | [to | _]]), do: {to_circle(from), to_point(to)}
+
   defp seconds(decimal) do
     (((Kernel.abs(decimal) - degrees(decimal)) * 60 - minutes(decimal)) * 60)
     |> Decimal.from_float()
     |> Decimal.round(1)
+  end
+
+  def to_circle(hash) when is_binary(hash), do: hash |> Geohash.decode() |> to_circle()
+  def to_circle({lat, lng}), do: %Circle{latitude: lat, longitude: lng, radius: 150}
+
+  def to_point(hash) when is_binary(hash), do: hash |> Geohash.decode() |> to_point()
+  def to_point({lat, lng}), do: %Geo.Point{coordinates: {lat, lng}}
+
+  defp translate_to(%Geo.Point{coordinates: {lat, lng}}) do
+    from_env() |> Enum.find(fn {from, _to} -> in_area?(from, %{lat: lat, lng: lng}) end)
   end
 end
