@@ -3,14 +3,15 @@
     <%= render "_breadcrumbs.html", ancestors: @ancestors, article: @article %>
     
     <article>
-      <.header article={@article}/>
-      <.content article={@article}/>
-      <.journal />
-      <.supplementary />
-      <.essays />
-      <.footer />
+      <%= render "_header.html", article: @article %>
+      <%= render "_content.html", article: @article, table_of_contents: false %>
+      
+      <%= render "_journal.html" %>
+      <%= render "_supplementary.html" %>
+      <%= render "_essays.html" %>
+      <%= render "_footer.html" %>
     </article>
   </div>
 
-  <.related />
+  <%= render "_related.html" %>
 </div>

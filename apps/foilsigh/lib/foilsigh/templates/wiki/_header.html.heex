@@ -1,0 +1,12 @@
+<header class="header">
+  <h1><a href={"/#{@article.url_slug}"} rel="bookmark"><%= raw @article.title_html %></a></h1>
+  
+  <%= if Enum.count(@article.tags) > 0 do %>
+    <p>
+      <span class="vh">Tagged with:</span>
+      <%= for tag <- @article.tags do %>
+        <a href={"/tags/#{tag}"} rel="tag"><%= tag %></a>
+      <% end %>
+    </p>
+  <% end %>
+</header>

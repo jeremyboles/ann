@@ -1,0 +1,17 @@
+<div class="content">
+  <%= if @table_of_contents do %>
+    <nav aria-labelledby="topic-table-of-contents" class="table_of_contents">
+      <p class="vh" id="topic-table-of-contents">Table of contents:</p>
+      <ol>
+        <li><a href="#theitinerary">The&nbsp;Itinerary</a></li>
+        <li><a href="#memorablefood">Memorable&nbsp;Food</a></li>
+        <li><a href="#notable-gearused">Notable Gear&nbsp;Used</a></li>
+        <li><a href="#favoritesmoments">Favorites&nbsp;Moments</a></li>
+        <li><a href="#things-ilearned">Things I&nbsp;Learned</a></li>
+      </ol>
+    </nav>
+  <% end %>
+  
+  <div><%= raw @article.content_html %></div>
+</div>
+
