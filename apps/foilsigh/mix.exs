@@ -41,6 +41,7 @@ defmodule Foilsigh.MixProject do
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ex_cldr_numbers, "~> 2.27.0"},
       {:ex_postcss, "~> 0.1", runtime: Mix.env() == :dev},
+      {:geocalc, "~> 0.8.4"},
       {:geohash, "~> 1.2.2"},
       {:floki, ">= 0.30.0", only: :test},
       {:inflex, "~> 2.1.0"},

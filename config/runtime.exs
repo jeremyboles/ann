@@ -69,6 +69,10 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  config :foilsigh, Foilsigh.Geo,
+    # We can translate coords with in a 150m radius to a specific set of coords
+    translate_coords: System.get_env("TRANSLATE_COORDS", "")
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
