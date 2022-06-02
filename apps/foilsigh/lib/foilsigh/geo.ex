@@ -48,9 +48,6 @@ defmodule Foilsigh.Geo do
 
   # TODO: figure out how to calculate this at build or boot time
   def from_env() do
-    IO.inspect(System.get_env("TRANSLATE_COORDS"))
-    IO.inspect(Application.get_env(:foilsigh, __MODULE__, []))
-
     Application.get_env(:foilsigh, __MODULE__, [])
     |> Keyword.get(:translate_coords, "")
     |> String.split(",")
@@ -66,6 +63,7 @@ defmodule Foilsigh.Geo do
 
   defp parse_pair(pair) when is_binary(pair), do: pair |> String.split(":") |> parse_pair()
   defp parse_pair([from | [to | _]]), do: {to_circle(from), to_point(to)}
+  defp parse_pair(_), do: nil
 
   defp seconds(decimal) do
     (((Kernel.abs(decimal) - degrees(decimal)) * 60 - minutes(decimal)) * 60)
