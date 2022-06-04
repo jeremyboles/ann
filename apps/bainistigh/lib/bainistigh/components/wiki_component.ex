@@ -5,7 +5,7 @@ defmodule Bainistigh.WikiComponent do
     ~H"""
     <div class="article_header">
       <h1><%= render_slot(@inner_block) %></h1>
-      <p>Recipe-Style Topic</p>
+      <p>Wiki Topic</p>
     </div>
     """
   end

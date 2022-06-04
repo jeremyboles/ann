@@ -43,7 +43,7 @@
   }
 }
 
-section.wiki:has(.sidebar_toggle:not(:checked)) .editor {
+section.wiki:has(.SidebarComponent > .toggle:not(:checked)) .editor {
   @include media.ipad(min) {
     margin-inline-end: 0;
   }
