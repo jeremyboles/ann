@@ -38,7 +38,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, assign(socket, :editor_sidebar_visible, true)}
   end
 
   defp assign_article(socket, nil) do

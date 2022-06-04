@@ -1,0 +1,23 @@
+<aside class="SidebarComponent">
+  <input checked class="toggle" form="none" title="Toggle Sidebar" type="checkbox" />
+  
+  <ul class="tabs" data-selected={@selected} data-selected={@selected } id="sidebar-tabs" role="tablist">
+    <.tab id="metadata" myself={@myself} selected={@selected}>
+      Metadata
+    </.tab>
+    <.tab id="glossary" myself={@myself} selected={@selected}>
+      Glossary
+    </.tab>
+    <.tab id="links" myself={@myself} selected={@selected}>
+      Links
+    </.tab>
+    <.tab id="history" myself={@myself} selected={@selected}>
+      History
+    </.tab>
+  </ul>
+  
+  <.live_component form={@form} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
+  <.live_component form={@form} id="glossary-panel" module={Bainistigh.WikiLive.GlossaryComponent} />
+  <.live_component form={@form} id="links-panel" module={Bainistigh.WikiLive.LinksComponent} />
+  <.live_component article={@article} form={@form} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
+</aside>

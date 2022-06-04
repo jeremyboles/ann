@@ -22,11 +22,11 @@
   min-height: max-content;
 }
 
-.SidebarComponent:has(input[id|="history"]:not(:checked)) .HistoryComponent[role="tabpanel"] {
+.SidebarComponent:has([phx-value-tab|="history"]:not([aria-selected="true"])) .HistoryComponent[role="tabpanel"] {
   display: none !important;
 }
 
-.SidebarComponent:has(input[id|="history"]:checked) .HistoryComponent[role="tabpanel"] {
+.SidebarComponent:has([phx-value-tab|="history"][aria-selected="true"]) .HistoryComponent[role="tabpanel"] {
   display: flex !important;
 }
 
@@ -140,6 +140,13 @@
   overflow-x: hidden;
   overflow-y: auto;
   padding: 12px;
+
+  // There's a bit of padding in the panel that's added while view on phone that we
+  // need to move into the previews component instead of having the panel take care of it
+  @include media.ipad(max) {
+    margin-block-end: -80px;
+    padding-block-end: 80px;
+  }
 
   @include media.mouse {
     @include text.size(14px);

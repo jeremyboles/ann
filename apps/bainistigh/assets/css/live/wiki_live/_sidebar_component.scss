@@ -109,6 +109,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 
 .SidebarComponent .tabs li {
   align-items: center;
+  cursor: default;
   display: flex;
   justify-content: center;
   -webkit-user-select: none;
@@ -131,8 +132,8 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 }
 
 // Highlight the selected tab. Alternatively, if there isn't a selected tab, show the first tab
-.SidebarComponent .tabs li:has(input:checked),
-.SidebarComponent .tabs:not(:has([role="tab"] > input:checked)) li:first-of-type {
+.SidebarComponent .tabs li[aria-selected="true"],
+.SidebarComponent .tabs:not(:has([role="tab"][aria-selected="true"])) li:first-of-type {
   @include media.ipad(min) {
     @include text.color(accent);
   }
@@ -142,7 +143,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent .tabs li:has(input:checked) {
+.SidebarComponent .tabs li[aria-selected="true"] {
   @include media.ipad(max) {
     @include text.color(accent);
   }
@@ -162,7 +163,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 // Icon
 // -----------------------------------------------------------------------------------------------
 
-.SidebarComponent .tabs label[for|="glossary"] {
+.SidebarComponent .tabs li[phx-value-tab|="glossary"] span {
   @include icon.replace($url: "/images/fa/regular/book.svg", $size: 18px);
 
   @include media.mouse {
@@ -170,7 +171,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent .tabs label[for|="history"] {
+.SidebarComponent .tabs [phx-value-tab|="history"] span {
   @include icon.replace($url: "/images/fa/regular/clock-rotate-left.svg", $size: 18px);
 
   @include media.mouse {
@@ -178,7 +179,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent .tabs label[for|="metadata"] {
+.SidebarComponent .tabs [phx-value-tab|="metadata"] span {
   @include icon.replace($url: "/images/fa/regular/rectangle-list.svg", $size: 18px);
 
   @include media.mouse {
@@ -186,7 +187,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent .tabs label[for|="links"] {
+.SidebarComponent .tabs [phx-value-tab|="links"] span {
   @include icon.replace($url: "/images/fa/regular/link.svg", $size: 22px);
 
   @include media.mouse {
@@ -230,7 +231,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 }
 
 @include media.ipad(max) {
-  .SidebarComponent:has([role="tab"] > input:checked)::before {
+  .SidebarComponent:has([role="tab"][aria-selected="true"])::before {
     @include box.bg(mask);
     bottom: 0;
     content: "";
@@ -242,19 +243,19 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent:has(input[id]) [role="tabpanel"] {
+.SidebarComponent [role="tabpanel"] {
   display: none;
 }
 
-.SidebarComponent:has(input[id|="glossary"]:checked) [role="tabpanel"].GlossaryComponent,
-.SidebarComponent:has(input[id|="history"]:checked) [role="tabpanel"].HistoryComponent,
-.SidebarComponent:has(input[id|="links"]:checked) [role="tabpanel"].LinksComponent,
-.SidebarComponent:has(input[id|="metadata"]:checked) [role="tabpanel"].MetadataComponent {
+.SidebarComponent:has([phx-value-tab|="glossary"][aria-selected="true"]) [role="tabpanel"].GlossaryComponent,
+.SidebarComponent:has([phx-value-tab|="history"][aria-selected="true"]) [role="tabpanel"].HistoryComponent,
+.SidebarComponent:has([phx-value-tab|="links"][aria-selected="true"]) [role="tabpanel"].LinksComponent,
+.SidebarComponent:has([phx-value-tab|="metadata"][aria-selected="true"]) [role="tabpanel"].MetadataComponent {
   display: unset;
 }
 
 // If there isn't a selected tab, show the first tab
-.SidebarComponent .tabs:not(:has([role="tab"] > input:checked)) ~ [role="tabpanel"]:first-of-type {
+.SidebarComponent .tabs:not(:has([role="tab"][aria-selected="true"])) ~ [role="tabpanel"]:first-of-type {
   @include media.ipad(min) {
     display: unset;
   }
