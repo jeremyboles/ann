@@ -6,6 +6,26 @@ defmodule Bainistigh.WikiLive do
 
   alias Taifead.Wiki
 
+  def handle_event("save", %{"_delete" => id}, socket) do
+    case socket.assigns.article do
+      %Wiki.Article{id: ^id} = article ->
+        Wiki.delete_article(article)
+
+        socket =
+          assign(socket,
+            article: nil,
+            articles: Wiki.ordered_articles(),
+            changeset: Wiki.change_article(%Wiki.Article{}),
+            page_title: page_title(article)
+          )
+
+        {:noreply, push_redirect(socket, to: "/wiki")}
+
+      _ ->
+        {:noreply, socket}
+    end
+  end
+
   def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
     case save(socket.assigns.article, article_params, revision_params) do
       {:ok, article} ->

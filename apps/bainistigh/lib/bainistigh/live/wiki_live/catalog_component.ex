@@ -71,9 +71,8 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
         <input form="none" type="checkbox" />
       </label>
       <div class="options">
-        <button accesskey="q">Quick Topic</button>
-        <button accesskey="l">Long-Form Topic</button>
-        <button accesskey="r">Recipe-Type Topic</button>
+        <button accesskey="w">Wiki-Style Topic</button>
+        <button accesskey="r">Recipe-Style Topic</button>
       </div>
     </div>
     """

@@ -5,7 +5,7 @@ defmodule Bainistigh.WikiComponent do
     ~H"""
     <div class="article_header">
       <h1><%= render_slot(@inner_block) %></h1>
-      <p>Wiki Topic</p>
+      <p>Wiki-Style Topic</p>
     </div>
     """
   end
@@ -42,6 +42,9 @@ defmodule Bainistigh.WikiComponent do
         <input disabled={input_value(assigns.form, :visibility) === "private"} form="none" type="checkbox" />
         <div class="options">
           <button name={input_name(:revision, :overwrite)} type="submit">Update Over Current Revision</button>
+          <%= if @article != nil do %>
+            <button data-confirm="Are you sure you want to delete this article?" name="_delete" type="submit" value={@article.id}>Delete Published Article</button>
+          <% end %>
         </div>
       <% else %>
         <button name={input_name(:revision, :overwrite)} type="submit">
@@ -54,6 +57,9 @@ defmodule Bainistigh.WikiComponent do
         <input disabled={input_value(assigns.form, :visibility) === :published} form="none" type="checkbox" />
         <div class="options">
           <button type="submit">Save With a New Revision</button>
+          <%= if @article != nil do %>
+            <button data-confirm="Are you sure you want to delete this article?" name="_delete" type="submit" value={@article.id}>Delete Unpublished Article</button>
+          <% end %>
         </div>
       <% end %>
     </div>
