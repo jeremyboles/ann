@@ -163,11 +163,11 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
 // Icon
 // -----------------------------------------------------------------------------------------------
 
-.SidebarComponent .tabs li[phx-value-tab|="glossary"] span {
-  @include icon.replace($url: "/images/fa/regular/book.svg", $size: 18px);
+.SidebarComponent .tabs li[phx-value-tab|="media"] span {
+  @include icon.replace($url: "/images/fa/regular/paperclip.svg", $size: 18px);
 
   @include media.mouse {
-    @include icon.replace($url: "/images/fa/regular/book.svg", $size: 14px);
+    @include icon.replace($url: "/images/fa/regular/paperclip.svg", $size: 14px);
   }
 }
 
@@ -187,11 +187,11 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent .tabs [phx-value-tab|="links"] span {
-  @include icon.replace($url: "/images/fa/regular/link.svg", $size: 22px);
+.SidebarComponent .tabs [phx-value-tab|="supplementary"] span {
+  @include icon.replace($url: "/images/fa/regular/asterisk.svg", $size: 22px);
 
   @include media.mouse {
-    @include icon.replace($url: "/images/fa/regular/link.svg", $size: 18px);
+    @include icon.replace($url: "/images/fa/regular/asterisk.svg", $size: 18px);
   }
 }
 
@@ -247,10 +247,10 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   display: none;
 }
 
-.SidebarComponent:has([phx-value-tab|="glossary"][aria-selected="true"]) [role="tabpanel"].GlossaryComponent,
 .SidebarComponent:has([phx-value-tab|="history"][aria-selected="true"]) [role="tabpanel"].HistoryComponent,
-.SidebarComponent:has([phx-value-tab|="links"][aria-selected="true"]) [role="tabpanel"].LinksComponent,
-.SidebarComponent:has([phx-value-tab|="metadata"][aria-selected="true"]) [role="tabpanel"].MetadataComponent {
+.SidebarComponent:has([phx-value-tab|="media"][aria-selected="true"]) [role="tabpanel"].MediaComponent,
+.SidebarComponent:has([phx-value-tab|="metadata"][aria-selected="true"]) [role="tabpanel"].MetadataComponent,
+.SidebarComponent:has([phx-value-tab|="supplementary"][aria-selected="true"]) [role="tabpanel"].SupplementaryComponent {
   display: unset;
 }
 

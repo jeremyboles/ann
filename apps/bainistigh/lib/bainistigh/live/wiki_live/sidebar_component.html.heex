@@ -5,11 +5,11 @@
     <.tab id="metadata" myself={@myself} selected={@selected}>
       Metadata
     </.tab>
-    <.tab id="glossary" myself={@myself} selected={@selected}>
-      Glossary
+    <.tab id="supplementary" myself={@myself} selected={@selected}>
+      Supplementary
     </.tab>
-    <.tab id="links" myself={@myself} selected={@selected}>
-      Links
+    <.tab id="media" myself={@myself} selected={@selected}>
+      Media
     </.tab>
     <.tab id="history" myself={@myself} selected={@selected}>
       History
@@ -17,7 +17,7 @@
   </ul>
   
   <.live_component form={@form} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
-  <.live_component form={@form} id="glossary-panel" module={Bainistigh.WikiLive.GlossaryComponent} />
-  <.live_component form={@form} id="links-panel" module={Bainistigh.WikiLive.LinksComponent} />
+  <.live_component form={@form} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
+  <.live_component form={@form} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />
   <.live_component article={@article} form={@form} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
 </aside>
