@@ -243,14 +243,11 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent [role="tabpanel"] {
+.SidebarComponent [role="tabpanel"][aria-hidden="true"] {
   display: none;
 }
 
-.SidebarComponent:has([phx-value-tab|="history"][aria-selected="true"]) [role="tabpanel"].HistoryComponent,
-.SidebarComponent:has([phx-value-tab|="media"][aria-selected="true"]) [role="tabpanel"].MediaComponent,
-.SidebarComponent:has([phx-value-tab|="metadata"][aria-selected="true"]) [role="tabpanel"].MetadataComponent,
-.SidebarComponent:has([phx-value-tab|="supplementary"][aria-selected="true"]) [role="tabpanel"].SupplementaryComponent {
+.SidebarComponent [role="tabpanel"][aria-hidden="false"] {
   display: unset;
 }
 

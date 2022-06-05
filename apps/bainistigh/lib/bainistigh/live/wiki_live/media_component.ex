@@ -3,7 +3,7 @@ defmodule Bainistigh.WikiLive.MediaComponent do
 
   def render(assigns) do
     ~H"""
-      <section class="MediaComponent" role="tabpanel">
+      <section class="MediaComponent">
         Media
       </section>
     """

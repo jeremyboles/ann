@@ -3,7 +3,7 @@ defmodule Bainistigh.WikiLive.MetadataComponent do
 
   def render(assigns) do
     ~H"""
-    <section class="MetadataComponent" role="tabpanel">
+    <section class="MetadataComponent">
       <.topic_attributes form={@form} />
       <.location_input form={@form} />
       

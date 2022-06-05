@@ -3,7 +3,7 @@ defmodule Bainistigh.WikiLive.SupplementaryComponent do
 
   def render(assigns) do
     ~H"""
-      <section class="SupplementaryComponent" role="tabpanel">
+      <section class="SupplementaryComponent">
         supplementary
       </section>
     """

@@ -12,6 +12,14 @@ defmodule Bainistigh.WikiLive.SidebarComponent do
     {:ok, assign(socket, :selected, nil)}
   end
 
+  def panel(assigns) do
+    ~H"""
+      <div aria-hidden={if @id != @selected, do: "true", else: "false"} id={"#{@id}-panel"} role="tabpanel">
+        <%= render_slot(@inner_block) %>
+      </div>
+    """
+  end
+
   def tab(assigns) do
     ~H"""
       <li aria-controls={"#{@id}-panel"} aria-selected={if @id == @selected, do: "true"} phx-click="select-tab" phx-target={@myself} phx-value-tab={@id} role="tab">

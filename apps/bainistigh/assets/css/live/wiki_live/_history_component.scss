@@ -18,16 +18,9 @@
 // -----------------------------------------------------------------------------------------------
 
 .HistoryComponent {
+  block-size: 100%;
+  display: flex;
   flex-direction: column;
-  min-height: max-content;
-}
-
-.SidebarComponent:has([phx-value-tab|="history"]:not([aria-selected="true"])) .HistoryComponent[role="tabpanel"] {
-  display: none !important;
-}
-
-.SidebarComponent:has([phx-value-tab|="history"][aria-selected="true"]) .HistoryComponent[role="tabpanel"] {
-  display: flex !important;
 }
 
 //

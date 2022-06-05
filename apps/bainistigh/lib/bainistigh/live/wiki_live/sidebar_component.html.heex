@@ -1,7 +1,7 @@
 <aside class="SidebarComponent">
   <input checked class="toggle" form="none" title="Toggle Sidebar" type="checkbox" />
   
-  <ul class="tabs" data-selected={@selected} data-selected={@selected } id="sidebar-tabs" role="tablist">
+  <ul class="tabs" id="sidebar-tabs" role="tablist">
     <.tab id="metadata" myself={@myself} selected={@selected}>
       Metadata
     </.tab>
@@ -16,8 +16,19 @@
     </.tab>
   </ul>
   
-  <.live_component form={@form} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
-  <.live_component form={@form} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
-  <.live_component form={@form} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />
-  <.live_component article={@article} form={@form} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
+  <.panel id="metadata" selected={@selected}>
+    <.live_component form={@form} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
+  </.panel>
+  
+  <.panel id="supplementary" selected={@selected}>
+    <.live_component form={@form} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
+  </.panel>
+  
+  <.panel id="media" selected={@selected}>
+    <.live_component form={@form} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />
+  </.panel>
+  
+  <.panel id="history" selected={@selected}>
+    <.live_component article={@article} form={@form} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
+  </.panel>
 </aside>
