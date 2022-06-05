@@ -1,0 +1,144 @@
+// -----------------------------------------------------------------------------------------------
+//
+// SupplementaryComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent {
+  block-size: 100%;
+}
+
+//
+// Group container
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+}
+
+//
+// Sidebar group
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent details {
+  @include border.all;
+  @include box.bg(faded);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+//
+// Group title
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent details summary {
+  align-items: center;
+  cursor: default;
+  display: flex;
+  justify-content: start;
+  -webkit-user-select: none;
+
+  @include media.ipad(min) {
+    @include icon.before($url: "/images/fa/solid/angle-right.svg", $size: 12px) {
+      color: #{colors.var(faded, $ns: text)};
+    }
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  input {
+    @include text.style($color: tertiary, $size: 11px, $weight: 700);
+    background-color: transparent;
+    flex-grow: 1;
+    outline: none;
+    padding: 0;
+    transform: translateY(-1px);
+  }
+}
+
+.SupplementaryComponent details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+//
+// Delete button
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent details summary button {
+  @include icon.replace($url: "/images/fa/regular/xmark.svg", $size: 12px);
+  color: #{colors.var(faded, $ns: text)};
+
+  &:hover {
+    color: #{colors.var(quaternary, $ns: text)};
+  }
+}
+
+//
+// Glossary variant
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent details.glossary {
+  border-color: #{palette.yellow($lightness: 80%)};
+  background-color: #{palette.yellow($lightness: 88%)};
+  color: #{palette.yellow($lightness: 14%)};
+
+  summary {
+    &::before {
+      color: #{palette.yellow($lightness: 44%)};
+    }
+
+    input {
+      color: #{palette.yellow($lightness: 22%)};
+    }
+
+    button {
+      color: #{palette.yellow($lightness: 44%)};
+      &:hover {
+        color: #{palette.yellow($lightness: 32%)};
+      }
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border-color: #{palette.yellow($lightness: 18%)};
+    background-color: #{palette.yellow($lightness: 12%)};
+    color: #{palette.yellow($lightness: 92%)};
+
+    summary {
+      &::before {
+        color: #{palette.yellow($lightness: 92%, $alpha: 0.3)};
+      }
+
+      input {
+        color: #{palette.yellow($lightness: 72%)};
+      }
+
+      button {
+        background-color: #{palette.yellow($lightness: 92%, $alpha: 0.3)};
+        color: #{palette.yellow($lightness: 92%, $alpha: 0)};
+        &:hover {
+          background-color: #{palette.yellow($lightness: 92%, $alpha: 0.5)};
+          color: #{palette.yellow($lightness: 92%, $alpha: 0)};
+        }
+      }
+    }
+  }
+}
