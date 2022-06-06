@@ -238,3 +238,35 @@
     }
   }
 }
+
+//
+// Footer buttons
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent footer {
+  @include box.bg(quaternary);
+  @include border.block-start(secondary);
+  bottom: 0;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  left: 0;
+  padding: 6px;
+  position: absolute;
+  right: 0;
+}
+
+.SupplementaryComponent footer button {
+  @include box.bg(control);
+  @include text.style(sans, $color: tertiary, $size: 11px, $weight: 600);
+  border-radius: 6px;
+  padding: 4px 12px;
+
+  &:hover {
+    @include box.bg(emphasized);
+  }
+
+  &:active {
+    @include box.bg(faded);
+  }
+}
