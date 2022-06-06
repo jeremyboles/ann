@@ -75,7 +75,7 @@
   }
 
   input {
-    @include text.style($color: tertiary, $size: 14px, $weight: 700);
+    @include text.style($color: tertiary, $size: 16px, $weight: 700);
     background-color: transparent;
     flex-grow: 1;
     outline: none;
@@ -106,11 +106,72 @@
 // -----------------------------------------------------------------------------------------------
 
 .SupplementaryComponent details summary button {
-  @include icon.replace($url: "/images/fa/regular/xmark.svg", $size: 12px);
+  @include icon.replace($url: "/images/fa/regular/xmark.svg", $size: 16px);
   color: #{colors.var(faded, $ns: text)};
 
   &:hover {
     color: #{colors.var(quaternary, $ns: text)};
+  }
+
+  @include media.ipad(min) {
+    @include icon.replace($url: "/images/fa/regular/xmark.svg", $size: 12px);
+    color: #{colors.var(faded, $ns: text)};
+  }
+}
+
+//
+// Fieldset
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent details fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+//
+// Form fields
+// -----------------------------------------------------------------------------------------------
+
+.SupplementaryComponent details input,
+.SupplementaryComponent details textarea {
+  @include text.style(sans, $size: 16px, $weight: 500);
+  background-color: transparent;
+  color: currentcolor;
+  display: block;
+  inline-size: 100%;
+  outline: none;
+
+  @include media.ipad(min) {
+    @include text.size(12px);
+  }
+
+  &::placeholder {
+    @include text.color(faded);
+  }
+}
+
+.SupplementaryComponent details input {
+  text-overflow: ellipsis;
+
+  @include media.ipad(min) {
+    &:has(+ input) {
+      flex-basis: 55%;
+    }
+
+    & + input {
+      flex-basis: calc(45% - 4px);
+    }
+  }
+}
+
+.SupplementaryComponent details textarea {
+  flex-grow: 1;
+  overflow: hidden;
+  resize: vertical;
+
+  &::-webkit-resizer {
+    display: none;
   }
 }
 
@@ -140,6 +201,14 @@
     }
   }
 
+  fieldset input {
+    font-weight: 700;
+  }
+
+  ::placeholder {
+    color: #{palette.yellow($lightness: 22%, $alpha: 0.4)};
+  }
+
   @media (prefers-color-scheme: dark) {
     border-color: #{palette.yellow($lightness: 18%)};
     background-color: #{palette.yellow($lightness: 12%)};
@@ -162,6 +231,10 @@
           color: #{palette.yellow($lightness: 92%, $alpha: 0)};
         }
       }
+    }
+
+    ::placeholder {
+      color: #{palette.yellow($lightness: 78%, $alpha: 0.28)};
     }
   }
 }

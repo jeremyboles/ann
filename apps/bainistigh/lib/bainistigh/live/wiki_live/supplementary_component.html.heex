@@ -1,19 +1,26 @@
 <section class="SupplementaryComponent">
   <details class="link" open>
     <summary>
-      <input form="none" id="link-title" phx-hook="StopSpacebarBubbling" type="text" value="External Links" />
+      <input form="none" id="link-title" phx-hook="StopSpacebarBubbling" placeholder="e.g. External Links" type="text" value="External Links" />
       <button form="none">Delete</button>
     </summary>
     
-    Links
+    <fieldset>
+      <input form="none" name="title" placeholder="Link Title" type="text" />
+      <input form="none" name="url" placeholder="https://" type="url" />
+      <textarea form="none" id="link-description" name="description" phx-hook="Autogrow" placeholder="Description" rows="1"></textarea>
+    </fieldset>
   </details>
   
   <details class="glossary" open>
     <summary>
-      <input form="none" id="glossary-title" phx-hook="StopSpacebarBubbling" type="text" value="Glossary of Terms" />
+      <input form="none" id="glossary-title" phx-hook="StopSpacebarBubbling" placeholder="e.g. Glossary of Terms" type="text" value="Glossary of Terms" />
       <button form="none">Delete</button>
     </summary>
     
-    Terms
+    <fieldset>
+      <input form="none" name="term" placeholder="Term" type="text" />
+      <textarea form="none" id="glossary-description" name="definition" phx-hook="Autogrow" placeholder="Definition" rows="1"></textarea>
+    </fieldset>
   </details>
 </section>
