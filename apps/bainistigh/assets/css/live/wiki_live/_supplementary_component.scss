@@ -28,8 +28,12 @@
 .SupplementaryComponent {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   padding: 8px;
+
+  @include media.ipad(min) {
+    gap: 8px;
+  }
 }
 
 //
@@ -40,7 +44,11 @@
   @include border.all;
   @include box.bg(faded);
   border-radius: 4px;
-  padding: 4px;
+  padding: 8px;
+
+  @include media.ipad(min) {
+    padding: 4px;
+  }
 }
 
 //
@@ -52,12 +60,14 @@
   cursor: default;
   display: flex;
   justify-content: start;
+  pointer-events: none;
   -webkit-user-select: none;
 
   @include media.ipad(min) {
     @include icon.before($url: "/images/fa/solid/angle-right.svg", $size: 12px) {
       color: #{colors.var(faded, $ns: text)};
     }
+    pointer-events: unset;
   }
 
   &::-webkit-details-marker {
@@ -65,12 +75,25 @@
   }
 
   input {
-    @include text.style($color: tertiary, $size: 11px, $weight: 700);
+    @include text.style($color: tertiary, $size: 14px, $weight: 700);
     background-color: transparent;
     flex-grow: 1;
     outline: none;
     padding: 0;
+    pointer-events: all;
     transform: translateY(-1px);
+
+    @include media.ipad(min) {
+      @include text.style($color: tertiary, $size: 11px, $weight: 700);
+    }
+  }
+}
+
+.SupplementaryComponent details[open] summary {
+  margin-block-end: 8px;
+
+  @include media.ipad(min) {
+    margin-block-end: 4px;
   }
 }
 
