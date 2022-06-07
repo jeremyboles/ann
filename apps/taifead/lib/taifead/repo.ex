@@ -1,5 +1,3 @@
 defmodule Taifead.Repo do
-  use Ecto.Repo,
-    otp_app: :taifead,
-    adapter: Ecto.Adapters.Postgres
+  use Ecto.Repo, adapter: Ecto.Adapters.Postgres, otp_app: :taifead
 end

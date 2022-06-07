@@ -24,7 +24,10 @@ defmodule Taifead.Wiki do
     query =
       from(a in Article,
         where: a.url_slug == ^slug and a.visibility == :published,
-        preload: [revisions: ^from(r in ArticleRevision, order_by: [asc: r.updated_at])]
+        preload: [
+          revisions: ^from(r in ArticleRevision, order_by: [asc: r.updated_at]),
+          supplemental_groups: [:links, :terms]
+        ]
       )
 
     Repo.one!(query)
@@ -50,7 +53,7 @@ defmodule Taifead.Wiki do
         article
         |> Ecto.build_assoc(:revisions)
         |> ArticleRevision.changeset(revision_attrs)
-        |> Ecto.Changeset.put_change(:changes, changeset.changes)
+        |> Ecto.Changeset.put_change(:changeset, changeset)
         |> Ecto.Changeset.put_change(:content_html, article.content_html)
         |> Ecto.Changeset.put_change(:doc, article.doc)
       end)
@@ -64,18 +67,16 @@ defmodule Taifead.Wiki do
   def update_article(%Article{} = article, article_attrs, %{"overwrite" => _} = revision_attrs) do
     changeset = Article.changeset(article, article_attrs)
 
-    IO.inspect(changeset)
-
     result =
       Ecto.Multi.new()
       |> Ecto.Multi.update(:article, changeset)
       |> Ecto.Multi.update(:revision, fn %{article: article} ->
         latest = latest_revision(article)
-        changes = Map.merge(latest.changes, stringify_keys(changeset.changes))
+        changes = Map.merge(latest.changeset, stringify_keys(changeset))
 
         latest
         |> ArticleRevision.changeset(revision_attrs)
-        |> Ecto.Changeset.put_change(:changes, changes)
+        |> Ecto.Changeset.put_change(:changeset, changes)
         |> Ecto.Changeset.put_change(:content_html, article.content_html)
         |> Ecto.Changeset.put_change(:doc, article.doc)
       end)
@@ -88,6 +89,7 @@ defmodule Taifead.Wiki do
 
   def update_article(%Article{} = article, article_attrs, revision_attrs) do
     changeset = Article.changeset(article, article_attrs)
+    IO.inspect(changeset, label: "CREATE")
 
     result =
       Ecto.Multi.new()
@@ -96,7 +98,7 @@ defmodule Taifead.Wiki do
         article
         |> Ecto.build_assoc(:revisions)
         |> ArticleRevision.changeset(revision_attrs)
-        |> Ecto.Changeset.put_change(:changes, changeset.changes)
+        |> Ecto.Changeset.put_change(:changeset, changeset)
         |> Ecto.Changeset.put_change(:content_html, article.content_html)
         |> Ecto.Changeset.put_change(:doc, article.doc)
       end)

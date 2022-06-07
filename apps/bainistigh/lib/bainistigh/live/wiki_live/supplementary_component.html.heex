@@ -1,31 +1,42 @@
 <section class="SupplementaryComponent">
-  <details class="link" open>
-    <summary>
-      <input form="none" id="link-title" phx-hook="StopSpacebarBubbling" placeholder="e.g. External Links" type="text" value="External Links" />
-      <button form="none">Delete</button>
-    </summary>
-    
-    <fieldset>
-      <input form="none" name="title" placeholder="Link Title" type="text" />
-      <input form="none" name="url" placeholder="https://" type="url" />
-      <textarea form="none" id="link-description" name="description" phx-hook="Autogrow" placeholder="Description" rows="1"></textarea>
-    </fieldset>
-  </details>
-  
-  <details class="glossary" open>
-    <summary>
-      <input form="none" id="glossary-title" phx-hook="StopSpacebarBubbling" placeholder="e.g. Glossary of Terms" type="text" value="Glossary of Terms" />
-      <button form="none">Delete</button>
-    </summary>
-    
-    <fieldset>
-      <input form="none" name="term" placeholder="Term" type="text" />
-      <textarea form="none" id="glossary-description" name="definition" phx-hook="Autogrow" placeholder="Definition" rows="1"></textarea>
-    </fieldset>
-  </details>
+  <div id="supplementary-data" >
+    <%= for f <- inputs_for(@form, :supplemental_groups) do %>
+      <%= hidden_input f, :id %>
+      <%= hidden_input f, :kind %>
+      
+      <details class={input_value(f, :kind)} id={input_id(f, :id, input_value(f, :id))} open>
+        <summary>
+          <%= text_input f, :title, phx_debounce: "blur", phx_hook: "StopSpacebarBubbling", placeholder: placeholder(f) %>
+          <button form="none">Delete</button>
+        </summary>
+        
+        <%= case input_value(f, :kind) do %>
+          <% :glossary -> %>
+            <%= for t <- inputs_for(f, :terms) do %>
+              <%= hidden_input t, :id %>
+              
+              <fieldset>
+                <%= text_input t, :term, phx_debounce: "blur", placeholder: "Term" %>
+                <%= textarea t, :definition, phx_debounce: "blur", phx_hook: "Autogrow", placeholder: "Definition", rows: 1 %>
+              </fieldset>
+            <% end %>
+          <% :links -> %>
+            <%= for l <- inputs_for(f, :links) do %>
+              <%= hidden_input l, :id %>
+              
+              <fieldset>
+                <%= text_input l, :title, phx_debounce: "blur", placeholder: "Link Title" %>
+                <%= url_input l, :url, phx_debounce: "blur", placeholder: "https://" %>
+                <%= textarea l, :description, phx_debounce: "blur", phx_hook: "Autogrow", placeholder: "Description", rows: 1 %>
+              </fieldset>
+            <% end %>
+        <% end %>
+      </details>
+    <% end %>
+  </div>
   
   <footer>
-    <button type="button">Add Links</button>
-    <button type="button">Add Glossary</button>
+    <button phx-click="add-group" phx-value-kind="links" type="button">Add Links</button>
+    <button phx-click="add-group" phx-value-kind="glossary" type="button">Add Glossary</button>
   </footer>
 </section>

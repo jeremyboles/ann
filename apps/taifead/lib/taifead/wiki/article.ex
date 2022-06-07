@@ -10,6 +10,9 @@ defmodule Taifead.Wiki.Article do
   @timestamps_opts [type: :utc_datetime_usec]
 
   schema "articles" do
+    has_many :revisions, Taifead.Wiki.ArticleRevision
+    has_many :supplemental_groups, Taifead.Supplemental.Group
+
     field(:content_html, :string)
     field(:content_text, :string)
     field(:doc, :map)
@@ -21,8 +24,6 @@ defmodule Taifead.Wiki.Article do
     field(:url_slug, :string)
     field(:visibility, Ecto.Enum, default: :private, values: [:private, :published])
 
-    has_many(:revisions, Taifead.Wiki.ArticleRevision)
-
     timestamps()
   end
 
@@ -32,6 +33,7 @@ defmodule Taifead.Wiki.Article do
     |> cast(attrs, [:path, :short_title, :tags, :url_slug, :visibility])
     |> cast_doc(attrs)
     |> cast_assoc(:revisions)
+    |> cast_assoc(:supplemental_groups)
     |> extract_from_doc()
     |> cast_url_slug(article)
     |> unique_constraint(:url_slug)

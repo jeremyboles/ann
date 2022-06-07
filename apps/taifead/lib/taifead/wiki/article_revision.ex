@@ -10,7 +10,7 @@ defmodule Taifead.Wiki.ArticleRevision do
   schema "article_revisions" do
     belongs_to :article, Taifead.Wiki.Article
 
-    field :changes, :map
+    field :changeset, :map
     field(:content_html, :string)
     field :coords, Geo.PostGIS.Geometry
     field(:doc, :map)
@@ -23,7 +23,7 @@ defmodule Taifead.Wiki.ArticleRevision do
   @doc false
   def changeset(article_revision, attrs) do
     article_revision
-    |> cast(attrs, [:changes, :note])
+    |> cast(attrs, [:changeset, :note])
     |> cast_mapkit_response(attrs)
     |> cast_coords(attrs)
   end

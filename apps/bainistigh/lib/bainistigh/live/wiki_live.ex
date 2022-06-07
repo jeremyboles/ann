@@ -6,6 +6,24 @@ defmodule Bainistigh.WikiLive do
 
   alias Taifead.Wiki
 
+  def handle_event("add-group", %{"kind" => "glossary"}, socket) do
+    term = %{definition: "", term: ""}
+    group = %{kind: :glossary, terms: [term], title: "Glossary of Terms"}
+    groups = [group | Ecto.Changeset.fetch_field!(socket.assigns.changeset, :supplemental_groups)]
+    changeset = Ecto.Changeset.put_assoc(socket.assigns.changeset, :supplemental_groups, groups)
+
+    {:noreply, assign(socket, :changeset, changeset)}
+  end
+
+  def handle_event("add-group", %{"kind" => "links"}, socket) do
+    link = %{title: "Jeremy Boles", url: "https://jeremyboles.com/"}
+    group = %{kind: :links, links: [link], title: "External Links"}
+    groups = [group | Ecto.Changeset.fetch_field!(socket.assigns.changeset, :supplemental_groups)]
+    changeset = Ecto.Changeset.put_assoc(socket.assigns.changeset, :supplemental_groups, groups)
+
+    {:noreply, assign(socket, :changeset, changeset)}
+  end
+
   def handle_event("save", %{"_delete" => id}, socket) do
     case socket.assigns.article do
       %Wiki.Article{id: ^id} = article ->
@@ -49,7 +67,10 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_params(%{"id" => id}, _url, socket) do
-    article = Wiki.get_article!(id) |> Taifead.Repo.preload(:revisions)
+    article =
+      Wiki.get_article!(id)
+      |> Taifead.Repo.preload([:revisions, supplemental_groups: [:links, :terms]])
+
     {:noreply, assign_article(socket, article)}
   end
 
