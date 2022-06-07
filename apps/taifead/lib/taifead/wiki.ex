@@ -72,7 +72,7 @@ defmodule Taifead.Wiki do
       |> Ecto.Multi.update(:article, changeset)
       |> Ecto.Multi.update(:revision, fn %{article: article} ->
         latest = latest_revision(article)
-        changes = Map.merge(latest.changeset, stringify_keys(changeset))
+        changes = merge(latest.changeset, stringify_keys(changeset))
 
         latest
         |> ArticleRevision.changeset(revision_attrs)
@@ -118,6 +118,11 @@ defmodule Taifead.Wiki do
 
     Repo.one!(query)
   end
+
+  defp merge(left, right), do: Map.merge(left, right, &resolve/3)
+
+  defp resolve(_key, %{} = left, %{} = right), do: merge(left, right)
+  defp resolve(_key, _left, right), do: right
 
   defp stringify_keys(data), do: data |> Jason.encode!() |> Jason.decode!()
 end

@@ -16,7 +16,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_event("add-group", %{"kind" => "links"}, socket) do
-    link = %{title: "Jeremy Boles", url: "https://jeremyboles.com/"}
+    link = %{title: "", url: ""}
     group = %{kind: :links, links: [link], title: "External Links"}
     groups = [group | Ecto.Changeset.fetch_field!(socket.assigns.changeset, :supplemental_groups)]
     changeset = Ecto.Changeset.put_assoc(socket.assigns.changeset, :supplemental_groups, groups)
