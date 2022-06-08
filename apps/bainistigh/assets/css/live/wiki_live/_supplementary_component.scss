@@ -77,11 +77,11 @@
   input {
     @include text.style($color: tertiary, $size: 16px, $weight: 700);
     background-color: transparent;
+    display: block;
     flex-grow: 1;
     outline: none;
     padding: 0;
     pointer-events: all;
-    transform: translateY(-1px);
 
     @include media.ipad(min) {
       @include text.style($color: tertiary, $size: 11px, $weight: 700);
