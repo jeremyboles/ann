@@ -7,7 +7,7 @@
       <%= render "_content.html", article: @article, table_of_contents: false %>
       
       <%= render "_journal.html" %>
-      <%= render "_supplementary.html" %>
+      <%= render "_supplementary.html", article: @article %>
       <%= render "_essays.html" %>
       <%= render "_footer.html", article: @article %>
     </article>
