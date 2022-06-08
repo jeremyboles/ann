@@ -1,25 +1,27 @@
-<aside class="supplementary">
-  <%= for group <- @article.supplemental_groups do %>
-    <article>
-      <h3><%= group.title %></h3>
-      <%= case group.kind do %>
-        <% :glossary -> %>
-          <dl>
-            <%= for term <- group.terms do %>
-              <dt><%= term.term %></dt>
-              <dd><%= term.definition %></dd>
-            <% end %>
-          </dl>
-        <% :links -> %>
-          <ul>
-            <%= for link <- group.links do %>
-              <li>
-                <a href={link.url} rel="external noopener"><%= link.title %></a>
-                <%= if link.description do %>— <%= link.description %><% end %>
-              </li>
-            <% end %>
-          </ul>
-      <% end %>
-    </article>
-  <% end %>
-</aside>
+<%= if Enum.count(@article.supplemental_groups) > 0 do %>
+  <aside class="supplementary">
+    <%= for group <- @article.supplemental_groups do %>
+      <article>
+        <h3><%= group.title %></h3>
+        <%= case group.kind do %>
+          <% :glossary -> %>
+            <dl>
+              <%= for term <- group.terms do %>
+                <dt><%= term.term %></dt>
+                <dd><%= term.definition %></dd>
+              <% end %>
+            </dl>
+          <% :links -> %>
+            <ul>
+              <%= for link <- group.links do %>
+                <li>
+                  <a href={link.url} rel="external noopener"><%= link.title %></a>
+                  <%= if link.description do %>— <%= link.description %><% end %>
+                </li>
+              <% end %>
+            </ul>
+        <% end %>
+      </article>
+    <% end %>
+  </aside>
+<% end %>
