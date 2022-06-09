@@ -24,6 +24,16 @@ defmodule Bainistigh.WikiLive do
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
+  def handle_event("add-to-group", %{"group-id" => id}, socket) do
+    IO.inspect(%{group_id: id}, label: "add-to-group")
+    {:noreply, socket}
+  end
+
+  def handle_event("remove-from-group", %{"group-id" => group_id, "id" => id}, socket) do
+    IO.inspect(%{group_id: group_id, id: id}, label: "remove-from-group")
+    {:noreply, socket}
+  end
+
   def handle_event("save", %{"_delete" => id}, socket) do
     case socket.assigns.article do
       %Wiki.Article{id: ^id} = article ->
@@ -45,6 +55,8 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_event("save", %{"article" => article_params, "revision" => revision_params}, socket) do
+    IO.inspect(article_params, label: "save")
+
     case save(socket.assigns.article, article_params, revision_params) do
       {:ok, article} ->
         socket =

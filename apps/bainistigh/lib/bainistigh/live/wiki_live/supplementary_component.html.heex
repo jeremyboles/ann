@@ -1,42 +1,43 @@
 <section class="SupplementaryComponent">
   <div id="supplementary-data" >
     <%= for f <- inputs_for(@form, :supplemental_groups) do %>      
-      <details class={input_value(f, :kind)} id={input_id(f, :id, input_value(f, :id))} open>
-        <%= hidden_input f, :id %>
-        <%= hidden_input f, :kind %>
-        <%= if Enum.member?(@marked_for_deletion, input_value(f, :id)) do %>
-          <%= hidden_input f, :_delete, value: "true" %>
-        <% end %>
-        
-        <summary>
-          <%= text_input f, :title, phx_debounce: "blur", phx_hook: "StopSpacebarBubbling", placeholder: placeholder(f) %>
-          <button phx-click="mark-group-for-deletion" phx-target={@myself} phx-value-id={input_value(f, :id)} title="Delete Group" type="button">
-            Delete
-          </button>
-        </summary>
-        
-        <%= case input_value(f, :kind) do %>
-          <% :glossary -> %>
-            <%= for t <- inputs_for(f, :terms) do %>
-              <%= hidden_input t, :id %>
-              
-              <fieldset>
-                <%= text_input t, :term, phx_debounce: "blur", placeholder: "Term" %>
-                <%= textarea t, :definition, phx_debounce: "blur", phx_hook: "Autogrow", placeholder: "Definition", rows: 1 %>
-              </fieldset>
-            <% end %>
-          <% :links -> %>
-            <%= for l <- inputs_for(f, :links) do %>
-              <%= hidden_input l, :id %>
-              
-              <fieldset>
-                <%= text_input l, :title, phx_debounce: "blur", placeholder: "Link Title" %>
-                <%= url_input l, :url, phx_debounce: "blur", placeholder: "https://" %>
-                <%= textarea l, :description, phx_debounce: "blur", phx_hook: "Autogrow", placeholder: "Description", rows: 1 %>
-              </fieldset>
-            <% end %>
-        <% end %>
-      </details>
+      <%= hidden_input f, :id %>
+  
+      <%= if Enum.member?(@marked_for_deletion, input_value(f, :id)) do %>
+        <%= hidden_input f, :_delete %>
+      <% else %>
+        <details class={input_value(f, :kind)} id={input_id(f, :id, input_value(f, :id))} open>
+          <%= hidden_input f, :kind %>
+          <summary>
+            <%= text_input f, :title, phx_debounce: "blur", phx_hook: "StopSpacebarBubbling", placeholder: placeholder(f) %>
+            <button phx-click="mark-group-for-deletion" phx-target={@myself} phx-value-id={input_value(f, :id)} title="Delete Group" type="button">
+              Delete
+            </button>
+          </summary>
+          
+          <%= case input_value(f, :kind) do %>
+            <% :glossary -> %>
+              <%= for t <- inputs_for(f, :terms) do %>
+                <%= hidden_input t, :id %>
+                
+                <fieldset id={input_id(t, :id, input_value(t, :id))} phx-hook="SupplementalInputs" phx-value-group-id={input_value(f, :id)} phx-value-id={input_value(t, :id)}>
+                  <%= text_input t, :term, phx_debounce: "blur", placeholder: "Term" %>
+                  <%= textarea t, :definition, phx_debounce: "blur", phx_hook: "Autogrow", placeholder: "Definition", rows: 1 %>
+                </fieldset>
+              <% end %>
+            <% :links -> %>
+              <%= for l <- inputs_for(f, :links) do %>
+                <%= hidden_input l, :id %>
+                
+                <fieldset id={input_id(l, :id, input_value(l, :id))} phx-hook="SupplementalInputs" phx-value-group-id={input_value(f, :id)} phx-value-id={input_value(l, :id)}>
+                  <%= text_input l, :title, phx_debounce: "blur", placeholder: "Link Title" %>
+                  <%= url_input l, :url, phx_debounce: "blur", placeholder: "https://" %>
+                  <%= textarea l, :description, phx_debounce: "blur", phx_hook: "Autogrow", placeholder: "Description", rows: 1 %>
+                </fieldset>
+              <% end %>
+          <% end %>
+        </details>
+      <% end %>
     <% end %>
   </div>
   

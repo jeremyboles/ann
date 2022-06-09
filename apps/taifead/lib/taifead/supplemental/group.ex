@@ -18,7 +18,7 @@ defmodule Taifead.Supplemental.Group do
     timestamps()
   end
 
-  def changeset(group, %{"_delete" => "true"}) do
+  def changeset(group, %{"_delete" => _}) do
     %{Ecto.Changeset.change(group, _delete: true) | action: :delete}
   end
 

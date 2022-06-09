@@ -89,7 +89,6 @@ defmodule Taifead.Wiki do
 
   def update_article(%Article{} = article, article_attrs, revision_attrs) do
     changeset = Article.changeset(article, article_attrs)
-    IO.inspect(changeset, label: "CREATE")
 
     result =
       Ecto.Multi.new()
