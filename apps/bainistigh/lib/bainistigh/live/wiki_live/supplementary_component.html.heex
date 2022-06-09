@@ -1,13 +1,18 @@
 <section class="SupplementaryComponent">
   <div id="supplementary-data" >
-    <%= for f <- inputs_for(@form, :supplemental_groups) do %>
-      <%= hidden_input f, :id %>
-      <%= hidden_input f, :kind %>
-      
+    <%= for f <- inputs_for(@form, :supplemental_groups) do %>      
       <details class={input_value(f, :kind)} id={input_id(f, :id, input_value(f, :id))} open>
+        <%= hidden_input f, :id %>
+        <%= hidden_input f, :kind %>
+        <%= if Enum.member?(@marked_for_deletion, input_value(f, :id)) do %>
+          <%= hidden_input f, :_delete, value: "true" %>
+        <% end %>
+        
         <summary>
           <%= text_input f, :title, phx_debounce: "blur", phx_hook: "StopSpacebarBubbling", placeholder: placeholder(f) %>
-          <button form="none">Delete</button>
+          <button phx-click="mark-group-for-deletion" phx-target={@myself} phx-value-id={input_value(f, :id)} title="Delete Group" type="button">
+            Delete
+          </button>
         </summary>
         
         <%= case input_value(f, :kind) do %>

@@ -11,13 +11,17 @@ defmodule Taifead.Supplemental.Group do
     has_many :links, Taifead.Supplemental.Link
     has_many :terms, Taifead.Supplemental.Term
 
-    field(:kind, Ecto.Enum, values: [:glossary, :links])
-    field(:title, :string)
+    field :kind, Ecto.Enum, values: [:glossary, :links]
+    field :title, :string
+    field :_delete, :boolean, virtual: true
 
     timestamps()
   end
 
-  @doc false
+  def changeset(group, %{"_delete" => "true"}) do
+    %{Ecto.Changeset.change(group, _delete: true) | action: :delete}
+  end
+
   def changeset(group, attrs) do
     group
     |> cast(attrs, [:kind, :title])

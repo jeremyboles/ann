@@ -51,6 +51,10 @@
   }
 }
 
+.SupplementaryComponent details:has(input[name*="_delete"]) {
+  display: none;
+}
+
 //
 // Group title
 // -----------------------------------------------------------------------------------------------
@@ -154,6 +158,10 @@
 .SupplementaryComponent details input {
   text-overflow: ellipsis;
 
+  &:first-of-type {
+    font-weight: 700;
+  }
+
   @include media.ipad(min) {
     &:has(+ input) {
       flex-basis: 40%;
@@ -199,10 +207,6 @@
         color: #{palette.yellow($lightness: 32%)};
       }
     }
-  }
-
-  fieldset input {
-    font-weight: 700;
   }
 
   ::placeholder {
