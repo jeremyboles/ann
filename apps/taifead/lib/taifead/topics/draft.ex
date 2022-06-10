@@ -33,6 +33,6 @@ defmodule Taifead.Topics.Draft do
   @doc false
   def changeset(draft, attrs) do
     draft
-    |> cast(attrs, [:path, :short_title, :tags, :url_slug])
+    |> cast(attrs, [:doc, :path, :short_title, :tags, :url_slug])
   end
 end

@@ -2,15 +2,15 @@ defmodule Bainistigh.WikiLive.EditorComponent do
   use Bainistigh, :live_component
 
   alias Taifead.Topics
-  alias Taifead.Topics.Draft
 
-  def update(assigns, socket) do
-    socket = socket |> assign(assigns) |> assign_draft() |> assign_changeset()
-    {:ok, socket}
+  def handle_event("update-doc", doc, %{assigns: %{draft: draft}} = socket) do
+    Topics.update_draft(draft, %{"doc" => doc})
+    {:noreply, socket}
   end
 
-  defp assign_draft(socket) do
-    socket |> assign(:draft, %Draft{})
+  def update(assigns, socket) do
+    socket = socket |> assign(assigns) |> assign_changeset()
+    {:ok, socket}
   end
 
   defp assign_changeset(%{assigns: %{draft: draft}} = socket) do
