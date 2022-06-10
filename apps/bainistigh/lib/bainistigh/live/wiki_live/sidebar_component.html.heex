@@ -9,18 +9,18 @@
   </ul>
   
   <.panel id="metadata" selected={@selected}>
-    <.live_component draft={@draft} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
+    <%= render_slot(@metadata) %>
   </.panel>
   
   <.panel id="supplementary" selected={@selected}>
-    <.live_component draft={@draft} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
+    <%= render_slot(@supplementary) %>
   </.panel>
   
   <.panel id="media" selected={@selected}>
-    <.live_component draft={@draft} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />
+    <%= render_slot(@media) %>
   </.panel>
   
   <.panel id="history" selected={@selected}>
-    <.live_component draft={@draft} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
+    <%= render_slot(@history) %>
   </.panel>
 </aside>

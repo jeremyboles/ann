@@ -20,6 +20,23 @@
   <article>
     <.live_component draft={@draft} id="wiki-breadcrumbs" module={Bainistigh.WikiLive.BreadcrumbsComponent} />
     <.live_component draft={@draft} id="wiki-editor" module={Bainistigh.WikiLive.EditorComponent} />
-    <.live_component draft={@draft} id="wiki-sidebar" module={Bainistigh.WikiLive.SidebarComponent} />
+    
+    <.live_component id="wiki-sidebar" module={Bainistigh.WikiLive.SidebarComponent}>
+      <:metadata>
+        <.live_component draft={@draft} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
+      </:metadata>
+      
+      <:supplementary>
+        <.live_component draft={@draft} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
+      </:supplementary>
+      
+      <:media>
+        <.live_component draft={@draft} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />
+      </:media>
+      
+      <:history>
+        <.live_component draft={@draft} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
+      </:history>
+    </.live_component>
   </article>
 </section> 
