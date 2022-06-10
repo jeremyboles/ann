@@ -1,6 +1,7 @@
 // -----------------------------------------------------------------------------------------------
 //
-// Combo Button Component
+// WikiLive Function Components
+// Display the title of the wiki article along with the type or style of article it is
 //
 // -----------------------------------------------------------------------------------------------
 
@@ -17,7 +18,40 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-.save_button {
+.Component__header {
+  display: flex;
+  flex-direction: column;
+}
+
+//
+// Article title
+// -----------------------------------------------------------------------------------------------
+
+.Component__header > h1 {
+  @include text.style($color: main, $size: 20px, $weight: 700);
+
+  @include media.mouse {
+    font-size: 16px;
+  }
+}
+
+//
+// Article type
+// -----------------------------------------------------------------------------------------------
+
+.Component__header > p {
+  @include text.style($color: quaternary, $size: 11px, $weight: 600);
+
+  @include media.finger {
+    display: none;
+  }
+}
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.Component__publish_button {
   align-items: center;
   display: flex;
   gap: 16px;
@@ -34,7 +68,7 @@
 // Main button
 // -----------------------------------------------------------------------------------------------
 
-.save_button > button {
+.Component__publish_button > button {
   @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
   appearance: none;
   background-color: transparent;
@@ -53,7 +87,7 @@
 // Toggle button
 // -----------------------------------------------------------------------------------------------
 
-.save_button > input[type="checkbox"] {
+.Component__publish_button > input[type="checkbox"] {
   @include icon.block(22px);
   @include icon.mask($url: "/images/fa/regular/circle-ellipsis.svg", $size: 22px);
   appearance: none;
@@ -96,7 +130,7 @@
 // Options
 // -----------------------------------------------------------------------------------------------
 
-.save_button > .options {
+.Component__publish_button > .options {
   @include border.all;
   @include box.bg(secondary);
   border-radius: 4px;
@@ -124,11 +158,11 @@
   }
 }
 
-.save_button > input[type="checkbox"]:checked ~ .options {
+.Component__publish_button > input[type="checkbox"]:checked ~ .options {
   display: block;
 }
 
-.save_button > .options button {
+.Component__publish_button > .options button {
   @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
   align-items: center;
   background-color: transparent;

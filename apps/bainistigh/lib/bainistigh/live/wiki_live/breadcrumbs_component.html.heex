@@ -4,8 +4,11 @@
       <%= for article <- @ancestors do %>
         <li><%= article.title_html %></li>
       <% end %>
-      <%= if @article do %>
-        <li><i><%= @article.title_html %></i></li>
+      
+      <%= if @draft do %>
+        <li><i><%= @draft.title_html %></i></li>
+      <% else %>
+        <li><i>No Title</i></li>
       <% end %>
     </ol>
   </nav>

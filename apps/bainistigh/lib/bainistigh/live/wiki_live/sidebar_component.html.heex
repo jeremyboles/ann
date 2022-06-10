@@ -2,33 +2,25 @@
   <input checked class="toggle" form="none" title="Toggle Sidebar" type="checkbox" />
   
   <ul class="tabs" id="sidebar-tabs" role="tablist">
-    <.tab id="metadata" myself={@myself} selected={@selected}>
-      Metadata
-    </.tab>
-    <.tab id="supplementary" myself={@myself} selected={@selected}>
-      Supplementary
-    </.tab>
-    <.tab id="media" myself={@myself} selected={@selected}>
-      Media
-    </.tab>
-    <.tab id="history" myself={@myself} selected={@selected}>
-      History
-    </.tab>
+    <.tab id="metadata" myself={@myself} selected={@selected}>Metadata</.tab>
+    <.tab id="supplementary" myself={@myself} selected={@selected}>Supplementary</.tab>
+    <.tab id="media" myself={@myself} selected={@selected}>Media</.tab>
+    <.tab id="history" myself={@myself} selected={@selected}>History</.tab>
   </ul>
   
   <.panel id="metadata" selected={@selected}>
-    <.live_component form={@form} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
+    <.live_component draft={@draft} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
   </.panel>
   
   <.panel id="supplementary" selected={@selected}>
-    <.live_component form={@form} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
+    <.live_component draft={@draft} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
   </.panel>
   
   <.panel id="media" selected={@selected}>
-    <.live_component form={@form} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />
+    <.live_component draft={@draft} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />
   </.panel>
   
   <.panel id="history" selected={@selected}>
-    <.live_component article={@article} form={@form} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
+    <.live_component draft={@draft} id="history-panel" module={Bainistigh.WikiLive.HistoryComponent} />
   </.panel>
 </aside>

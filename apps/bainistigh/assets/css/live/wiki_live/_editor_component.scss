@@ -18,7 +18,7 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-.editor {
+.EditorComponent {
   padding-block: 24px;
   padding-inline: 12px;
 
@@ -43,7 +43,7 @@
   }
 }
 
-section.wiki:has(.SidebarComponent > .toggle:not(:checked)) .editor {
+section.wiki:has(.SidebarComponent > .toggle:not(:checked)) .EditorComponent {
   @include media.ipad(min) {
     margin-inline-end: 0;
   }
@@ -53,7 +53,7 @@ section.wiki:has(.SidebarComponent > .toggle:not(:checked)) .editor {
 // WYSIWYG
 // -----------------------------------------------------------------------------------------------
 
-.editor [contenteditable="true"] {
+.EditorComponent [contenteditable="true"] {
   @include text.style(serif, $color: secondary, $size: 24px, $weight: 300);
   inline-size: 100%;
   max-inline-size: 72ch;

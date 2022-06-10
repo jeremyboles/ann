@@ -1,15 +1,20 @@
 defmodule Bainistigh.WikiLive.MetadataComponent do
   use Bainistigh, :live_component
 
-  def render(assigns) do
-    ~H"""
-    <section class="MetadataComponent">
-      <.topic_attributes form={@form} />
-      <.location_input form={@form} />
-      
-      <.live_component form={@form} id="wiki-tags" module={Bainistigh.WikiLive.TagsComponent} />
-    </section>
-    """
+  alias Taifead.Topics
+  alias Taifead.Topics.Draft
+
+  def update(assigns, socket) do
+    socket = socket |> assign(assigns) |> assign_draft() |> assign_changeset()
+    {:ok, socket}
+  end
+
+  defp assign_draft(socket) do
+    socket |> assign(:draft, %Draft{})
+  end
+
+  defp assign_changeset(%{assigns: %{draft: draft}} = socket) do
+    socket |> assign(:changeset, Topics.change_draft(draft))
   end
 
   def location_input(assigns) do

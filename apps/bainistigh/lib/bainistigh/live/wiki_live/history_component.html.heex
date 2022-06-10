@@ -8,11 +8,14 @@
         </tr>
       </thead>
       <tbody>
-        <%= if @article do %>
-          <%= for revision <- @article.revisions do %>
-          <tr aria-selected={if @selected && @selected.id == revision.id, do: "true"} phx-click="select" phx-target={@myself} phx-value-id={revision.id}>
-              <td><%= Date.to_string(revision.updated_at) %></td>
-              <td><%= location revision %></td>
+        <%= if @draft do %>
+          <%= for publication <- @draft.publications do %>
+          <tr aria-selected={if @selected && @selected.id == publication.id, do: "true"} phx-click="select" phx-target={@myself} phx-value-id={publication.id}>
+              <td><%= Date.to_string(publication.updated_at) %></td>
+              <td>
+                <%# location publication #%>
+                Springfield, MO
+              </td>
             </tr>
           <% end %>
         <% else %>

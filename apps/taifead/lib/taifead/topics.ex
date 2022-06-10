@@ -4,9 +4,10 @@ defmodule Taifead.Topics do
   """
 
   import Ecto.Query, warn: false
-  alias Taifead.Repo
 
+  alias Taifead.Repo
   alias Taifead.Topics.Draft
+  alias Taifead.Topics.Publication
 
   @doc """
   Returns the list of topic_drafts.
@@ -101,8 +102,6 @@ defmodule Taifead.Topics do
   def change_draft(%Draft{} = draft, attrs \\ %{}) do
     Draft.changeset(draft, attrs)
   end
-
-  alias Taifead.Topics.Publication
 
   @doc """
   Returns the list of topic_publications.
