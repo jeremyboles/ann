@@ -22,7 +22,7 @@ defmodule Taifead.Topics do
   def list_drafts, do: Repo.all(Draft)
 
   def latest_draft do
-    Repo.one(from d in Draft, order_by: [desc: d.updated_at])
+    Repo.one(from d in Draft, limit: 1, order_by: [desc: d.updated_at])
   end
 
   def subscribe do

@@ -34,5 +34,13 @@ defmodule Taifead.Topics.Draft do
   def changeset(draft, attrs) do
     draft
     |> cast(attrs, [:doc, :path, :short_title, :tags, :url_slug])
+    |> extract_from_doc()
   end
+
+  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do
+    {:ok, data} = Reathai.call(Taifead.Reathai, ["wiki", [doc]])
+    cast(changeset, data, [:content_html, :content_text, :title_html, :title_text])
+  end
+
+  defp extract_from_doc(changeset), do: changeset
 end
