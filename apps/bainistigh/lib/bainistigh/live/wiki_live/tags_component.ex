@@ -17,8 +17,7 @@ defmodule Bainistigh.WikiLive.TagsComponent do
   end
 
   def update(assigns, socket) do
-    tags = Phoenix.HTML.Form.input_value(assigns.form, :tags)
-    socket = socket |> assign(assigns) |> assign(focused_index: nil, tags: tags)
+    socket = socket |> assign(assigns) |> assign(focused_index: nil, tags: [])
     {:ok, socket}
   end
 end

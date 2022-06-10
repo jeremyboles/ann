@@ -1,8 +1,43 @@
 <section class="MetadataComponent">
-  <.form for={@changeset} let={f}>
-    <.topic_attributes form={f} />
-    <.location_input form={f} />
+  <details class="topic_attributes" open>
+    <summary>Topic Attributes</summary>
+  
+    <.form for={@changeset} let={f} phx-change="update"  phx-target={@myself}>
+      <fieldset>
+        <%= text_input f, :url_slug, phx_debounce: "blur", placeholder: "custom-slug" %>
+        <%= label f, :url_slug do %>
+          <abbr title="Uniform Resource Locator">URL</abbr> Slug
+        <% end %>
     
-    <.live_component form={f} id="wiki-tags" module={Bainistigh.WikiLive.TagsComponent} />
-  </.form>
+        <%= text_input f, :short_title, phx_debounce: "blur", placeholder: " " %>
+        <%= label f, :short_title, "Shortened Title" %>
+    
+        <%= parent_select f, :path, @catalog, phx_debounce: "blur", prompt: [key: ""] %>
+        <%= label f, :path, "Parent Topic" %>
+      </fieldset>
+    </.form>
+  </details>
+  
+  <details class="location_input" open>
+    <summary>
+      <span>Location</span>
+      <button class="location-off" type="button">Location Off</button>
+    </summary>
+  
+    <div class="map" id="location-map" phx-update="ignore">
+      <div
+        data-coords-input={input_id(:revision, :coords)}
+        data-mapkit-response-input={input_id(:revision, :mapkit_response)}
+        id="wiki-map"
+        phx-hook="LocationPicker"
+        phx-update="ignore"
+      >
+      </div>
+  
+      <%= hidden_input(:revision, :coords) %>
+      <%= hidden_input(:revision, :mapkit_response) %>
+    </div>
+  </details>
+  
+  <.live_component id="wiki-tags" module={Bainistigh.WikiLive.TagsComponent} />
 </section>

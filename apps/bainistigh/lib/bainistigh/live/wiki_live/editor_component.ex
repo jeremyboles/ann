@@ -4,7 +4,7 @@ defmodule Bainistigh.WikiLive.EditorComponent do
   alias Taifead.Topics
 
   def handle_event("update-doc", doc, %{assigns: %{draft: draft}} = socket) do
-    Topics.update_draft(draft, %{"doc" => doc})
+    {:ok, _draft} = Topics.update_draft(draft, %{"doc" => doc})
     {:noreply, socket}
   end
 

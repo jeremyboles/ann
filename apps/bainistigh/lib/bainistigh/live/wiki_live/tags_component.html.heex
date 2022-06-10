@@ -11,8 +11,8 @@
       <li>
         <input
           autocomplete="off"
-          name={"#{input_name(@form, :tags)}[]"}
-          id={input_id(@form, :tags, index)}
+          name={"#{input_name(:draft, :tags)}[]"}
+          id={input_id(:draft, :tags, index)}
           phx-focus="input-focus"
           phx-target={@myself}
           phx-value-index={index}
