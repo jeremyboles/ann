@@ -1,0 +1,31 @@
+<aside class="CatalogComponent">
+  <div class="search">
+    <input placeholder="Search Wiki Articles" type="search" />
+  </div>
+  
+  <ul class="tabs">
+    <li class="selected">All</li>
+    <li>New</li>
+    <li>Recent</li>
+  </ul>
+  
+  <div class="list">
+    <div class="new_article_button">
+      <label>
+        <span>New Article</span>
+        <input form="none" type="checkbox" />
+      </label>
+      
+      <div class="options">
+        <button accesskey="w" phx-click="create-draft" phx-target={@myself} type="button">Wiki-Style Topic</button>
+        <button accesskey="r" disabled type="button">Recipe-Style Topic</button>
+      </div>
+    </div>
+    
+    <ul>
+      <%= for draft <- children_of(@catalog) do %>
+        <.list_item catalog={@catalog} current={@current} draft={draft} />
+      <% end %>
+    </ul>
+  </div>
+</aside>

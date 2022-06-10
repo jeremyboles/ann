@@ -12,6 +12,7 @@ defmodule Taifead.Repo.Migrations.AddTopicDraftsAndPublications do
     create index(:topic_drafts, [:path], using: "GIST")
     create index(:topic_drafts, [:status])
     create index(:topic_drafts, [:tags], using: "GIN")
+    create index(:topic_drafts, ["updated_at DESC"])
 
     create table(:topic_publications, options: "INHERITS (topics)", primary_key: false) do
       add :draft_id, references(:topic_drafts, on_delete: :delete_all), null: false

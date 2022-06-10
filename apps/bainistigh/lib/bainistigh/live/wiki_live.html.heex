@@ -3,7 +3,7 @@
     <.header_button />
     
     <Component.header type="Wiki-Style Topic">
-      <%= if @draft != nil and @article.title_html do %>
+      <%= if @draft != nil and @draft.title_html do %>
         <%= raw @draft.title_html %>
       <% else %>
         <i>No Title</i>
@@ -15,7 +15,8 @@
     </:controls>
   </.section_header>    
   
-  <.live_component current={@draft} id="wiki-catalog" module={Bainistigh.WikiLive.CatalogComponent} />
+  <.live_component catalog={@catalog} current={@draft} id="wiki-catalog" module={Bainistigh.WikiLive.CatalogComponent} />
+  
   <article>
     <.live_component draft={@draft} id="wiki-breadcrumbs" module={Bainistigh.WikiLive.BreadcrumbsComponent} />
     <.live_component draft={@draft} id="wiki-editor" module={Bainistigh.WikiLive.EditorComponent} />
