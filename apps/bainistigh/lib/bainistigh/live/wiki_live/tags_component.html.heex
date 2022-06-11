@@ -6,20 +6,21 @@
     </button>
   </summary>
 
-  <ul id="wiki-tags" phx-hook="TagList">
-    <%= for {tag, index} <- Enum.with_index(@tags) do %>
-      <li>
-        <input
-          autocomplete="off"
-          name={"#{input_name(:draft, :tags)}[]"}
-          id={input_id(:draft, :tags, index)}
-          phx-focus="input-focus"
-          phx-target={@myself}
-          phx-value-index={index}
-          type="text"
-          value={tag}
-        />
-      </li>
-    <% end %>
-  </ul>
+  <.form for={@changeset} let={f} phx-change="update" phx-target={@myself}>
+    <ul id="wiki-tags" phx-hook="TagList">
+      <%= for {tag, index} <- input_value(f, :tags) |> Enum.with_index() do %>
+        <li id={"#{input_id(f, :tags, index)}-index"}>
+          <input
+            autocomplete="off"
+            name={"#{input_name(f, :tags)}[]"}
+            id={input_id(f, :tags, index)}
+            phx-debounce="blur"
+            phx-target={@myself}
+            type="text"
+            value={tag}
+          />
+        </li>
+      <% end %>
+    </ul>
+  </.form>
 </details>
