@@ -35,6 +35,6 @@ defmodule Taifead.Topics.Publication do
   def changeset(publication, attrs) do
     publication
     |> cast(attrs, [:path, :short_title, :tags, :url_slug])
-    |> validate_required([:doc])
+    |> validate_required([:content_html, :content_text, :title_html, :title_text, :url_slug])
   end
 end

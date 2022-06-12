@@ -13,7 +13,7 @@ defmodule Taifead.Topics.Draft do
   schema "topic_drafts" do
     # Draft-specific fields
     has_many :publications, Taifead.Topics.Publication
-    field :status, Ecto.Enum, default: :changed, values: [:changed, :bulk]
+    field :status, Ecto.Enum, default: :changed, values: [:changed, :live]
 
     # Common fields shared with Taifead.Topics.Publication from the `topics` table
     embeds_many :appendices, Taifead.Topics.Appendix, on_replace: :delete
@@ -33,7 +33,7 @@ defmodule Taifead.Topics.Draft do
   @doc false
   def changeset(draft, attrs) do
     draft
-    |> cast(attrs, [:doc, :path, :short_title, :tags, :url_slug])
+    |> cast(attrs, [:doc, :path, :short_title, :status, :tags, :url_slug])
     |> cast_embed(:appendices)
     |> extract_from_doc()
   end

@@ -1,7 +1,7 @@
 defmodule Taifead.Topics do
   import Ecto.Query, warn: false
 
-  import Ecto.Changeset, only: [put_embed: 3]
+  import Ecto.Changeset, only: [put_change: 3, put_embed: 3]
 
   alias Taifead.Repo
   alias Taifead.Topics.{Appendix, Draft, Link, Publication, Term}
@@ -24,14 +24,14 @@ defmodule Taifead.Topics do
     terms = appendix.terms ++ [%Term{definition: "", title: ""}]
     appendix = appendix |> Appendix.changeset(%{}) |> put_embed(:terms, terms)
     changeset = appendices |> replace_when(&(&1.id == id), appendix)
-    draft |> change_draft() |> put_embed(:appendices, changeset) |> Repo.update() |> broadcast(:draft_updated)
+    draft |> change_draft() |> put_embed(:appendices, changeset) |> put_change(:status, :changed) |> Repo.update() |> broadcast(:draft_updated)
   end
 
   def add_to_appendix(%Draft{appendices: appendices} = draft, %Appendix{id: id, kind: :links} = appendix) do
     links = appendix.links ++ [%Link{title: "", url: ""}]
     appendix = appendix |> Appendix.changeset(%{}) |> put_embed(:links, links)
     changeset = appendices |> replace_when(&(&1.id == id), appendix)
-    draft |> change_draft() |> put_embed(:appendices, changeset) |> Repo.update() |> broadcast(:draft_updated)
+    draft |> change_draft() |> put_embed(:appendices, changeset) |> put_change(:status, :changed) |> Repo.update() |> broadcast(:draft_updated)
   end
 
   def add_to_appendix(%Draft{appendices: appendices} = draft, id) do
@@ -58,6 +58,18 @@ defmodule Taifead.Topics do
     Repo.one(from d in Draft, limit: 1, order_by: [desc: d.updated_at])
   end
 
+  def publish(%Draft{} = draft, attrs \\ %{}) do
+    attributes = draft |> Map.from_struct() |> Map.merge(attrs) |> Map.delete(:id)
+    publication_changeset = Ecto.build_assoc(draft, :publications, attributes)
+    draft_changeset = change_draft(draft) |> put_change(:status, :live)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:publication, publication_changeset)
+    |> Ecto.Multi.update(:draft, draft_changeset)
+    |> Repo.transaction()
+    |> broadcast(:draft_updated)
+  end
+
   def remove_appendix(%Draft{appendices: appendices} = draft, id) do
     draft |> change_draft() |> put_embed(:appendices, Enum.filter(appendices, &(&1.id != id))) |> Repo.update() |> broadcast(:draft_updated)
   end
@@ -66,14 +78,14 @@ defmodule Taifead.Topics do
     terms = Enum.filter(appendix.terms, &(&1.id != id))
     appendix = appendix |> Appendix.changeset(%{}) |> put_embed(:terms, terms)
     changeset = appendices |> replace_when(&(&1.id == appendix_id), appendix)
-    draft |> change_draft() |> put_embed(:appendices, changeset) |> Repo.update() |> broadcast(:draft_updated)
+    draft |> change_draft() |> put_embed(:appendices, changeset) |> put_change(:status, :changed) |> Repo.update() |> broadcast(:draft_updated)
   end
 
   def remove_from_appendix(%Draft{appendices: appendices} = draft, %Appendix{id: appendix_id, kind: :links} = appendix, id) do
     links = Enum.filter(appendix.links, &(&1.id != id))
     appendix = appendix |> Appendix.changeset(%{}) |> put_embed(:links, links)
     changeset = appendices |> replace_when(&(&1.id == appendix_id), appendix)
-    draft |> change_draft() |> put_embed(:appendices, changeset) |> Repo.update() |> broadcast(:draft_updated)
+    draft |> change_draft() |> put_embed(:appendices, changeset) |> put_change(:status, :changed) |> Repo.update() |> broadcast(:draft_updated)
   end
 
   def remove_from_appendix(%Draft{appendices: appendices} = draft, appendix_id, id) do
@@ -81,15 +93,20 @@ defmodule Taifead.Topics do
   end
 
   def subscribe do
-    Phoenix.PubSub.subscribe(Taifead.PubSub, "topic_drafts")
+    Phoenix.PubSub.subscribe(Taifead.PubSub, "topics")
   end
 
   def update_draft(%Draft{} = draft, attrs) do
-    draft |> Draft.changeset(attrs) |> Repo.update() |> broadcast(:draft_updated)
+    draft |> Draft.changeset(attrs) |> put_change(:status, :changed) |> Repo.update() |> broadcast(:draft_updated)
+  end
+
+  defp broadcast({:ok, %{draft: draft, publication: publication}}, event) do
+    Phoenix.PubSub.broadcast(Taifead.PubSub, "topics", {event, draft})
+    {:ok, publication}
   end
 
   defp broadcast({:ok, draft}, event) do
-    Phoenix.PubSub.broadcast(Taifead.PubSub, "topic_drafts", {event, draft})
+    Phoenix.PubSub.broadcast(Taifead.PubSub, "topics", {event, draft})
     {:ok, draft}
   end
 

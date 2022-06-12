@@ -8,6 +8,11 @@ defmodule Bainistigh.WikiLive do
   alias Taifead.Topics
   alias Taifead.Topics.Draft
 
+  def handle_event("publish", _params, %{assigns: %{draft: draft}} = socket) do
+    {:ok, _draft} = Topics.publish(draft)
+    {:noreply, socket}
+  end
+
   def handle_info({:draft_created, draft}, socket) do
     socket = update(socket, :catalog, fn catalog -> [draft | catalog] end)
     {:noreply, socket}
