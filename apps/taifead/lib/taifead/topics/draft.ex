@@ -16,7 +16,7 @@ defmodule Taifead.Topics.Draft do
     field :status, Ecto.Enum, default: :changed, values: [:changed, :bulk]
 
     # Common fields shared with Taifead.Topics.Publication from the `topics` table
-    embeds_many :appendices, Taifead.Topics.Appendix
+    embeds_many :appendices, Taifead.Topics.Appendix, on_replace: :delete
     field :content_html, :string
     field :content_text, :string
     field :doc, :map
@@ -34,6 +34,7 @@ defmodule Taifead.Topics.Draft do
   def changeset(draft, attrs) do
     draft
     |> cast(attrs, [:doc, :path, :short_title, :tags, :url_slug])
+    |> cast_embed(:appendices)
     |> extract_from_doc()
   end
 

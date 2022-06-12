@@ -2,10 +2,36 @@ defmodule Bainistigh.WikiLive.SupplementaryComponent do
   use Bainistigh, :live_component
 
   alias Taifead.Topics
-  alias Taifead.Topics.Draft
 
-  def handle_event("mark-group-for-deletion", %{"id" => id}, socket) do
-    socket = assign(socket, :marked_for_deletion, [id | socket.assigns.marked_for_deletion])
+  def handle_event("add-appendix", %{"kind" => "glossary"}, %{assigns: %{draft: draft}} = socket) do
+    {:ok, _draft} = Topics.add_appendix(draft, :glossary)
+    {:noreply, socket}
+  end
+
+  def handle_event("add-appendix", %{"kind" => "links"}, %{assigns: %{draft: draft}} = socket) do
+    {:ok, _draft} = Topics.add_appendix(draft, :links)
+    {:noreply, socket}
+  end
+
+  def handle_event("add-to-appendix", %{"appendix-id" => id}, socket) do
+    {:ok, _draft} = Topics.add_to_appendix(socket.assigns.draft, id)
+    {:noreply, socket}
+  end
+
+  def handle_event("remove-from-appendix", %{"appendix-id" => appendix_id, "id" => id}, socket) do
+    IO.inspect("Appendix")
+    IO.inspect(%{appendix_id: appendix_id, id: id}, label: "remove-from-appendix")
+    {:ok, _draft} = Topics.remove_from_appendix(socket.assigns.draft, appendix_id, id)
+    {:noreply, socket}
+  end
+
+  def handle_event("remove-appendix", %{"id" => id}, %{assigns: %{draft: draft}} = socket) do
+    {:ok, _draft} = Topics.remove_appendix(draft, id)
+    {:noreply, socket}
+  end
+
+  def handle_event("update", %{"draft" => params}, %{assigns: %{draft: draft}} = socket) do
+    {:ok, _draft} = Topics.update_draft(draft, params)
     {:noreply, socket}
   end
 
@@ -14,12 +40,8 @@ defmodule Bainistigh.WikiLive.SupplementaryComponent do
   end
 
   def update(assigns, socket) do
-    socket = socket |> assign(assigns) |> assign_draft() |> assign_changeset()
+    socket = socket |> assign(assigns) |> assign_changeset()
     {:ok, socket}
-  end
-
-  defp assign_draft(socket) do
-    socket |> assign(:draft, %Draft{})
   end
 
   defp assign_changeset(%{assigns: %{draft: draft}} = socket) do

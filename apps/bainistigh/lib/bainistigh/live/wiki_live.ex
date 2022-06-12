@@ -15,6 +15,7 @@ defmodule Bainistigh.WikiLive do
 
   def handle_info({:draft_updated, %Draft{id: id} = draft}, socket) do
     socket = update(socket, :catalog, fn c -> replace_when(c, &(&1.id == id), draft) end)
+    socket = if socket.assigns.draft.id == id, do: assign(socket, :draft, draft)
     {:noreply, socket}
   end
 

@@ -27,7 +27,6 @@ defmodule Bainistigh.WikiLive.TagsComponent do
   end
 
   def update(assigns, socket) do
-    IO.inspect("UPDATE")
     socket = socket |> assign(assigns) |> assign(index: nil) |> assign_changeset()
     {:ok, socket}
   end

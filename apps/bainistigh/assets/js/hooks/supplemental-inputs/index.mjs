@@ -12,7 +12,8 @@ export function mounted() {
     if (event.key === "Enter") {
       event.preventDefault()
       if (event.shiftKey) {
-        this.pushEvent("add-to-group", { "group-id": this.el.getAttribute("phx-value-group-id") })
+        const params = { "appendix-id": this.el.getAttribute("phx-value-appendix-id") }
+        this.pushEventTo(this.el.form, "add-to-appendix", params)
       } else {
         if (event.currentTarget.nextElementSibling === null) {
           event.currentTarget.blur()
@@ -27,7 +28,8 @@ export function mounted() {
     } else if (event.key === "Backspace" && (event.shiftKey || event.currentTarget.value === "")) {
       event.preventDefault()
       if (event.currentTarget.previousElementSibling === null) {
-        this.pushEvent("remove-from-group", { "group-id": this.el.getAttribute("phx-value-group-id"), id: this.el.getAttribute("phx-value-id") })
+        const params = { "appendix-id": this.el.getAttribute("phx-value-appendix-id"), id: this.el.getAttribute("phx-value-id") }
+        this.pushEventTo(this.el.form, "remove-from-appendix", params)
       } else {
         if (event.shiftKey) event.currentTarget.value = ""
         event.currentTarget.previousElementSibling.focus()

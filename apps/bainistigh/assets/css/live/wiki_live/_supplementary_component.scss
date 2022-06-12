@@ -133,6 +133,12 @@
   gap: 4px;
 }
 
+.SupplementaryComponent details fieldset ~ fieldset {
+  @include border.block-start;
+  margin-block-start: 4px;
+  padding-block-start: 4px;
+}
+
 //
 // Form fields
 // -----------------------------------------------------------------------------------------------
@@ -201,6 +207,10 @@
       color: #{palette.yellow($lightness: 22%)};
     }
 
+    fieldset {
+      border-color: #{palette.yellow($lightness: 80%)};
+    }
+
     button {
       color: #{palette.yellow($lightness: 44%)};
       &:hover {
@@ -235,6 +245,10 @@
           color: #{palette.yellow($lightness: 92%, $alpha: 0)};
         }
       }
+    }
+
+    fieldset {
+      border-color: #{palette.yellow($lightness: 18%)};
     }
 
     ::placeholder {
