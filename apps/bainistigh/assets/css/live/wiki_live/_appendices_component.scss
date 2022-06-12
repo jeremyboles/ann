@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------------------------
 //
-// SupplementaryComponent Styles
+// AppendicesComponent Styles
 //
 // -----------------------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@
 // Main container
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent {
+.AppendicesComponent {
   block-size: 100%;
 }
 
@@ -25,7 +25,7 @@
 // Group container
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent > div {
+.AppendicesComponent > div {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -40,7 +40,7 @@
 // Sidebar group
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent details {
+.AppendicesComponent details {
   @include border.all;
   @include box.bg(faded);
   border-radius: 4px;
@@ -51,7 +51,7 @@
   }
 }
 
-.SupplementaryComponent details:has(input[name*="_delete"]) {
+.AppendicesComponent details:has(input[name*="_delete"]) {
   display: none;
 }
 
@@ -59,7 +59,7 @@
 // Group title
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent details summary {
+.AppendicesComponent details summary {
   align-items: center;
   cursor: default;
   display: flex;
@@ -93,7 +93,7 @@
   }
 }
 
-.SupplementaryComponent details[open] summary {
+.AppendicesComponent details[open] summary {
   margin-block-end: 8px;
 
   @include media.ipad(min) {
@@ -101,7 +101,7 @@
   }
 }
 
-.SupplementaryComponent details[open] summary::before {
+.AppendicesComponent details[open] summary::before {
   transform: rotate(90deg);
 }
 
@@ -109,7 +109,7 @@
 // Delete button
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent details summary button {
+.AppendicesComponent details summary button {
   @include icon.replace($url: "/images/fa/regular/xmark.svg", $size: 16px);
   color: #{colors.var(faded, $ns: text)};
 
@@ -127,13 +127,13 @@
 // Fieldset
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent details fieldset {
+.AppendicesComponent details fieldset {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
 }
 
-.SupplementaryComponent details fieldset ~ fieldset {
+.AppendicesComponent details fieldset ~ fieldset {
   @include border.block-start;
   margin-block-start: 4px;
   padding-block-start: 4px;
@@ -143,8 +143,8 @@
 // Form fields
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent details input,
-.SupplementaryComponent details textarea {
+.AppendicesComponent details input,
+.AppendicesComponent details textarea {
   @include text.style(sans, $size: 16px, $weight: 500);
   background-color: transparent;
   color: currentcolor;
@@ -161,7 +161,7 @@
   }
 }
 
-.SupplementaryComponent details input {
+.AppendicesComponent details input {
   text-overflow: ellipsis;
 
   &:first-of-type {
@@ -179,7 +179,7 @@
   }
 }
 
-.SupplementaryComponent details textarea {
+.AppendicesComponent details textarea {
   flex-grow: 1;
   overflow: hidden;
   resize: vertical;
@@ -193,7 +193,7 @@
 // Glossary variant
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent details.glossary {
+.AppendicesComponent details.glossary {
   border-color: #{palette.yellow($lightness: 80%)};
   background-color: #{palette.yellow($lightness: 88%)};
   color: #{palette.yellow($lightness: 14%)};
@@ -261,7 +261,7 @@
 // Footer buttons
 // -----------------------------------------------------------------------------------------------
 
-.SupplementaryComponent footer {
+.AppendicesComponent footer {
   @include box.bg(quaternary);
   @include border.block-start(secondary);
   bottom: 0;
@@ -274,7 +274,7 @@
   right: 0;
 }
 
-.SupplementaryComponent footer button {
+.AppendicesComponent footer button {
   @include box.bg(control);
   @include text.style(sans, $color: tertiary, $size: 11px, $weight: 600);
   border-radius: 6px;

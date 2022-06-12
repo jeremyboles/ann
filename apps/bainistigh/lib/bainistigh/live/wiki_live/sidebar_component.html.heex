@@ -3,7 +3,7 @@
   
   <ul class="tabs" id="sidebar-tabs" role="tablist">
     <.tab id="metadata" myself={@myself} selected={@selected}>Metadata</.tab>
-    <.tab id="supplementary" myself={@myself} selected={@selected}>Supplementary</.tab>
+    <.tab id="appendices" myself={@myself} selected={@selected}>Appendices</.tab>
     <.tab id="media" myself={@myself} selected={@selected}>Media</.tab>
     <.tab id="history" myself={@myself} selected={@selected}>History</.tab>
   </ul>
@@ -12,8 +12,8 @@
     <%= render_slot(@metadata) %>
   </.panel>
   
-  <.panel id="supplementary" selected={@selected}>
-    <%= render_slot(@supplementary) %>
+  <.panel id="appendices" selected={@selected}>
+    <%= render_slot(@appendices) %>
   </.panel>
   
   <.panel id="media" selected={@selected}>

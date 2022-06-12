@@ -187,7 +187,7 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   }
 }
 
-.SidebarComponent .tabs [phx-value-tab|="supplementary"] span {
+.SidebarComponent .tabs [phx-value-tab|="appendices"] span {
   @include icon.replace($url: "/images/fa/regular/asterisk.svg", $size: 22px);
 
   @include media.mouse {

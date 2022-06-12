@@ -26,9 +26,9 @@
         <.live_component catalog={@catalog} draft={@draft} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
       </:metadata>
       
-      <:supplementary>
-        <.live_component draft={@draft} id="supplementary-panel" module={Bainistigh.WikiLive.SupplementaryComponent} />
-      </:supplementary>
+      <:appendices>
+        <.live_component draft={@draft} id="supplementary-panel" module={Bainistigh.WikiLive.AppendicesComponent} />
+      </:appendices>
       
       <:media>
         <.live_component draft={@draft} id="media-panel" module={Bainistigh.WikiLive.MediaComponent} />

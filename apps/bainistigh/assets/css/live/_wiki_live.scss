@@ -4,6 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "./wiki_live/appendices_component";
 @use "./wiki_live/breadcrumbs_component";
 @use "./wiki_live/catalog_component";
 @use "./wiki_live/component";
@@ -12,5 +13,4 @@
 @use "./wiki_live/media_component";
 @use "./wiki_live/metadata_component";
 @use "./wiki_live/sidebar_component";
-@use "./wiki_live/supplementary_component";
 @use "./wiki_live/tags_component";

@@ -1,4 +1,4 @@
-defmodule Bainistigh.WikiLive.SupplementaryComponent do
+defmodule Bainistigh.WikiLive.AppendicesComponent do
   use Bainistigh, :live_component
 
   alias Taifead.Topics
