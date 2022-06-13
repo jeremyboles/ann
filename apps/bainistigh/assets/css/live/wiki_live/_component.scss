@@ -73,6 +73,10 @@
   appearance: none;
   background-color: transparent;
 
+  span {
+    display: none;
+  }
+
   @include media.mouse {
     @include box.bg(control);
     @include text.style(sans, $color: secondary, $size: 14px, $weight: 600);
@@ -80,6 +84,14 @@
     border-end-start-radius: 6px;
     padding-block: 6px;
     padding-inline: 12px;
+
+    span {
+      display: unset;
+    }
+  }
+
+  &:disabled {
+    @include text.color(faded);
   }
 }
 
@@ -134,11 +146,12 @@
   @include border.all;
   @include box.bg(secondary);
   border-radius: 4px;
+  box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 2px 32px #{palette.stone($lightness: 8%, $alpha: 0.25)};
   display: none;
   left: 12px;
   position: fixed;
   right: 12px;
-  top: 130px;
+  top: 64px;
   z-index: 999;
 
   @include media.ipad(min) {
@@ -175,12 +188,31 @@
   white-space: nowrap;
 
   @include media.finger {
-    @include icon.after($url: "/images/fa/regular/file-slash.svg", $size: 24px);
     inline-size: 100%;
+
+    &[phx-click="save-over"] {
+      @include icon.after($url: "/images/fa/regular/copy.svg", $size: 24px);
+    }
+
+    &[phx-click="delete"] {
+      @include icon.after($url: "/images/fa/regular/trash.svg", $size: 24px);
+    }
   }
 
   @include media.mouse {
     @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
     padding-block: 8px;
+  }
+
+  &[phx-click="delete"] {
+    color: #{palette.red($lightness: 62%)};
+
+    @media (prefers-color-scheme: dark) {
+      color: #{palette.red($lightness: 58%)};
+    }
+  }
+
+  &:disabled {
+    @include text.color(faded);
   }
 }

@@ -13,10 +13,17 @@ defmodule Bainistigh.WikiLive.Component do
   def publish_button(assigns) do
     ~H"""
       <div class="Component__publish_button">
-        <button phx-click="publish" type="submit">Publish Changes</button>
+        <button disabled={@current.status == :live} phx-click="publish" type="submit">
+          Publish <span>Changes</span>
+        </button>
         <input form="none" type="checkbox" />
         <div class="options">
-          <button data-confirm="Are you sure you want to delete this article?" name="_delete" type="submit">Delete Topic</button>
+          <button disabled={@current.status == :live} phx-click="save-over" type="button">
+            Save Over Last Publication
+          </button>
+          <button data-confirm="Are you sure you want to delete this article?" phx-click="delete"  type="button">
+            Delete Topic
+          </button>
         </div>
       </div>
     """
