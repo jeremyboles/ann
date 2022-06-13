@@ -12,7 +12,7 @@ defmodule Foilsigh.WikiController do
 
   def show(conn, %{"slug" => slug}) do
     topic = Topics.get_published!(slug)
-    ancestors = []
+    ancestors = Topics.ancestors(topic)
 
     render(conn, "show.html", ancestors: ancestors, topic: topic)
   end

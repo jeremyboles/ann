@@ -6,6 +6,10 @@ defmodule Taifead.Topics do
   alias Taifead.Repo
   alias Taifead.Topics.{Appendix, Draft, Link, Publication, Term}
 
+  def ancestors(%Publication{} = publication) do
+    publication |> Publication.ancestors() |> Repo.all()
+  end
+
   def add_appendix(%Draft{appendices: appendices} = draft, %Appendix{} = appendix) do
     draft |> change_draft() |> put_embed(:appendices, [appendix | appendices]) |> Repo.update() |> broadcast(:draft_updated)
   end
