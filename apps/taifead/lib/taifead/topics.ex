@@ -1,6 +1,5 @@
 defmodule Taifead.Topics do
   import Ecto.Query, warn: false
-
   import Ecto.Changeset, only: [put_change: 3, put_embed: 3]
 
   alias Ecto.Multi
@@ -72,14 +71,27 @@ defmodule Taifead.Topics do
   end
 
   def publish(%Draft{} = draft, attrs \\ %{}) do
-    attributes = draft |> Map.from_struct() |> Map.drop([:__meta__, :id, :inserted_at, :publications, :updated_at])
-    publication_changeset = draft |> Ecto.build_assoc(:publications, attributes) |> change_publication(attrs)
+    attributes = draft |> Map.from_struct() |> Map.drop([:__meta__, :id, :inserted_at, :path, :publications, :updated_at])
+    publication_changeset = draft |> Ecto.build_assoc(:publications, attributes) |> change_publication(attrs) |> put_path_change(draft)
     draft_changeset = draft |> change_draft() |> put_change(:status, :live)
+
+    {:ok, previous_id} =
+      Repo.one(from p in Publication, select: p.id, where: [draft_id: ^draft.id, latest: true]) |> Hierarch.Ecto.UUIDLTree.dump()
+
+    IO.inspect(previous_id, label: "current id")
 
     Multi.new()
     |> Multi.update(:draft, draft_changeset)
     |> Multi.update_all(:unmark_live, from(p in Publication, where: p.draft_id == ^draft.id), set: [latest: false])
     |> Multi.insert(:publication, publication_changeset)
+    |> Multi.update_all(
+      :paths,
+      fn %{publication: publication} ->
+        {:ok, next_id} = Hierarch.Ecto.UUIDLTree.dump(publication.id)
+        from(p in Publication, update: [set: [path: fragment("text2ltree(REPLACE(ltree2text(?), ?, ?))", p.path, ^previous_id, ^next_id)]])
+      end,
+      []
+    )
     |> Repo.transaction()
     |> broadcast(:draft_updated)
   end
@@ -127,6 +139,16 @@ defmodule Taifead.Topics do
   defp broadcast({:error, _reason} = error, _event) do
     IO.inspect(error, label: "error")
     error
+  end
+
+  defp put_path_change(changeset, %Draft{} = draft) do
+    path =
+      Draft.ancestors(draft)
+      |> Repo.all()
+      |> Enum.map(fn d -> Repo.one(from p in Publication, select: p.id, where: [draft_id: ^d.id, latest: true]) end)
+      |> Hierarch.LTree.join()
+
+    if is_nil(path), do: changeset, else: put_change(changeset, :path, path)
   end
 
   defp replace_when(list, fun, value) do

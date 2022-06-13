@@ -47,7 +47,7 @@ defmodule Bainistigh.WikiLive do
   def mount(_params, _session, socket) do
     if connected?(socket), do: Topics.subscribe()
 
-    {:ok, assign(socket, catalog: Topics.list_drafts(), draft: nil, location: {})}
+    {:ok, assign(socket, catalog: Topics.list_drafts(), draft: nil, location: %{})}
   end
 
   defp replace_when(list, fun, value) do
