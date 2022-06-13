@@ -7,10 +7,9 @@ defmodule Foilsigh.WikiView do
 
   alias Foilsigh.Cldr.Number
   alias Foilsigh.Endpoint
-  alias Taifead.Wiki.Article
-  alias Taifead.Wiki.ArticleRevision
+  alias Taifead.Topics.Publication
 
-  def city(%ArticleRevision{mapkit_response: %{"results" => [result | _]}}) do
+  def city(%Publication{mapkit_response: %{"results" => [result | _]}}) do
     case result do
       %{"countryCode" => "US"} ->
         "#{result["locality"]}, #{result["administrativeAreaCode"]}, United States"
@@ -20,33 +19,33 @@ defmodule Foilsigh.WikiView do
     end
   end
 
-  def coords(%ArticleRevision{coords: coords}), do: Foilsigh.Geo.to_decimal_string(coords)
+  def coords(%Publication{coords: coords}), do: Foilsigh.Geo.to_decimal_string(coords)
 
-  def created_at(%Article{revisions: [revision | _]}) do
-    assigns = %{revision: revision, time_zone: time_zone(revision)}
+  def created_at(%Publication{} = publication) do
+    assigns = %{publication: publication, time_zone: time_zone(publication)}
 
     ~H"""
-      <time datetime={datetime(@revision.updated_at, @time_zone)}><%= time_ago @revision.updated_at %></time>
+      <time datetime={datetime(@publication.updated_at, @time_zone)}><%= time_ago @publication.updated_at %></time>
     """
   end
 
-  def created_from(%Article{revisions: [revision | _]}) do
-    link(city(revision), to: map_path(Endpoint, :show, geohash(revision)))
+  def created_from(%Publication{} = publication) do
+    link(city(publication), to: map_path(Endpoint, :show, geohash(publication)))
   end
 
-  def display_title(%Article{short_title: nil, title_text: title_text}), do: title_text
-  def display_title(%Article{short_title: short_title}), do: short_title
+  def display_title(%Publication{short_title: nil, title_text: title_text}), do: title_text
+  def display_title(%Publication{short_title: short_title}), do: short_title
 
-  def dms(%ArticleRevision{coords: coords}), do: Foilsigh.Geo.to_dms_string(coords)
+  def dms(%Publication{coords: coords}), do: Foilsigh.Geo.to_dms_string(coords)
 
-  def geohash(%ArticleRevision{coords: coords}), do: Foilsigh.Geo.to_geohash_string(coords, 5)
+  def geohash(%Publication{coords: coords}), do: Foilsigh.Geo.to_geohash_string(coords, 5)
 
-  def locations_query(%Article{revisions: revisions}) do
-    [primary | secondary] = revisions |> Enum.map(&geohash/1) |> Enum.uniq()
+  def locations_query(%Publication{draft: %{publications: publications}}) do
+    [primary | secondary] = publications |> Enum.map(&geohash/1) |> Enum.uniq()
     Plug.Conn.Query.encode(%{locations: %{primary: [primary], secondary: secondary}})
   end
 
-  def same_city(%Article{revisions: [first | rest]}) do
+  def same_city(%Publication{draft: %{publications: [first | rest]}}) do
     last = List.last(rest)
     city(first) == city(last)
   end
@@ -57,28 +56,27 @@ defmodule Foilsigh.WikiView do
 
   def title("index.html", _assigns), do: "Wiki · Jeremy Boles"
   def title("recipe.html", _assigns), do: "Recipe · Jeremy Boles"
-  def title("show.html", %{article: article}), do: "#{article.title_text} - Wiki · Jeremy Boles"
 
-  def updated_at(%Article{revisions: revisions}) do
-    revision = List.last(revisions)
-    assigns = %{revision: revision, time_zone: time_zone(revision)}
+  def title("show.html", %{topic: %{title_text: title}}), do: "#{title} - Wiki · Jeremy Boles"
+
+  def updated_at(%Publication{} = publication) do
+    assigns = %{publication: publication, time_zone: time_zone(publication)}
 
     ~H"""
-      <time datetime={datetime(@revision.updated_at, @time_zone)}><%= time_ago @revision.updated_at %></time>
+      <time datetime={datetime(@publication.updated_at, @time_zone)}><%= time_ago @publication.updated_at %></time>
     """
   end
 
-  def updated_from(%Article{revisions: revisions}) do
-    revision = List.last(revisions)
-    link(city(revision), to: map_path(Endpoint, :show, geohash(revision)))
+  def updated_from(%Publication{} = publication) do
+    link(city(publication), to: map_path(Endpoint, :show, geohash(publication)))
   end
 
-  def updates_count(%Article{revisions: revisions}) do
-    count = Enum.count(revisions)
+  def updates_count(%Publication{} = publication) do
+    count = Enum.count(publication.draft.publications)
     "#{Number.to_string!(count, format: :spellout)} #{Inflex.inflect("time", count)}"
   end
 
-  def topic_type(%Article{} = _), do: "<b><i>seedling topic</i></b>"
+  def topic_type(%Publication{} = _), do: "<b><i>seedling topic</i></b>"
 
   defp datetime(date), do: date |> DateTime.truncate(:second) |> DateTime.to_iso8601()
   defp datetime(date, nil), do: date |> datetime()
@@ -86,7 +84,7 @@ defmodule Foilsigh.WikiView do
 
   defp time_ago(date), do: Timex.from_now(date)
 
-  defp time_zone(%ArticleRevision{mapkit_response: response}), do: time_zone(response)
+  defp time_zone(%Publication{mapkit_response: nil}), do: nil
+  defp time_zone(%Publication{mapkit_response: response}), do: time_zone(response)
   defp time_zone(%{"results" => [result | _]}), do: result["timezone"]
-  defp time_zone(%ArticleRevision{mapkit_response: nil}), do: nil
 end

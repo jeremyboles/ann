@@ -21,6 +21,7 @@ defmodule Taifead.Topics.Publication do
     field :content_html, :string
     field :content_text, :string
     field :doc, :map
+    field :latest, :boolean, default: true
     field :path, LTree, default: ""
     field :short_title, :string
     field :tags, {:array, :string}, default: []
@@ -35,6 +36,46 @@ defmodule Taifead.Topics.Publication do
   def changeset(publication, attrs) do
     publication
     |> cast(attrs, [:path, :short_title, :tags, :url_slug])
+    |> cast_coords(attrs)
+    |> cast_mapkit_response(attrs)
     |> validate_required([:content_html, :content_text, :title_html, :title_text, :url_slug])
+  end
+
+  defp cast_coords(data, %{"coords" => coords}) when is_bitstring(coords) do
+    parsed = coords |> String.split() |> Enum.map(&Float.parse(&1))
+
+    case parsed do
+      [{latitude, _}, {longitude, _}] ->
+        params = %{"coords" => %Geo.Point{coordinates: {longitude, latitude}, srid: 4326}}
+        cast(data, params, [:coords])
+
+      _ ->
+        data
+    end
+  end
+
+  defp cast_coords(data, %{"coords" => %{"latitude" => latitude, "longitude" => longitude}}) do
+    params = %{"coords" => %Geo.Point{coordinates: {latitude, longitude}, srid: 4326}}
+    cast(data, params, [:coords])
+  end
+
+  defp cast_coords(data, _) do
+    data
+  end
+
+  defp cast_mapkit_response(changeset, %{"mapkit_response" => resp}) when resp === "" do
+    changeset
+  end
+
+  defp cast_mapkit_response(changeset, %{"mapkit_response" => resp}) when is_bitstring(resp) do
+    cast(changeset, %{"mapkit_response" => Jason.decode!(resp)}, [:mapkit_response])
+  end
+
+  defp cast_mapkit_response(changeset, %{"mapkit_response" => resp}) do
+    cast(changeset, %{"mapkit_response" => resp}, [:mapkit_response])
+  end
+
+  defp cast_mapkit_response(changeset, _) do
+    changeset
   end
 end

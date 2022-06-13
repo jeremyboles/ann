@@ -21,6 +21,7 @@ export function mounted() {
     document.getElementById(this.el.dataset.coordsInput).value = `${latitude} ${longitude}`
 
     this.geocoder.reverseLookup(coordinate, (_, data) => {
+      this.pushEvent("update-location", { coords: { latitude, longitude }, mapkit_response: data })
       document.getElementById(this.el.dataset.mapkitResponseInput).value = JSON.stringify(data)
     })
   })

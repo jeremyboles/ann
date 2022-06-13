@@ -8,9 +8,13 @@ defmodule Bainistigh.WikiLive do
   alias Taifead.Topics
   alias Taifead.Topics.Draft
 
-  def handle_event("publish", _params, %{assigns: %{draft: draft}} = socket) do
-    {:ok, _draft} = Topics.publish(draft)
+  def handle_event("publish", _params, %{assigns: %{draft: draft, location: location}} = socket) do
+    {:ok, _draft} = Topics.publish(draft, location)
     {:noreply, socket}
+  end
+
+  def handle_event("update-location", location, socket) do
+    {:noreply, assign(socket, :location, location)}
   end
 
   def handle_info({:draft_created, draft}, socket) do
@@ -43,7 +47,7 @@ defmodule Bainistigh.WikiLive do
   def mount(_params, _session, socket) do
     if connected?(socket), do: Topics.subscribe()
 
-    {:ok, assign(socket, catalog: Topics.list_drafts(), draft: nil)}
+    {:ok, assign(socket, catalog: Topics.list_drafts(), draft: nil, location: {})}
   end
 
   defp replace_when(list, fun, value) do

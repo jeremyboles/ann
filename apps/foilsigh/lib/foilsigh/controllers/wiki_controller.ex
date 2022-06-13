@@ -1,19 +1,19 @@
 defmodule Foilsigh.WikiController do
   use Foilsigh, :controller
 
-  alias Taifead.Wiki
+  alias Taifead.Topics
 
   def index(conn, _params) do
-    articles = Wiki.list_published_articles()
-    render(conn, "index.html", articles: articles)
+    topics = Topics.current_publications()
+    render(conn, "index.html", topics: topics)
   end
 
   def recipe(conn, _params), do: render(conn, "recipe.html")
 
   def show(conn, %{"slug" => slug}) do
-    article = Wiki.get_published_article!(slug)
-    ancestors = Wiki.article_ancestors(article)
+    topic = Topics.get_published!(slug)
+    ancestors = []
 
-    render(conn, "show.html", ancestors: ancestors, article: article)
+    render(conn, "show.html", ancestors: ancestors, topic: topic)
   end
 end

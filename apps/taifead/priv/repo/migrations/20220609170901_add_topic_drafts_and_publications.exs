@@ -18,6 +18,7 @@ defmodule Taifead.Repo.Migrations.AddTopicDraftsAndPublications do
       add :draft_id, references(:topic_drafts, on_delete: :delete_all), null: false
 
       add :coords, :"geometry(Point, 4326)"
+      add :latest, :boolean, default: true
       add :mapkit_response, :map
     end
 
@@ -25,8 +26,9 @@ defmodule Taifead.Repo.Migrations.AddTopicDraftsAndPublications do
     create index(:topic_publications, [:coords], using: "GIST")
     create index(:topic_publications, [:draft_id])
     create index(:topic_publications, [:draft_id, "updated_at DESC"])
+    create index(:topic_publications, [:latest, :url_slug], unique: true, where: "latest = true")
     create index(:topic_publications, [:path], using: "GIST")
     create index(:topic_publications, [:tags], using: "GIN")
-    create index(:topic_publications, [:url_slug, "updated_at DESC"])
+    create index(:topic_publications, [:draft_id, :latest], unique: true, where: "latest = true")
   end
 end

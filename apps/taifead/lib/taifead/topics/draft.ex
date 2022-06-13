@@ -36,6 +36,8 @@ defmodule Taifead.Topics.Draft do
     |> cast(attrs, [:doc, :path, :short_title, :status, :tags, :url_slug])
     |> cast_embed(:appendices)
     |> extract_from_doc()
+    |> unique_constraint([:draft_id, :latest])
+    |> unique_constraint([:latest, :url_slug])
   end
 
   defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do

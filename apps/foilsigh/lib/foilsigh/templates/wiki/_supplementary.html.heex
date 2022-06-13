@@ -1,19 +1,19 @@
-<%= if Enum.count(@article.supplemental_groups) > 0 do %>
+<%= if Enum.count(@topic.appendices) > 0 do %>
   <aside class="supplementary">
-    <%= for group <- @article.supplemental_groups do %>
+    <%= for appendix <- @topic.appendices do %>
       <article>
-        <h3><%= group.title %></h3>
-        <%= case group.kind do %>
+        <h3><%= appendix.title %></h3>
+        <%= case appendix.kind do %>
           <% :glossary -> %>
             <dl>
-              <%= for term <- group.terms do %>
+              <%= for term <- appendix.terms do %>
                 <dt><%= term.term %></dt>
                 <dd><%= term.definition %></dd>
               <% end %>
             </dl>
           <% :links -> %>
             <ul>
-              <%= for link <- group.links do %>
+              <%= for link <- appendix.links do %>
                 <li>
                   <a href={link.url} rel="external noopener"><%= link.title %></a>
                   <%= if link.description do %>— <%= link.description %><% end %>

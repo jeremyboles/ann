@@ -1,10 +1,10 @@
 <header class="header">
-  <h1><a href={"/#{@article.url_slug}"} rel="bookmark"><%= raw @article.title_html %></a></h1>
+  <h1><a href={"/#{@topic.url_slug}"} rel="bookmark"><%= raw @topic.title_html %></a></h1>
   
-  <%= if Enum.count(@article.tags) > 0 do %>
+  <%= if Enum.count(@topic.tags) > 0 do %>
     <p>
       <span class="vh">Tagged with:</span>
-      <%= for tag <- @article.tags do %>
+      <%= for tag <- @topic.tags do %>
         <a href={"/tags/#{tag}"} rel="tag"><%= tag %></a>
       <% end %>
     </p>

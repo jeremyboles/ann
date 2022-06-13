@@ -1,15 +1,15 @@
 <div>
   <div>
-    <%= render "_breadcrumbs.html", ancestors: @ancestors, article: @article %>
+    <%= render "_breadcrumbs.html", ancestors: @ancestors, topic: @topic %>
     
     <article>
-      <%= render "_header.html", article: @article %>
-      <%= render "_content.html", article: @article, table_of_contents: false %>
+      <%= render "_header.html", topic: @topic %>
+      <%= render "_content.html", topic: @topic, table_of_contents: false %>
       
       <%= render "_journal.html" %>
-      <%= render "_supplementary.html", article: @article %>
+      <%= render "_supplementary.html", topic: @topic %>
       <%= render "_essays.html" %>
-      <%= render "_footer.html", article: @article %>
+      <%= render "_footer.html", topic: @topic %>
     </article>
   </div>
 

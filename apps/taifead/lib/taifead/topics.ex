@@ -3,6 +3,7 @@ defmodule Taifead.Topics do
 
   import Ecto.Changeset, only: [put_change: 3, put_embed: 3]
 
+  alias Ecto.Multi
   alias Taifead.Repo
   alias Taifead.Topics.{Appendix, Draft, Link, Publication, Term}
 
@@ -46,11 +47,23 @@ defmodule Taifead.Topics do
     %Draft{} |> Draft.changeset(attrs) |> Repo.insert() |> broadcast(:draft_created)
   end
 
+  def current_publications() do
+    Repo.all(from(p in Publication, distinct: p.draft_id, where: [latest: true]))
+  end
+
   def delete_draft(%Draft{} = draft), do: Repo.delete(draft)
 
   def get_draft!(id), do: Repo.get!(Draft, id)
 
   def get_publication!(id), do: Repo.get!(Publication, id)
+
+  def get_published!(url_slug) do
+    query = from p in Publication, limit: 1, where: [latest: true, url_slug: ^url_slug]
+
+    query
+    |> Repo.one()
+    |> Repo.preload(draft: :publications)
+  end
 
   def list_drafts, do: Repo.all(Draft)
 
@@ -59,13 +72,14 @@ defmodule Taifead.Topics do
   end
 
   def publish(%Draft{} = draft, attrs \\ %{}) do
-    attributes = draft |> Map.from_struct() |> Map.merge(attrs) |> Map.delete(:id)
-    publication_changeset = Ecto.build_assoc(draft, :publications, attributes)
-    draft_changeset = change_draft(draft) |> put_change(:status, :live)
+    attributes = draft |> Map.from_struct() |> Map.drop([:__meta__, :id, :inserted_at, :publications, :updated_at])
+    publication_changeset = draft |> Ecto.build_assoc(:publications, attributes) |> change_publication(attrs)
+    draft_changeset = draft |> change_draft() |> put_change(:status, :live)
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.insert(:publication, publication_changeset)
-    |> Ecto.Multi.update(:draft, draft_changeset)
+    Multi.new()
+    |> Multi.update(:draft, draft_changeset)
+    |> Multi.update_all(:unmark_live, from(p in Publication, where: p.draft_id == ^draft.id), set: [latest: false])
+    |> Multi.insert(:publication, publication_changeset)
     |> Repo.transaction()
     |> broadcast(:draft_updated)
   end

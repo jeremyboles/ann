@@ -2,9 +2,9 @@
   <p class="vh"><span id="wiki-breadcrumb-nav-label">Breadcrumb</span> navigation:</p>
   <ol>
     <li><a href="/wiki">Wiki</a></li>
-    <%= for article <- @ancestors do %>
-      <li><a href={"/#{article.url_slug}"}><%= display_title(article) %></a></li>
+    <%= for topic <- @ancestors do %>
+      <li><a href={"/#{topic.url_slug}"}><%= display_title(topic) %></a></li>
     <% end %>
-    <li><a aria-current="page" href={"/#{@article.url_slug}"}><%= @article.title_text %></a></li>
+    <li><a aria-current="page" href={"/#{@topic.url_slug}"}><%= @topic.title_text %></a></li>
   </ol>
 </nav>

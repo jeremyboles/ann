@@ -2,12 +2,12 @@
   <figure>
     <figcaption>
       <p>
-        The topic <i><%= raw @article.title_html %></i> was created <%= created_at @article %>
-        from <%= created_from @article %>. It’s currently considered a <%= raw topic_type @article %>
+        The topic <i><%= raw @topic.title_html %></i> was created <%= created_at(@topic) %>
+        from <%= created_from(@topic) %>. It’s currently considered a <%= raw topic_type(@topic) %>
         and has
-          <%= if Enum.count(@article.revisions) > 1 do %>
-            been updated <%= updates_count @article %>, the last time being <%= updated_at @article %>,
-            <%= if same_city(@article), do: "also" %> from <%= updated_from @article %>.
+          <%= if Enum.count(@topic.draft.publications) > 1 do %>
+            been updated <%= updates_count(@topic) %>, the last time being <%= updated_at(@topic) %>,
+            <%= if same_city(@topic), do: "also" %> from <%= updated_from(@topic) %>.
           <% else %>
             only been updated one time.
           <% end %>
@@ -16,18 +16,18 @@
     
     <svg role="img" viewBox="0 0 384 168">
       <desc>
-        <p><i><%= raw @article.title_html %></i> has been updated from the following locations:</p>
+        <p><i><%= raw @topic.title_html %></i> has been updated from the following locations:</p>
         <ul>
-          <%= for revision <- @article.revisions |> Enum.uniq_by(&geohash/1) do %>
+          <%= for publication <- @topic.draft.publications |> Enum.uniq_by(&geohash/1) do %>
             <li>
-              <data value={coords(revision)}><%= city revision %> (<%= dms revision %>)</data>
+              <data value={coords(publication)}><%= city publication %> (<%= dms publication %>)</data>
             </li>
           <% end %>
         </ul>
       </desc>
     
       <use href="/g/map.svg?height=168&width=384#map"/>
-      <use href={"/g/points.svg?#{locations_query(@article)}&height=168&width=384#points"}/>
+      <use href={"/g/points.svg?#{locations_query(@topic)}&height=168&width=384#points"}/>
     </svg>
   </figure>
 </footer>

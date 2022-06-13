@@ -1,29 +1,30 @@
 defmodule Foilsigh.WikiComponent do
   use Foilsigh, :component
 
+  alias Taifead.Topics.Publication
   alias Taifead.Wiki.Article
 
   def nested_list(assigns) do
     ~H"""
       <ul class="nested_list">
-        <%= for article <- children_of(@articles) do %>
-          <.article_item article={article} articles={@articles} />
+        <%= for topic <- children_of(@topics) do %>
+          <.topic_item topic={topic} topics={@topics} />
         <% end %>
       </ul>
     """
   end
 
-  defp article_item(assigns) do
-    path = Hierarch.LTree.concat(assigns.article.path, assigns.article.id)
-    assigns = assign(assigns, children: children_of(assigns.articles, path))
+  defp topic_item(assigns) do
+    path = Hierarch.LTree.concat(assigns.topic.path, assigns.topic.id)
+    assigns = assign(assigns, children: children_of(assigns.topics, path))
 
     ~H"""
       <li>
-          <a href={"/#{@article.url_slug}"}><%= title(@article)%></a>
+          <a href={"/#{@topic.url_slug}"}><%= title(@topic)%></a>
           <%= if Enum.count(@children) > 0 do %>
             <ul>
-              <%= for article <- @children do %>
-                <.article_item article={article} articles={@articles} />
+              <%= for topic <- @children do %>
+                <.topic_item topic={topic} topics={@topics} />
               <% end %>
             </ul>
           <% end %>
@@ -31,11 +32,11 @@ defmodule Foilsigh.WikiComponent do
     """
   end
 
-  defp children_of(articles, path \\ "") do
-    articles |> Enum.filter(&(&1.path == path)) |> Enum.sort_by(&title/1)
+  defp children_of(topics, path \\ "") do
+    topics |> Enum.filter(&(&1.path == path)) |> Enum.sort_by(&title/1)
   end
 
-  defp title(%Article{short_title: short_title, title_text: title_text}) do
+  defp title(%Publication{short_title: short_title, title_text: title_text}) do
     short_title || title_text
   end
 end
