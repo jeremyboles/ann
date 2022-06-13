@@ -79,20 +79,23 @@ defmodule Taifead.Topics do
     publication_changeset = draft |> Ecto.build_assoc(:publications, attributes) |> change_publication(attrs) |> put_path_change(draft)
     draft_changeset = draft |> change_draft() |> put_change(:status, :live)
 
-    {:ok, previous_id} =
-      Repo.one(from p in Publication, select: p.id, where: [draft_id: ^draft.id, latest: true]) |> Hierarch.Ecto.UUIDLTree.dump()
-
-    IO.inspect(previous_id, label: "current id")
-
     Multi.new()
+    |> Multi.one(:previous_id, from(p in Publication, select: p.id, where: [draft_id: ^draft.id, latest: true]))
     |> Multi.update(:draft, draft_changeset)
     |> Multi.update_all(:unmark_live, from(p in Publication, where: p.draft_id == ^draft.id), set: [latest: false])
     |> Multi.insert(:publication, publication_changeset)
     |> Multi.update_all(
       :paths,
-      fn %{publication: publication} ->
-        {:ok, next_id} = Hierarch.Ecto.UUIDLTree.dump(publication.id)
-        from(p in Publication, update: [set: [path: fragment("text2ltree(REPLACE(ltree2text(?), ?, ?))", p.path, ^previous_id, ^next_id)]])
+      fn
+        %{previous_id: previous_id, publication: publication} when not is_nil(previous_id) ->
+          {:ok, previous_id} = Hierarch.Ecto.UUIDLTree.dump(previous_id)
+
+          {:ok, next_id} = Hierarch.Ecto.UUIDLTree.dump(publication.id)
+          from(p in Publication, update: [set: [path: fragment("text2ltree(REPLACE(ltree2text(?), ?, ?))", p.path, ^previous_id, ^next_id)]])
+
+        # Figure out a better way to do a noop
+        _ ->
+          from(p in Publication, update: [set: [updated_at: nil]], where: is_nil(p.id))
       end,
       []
     )
