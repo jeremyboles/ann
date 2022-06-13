@@ -1,7 +1,7 @@
 defmodule Bainistigh.WikiLive.HistoryComponent do
   use Bainistigh, :live_component
 
-  alias Taifead.Wiki.ArticleRevision
+  alias Taifead.Topics.Publication
 
   def handle_event("select", %{"id" => id}, socket) do
     selected = socket.assigns.article.revisions |> Enum.find(&(&1.id == id))
@@ -17,7 +17,7 @@ defmodule Bainistigh.WikiLive.HistoryComponent do
     {:ok, socket}
   end
 
-  defp location(%ArticleRevision{mapkit_response: %{"results" => [result | _]}}) do
+  defp location(%Publication{mapkit_response: %{"results" => [result | _]}}) do
     case result do
       %{"administrativeAreaCode" => state, "country" => "United States", "locality" => city} ->
         "#{city}, #{state}"

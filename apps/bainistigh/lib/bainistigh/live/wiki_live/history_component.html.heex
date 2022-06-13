@@ -13,8 +13,7 @@
           <tr aria-selected={if @selected && @selected.id == publication.id, do: "true"} phx-click="select" phx-target={@myself} phx-value-id={publication.id}>
               <td><%= Date.to_string(publication.updated_at) %></td>
               <td>
-                <%# location publication #%>
-                Springfield, MO
+                <%= location publication #%>
               </td>
             </tr>
           <% end %>

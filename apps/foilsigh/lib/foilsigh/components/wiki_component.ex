@@ -2,7 +2,6 @@ defmodule Foilsigh.WikiComponent do
   use Foilsigh, :component
 
   alias Taifead.Topics.Publication
-  alias Taifead.Wiki.Article
 
   def nested_list(assigns) do
     ~H"""
