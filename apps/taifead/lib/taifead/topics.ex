@@ -74,6 +74,10 @@ defmodule Taifead.Topics do
     Repo.one(from d in Draft, limit: 1, order_by: [desc: d.updated_at])
   end
 
+  def latest_publication do
+    Repo.one(from p in Publication, limit: 1, order_by: [desc: p.updated_at])
+  end
+
   def publish(%Draft{} = draft, attrs \\ %{}) do
     attributes = draft |> Map.from_struct() |> Map.drop([:__meta__, :id, :inserted_at, :path, :publications, :updated_at])
     publication_changeset = draft |> Ecto.build_assoc(:publications, attributes) |> change_publication(attrs) |> put_path_change(draft)

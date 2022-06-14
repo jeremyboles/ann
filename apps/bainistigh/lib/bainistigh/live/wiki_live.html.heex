@@ -23,7 +23,7 @@
     
     <.live_component id="wiki-sidebar" module={Bainistigh.WikiLive.SidebarComponent}>
       <:metadata>
-        <.live_component catalog={@catalog} draft={@draft} id="metadata-panel" module={Bainistigh.WikiLive.MetadataComponent} />
+        <.live_component catalog={@catalog} draft={@draft} id="metadata-panel" location={@location} module={Bainistigh.WikiLive.MetadataComponent} />
       </:metadata>
       
       <:appendices>

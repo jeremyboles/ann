@@ -8,9 +8,18 @@ defmodule Bainistigh.WikiLive do
   alias Taifead.Topics
   alias Taifead.Topics.Draft
 
+  def handle_event("get-last-location", _params, socket) do
+    %{coords: %{coordinates: {lat, lng}}} = Topics.latest_publication()
+    {:noreply, push_event(socket, "last-location-found", %{latitude: lat, longitude: lng})}
+  end
+
   def handle_event("publish", _params, %{assigns: %{draft: draft, location: location}} = socket) do
     {:ok, _draft} = Topics.publish(draft, location)
     {:noreply, socket}
+  end
+
+  def handle_event("request-location", _parans, socket) do
+    {:noreply, push_event(socket, "request-location", %{})}
   end
 
   def handle_event("update-location", location, socket) do
@@ -47,7 +56,7 @@ defmodule Bainistigh.WikiLive do
   def mount(_params, _session, socket) do
     if connected?(socket), do: Topics.subscribe()
 
-    {:ok, assign(socket, catalog: Topics.list_drafts(), draft: nil, location: %{})}
+    {:ok, assign(socket, catalog: Topics.list_drafts(), draft: nil, location: nil)}
   end
 
   defp replace_when(list, fun, value) do

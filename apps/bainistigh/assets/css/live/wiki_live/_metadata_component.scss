@@ -233,9 +233,21 @@
   }
 
   button {
-    @include icon.replace($url: "/images/fa/regular/location-dot-slash.svg", $size: 16px);
-    color: #{colors.var(quaternary, $ns: text)};
+    @include icon.replace($url: "/images/fa/regular/location-arrow.svg", $size: 20px);
+    color: #{colors.var(faded, $ns: text)};
     margin-inline-end: 8px;
+
+    @include media.ipad(min) {
+      @include icon.replace($url: "/images/fa/regular/location-arrow.svg", $size: 14px);
+      color: #{colors.var(quaternary, $ns: text)};
+    }
+
+    &[data-location-tracked] {
+      @include icon.replace($url: "/images/fa/solid/location-arrow.svg", $size: 20px);
+      @include media.ipad(min) {
+        @include icon.replace($url: "/images/fa/solid/location-arrow.svg", $size: 14px);
+      }
+    }
   }
 }
 

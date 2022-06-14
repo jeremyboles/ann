@@ -21,21 +21,13 @@
   <details class="location_input" open>
     <summary>
       <span>Location</span>
-      <button class="location-off" type="button">Location Off</button>
+      <button data-location-tracked={!is_nil(@location)} phx-click="request-location" type="button">
+        Update Location
+      </button>
     </summary>
   
     <div class="map" id="location-map" phx-update="ignore">
-      <div
-        data-coords-input={input_id(:revision, :coords)}
-        data-mapkit-response-input={input_id(:revision, :mapkit_response)}
-        id="wiki-map"
-        phx-hook="LocationPicker"
-        phx-update="ignore"
-      >
-      </div>
-  
-      <%= hidden_input(:revision, :coords) %>
-      <%= hidden_input(:revision, :mapkit_response) %>
+      <div id="wiki-map" phx-hook="LocationPicker" phx-update="ignore" />
     </div>
   </details>
   
