@@ -1,0 +1,148 @@
+// -----------------------------------------------------------------------------------------------
+//
+// EntriesComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent {
+  overflow-x: hidden;
+  padding: 12px;
+
+  @media (min-width: 600px) {
+    column-count: 2;
+    column-gap: 12px;
+  }
+
+  @media (min-width: 800px) {
+    column-count: 3;
+  }
+
+  @media (min-width: 1200px) {
+    column-count: 4;
+  }
+}
+
+//
+// Entry container
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article {
+  break-inside: avoid;
+  padding-block-end: 12px;
+
+  & > div {
+    @include border.all();
+    @include box.bg(main);
+    @include box.rounded;
+    box-shadow: 0 2px 4px #{palette.stone($lightness: 8%, $alpha: 0.05)};
+    padding: 12px;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #{palette.stone($lightness: 8%)};
+      border-color: #{palette.stone($lightness: 14%)};
+      box-shadow: 0 2px 4px #{palette.stone($lightness: 8%)};
+    }
+  }
+}
+
+//
+// Entry header
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article header {
+  @include border.block-end(tertiary);
+  column-gap: 4iztypx;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  margin-block-end: 8px;
+  padding-block-end: 8px;
+
+  @include icon.before($url: "/images/fa/solid/note.svg", $size: 28px) {
+    align-self: center;
+    color: #{colors.var(quaternary, $ns: text)};
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+    justify-self: center;
+  }
+
+  h1 {
+    @include text.style($color: quaternary, $size: 14px, $weight: 500);
+    align-self: end;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    margin: 0;
+
+    b {
+      @include text.style($color: secondary, $weight: 700);
+    }
+  }
+
+  p {
+    @include text.style($color: quaternary, $size: 13px, $weight: 600);
+    align-self: start;
+    grid-column: 2 / span 2;
+    grid-row: 2 / span 1;
+  }
+}
+
+.EntriesComponent > article div > p {
+  @include text.style($color: main, $size: 18px, $weight: 500);
+  padding: 12px;
+}
+
+//
+// Entry footer
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article footer {
+  @include border.block-start(tertiary);
+  margin: 6px -12px -12px -12px;
+  padding-block: 6px;
+  padding-inline: 12px;
+}
+
+.EntriesComponent > article footer ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.EntriesComponent > article footer ul li {
+  @include text.style($color: quaternary, $size: 12px, $weight: 800);
+  align-content: center;
+  display: flex;
+  gap: 8px;
+}
+
+.EntriesComponent > article footer ul span {
+  @include text.style($color: faded);
+  order: -1;
+}
+
+.EntriesComponent > article footer ul li.replies span {
+  @include icon.replace($url: "/images/fa/solid/reply.svg", $size: 14px);
+}
+
+.EntriesComponent > article footer ul li.likes span {
+  @include icon.replace($url: "/images/fa/solid/star.svg", $size: 14px);
+}
+
+.EntriesComponent > article footer ul li.reposts span {
+  @include icon.replace($url: "/images/fa/solid/retweet.svg", $size: 14px);
+}
+
+.EntriesComponent > article footer ul li.bookmarks span {
+  @include icon.replace($url: "/images/fa/solid/bookmark.svg", $size: 14px);
+}
