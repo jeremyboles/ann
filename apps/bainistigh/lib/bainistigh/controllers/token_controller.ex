@@ -1,8 +1,9 @@
 defmodule Bainistigh.TokenController do
   use Bainistigh, :controller
 
+  alias Bainistigh.MapKit
+
   def show(conn, _params) do
-    token = Bainistigh.Token.generate_and_sign!()
-    text(conn, token)
+    text(conn, MapKit.token())
   end
 end

@@ -28,10 +28,14 @@
 
   @media (min-width: 800px) {
     column-count: 3;
+    column-gap: 18px;
+    padding: 18px;
   }
 
   @media (min-width: 1200px) {
     column-count: 4;
+    column-gap: 24px;
+    padding: 24px;
   }
 }
 
@@ -43,12 +47,19 @@
   break-inside: avoid;
   padding-block-end: 12px;
 
+  @media (min-width: 800px) {
+    padding-block-end: 18px;
+  }
+
+  @media (min-width: 1200px) {
+    padding-block-end: 24px;
+  }
+
   & > div {
     @include border.all();
     @include box.bg(main);
     @include box.rounded;
     box-shadow: 0 2px 4px #{palette.stone($lightness: 8%, $alpha: 0.05)};
-    padding: 12px;
 
     @media (prefers-color-scheme: dark) {
       background-color: #{palette.stone($lightness: 8%)};
@@ -63,12 +74,11 @@
 // -----------------------------------------------------------------------------------------------
 
 .EntriesComponent > article header {
-  @include border.block-end(tertiary);
   column-gap: 4iztypx;
   display: grid;
   grid-template-columns: 40px 1fr;
-  margin-block-end: 8px;
-  padding-block-end: 8px;
+  margin-inline: 12px;
+  padding-block: 14px;
 
   @include icon.before($url: "/images/fa/solid/note.svg", $size: 28px) {
     align-self: center;
@@ -98,25 +108,19 @@
   }
 }
 
-.EntriesComponent > article div > p {
-  @include text.style($color: main, $size: 18px, $weight: 500);
-  padding: 12px;
-}
-
 //
 // Entry footer
 // -----------------------------------------------------------------------------------------------
 
 .EntriesComponent > article footer {
   @include border.block-start(tertiary);
-  margin: 6px -12px -12px -12px;
   padding-block: 6px;
   padding-inline: 12px;
 }
 
 .EntriesComponent > article footer ul {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .EntriesComponent > article footer ul li {
@@ -145,4 +149,128 @@
 
 .EntriesComponent > article footer ul li.bookmarks span {
   @include icon.replace($url: "/images/fa/solid/bookmark.svg", $size: 14px);
+}
+
+//
+// Note entries
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article.note {
+  header {
+    @include border.block-end(tertiary);
+  }
+
+  header::before {
+    mask-image: url("/images/fa/solid/note.svg");
+  }
+
+  .content {
+    @include text.style($color: main, $size: 18px, $weight: 500);
+    padding: 24px;
+  }
+}
+
+//
+// Photo entries
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article.photo {
+  header::before {
+    mask-image: url("/images/fa/solid/image.svg");
+  }
+
+  picture img {
+    display: block;
+    inline-size: calc(100% + 48px);
+  }
+}
+
+//
+// Checkin entries
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article.checkin {
+  header::before {
+    mask-image: url("/images/fa/solid/location-dot.svg");
+  }
+
+  .content {
+    @include text.style($color: main, $size: 18px, $weight: 500);
+    padding: 0 12px 12px 12px;
+  }
+}
+
+//
+// Bookmark entries
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article.bookmark {
+  header {
+    @include border.block-end(tertiary);
+  }
+
+  header::before {
+    mask-image: url("/images/fa/solid/bookmark.svg");
+  }
+
+  .content {
+    padding: 24px;
+
+    p:has(a) {
+      @include text.style($color: main, $size: 18px, $weight: 700);
+      margin-block-end: 8px;
+    }
+
+    p:not(:has(a)) {
+      @include text.style($color: tertiary, $size: 16px, $weight: 500);
+    }
+  }
+}
+
+.EntriesComponent > article.quote {
+  header {
+    @include border.block-end(tertiary);
+  }
+
+  header::before {
+    mask-image: url("/images/fa/solid/quote-left.svg");
+  }
+
+  .content {
+    padding: 24px;
+
+    blockquote {
+      @include text.style($color: main, $size: 16px, $weight: 400);
+      font-style: italic;
+    }
+
+    figcaption {
+      @include text.style($color: main, $size: 14px, $weight: 600);
+      margin-block-start: 8px;
+      text-align: end;
+    }
+    //     p:has(a) {
+    //       @include text.style($color: main, $size: 18px, $weight: 700);
+    //       margin-block-end: 8px;
+    //     }
+    //
+    //     p:not(:has(a)) {
+    //       @include text.style($color: tertiary, $size: 16px, $weight: 500);
+    //     }
+  }
+}
+
+//
+// Video entries
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article.video {
+  header::before {
+    mask-image: url("/images/fa/solid/film.svg");
+  }
+
+  video {
+    display: block;
+    inline-size: calc(100% + 1px);
+  }
 }

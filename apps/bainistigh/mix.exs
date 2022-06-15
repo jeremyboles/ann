@@ -51,6 +51,7 @@ defmodule Bainistigh.MixProject do
       {:taifead, in_umbrella: true},
       {:jason, "~> 1.2"},
       {:joken, "~> 2.4"},
+      {:jose, "~> 1.11.2"},
       {:plug_cowboy, "~> 2.5"}
     ]
   end
