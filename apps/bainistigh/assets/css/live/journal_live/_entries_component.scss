@@ -19,7 +19,7 @@
 
 .EntriesComponent {
   overflow-x: hidden;
-  padding: 12px;
+  padding: 12px 12px 0 12px;
 
   @media (min-width: 600px) {
     column-count: 2;
@@ -29,13 +29,17 @@
   @media (min-width: 800px) {
     column-count: 3;
     column-gap: 18px;
-    padding: 18px;
+    padding: 18px 18px 0 18px;
   }
 
   @media (min-width: 1200px) {
     column-count: 4;
     column-gap: 24px;
-    padding: 24px;
+    padding: 24px 24px 0 24px;
+  }
+
+  @include media.ipad(max) {
+    padding-block-end: 68px;
   }
 }
 
@@ -152,6 +156,53 @@
 }
 
 //
+// Bookmark entries
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article.bookmark {
+  header {
+    @include border.block-end(tertiary);
+  }
+
+  header::before {
+    mask-image: url("/images/fa/solid/bookmark.svg");
+  }
+
+  .content {
+    padding: 24px;
+
+    p:has(a) {
+      @include text.style($color: main, $size: 18px, $weight: 700);
+      margin-block-end: 8px;
+    }
+
+    p:not(:has(a)) {
+      @include text.style($color: tertiary, $size: 16px, $weight: 500);
+    }
+  }
+}
+
+//
+// Checkin entries
+// -----------------------------------------------------------------------------------------------
+
+.EntriesComponent > article.checkin {
+  header::before {
+    mask-image: url("/images/fa/solid/location-dot.svg");
+  }
+
+  .content {
+    @include text.style($color: main, $size: 18px, $weight: 500);
+    padding: 0 12px 12px 12px;
+
+    img {
+      @include border.all(secondary);
+      border-radius: 4px;
+    }
+  }
+}
+
+//
 // Note entries
 // -----------------------------------------------------------------------------------------------
 
@@ -186,46 +237,8 @@
 }
 
 //
-// Checkin entries
+// Quote entries
 // -----------------------------------------------------------------------------------------------
-
-.EntriesComponent > article.checkin {
-  header::before {
-    mask-image: url("/images/fa/solid/location-dot.svg");
-  }
-
-  .content {
-    @include text.style($color: main, $size: 18px, $weight: 500);
-    padding: 0 12px 12px 12px;
-  }
-}
-
-//
-// Bookmark entries
-// -----------------------------------------------------------------------------------------------
-
-.EntriesComponent > article.bookmark {
-  header {
-    @include border.block-end(tertiary);
-  }
-
-  header::before {
-    mask-image: url("/images/fa/solid/bookmark.svg");
-  }
-
-  .content {
-    padding: 24px;
-
-    p:has(a) {
-      @include text.style($color: main, $size: 18px, $weight: 700);
-      margin-block-end: 8px;
-    }
-
-    p:not(:has(a)) {
-      @include text.style($color: tertiary, $size: 16px, $weight: 500);
-    }
-  }
-}
 
 .EntriesComponent > article.quote {
   header {
@@ -249,14 +262,6 @@
       margin-block-start: 8px;
       text-align: end;
     }
-    //     p:has(a) {
-    //       @include text.style($color: main, $size: 18px, $weight: 700);
-    //       margin-block-end: 8px;
-    //     }
-    //
-    //     p:not(:has(a)) {
-    //       @include text.style($color: tertiary, $size: 16px, $weight: 500);
-    //     }
   }
 }
 
