@@ -1,0 +1,200 @@
+// -----------------------------------------------------------------------------------------------
+//
+// NewButtonComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main Containers
+// -----------------------------------------------------------------------------------------------
+
+.NewButtonComponent {
+  position: relative;
+}
+
+//
+// Main button
+// -----------------------------------------------------------------------------------------------
+
+.NewButtonComponent > button {
+  @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
+  appearance: none;
+  background-color: transparent;
+  z-index: 1;
+
+  @include media.ipad(max) {
+    span {
+      @include icon.replace($url: "/images/fa/solid/pen-to-square.svg", $size: 20px);
+    }
+  }
+
+  @include media.mouse {
+    @include border.all(separator);
+    @include box.bg(faded);
+    @include text.style(sans, $color: secondary, $size: 14px, $weight: 600);
+    align-content: center;
+    border-radius: 6px;
+    display: flex;
+    padding-block: 8px;
+    padding-inline: 8px;
+
+    span {
+      display: none;
+    }
+
+    @include icon.before($url: "/images/fa/solid/plus-large.svg", $size: 16px);
+    @include icon.after($url: "/images/fa/solid/angle-down.svg", $size: 12px) {
+      transform: translate(4px, 2px);
+    }
+  }
+
+  &:disabled {
+    @include text.color(faded);
+  }
+}
+
+//
+// Menu area
+// -----------------------------------------------------------------------------------------------
+
+.NewButtonComponent [role="menu"] {
+  @include border.all(main);
+  @include box.bg(secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 32px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  inline-size: 244px;
+  padding: 4px;
+  position: absolute;
+  right: 0;
+  transform: translateY(6px);
+  z-index: 3;
+
+  @include media.ipad(max) {
+    bottom: calc(env(safe-area-inset-bottom) + 12px);
+    inline-size: auto;
+    left: 8px;
+    position: fixed;
+    right: 8px;
+  }
+}
+
+.NewButtonComponent:has([aria-haspopup="true"][aria-expanded="true"]) {
+  @include media.ipad(max) {
+    &::before {
+      @include box.bg(mask);
+      bottom: 0;
+      content: "";
+      display: block;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 2;
+    }
+  }
+}
+
+.NewButtonComponent:has([aria-haspopup="true"]:not([aria-expanded="true"])) [role="menu"] {
+  display: none;
+}
+
+//
+// Menu items
+// -----------------------------------------------------------------------------------------------
+
+.NewButtonComponent [role="menuitem"] {
+  @include border.all(main);
+  @include box.bg(tertiary);
+  @include text.style($color: secondary, $size: 16px, $weight: 600);
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+
+  @include media.ipad(min) {
+    &::after {
+      @include text.style($color: faded, $size: 12px, $weight: 500);
+      content: "⌥⌃" attr(accesskey);
+      flex-grow: 1;
+      text-align: end;
+      text-transform: uppercase;
+    }
+  }
+
+  @include media.mouse {
+    @include text.style($color: secondary, $size: 13px, $weight: 600);
+  }
+
+  &[phx-value-kind="note"] {
+    @include icon.before($url: "/images/fa/light/note.svg", $size: 24px) {
+      color: #{palette.blue($lightness: 44%)};
+    }
+
+    @include media.mouse {
+      @include icon.before($url: "/images/fa/regular/note.svg", $size: 16px);
+    }
+  }
+
+  &[phx-value-kind="photo"] {
+    @include icon.before($url: "/images/fa/light/image.svg", $size: 24px) {
+      color: #{palette.yellow($lightness: 44%)};
+    }
+
+    @include media.mouse {
+      @include icon.before($url: "/images/fa/regular/image.svg", $size: 16px);
+    }
+  }
+
+  &[phx-value-kind="checkin"] {
+    @include icon.before($url: "/images/fa/light/location-dot.svg", $size: 24px) {
+      color: #{palette.green($lightness: 42%)};
+    }
+
+    @include media.mouse {
+      @include icon.before($url: "/images/fa/regular/location-dot.svg", $size: 16px);
+    }
+  }
+
+  &[phx-value-kind="bookmark"] {
+    @include icon.before($url: "/images/fa/light/bookmark.svg", $size: 24px) {
+      color: #{palette.purple($lightness: 42%)};
+    }
+
+    @include media.mouse {
+      @include icon.before($url: "/images/fa/regular/bookmark.svg", $size: 16px);
+    }
+  }
+
+  &[phx-value-kind="quote"] {
+    @include icon.before($url: "/images/fa/light/quote-left.svg", $size: 24px) {
+      color: #{palette.red($lightness: 42%)};
+    }
+
+    @include media.mouse {
+      @include icon.before($url: "/images/fa/solid/quote-left.svg", $size: 16px);
+    }
+  }
+
+  &[phx-value-kind="video"] {
+    @include icon.before($url: "/images/fa/light/film.svg", $size: 24px) {
+      color: #{palette.orange($lightness: 42%)};
+    }
+
+    @include media.mouse {
+      @include icon.before($url: "/images/fa/regular/film.svg", $size: 16px);
+    }
+  }
+}

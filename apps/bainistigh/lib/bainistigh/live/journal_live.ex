@@ -3,6 +3,7 @@ defmodule Bainistigh.JournalLive do
 
   import Bainistigh.CommonComponent
 
+  alias __MODULE__.Component
   alias Bainistigh.MapKit
 
   def handle_params(_params, _url, socket), do: {:noreply, socket}

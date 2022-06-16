@@ -45,6 +45,10 @@
   & > div {
     align-items: center;
     display: flex;
-    gap: 12px;
+    gap: 20px;
+
+    @include media.mouse {
+      gap: 12px;
+    }
   }
 }

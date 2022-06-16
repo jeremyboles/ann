@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------------------------
+//
+// WikiLive Function Components
+// Display the title of the wiki article along with the type or style of article it is
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Import Button
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_Component__import_button {
+  @include text.style(sans, $color: quaternary, $size: 18px, $weight: 600);
+  appearance: none;
+  background-color: transparent;
+
+  @include media.ipad(max) {
+    span {
+      @include icon.replace($url: "/images/fa/regular/down-to-bracket.svg", $size: 20px);
+    }
+  }
+
+  @include media.mouse {
+    @include border.all(separator);
+    @include text.style(sans, $color: secondary, $size: 14px, $weight: 500);
+    align-content: center;
+    border-radius: 6px;
+    display: flex;
+    gap: 4px;
+    padding-block: 6.5px;
+    padding-inline: 12px;
+
+    @include icon.before($url: "/images/fa/solid/down-to-bracket.svg", $size: 16px) {
+      transform: translateY(1px);
+    }
+  }
+}

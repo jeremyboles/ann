@@ -1,6 +1,11 @@
 <section class="journal">
   <.section_header>
     Journal
+    
+    <:controls>
+      <Component.import_button />
+      <.live_component id="new-journal" module={Bainistigh.JournalLive.NewButtonComponent} />
+    </:controls>
   </.section_header>
   
   <article class="EntriesComponent" id="entries-component" phx-hook="Masonry">
