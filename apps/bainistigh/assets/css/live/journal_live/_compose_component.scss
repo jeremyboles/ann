@@ -1,0 +1,155 @@
+// -----------------------------------------------------------------------------------------------
+//
+// EntriesComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.ComposeComponent {
+  @include box.bg(secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 32px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+  margin: auto;
+
+  min-block-size: 200px;
+  min-inline-size: 400px;
+
+  &::backdrop {
+    background-color: #{palette.stone($lightness: 15%, $alpha: 0.35)};
+  }
+
+  @include media.ipad(max) {
+    border-radius: 0;
+    min-block-size: 100svh;
+    min-inline-size: 100svw;
+  }
+}
+
+//
+// Header
+// -----------------------------------------------------------------------------------------------
+
+.ComposeComponent > header {
+  display: contents;
+
+  @include media.ipad(max) {
+    @include border.block-end(tertiary);
+    @include box.bg(secondary);
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    font-weight: 700;
+    height: 48px;
+    left: 0;
+    position: absolute;
+    justify-content: space-between;
+    padding-block-start: calc(env(safe-area-inset-top, 0));
+    padding-inline: 12px;
+    right: 0;
+    top: 0;
+  }
+}
+
+//
+// Back button
+// -----------------------------------------------------------------------------------------------
+
+.ComposeComponent [phx-click="close-compose"] {
+  @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
+  align-items: center;
+  appearance: none;
+  display: flex;
+  background-color: transparent;
+  margin-inline-start: -4px;
+
+  @include icon.before($url: "/images/fa/solid/chevron-left.svg", $size: 20px) {
+    margin-inline-end: 0;
+  }
+
+  @include media.ipad(min) {
+    @include text.color(secondary);
+    background-color: transparent;
+    border-radius: 50%;
+    justify-content: center;
+    padding: 4px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+
+    @include icon.before($url: "/images/fa/solid/xmark.svg", $size: 20px) {
+      margin-inline-end: 0;
+    }
+
+    &:hover {
+      @include box.bg(quaternary);
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
+
+//
+// Footer
+// -----------------------------------------------------------------------------------------------
+
+.ComposeComponent > footer {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  height: 48px;
+  justify-content: end;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+
+  @include media.ipad(min) {
+    bottom: 0;
+    height: unset;
+    left: 0;
+    padding: 8px;
+  }
+}
+
+.ComposeComponent > footer button {
+  background-color: transparent;
+
+  &[phx-click="publish"] {
+    @include text.style(sans, $color: accent, $size: 18px, $weight: 700);
+  }
+
+  @include media.ipad(min) {
+    @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
+    @include box.bg(quaternary);
+    @include box.rounded;
+    padding-block: 6px;
+    padding-inline: 12px;
+
+    &[phx-click="publish"] {
+      @include text.style($size: 14px, $weight: 700);
+      background-color: #{colors.var(accent, $ns: text)};
+      color: #{palette.stone($lightness: 96%)};
+    }
+  }
+
+  @include media.ipad(max) {
+    &[phx-click="save"] {
+      @include icon.replace($url: "/images/fa/regular/floppy-disk.svg", $size: 20px);
+      @include text.color(quaternary);
+      margin-inline-end: 4px;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 export * as Autogrow from "./autogrow/index.mjs"
+export * as Dialog from "./dialog/index.mjs"
 export * as LocationPicker from "./location-picker/index.mjs"
 export * as Masonry from "./masonry/index.mjs"
 export * as StopSpacebarBubbling from "./stop-spacebar-bubbling/index.mjs"

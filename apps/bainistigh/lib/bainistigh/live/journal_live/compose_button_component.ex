@@ -1,4 +1,4 @@
-defmodule Bainistigh.JournalLive.NewButtonComponent do
+defmodule Bainistigh.JournalLive.ComposeButtonComponent do
   use Bainistigh, :live_component
   
   def handle_event("collapse", _, socket) do

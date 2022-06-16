@@ -4,22 +4,22 @@
   </button>
   
   <ul aria-labelledby={@id <> "-button"} id={@id <> "-menu"} phx-click-away="collapse" phx-target={@myself} role="menu">
-    <li accesskey="n" phx-value-kind="note" role="menuitem">
+    <li accesskey="n" phx-click="open-compose" phx-value-kind="note" role="menuitem">
       New Note
     </li>
-    <li accesskey="p" phx-value-kind="photo" role="menuitem">
+    <li accesskey="p" phx-click="open-compose" phx-value-kind="photo" role="menuitem">
       New Photo
     </li>
-    <li accesskey="c" phx-value-kind="checkin" role="menuitem">
+    <li accesskey="c" phx-click="open-compose" phx-value-kind="checkin" role="menuitem">
       New Check-In
     </li>
-    <li accesskey="b" phx-value-kind="bookmark" role="menuitem">
+    <li accesskey="b" phx-click="open-compose" phx-value-kind="bookmark" role="menuitem">
       New Bookmark
     </li>
-    <li accesskey="q" phx-value-kind="quote" role="menuitem">
+    <li accesskey="q" phx-click="open-compose" phx-value-kind="quote" role="menuitem">
       New Quote
     </li>
-    <li accesskey="v" phx-value-kind="video" role="menuitem">
+    <li accesskey="v" phx-click="open-compose" phx-value-kind="video" role="menuitem">
       New Video
     </li>
   </ul>

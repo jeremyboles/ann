@@ -3,8 +3,17 @@ defmodule Bainistigh.JournalLive do
 
   import Bainistigh.CommonComponent
 
-  alias __MODULE__.Component
+  alias __MODULE__.{Component, ComposeButtonComponent}
   alias Bainistigh.MapKit
+
+  def handle_event("close-compose", _params, socket) do
+    {:noreply, push_event(socket, "close-dialog", %{})}
+  end
+
+  def handle_event("open-compose", _params, socket) do
+    send_update(ComposeButtonComponent, expanded: false, id: "compose-journal")
+    {:noreply, push_event(socket, "open-dialog", %{})}
+  end
 
   def handle_params(_params, _url, socket), do: {:noreply, socket}
 

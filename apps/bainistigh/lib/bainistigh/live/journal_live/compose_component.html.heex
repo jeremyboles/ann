@@ -1,0 +1,10 @@
+<dialog class="ComposeComponent" id="compose-component" phx-hook="Dialog">
+  <header>
+    <button phx-click="close-compose"><span>Back</span></button>
+  </header>
+  
+  <footer>
+    <button phx-click="save" phx-target={@myself}>Save Without Publishing</button>
+    <button phx-click="publish" phx-target={@myself}>Publish</button>
+  </footer>
+</dialog>
