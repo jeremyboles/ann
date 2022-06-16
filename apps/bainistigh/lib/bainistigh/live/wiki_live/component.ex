@@ -3,7 +3,7 @@ defmodule Bainistigh.WikiLive.Component do
 
   def header(assigns) do
     ~H"""
-      <div class="Component__header">
+      <div class="WikiLive_Component__header">
         <h1><%= render_slot(@inner_block) %></h1>
         <p><%= @type %></p>
       </div>
@@ -12,7 +12,7 @@ defmodule Bainistigh.WikiLive.Component do
 
   def publish_button(assigns) do
     ~H"""
-      <div class="Component__publish_button">
+      <div class="WikiLive_Component__publish_button">
         <button disabled={@current.status == :live} phx-click="publish" type="submit">
           Publish <span>Changes</span>
         </button>
