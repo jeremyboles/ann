@@ -18,25 +18,13 @@
 // -----------------------------------------------------------------------------------------------
 
 .EntriesComponent {
+  align-items: start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+  grid-template-rows: masonry;
+  gap: 12px;
   overflow-x: hidden;
-  padding: 12px 12px 0 12px;
-
-  @media (min-width: 600px) {
-    column-count: 2;
-    column-gap: 12px;
-  }
-
-  @media (min-width: 800px) {
-    column-count: 3;
-    column-gap: 18px;
-    padding: 18px 18px 0 18px;
-  }
-
-  @media (min-width: 1200px) {
-    column-count: 4;
-    column-gap: 24px;
-    padding: 24px 24px 0 24px;
-  }
+  padding: 12px;
 
   @include media.ipad(max) {
     padding-block-end: 68px;
@@ -48,28 +36,16 @@
 // -----------------------------------------------------------------------------------------------
 
 .EntriesComponent > article {
-  break-inside: avoid;
-  padding-block-end: 12px;
+  @include border.all();
+  @include box.bg(main);
+  @include box.rounded;
+  box-shadow: 0 2px 4px #{palette.stone($lightness: 8%, $alpha: 0.05)};
+  // max-inline-size: 100%;
 
-  @media (min-width: 800px) {
-    padding-block-end: 18px;
-  }
-
-  @media (min-width: 1200px) {
-    padding-block-end: 24px;
-  }
-
-  & > div {
-    @include border.all();
-    @include box.bg(main);
-    @include box.rounded;
-    box-shadow: 0 2px 4px #{palette.stone($lightness: 8%, $alpha: 0.05)};
-
-    @media (prefers-color-scheme: dark) {
-      background-color: #{palette.stone($lightness: 8%)};
-      border-color: #{palette.stone($lightness: 14%)};
-      box-shadow: 0 2px 4px #{palette.stone($lightness: 8%)};
-    }
+  @media (prefers-color-scheme: dark) {
+    background-color: #{palette.stone($lightness: 8%)};
+    border-color: #{palette.stone($lightness: 14%)};
+    box-shadow: 0 2px 4px #{palette.stone($lightness: 8%)};
   }
 }
 
