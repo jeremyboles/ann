@@ -41,6 +41,7 @@ defmodule Taifead.MixProject do
       {:geo_postgis, "~> 3.4"},
       {:hierarch, "~> 0.2.1"},
       {:jason, "~> 1.2"},
+      {:nanoid, "~> 2.0.5"},
       {:phoenix_pubsub, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:swoosh, "~> 1.3"},

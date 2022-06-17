@@ -10,14 +10,18 @@ defmodule Bainistigh.JournalLive do
     {:noreply, push_event(socket, "close-dialog", %{})}
   end
 
-  def handle_event("open-compose", _params, socket) do
+  def handle_event("open-compose", %{"kind" => kind}, socket) do
+    {:ok, entry} = Taifead.Journal.create_entry(%{kind: kind})
+
     send_update(ComposeButtonComponent, expanded: false, id: "compose-journal")
-    {:noreply, push_event(socket, "open-dialog", %{})}
+    {:noreply, socket |> push_event("open-dialog", %{}) |> assign(:entry, entry)}
   end
 
   def handle_params(_params, _url, socket), do: {:noreply, socket}
 
-  def mount(_params, _session, socket), do: {:ok, assign(socket, page_title: "Journal")}
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, entry: nil, page_title: "Journal")}
+  end
 
   defp mapkit_url(%{center: center} = opts) do
     opts

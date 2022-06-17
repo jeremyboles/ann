@@ -10,7 +10,7 @@
     </div>
   </div>
   
-  <.live_component id="journal-sidebar" module={SidebarComponent} />
+  <.live_component entry={@entry} id="journal-sidebar" module={SidebarComponent} />
   
   <footer>
     <button phx-click="save" phx-target={@myself}>Save Without Publishing</button>

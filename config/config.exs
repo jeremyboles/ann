@@ -110,6 +110,10 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configure the alphabet for nanoid
+config :nanoid,
+  alphabet: "123456789bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ"
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
