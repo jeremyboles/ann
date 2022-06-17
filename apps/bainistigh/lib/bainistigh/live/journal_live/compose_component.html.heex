@@ -3,6 +3,15 @@
     <button phx-click="close-compose"><span>Back</span></button>
   </header>
   
+  <div class="content">
+    <div class="JournalLive_EditorComponent">
+      <div autofocus id="journal-editor"  phx-hook="JournalEditor" tabindex="0"/>
+      <div class="count">12 / 256</div>
+    </div>
+  </div>
+  
+  <.live_component id="journal-sidebar" module={SidebarComponent} />
+  
   <footer>
     <button phx-click="save" phx-target={@myself}>Save Without Publishing</button>
     <button phx-click="publish" phx-target={@myself}>Publish</button>

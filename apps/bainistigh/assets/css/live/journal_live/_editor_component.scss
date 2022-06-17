@@ -1,0 +1,69 @@
+// -----------------------------------------------------------------------------------------------
+//
+// EditorComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_EditorComponent {
+  block-size: 100%;
+  inline-size: 100%;
+  max-inline-size: 600px;
+  padding-inline: 40px;
+  position: relative;
+
+  @include media.ipad(max) {
+    padding: 12px;
+  }
+}
+
+.JournalLive_EditorComponent > div[phx-hook="JournalEditor"] {
+  display: flex;
+  min-block-size: 100%;
+}
+
+.JournalLive_EditorComponent [contenteditable="true"] {
+  @include text.style(serif, $color: secondary, $size: 24px, $weight: 200);
+  inline-size: 100%;
+  margin-inline: auto;
+  max-inline-size: 72ch;
+  outline: none;
+  text-rendering: optimizelegibility;
+}
+
+//
+// Character count
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_EditorComponent .count {
+  @include text.style($color: quaternary, $size: 13px, $weight: 600);
+  bottom: 0;
+  line-height: 48px;
+  position: absolute;
+  right: 12px;
+  transform: translateY(100%);
+  -webkit-user-select: none;
+
+  @include media.ipad(min) {
+    @include text.style($color: faded, $size: 11px, $weight: 600);
+    right: 50%;
+  }
+}
+
+.JournalLive_EditorComponent:has([contenteditable="true"]:focus-visible) .count {
+  @include media.ipad(max) {
+    transform: translateY(-218px);
+  }
+}

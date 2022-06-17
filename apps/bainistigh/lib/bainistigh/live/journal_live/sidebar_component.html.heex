@@ -1,0 +1,19 @@
+<aside class="JournalLive_SidebarComponent">
+  <ul class="tabs" id="sidebar-tabs" role="tablist">
+    <.tab id="date" myself={@myself} selected={@selected}>Date/Time</.tab>
+    <.tab id="location" myself={@myself} selected={@selected}>Location</.tab>
+    <.tab id="tags" myself={@myself} selected={@selected}>Tags</.tab>
+  </ul>
+  
+  <.panel id="date" selected={@selected}>
+    <p>Date/Time</p>
+  </.panel>
+  
+  <.panel id="location" selected={@selected}>
+    <p>Location</p>
+  </.panel>
+  
+  <.panel id="tags" selected={@selected}>
+    <p>Tags</p>
+  </.panel>
+</aside>

@@ -22,12 +22,16 @@
   border-radius: 8px;
   box-shadow: 0 4px 32px #{palette.stone($lightness: 8%, $alpha: 0.15)};
   margin: auto;
-
-  min-block-size: 200px;
-  min-inline-size: 400px;
+  min-block-size: 272px;
+  min-inline-size: 600px;
+  position: relative;
 
   &::backdrop {
     background-color: #{palette.stone($lightness: 15%, $alpha: 0.35)};
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #{palette.stone($lightness: 2%, $alpha: 0.6)};
+    }
   }
 
   @include media.ipad(max) {
@@ -85,7 +89,7 @@
     justify-content: center;
     padding: 4px;
     position: absolute;
-    left: 8px;
+    left: 12px;
     top: 8px;
 
     @include icon.before($url: "/images/fa/solid/xmark.svg", $size: 20px) {
@@ -103,6 +107,15 @@
 }
 
 //
+// Content
+// -----------------------------------------------------------------------------------------------
+
+.ComposeComponent > .content {
+  block-size: 100%;
+  padding-block: 48px;
+}
+
+//
 // Footer
 // -----------------------------------------------------------------------------------------------
 
@@ -111,16 +124,18 @@
   display: flex;
   gap: 12px;
   height: 48px;
+  inline-size: 50%;
   justify-content: end;
   padding: 8px;
   position: absolute;
   right: 0;
+  top: 0;
 
   @include media.ipad(min) {
     bottom: 0;
-    height: unset;
-    left: 0;
+    right: 0;
     padding: 8px;
+    top: unset;
   }
 }
 

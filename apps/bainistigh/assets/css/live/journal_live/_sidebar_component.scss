@@ -1,0 +1,89 @@
+// -----------------------------------------------------------------------------------------------
+//
+// SidebarComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_SidebarComponent {
+  display: contents;
+}
+
+//
+// Tabs
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_SidebarComponent .tabs {
+  @include text.color(tertiary);
+  align-items: center;
+  block-size: 48px;
+  bottom: 0;
+  display: flex;
+  gap: 24px;
+  inline-size: 50%;
+  left: 0;
+  padding: 16px;
+  position: absolute;
+}
+
+.JournalLive_SidebarComponent .tabs li {
+  cursor: default;
+  -webkit-user-select: none;
+
+  &[phx-value-tab="date"] {
+    @include icon.replace($url: "/images/fa/regular/calendar-clock.svg", $size: 20px);
+  }
+
+  &[phx-value-tab="location"] {
+    @include icon.replace($url: "/images/fa/regular/location-dot.svg", $size: 20px);
+  }
+
+  &[phx-value-tab="tags"] {
+    @include icon.replace($url: "/images/fa/regular/hashtag.svg", $size: 20px);
+  }
+}
+
+.JournalLive_SidebarComponent .tabs:has([aria-selected="true"]) li[phx-value-tab]:not([aria-selected="true"]) {
+  @include text.color(faded);
+}
+
+.JournalLive_SidebarComponent .tabs li[phx-value-tab][aria-selected="true"] {
+  @include text.color(accent);
+}
+
+//
+// Panels
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_SidebarComponent [role="tabpanel"] {
+  @include box.bg(secondary);
+  bottom: 48px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 48px;
+
+  @include media.ipad(min) {
+    top: 40px;
+  }
+}
+
+.JournalLive_SidebarComponent [role="tabpanel"][aria-hidden="true"] {
+  display: none;
+}
+
+.JournalLive_SidebarComponent [role="tabpanel"][aria-hidden="false"] {
+  display: unset;
+}

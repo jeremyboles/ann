@@ -120,9 +120,11 @@
   @include text.style($color: secondary, $size: 16px, $weight: 600);
   align-items: center;
   border-radius: 4px;
+  cursor: default;
   display: flex;
   gap: 12px;
   padding: 12px;
+  -webkit-user-select: none;
 
   @include media.ipad(min) {
     &::after {

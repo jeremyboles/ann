@@ -3,7 +3,7 @@ defmodule Bainistigh.JournalLive do
 
   import Bainistigh.CommonComponent
 
-  alias __MODULE__.{Component, ComposeButtonComponent}
+  alias __MODULE__.{Component, ComposeButtonComponent, ComposeComponent}
   alias Bainistigh.MapKit
 
   def handle_event("close-compose", _params, socket) do
