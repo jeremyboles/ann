@@ -26,7 +26,7 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_SidebarComponent .tabs {
-  @include text.color(tertiary);
+  @include text.color(quaternary);
   align-items: center;
   block-size: 48px;
   bottom: 0;
@@ -55,9 +55,9 @@
   }
 }
 
-.JournalLive_SidebarComponent .tabs:has([aria-selected="true"]) li[phx-value-tab]:not([aria-selected="true"]) {
-  @include text.color(faded);
-}
+// .JournalLive_SidebarComponent .tabs:has([aria-selected="true"]) li[phx-value-tab]:not([aria-selected="true"]) {
+//   @include text.color(faded);
+// }
 
 .JournalLive_SidebarComponent .tabs li[phx-value-tab][aria-selected="true"] {
   @include text.color(accent);

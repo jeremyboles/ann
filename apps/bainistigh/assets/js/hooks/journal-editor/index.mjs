@@ -29,6 +29,7 @@ export function mounted() {
   const state = EditorState.create({ doc, plugins, schema })
 
   this.view = new EditorView(this.el, {
+    attributes: { autofocus: true },
     dispatchTransaction: dispatchTransaction.bind(this),
     state,
   })

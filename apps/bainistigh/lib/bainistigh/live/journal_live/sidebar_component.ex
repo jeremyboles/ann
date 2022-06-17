@@ -1,6 +1,8 @@
 defmodule Bainistigh.JournalLive.SidebarComponent do
   use Bainistigh, :live_component
 
+  alias Bainistigh.JournalLive.LocationComponent
+
   def handle_event("select-tab", %{"tab" => tab}, socket) do
     case socket.assigns.selected do
       ^tab -> {:noreply, assign(socket, :selected, nil)}

@@ -41,6 +41,10 @@
   max-inline-size: 72ch;
   outline: none;
   text-rendering: optimizelegibility;
+
+  &:focus-visible {
+    outline: none !important;
+  }
 }
 
 //
@@ -53,7 +57,7 @@
   line-height: 48px;
   position: absolute;
   right: 12px;
-  transform: translateY(100%);
+  transform: translate(-8px, 100%);
   -webkit-user-select: none;
 
   @include media.ipad(min) {
