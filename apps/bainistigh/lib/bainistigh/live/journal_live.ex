@@ -3,8 +3,9 @@ defmodule Bainistigh.JournalLive do
 
   import Bainistigh.CommonComponent
 
-  alias __MODULE__.{Component, ComposeButtonComponent, ComposeComponent}
+  alias __MODULE__.{Component, ComposeButtonComponent, ComposeComponent, SidebarComponent}
   alias Bainistigh.MapKit
+  alias Taifead.Journal
 
   def handle_event("close-compose", _params, socket) do
     {:noreply, push_event(socket, "close-dialog", %{})}
@@ -20,6 +21,7 @@ defmodule Bainistigh.JournalLive do
   def handle_params(_params, _url, socket), do: {:noreply, socket}
 
   def mount(_params, _session, socket) do
+    if connected?(socket), do: Journal.subscribe()
     {:ok, assign(socket, entry: nil, page_title: "Journal")}
   end
 

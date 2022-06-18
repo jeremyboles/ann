@@ -3,15 +3,10 @@
     <button phx-click="close-compose"><span>Back</span></button>
   </header>
   
-  <div class="content">
-    <div class="JournalLive_EditorComponent">
-      <div id="journal-editor"  phx-hook="JournalEditor" />
-      <div class="count">12 / 256</div>
-    </div>
-  </div>
-  
-  <.live_component entry={@entry} id="journal-sidebar" module={SidebarComponent} />
-  
+  <%= if @entry do %>
+    <%= render_slot(@inner_block) %>
+  <% end %>
+
   <footer>
     <button phx-click="save" phx-target={@myself}>Save Without Publishing</button>
     <button phx-click="publish" phx-target={@myself}>Publish</button>

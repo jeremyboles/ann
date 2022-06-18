@@ -1,104 +1,35 @@
 defmodule Taifead.Journal do
-  @moduledoc """
-  The Journal context.
-  """
-
   import Ecto.Query, warn: false
-  alias Taifead.Repo
 
   alias Taifead.Journal.Entry
+  alias Taifead.Repo
 
-  @doc """
-  Returns the list of entries.
+  def change_entry(%Entry{} = entries, attrs \\ %{}), do: Entry.changeset(entries, attrs)
 
-  ## Examples
-
-      iex> list_entries()
-      [%Entry{}, ...]
-
-  """
-  def list_entries do
-    Repo.all(Entry)
-  end
-
-  @doc """
-  Gets a single entries.
-
-  Raises `Ecto.NoResultsError` if the Entry does not exist.
-
-  ## Examples
-
-      iex> get_entry!(123)
-      %Entry{}
-
-      iex> get_entry!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_entry!(id), do: Repo.get!(Entry, id)
-
-  @doc """
-  Creates a entries.
-
-  ## Examples
-
-      iex> create_entry(%{field: value})
-      {:ok, %Entry{}}
-
-      iex> create_entry(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_entry(attrs \\ %{}) do
-    %Entry{}
-    |> Entry.changeset(attrs)
-    |> Repo.insert()
+    %Entry{} |> Entry.changeset(attrs) |> Repo.insert() |> broadcast(:entry_created)
   end
 
-  @doc """
-  Updates a entries.
+  def delete_entry(%Entry{} = entries), do: Repo.delete(entries)
 
-  ## Examples
+  def get_entry!(id), do: Repo.get!(Entry, id)
+  def list_entries, do: Repo.all(Entry)
 
-      iex> update_entry(entries, %{field: new_value})
-      {:ok, %Entry{}}
-
-      iex> update_entry(entries, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def update_entry(%Entry{} = entries, attrs) do
-    entries
-    |> Entry.changeset(attrs)
-    |> Repo.update()
+    entries |> Entry.changeset(attrs) |> Repo.update() |> broadcast(:entry_updated)
   end
 
-  @doc """
-  Deletes a entries.
-
-  ## Examples
-
-      iex> delete_entry(entries)
-      {:ok, %Entry{}}
-
-      iex> delete_entry(entries)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_entry(%Entry{} = entries) do
-    Repo.delete(entries)
+  def subscribe do
+    Phoenix.PubSub.subscribe(Taifead.PubSub, "entries")
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking entries changes.
+  defp broadcast({:ok, draft}, event) do
+    Phoenix.PubSub.broadcast(Taifead.PubSub, "entries", {event, draft})
+    {:ok, draft}
+  end
 
-  ## Examples
-
-      iex> change_entry(entries)
-      %Ecto.Changeset{data: %Entry{}}
-
-  """
-  def change_entry(%Entry{} = entries, attrs \\ %{}) do
-    Entry.changeset(entries, attrs)
+  defp broadcast({:error, _reason} = error, _event) do
+    IO.inspect(error, label: "error")
+    error
   end
 end

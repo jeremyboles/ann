@@ -251,5 +251,14 @@
     </article>
   </article>
   
-  <.live_component entry={@entry} id="journal-component" module={ComposeComponent} />
+  <.live_component entry={@entry} id="journal-component" module={ComposeComponent}>
+    <div class="content">
+      <div class="JournalLive_EditorComponent">
+        <div id="journal-editor"  phx-hook="JournalEditor" />
+        <div class="count">12 / 256</div>
+      </div>
+    </div>
+    
+    <.live_component entry={@entry} id="journal-sidebar" module={SidebarComponent} />
+  </.live_component>
 </section>

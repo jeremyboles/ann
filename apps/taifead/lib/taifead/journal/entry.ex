@@ -22,10 +22,20 @@ defmodule Taifead.Journal.Entry do
   @doc false
   def changeset(entries, attrs) do
     entries
-    |> cast(attrs, [:coords, :kind, :mapkit_response, :published_at, :tags])
+    |> cast(attrs, [:kind, :mapkit_response, :published_at, :tags])
+    |> cast_coords(attrs)
     |> generate_url_slug()
     |> unique_constraint(:url_slug)
     |> validate_required([:kind, :url_slug])
+  end
+
+  defp cast_coords(data, %{"coords" => %{"latitude" => latitude, "longitude" => longitude}}) do
+    params = %{"coords" => %Geo.Point{coordinates: {latitude, longitude}, srid: 4326}}
+    cast(data, params, [:coords])
+  end
+
+  defp cast_coords(data, _) do
+    data
   end
 
   defp generate_url_slug(%Ecto.Changeset{data: %__MODULE__{url_slug: nil}} = changeset) do

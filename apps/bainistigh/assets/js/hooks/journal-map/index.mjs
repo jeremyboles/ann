@@ -14,15 +14,61 @@ export function updated() {
 export function mounted() {
   this.location = null
 
+  this.form = this.el.querySelector("form")
+  this.results = this.el.querySelector("ul")
+  this.selected = this.el.querySelector("p")
+
   this.geocoder = new mapkit.Geocoder({ getsUserLocation: true })
   this.search = new mapkit.Search({ getsUserLocation: true })
 
   this.map = new mapkit.Map(this.el.querySelector(".map"), {
     colorScheme: window.matchMedia("(prefers-color-scheme: dark)").matches ? mapkit.Map.ColorSchemes.Dark : mapkit.Map.ColorSchemes.Light,
-    // showsCompass: mapkit.FeatureVisibility.Visible,
     showsUserLocation: true,
-    // showsZoomControl: true,
     tracksUserLocation: true,
+  })
+
+  this.map.addEventListener("user-location-change", ({ coordinate }) => {
+    this.map.setRegionAnimated(new mapkit.CoordinateRegion(coordinate, new mapkit.CoordinateSpan(0.005, 0.005)))
+
+    const search = new mapkit.PointsOfInterestSearch({
+      pointOfInterestFilter: mapkit.PointOfInterestFilter.including([mapkit.PointOfInterestCategory.Bakery, mapkit.PointOfInterestCategory.Cafe, mapkit.PointOfInterestCategory.Hotel, mapkit.PointOfInterestCategory.Restaurant]),
+      region: new mapkit.CoordinateRegion(coordinate, new mapkit.CoordinateSpan(0.03, 0.03)),
+    })
+
+    search.search((error, data) => {
+      console.log(data, error)
+      if (error) return
+
+      this.results.replaceChildren()
+      const items = data.places.map((r) => {
+        const item = document.createElement("li")
+        item.dataset.category = r.pointOfInterestCategory
+        item.dataset.latitude = r.coordinate?.latitude
+        item.dataset.longitude = r.coordinate?.longitude
+        item.dataset.result = JSON.stringify(r)
+        item.innerHTML = `<span><b>${r.name}</b>${r.fullThoroughfare ? `<address>${r.fullThoroughfare}</address>` : ""}</span>`
+
+        item.addEventListener("click", (event) => {
+          this.selected.innerHTML = `<span>${r.name}</span>`
+
+          if (this.location) this.map.removeAnnotation(this.location)
+          this.location = new mapkit.MarkerAnnotation(r.coordinate)
+          this.map.addAnnotation(this.location)
+
+          const span = new mapkit.CoordinateSpan(0.003, 0.003)
+          const region = new mapkit.CoordinateRegion(r.coordinate, span)
+          this.map.setRegionAnimated(region)
+
+          const { latitude, longitude } = r.coordinate
+          const payload = { coords: { latitude, longitude }, mapkit_response: r }
+          this.pushEventTo(this.form, "update", payload)
+        })
+
+        return item
+      })
+
+      this.results.replaceChildren(...items)
+    })
   })
 
   this.map.addEventListener("long-press", ({ pointOnPage }) => {
@@ -96,6 +142,10 @@ export function mounted() {
             const span = new mapkit.CoordinateSpan(0.003, 0.003)
             const region = new mapkit.CoordinateRegion(r.coordinate, span)
             this.map.setRegionAnimated(region)
+
+            const { latitude, longitude } = r.coordinate
+            const payload = { coords: { latitude, longitude }, mapkit_response: r }
+            this.pushEventTo(this.form, "update", payload)
           })
 
           return item
@@ -105,11 +155,6 @@ export function mounted() {
     }
   })
 
-  this.results = this.el.querySelector("ul")
-
-  this.selected = this.el.querySelector("p")
-
-  this.form = this.el.querySelector("form")
   this.form.addEventListener("submit", (event) => {
     event.preventDefault()
 
@@ -135,6 +180,10 @@ export function mounted() {
           const span = new mapkit.CoordinateSpan(0.003, 0.003)
           const region = new mapkit.CoordinateRegion(r.coordinate, span)
           this.map.setRegionAnimated(region)
+
+          const { latitude, longitude } = r.coordinate
+          const payload = { coords: { latitude, longitude }, mapkit_response: r }
+          this.pushEventTo(this.form, "update", payload)
         })
 
         return item

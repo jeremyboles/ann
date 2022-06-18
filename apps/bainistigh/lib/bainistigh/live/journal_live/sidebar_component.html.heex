@@ -6,18 +6,14 @@
   </ul>
   
   <.panel id="date" selected={@selected}>
-    <div class="datetime-input">
-      <input type="datetime-local" />
-    </div>
+    <.live_component id="journal-date" module={DateComponent} />
   </.panel>
   
   <.panel id="location" selected={@selected}>
-    <.live_component id="journal-location" module={LocationComponent} />
+    <.live_component entry={@entry} id="journal-location" module={LocationComponent} />
   </.panel>
   
   <.panel id="tags" selected={@selected}>
-    <div class="tags-input">
-      <p>Tags</p>
-    </div>
+    <.live_component entry={@entry} id="journal-tags" module={TagsComponent} />
   </.panel>
 </aside>

@@ -1,7 +1,7 @@
 defmodule Bainistigh.JournalLive.SidebarComponent do
   use Bainistigh, :live_component
 
-  alias Bainistigh.JournalLive.LocationComponent
+  alias Bainistigh.JournalLive.{DateComponent, LocationComponent, TagsComponent}
 
   def handle_event("select-tab", %{"tab" => tab}, socket) do
     case socket.assigns.selected do
@@ -14,7 +14,7 @@ defmodule Bainistigh.JournalLive.SidebarComponent do
     {:ok, assign(socket, :selected, nil)}
   end
 
-  def panel(assigns) do
+  defp panel(assigns) do
     ~H"""
       <div aria-hidden={if @id != @selected, do: "true", else: "false"} id={"#{@id}-panel"} role="tabpanel">
         <%= render_slot(@inner_block) %>
