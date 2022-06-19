@@ -47,6 +47,13 @@
   }
 }
 
+.JournalLive_EditorComponent .ProseMirror[data-placeholder]::before {
+  @include text.color(faded);
+  content: attr(data-placeholder);
+  position: absolute;
+  pointer-events: none;
+}
+
 //
 // Character count
 // -----------------------------------------------------------------------------------------------

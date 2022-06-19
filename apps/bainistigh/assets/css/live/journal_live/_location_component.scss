@@ -90,8 +90,16 @@
   border-radius: 4px;
   cursor: default;
   display: flex;
+  max-inline-size: 100%;
   padding-block: 8px;
   -webkit-user-select: none;
+
+  b {
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // white-space: nowrap;
+  }
 
   address {
     @include text.style($color: quaternary, $size: 12px, $weight: 500);
@@ -101,6 +109,7 @@
     @include icon.before($url: "/images/fa/regular/location-dot.svg", $size: 16px) {
       background-color: #{colors.var(faded, $ns: text)};
       transform: translateY(0.5px);
+      flex-shrink: 0;
     }
     @include text.size(14px);
     padding-block: 4px;
@@ -118,12 +127,14 @@
   @include icon.before($url: "/images/fa/regular/beer-mug.svg", $size: 20px) {
     background-color: #{colors.var(faded, $ns: text)};
     transform: translateY(1px);
+    flex-shrink: 0;
   }
 
   @include media.ipad(min) {
     @include icon.before($url: "/images/fa/regular/beer-mug.svg", $size: 16px) {
       background-color: #{colors.var(faded, $ns: text)};
       transform: translateY(0.5px);
+      flex-shrink: 0;
     }
   }
 }
@@ -132,12 +143,14 @@
   @include icon.before($url: "/images/fa/regular/mug.svg", $size: 20px) {
     background-color: #{colors.var(faded, $ns: text)};
     transform: translateY(1px);
+    flex-shrink: 0;
   }
 
   @include media.ipad(min) {
     @include icon.before($url: "/images/fa/regular/mug.svg", $size: 16px) {
       background-color: #{colors.var(faded, $ns: text)};
       transform: translateY(0.5px);
+      flex-shrink: 0;
     }
   }
 }
@@ -147,12 +160,14 @@
   @include icon.before($url: "/images/fa/regular/baguette.svg", $size: 20px) {
     background-color: #{colors.var(faded, $ns: text)};
     transform: translateY(1px);
+    flex-shrink: 0;
   }
 
   @include media.ipad(min) {
     @include icon.before($url: "/images/fa/regular/baguette.svg", $size: 16px) {
       background-color: #{colors.var(faded, $ns: text)};
       transform: translateY(0.5px);
+      flex-shrink: 0;
     }
   }
 }
