@@ -1,18 +1,32 @@
 defmodule Bainistigh.JournalLive.LocationComponent do
   use Bainistigh, :live_component
 
-  alias Taifead.Journal
+  defp hidden_coords_input(form) do
+    case input_value(form, :coords) do
+      nil ->
+        hidden_input(form, :coords)
 
-  def handle_event("update", attrs, %{assigns: %{entry: entry}} = socket) do
-    {:ok, _entry} = Journal.update_entry(entry, attrs)
-    {:noreply, socket}
+      "" ->
+        hidden_input(form, :coords)
+
+      %{"latitide" => lat, "longitude" => lng} ->
+        hidden_input(form, :coords, value: "#{lat} #{lng}")
+        
+      %Geo.Point{coordinates: {lat, lng}} -> 
+        hidden_input(form, :coords, value: "#{lat} #{lng}")
+    end
   end
 
-  def update(assigns, socket) do
-    {:ok, socket |> assign(assigns) |> assign_changeset()}
-  end
+  defp hidden_mapkit_response_input(form) do
+    case input_value(form, :mapkit_response) do
+      nil ->
+        hidden_input(form, :mapkit_response)
 
-  defp assign_changeset(%{assigns: %{entry: entry}} = socket) do
-    assign(socket, :changeset, Taifead.Journal.change_entry(entry))
+      "" ->
+        hidden_input(form, :mapkit_response)
+
+      data ->
+        hidden_input(form, :mapkit_response, value: Jason.encode!(data))
+    end
   end
 end

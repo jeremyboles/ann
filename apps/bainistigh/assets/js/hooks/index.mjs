@@ -1,5 +1,4 @@
 export * as Autogrow from "./autogrow/index.mjs"
-export * as Dialog from "./dialog/index.mjs"
 export * as JournalEditor from "./journal-editor/index.mjs"
 export * as JournalMap from "./journal-map/index.mjs"
 export * as LocationPicker from "./location-picker/index.mjs"

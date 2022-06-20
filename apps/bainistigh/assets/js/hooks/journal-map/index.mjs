@@ -7,13 +7,10 @@ export function destroyed() {
   this.map?.destroy()
 }
 
-export function updated() {
-  console.log("UPDATED", this.el)
-}
-
 export function mounted() {
   this.location = null
 
+  console.log(this.el)
   this.form = this.el.querySelector("form")
   this.results = this.el.querySelector("ul")
   this.selected = this.el.querySelector("p")
@@ -48,7 +45,7 @@ export function mounted() {
         item.dataset.result = JSON.stringify(r)
         item.innerHTML = `<span><b>${r.name}</b>${r.fullThoroughfare ? `<address>${r.fullThoroughfare}</address>` : ""}</span>`
 
-        item.addEventListener("click", (event) => {
+        item.addEventListener("click", () => {
           this.selected.innerHTML = `<span>${r.name}</span>`
 
           if (this.location) this.map.removeAnnotation(this.location)
@@ -61,7 +58,7 @@ export function mounted() {
 
           const { latitude, longitude } = r.coordinate
           const payload = { coords: { latitude, longitude }, mapkit_response: r }
-          this.pushEventTo(this.form, "update", payload)
+          this.pushEventTo("#compose-component", "update", payload)
         })
 
         return item
@@ -114,7 +111,7 @@ export function mounted() {
 
       const { latitude, longitude } = option.dataset
 
-      const coords = new mapkit.Coordinate(Number.parseFloat(latitude), Number.parseFloat(option.dataset.longitude))
+      const coords = new mapkit.Coordinate(Number.parseFloat(latitude), Number.parseFloat(longitude))
       const span = new mapkit.CoordinateSpan(0.02, 0.02)
       const region = new mapkit.CoordinateRegion(coords, span)
       this.map.setRegionAnimated(region)
@@ -145,7 +142,7 @@ export function mounted() {
 
             const { latitude, longitude } = r.coordinate
             const payload = { coords: { latitude, longitude }, mapkit_response: r }
-            this.pushEventTo(this.form, "update", payload)
+            this.pushEventTo("#compose-component", "update", payload)
           })
 
           return item
@@ -153,43 +150,6 @@ export function mounted() {
         this.results.replaceChildren(...items)
       })
     }
-  })
-
-  this.form.addEventListener("submit", (event) => {
-    event.preventDefault()
-
-    this.search.search(this.input.value, (error, data) => {
-      if (error) return
-
-      this.results.replaceChildren()
-      const items = data.places.map((r) => {
-        const item = document.createElement("li")
-        item.dataset.category = r.pointOfInterestCategory
-        item.dataset.latitude = r.coordinate?.latitude
-        item.dataset.longitude = r.coordinate?.longitude
-        item.dataset.result = JSON.stringify(r)
-        item.innerHTML = `<span><b>${r.name}</b>${r.fullThoroughfare ? `<address>${r.fullThoroughfare}</address>` : ""}</span>`
-
-        item.addEventListener("click", (event) => {
-          this.selected.innerHTML = `<span>${r.name}</span>`
-
-          if (this.location) this.map.removeAnnotation(this.location)
-          this.location = new mapkit.MarkerAnnotation(r.coordinate)
-          this.map.addAnnotation(this.location)
-
-          const span = new mapkit.CoordinateSpan(0.003, 0.003)
-          const region = new mapkit.CoordinateRegion(r.coordinate, span)
-          this.map.setRegionAnimated(region)
-
-          const { latitude, longitude } = r.coordinate
-          const payload = { coords: { latitude, longitude }, mapkit_response: r }
-          this.pushEventTo(this.form, "update", payload)
-        })
-
-        return item
-      })
-      this.results.replaceChildren(...items)
-    })
   })
 }
 

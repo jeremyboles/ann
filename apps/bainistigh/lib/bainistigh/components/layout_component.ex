@@ -8,15 +8,8 @@ defmodule Bainistigh.LayoutComponent do
         <ul>
           <.tab id="dashboard" socket={@socket} to={Bainistigh.DashboardLive}>Dashboard</.tab>
           <.tab id="essays" socket={@socket} to={Bainistigh.EssaysLive}>Essays</.tab>
-          <.tab id="journal" socket={@socket} to={Bainistigh.JournalLive}>Journal</.tab>
-          <.tab
-            action={{&Routes.wiki_path/2, :new}}
-            id="wiki"
-            socket={@socket}
-            to={Bainistigh.WikiLive}
-          >
-            Wiki
-          </.tab>
+          <.tab action={{&Routes.journal_path/2, :index}} id="journal" socket={@socket} to={Bainistigh.JournalLive}>Journal</.tab>
+          <.tab action={{&Routes.wiki_path/2, :new}} id="wiki" socket={@socket} to={Bainistigh.WikiLive}>Wiki</.tab>
 
           <.more_tabs />
           <.tab id="media" socket={@socket} to={Bainistigh.MediaLive}>Media</.tab>

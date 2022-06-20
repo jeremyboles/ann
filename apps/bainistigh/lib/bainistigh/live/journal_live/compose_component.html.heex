@@ -1,14 +1,22 @@
-<dialog class="ComposeComponent" id="compose-component" phx-hook="Dialog">
-  <header>
-    <button phx-click="close-compose"><span>Back</span></button>
-  </header>
+<div class="ComposeComponent" id="compose-component">
+  <.form for={@changeset} let={f} phx-change="validate" phx-submit="save" phx-target={@myself}>
+    <header>
+      <%= live_patch to: Routes.journal_path(@socket, :index) do %>
+        <button type="button"><span>Back</span></button>
+      <% end %>
+      
+      <label>
+        <%= select f, :topic_id, Enum.map(@topics, &({&1.title_text, &1.id})), prompt: [key: "Select a wiki topic…"] %>
+      </label>
+    </header>
+    
+    <%= render_slot(@inner_block, f) %>
   
-  <%= if @entry do %>
-    <%= render_slot(@inner_block) %>
-  <% end %>
-
-  <footer>
-    <button phx-click="save" phx-target={@myself}>Save Without Publishing</button>
-    <button phx-click="publish" phx-target={@myself}>Publish</button>
-  </footer>
-</dialog>
+    <footer>
+      <button name="action" type="submit" value="save">Save Without Publishing</button>
+      <button name="action" type="submit" value="publish">Publish</button>
+    </footer>
+    
+    <%= hidden_input f, :kind, value: @kind %>
+  </.form>
+</div>

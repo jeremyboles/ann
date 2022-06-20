@@ -1,0 +1,27 @@
+// -----------------------------------------------------------------------------------------------
+//
+// DateComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_DateComponent {
+  padding-inline: 12px;
+}
+
+.JournalLive_DateComponent input {
+  block-size: 100%;
+  inline-size: 100%;
+}

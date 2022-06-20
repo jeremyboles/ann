@@ -18,21 +18,35 @@
 // -----------------------------------------------------------------------------------------------
 
 .ComposeComponent {
+  background-color: #{palette.stone($lightness: 15%, $alpha: 0.35)};
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 998;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #{palette.stone($lightness: 2%, $alpha: 0.6)};
+  }
+}
+
+.ComposeComponent form {
   @include box.bg(secondary);
   border-radius: 8px;
   box-shadow: 0 4px 32px #{palette.stone($lightness: 8%, $alpha: 0.15)};
+  display: flex;
+  flex-direction: column;
+  left: 50%;
   margin: auto;
   min-block-size: 336px;
   min-inline-size: 600px;
-  position: relative;
-
-  &::backdrop {
-    background-color: #{palette.stone($lightness: 15%, $alpha: 0.35)};
-
-    @media (prefers-color-scheme: dark) {
-      background-color: #{palette.stone($lightness: 2%, $alpha: 0.6)};
-    }
-  }
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
 
   @include media.ipad(max) {
     border-radius: 0;
@@ -45,7 +59,7 @@
 // Header
 // -----------------------------------------------------------------------------------------------
 
-.ComposeComponent > header {
+.ComposeComponent header {
   display: contents;
 
   @include media.ipad(max) {
@@ -70,7 +84,7 @@
 // Back button
 // -----------------------------------------------------------------------------------------------
 
-.ComposeComponent [phx-click="close-compose"] {
+.ComposeComponent header button {
   @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
   align-items: center;
   appearance: none;
@@ -83,7 +97,7 @@
   }
 
   @include media.ipad(min) {
-    @include text.color(secondary);
+    @include text.color(quaternary);
     background-color: transparent;
     border-radius: 50%;
     justify-content: center;
@@ -107,11 +121,56 @@
 }
 
 //
+// Topic selection
+// -----------------------------------------------------------------------------------------------
+
+.ComposeComponent header label {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  z-index: 10;
+
+  @include icon.after($url: "/images/fa/solid/chevron-down.svg", $size: 10px) {
+    color: #{colors.var(quaternary, $ns: text)};
+    margin-inline-end: 0;
+  }
+
+  &:has(option:first-of-type:checked)::after {
+    @include text.color(faded);
+  }
+}
+
+.ComposeComponent header select {
+  @include text.style(sans, $color: tertiary, $size: 18px, $weight: 500);
+  background-color: transparent;
+  accent-color: #{colors.var(accent, $ns: text)};
+  outline: 0;
+  text-align: end;
+
+  @include media.ipad(min) {
+    @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
+    accent-color: #{colors.var(accent, $ns: text)};
+    appearance: none;
+  }
+
+  &:has(option:first-of-type:checked) {
+    @include text.color(faded);
+  }
+}
+
+//
 // Content
 // -----------------------------------------------------------------------------------------------
 
-.ComposeComponent > .content {
+.ComposeComponent .content {
   block-size: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   padding-block: 48px;
 }
 
@@ -119,7 +178,7 @@
 // Footer
 // -----------------------------------------------------------------------------------------------
 
-.ComposeComponent > footer {
+.ComposeComponent footer {
   align-items: center;
   display: flex;
   gap: 12px;
@@ -139,10 +198,10 @@
   }
 }
 
-.ComposeComponent > footer button {
+.ComposeComponent footer button {
   background-color: transparent;
 
-  &[phx-click="publish"] {
+  &[value="publish"] {
     @include text.style(sans, $color: accent, $size: 18px, $weight: 700);
   }
 
@@ -153,7 +212,7 @@
     padding-block: 6px;
     padding-inline: 12px;
 
-    &[phx-click="publish"] {
+    &[value="publish"] {
       @include text.style($size: 14px, $weight: 700);
       background-color: #{colors.var(accent, $ns: text)};
       color: #{palette.stone($lightness: 96%)};
@@ -161,7 +220,7 @@
   }
 
   @include media.ipad(max) {
-    &[phx-click="save"] {
+    &[value="save"] {
       @include icon.replace($url: "/images/fa/regular/floppy-disk.svg", $size: 20px);
       @include text.color(quaternary);
       margin-inline-end: 4px;

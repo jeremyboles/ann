@@ -4,25 +4,22 @@ defmodule Bainistigh.JournalLive do
   import Bainistigh.CommonComponent
 
   alias __MODULE__.{Component, ComposeButtonComponent, ComposeComponent, SidebarComponent}
+  alias __MODULE__.{DateComponent, LocationComponent, TagsComponent}
   alias Bainistigh.MapKit
   alias Taifead.Journal
 
-  def handle_event("close-compose", _params, socket) do
-    {:noreply, push_event(socket, "close-dialog", %{})}
-  end
-
-  def handle_event("open-compose", %{"kind" => kind}, socket) do
-    {:ok, entry} = Taifead.Journal.create_entry(%{kind: kind})
-
+  def handle_params(%{"kind" => kind}, _url, %{assigns: %{live_action: :new}} = socket) do
     send_update(ComposeButtonComponent, expanded: false, id: "compose-journal")
-    {:noreply, socket |> push_event("open-dialog", %{}) |> assign(:entry, entry)}
+    {:noreply, assign(socket, :kind, kind)}
   end
 
-  def handle_params(_params, _url, socket), do: {:noreply, socket}
+  def handle_params(_params, _url, socket) do
+    {:noreply, assign(socket, :kind, nil)}
+  end
 
   def mount(_params, _session, socket) do
     if connected?(socket), do: Journal.subscribe()
-    {:ok, assign(socket, entry: nil, page_title: "Journal")}
+    {:ok, assign(socket, entry: nil, kind: nil, page_title: "Journal")}
   end
 
   defp mapkit_url(%{center: center} = opts) do

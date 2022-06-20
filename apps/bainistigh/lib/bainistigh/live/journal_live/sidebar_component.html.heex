@@ -6,14 +6,14 @@
   </ul>
   
   <.panel id="date" selected={@selected}>
-    <.live_component id="journal-date" module={DateComponent} />
+    <%= render_slot(@date) %>
   </.panel>
   
   <.panel id="location" selected={@selected}>
-    <.live_component entry={@entry} id="journal-location" module={LocationComponent} />
+    <%= render_slot(@location) %>
   </.panel>
   
   <.panel id="tags" selected={@selected}>
-    <.live_component entry={@entry} id="journal-tags" module={TagsComponent} />
+    <%= render_slot(@tags) %>
   </.panel>
 </aside>

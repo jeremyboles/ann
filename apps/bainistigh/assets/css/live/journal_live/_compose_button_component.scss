@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------------------------
 //
-// NewButtonComponent Styles
+// ComposeButtonComponent Styles
 //
 // -----------------------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@
 // Main Containers
 // -----------------------------------------------------------------------------------------------
 
-.NewButtonComponent {
+.ComposeButtonComponent {
   position: relative;
 }
 
@@ -25,7 +25,7 @@
 // Main button
 // -----------------------------------------------------------------------------------------------
 
-.NewButtonComponent > button {
+.ComposeButtonComponent > button {
   @include text.style(sans, $color: accent, $size: 18px, $weight: 600);
   appearance: none;
   background-color: transparent;
@@ -66,7 +66,7 @@
 // Menu area
 // -----------------------------------------------------------------------------------------------
 
-.NewButtonComponent [role="menu"] {
+.ComposeButtonComponent [role="menu"] {
   @include border.all(main);
   @include box.bg(secondary);
   border-radius: 8px;
@@ -90,7 +90,7 @@
   }
 }
 
-.NewButtonComponent:has([aria-haspopup="true"][aria-expanded="true"]) {
+.ComposeButtonComponent:has([aria-haspopup="true"][aria-expanded="true"]) {
   @include media.ipad(max) {
     &::before {
       @include box.bg(mask);
@@ -106,7 +106,7 @@
   }
 }
 
-.NewButtonComponent:has([aria-haspopup="true"]:not([aria-expanded="true"])) [role="menu"] {
+.ComposeButtonComponent:has([aria-haspopup="true"]:not([aria-expanded="true"])) [role="menu"] {
   display: none;
 }
 
@@ -114,89 +114,50 @@
 // Menu items
 // -----------------------------------------------------------------------------------------------
 
-.NewButtonComponent [role="menuitem"] {
+.ComposeButtonComponent [role="menuitem"] {
   @include border.all(main);
   @include box.bg(tertiary);
   @include text.style($color: secondary, $size: 16px, $weight: 600);
-  align-items: center;
+  align-items: stretch;
   border-radius: 4px;
   cursor: default;
   display: flex;
-  gap: 12px;
-  padding: 12px;
+  justify-content: stretch;
   -webkit-user-select: none;
-
-  @include media.ipad(min) {
-    &::after {
-      @include text.style($color: faded, $size: 12px, $weight: 500);
-      content: "⌥⌃" attr(accesskey);
-      flex-grow: 1;
-      text-align: end;
-      text-transform: uppercase;
-    }
-  }
 
   @include media.mouse {
     @include text.style($color: secondary, $size: 13px, $weight: 600);
   }
 
-  &[phx-value-kind="note"] {
-    @include icon.before($url: "/images/fa/light/note.svg", $size: 24px) {
-      color: #{palette.blue($lightness: 44%)};
+  a {
+    display: flex;
+    flex-grow: 1;
+    gap: 12px;
+    padding: 12px;
+    -webkit-user-select: none;
+
+    /* prettier-ignore */
+    $icons: (bookmark: "bookmark", checkin: "location-dot", note: "note", photo: "image", quote: "quote-left", video: "film" );
+    @each $name, $icon in $icons {
+      &[href*="#{$name}"] {
+        @include icon.before($url: "/images/fa/light/#{$icon}.svg", $size: 24px) {
+          color: #{colors.var(accent, $ns: text)};
+        }
+
+        @include media.mouse {
+          @include icon.before($url: "/images/fa/regular/#{$icon}.svg", $size: 16px);
+        }
+      }
     }
 
-    @include media.mouse {
-      @include icon.before($url: "/images/fa/regular/note.svg", $size: 16px);
-    }
-  }
-
-  &[phx-value-kind="photo"] {
-    @include icon.before($url: "/images/fa/light/image.svg", $size: 24px) {
-      color: #{palette.yellow($lightness: 44%)};
-    }
-
-    @include media.mouse {
-      @include icon.before($url: "/images/fa/regular/image.svg", $size: 16px);
-    }
-  }
-
-  &[phx-value-kind="checkin"] {
-    @include icon.before($url: "/images/fa/light/location-dot.svg", $size: 24px) {
-      color: #{palette.green($lightness: 42%)};
-    }
-
-    @include media.mouse {
-      @include icon.before($url: "/images/fa/regular/location-dot.svg", $size: 16px);
-    }
-  }
-
-  &[phx-value-kind="bookmark"] {
-    @include icon.before($url: "/images/fa/light/bookmark.svg", $size: 24px) {
-      color: #{palette.purple($lightness: 42%)};
-    }
-
-    @include media.mouse {
-      @include icon.before($url: "/images/fa/regular/bookmark.svg", $size: 16px);
-    }
-  }
-
-  &[phx-value-kind="quote"] {
-    @include icon.before($url: "/images/fa/light/quote-left.svg", $size: 24px) {
-      color: #{palette.red($lightness: 42%)};
-    }
-
-    @include media.mouse {
-      @include icon.before($url: "/images/fa/solid/quote-left.svg", $size: 16px);
-    }
-  }
-
-  &[phx-value-kind="video"] {
-    @include icon.before($url: "/images/fa/light/film.svg", $size: 24px) {
-      color: #{palette.orange($lightness: 42%)};
-    }
-
-    @include media.mouse {
-      @include icon.before($url: "/images/fa/regular/film.svg", $size: 16px);
+    @include media.ipad(min) {
+      &::after {
+        @include text.style($color: faded, $size: 12px, $weight: 500);
+        content: "⌥⌃" attr(accesskey);
+        flex-grow: 1;
+        text-align: end;
+        text-transform: uppercase;
+      }
     }
   }
 }

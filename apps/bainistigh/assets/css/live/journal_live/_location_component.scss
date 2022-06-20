@@ -62,7 +62,11 @@
   -webkit-appearance: none;
   border-radius: 4px;
   margin-block-end: 8px;
-  padding: 4px;
+  padding: 4px 8px;
+
+  &::placeholder {
+    @include text.color(faded);
+  }
 
   @include media.ipad(max) {
     @include text.style(sans, $color: main, $size: 18px, $weight: 500);

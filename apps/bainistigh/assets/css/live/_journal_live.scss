@@ -5,9 +5,10 @@
 // -----------------------------------------------------------------------------------------------
 
 @use "./journal_live/component";
+@use "./journal_live/compose_button_component";
 @use "./journal_live/compose_component";
+@use "./journal_live/date_component";
 @use "./journal_live/editor_component";
 @use "./journal_live/entries_component";
 @use "./journal_live/location_component";
-@use "./journal_live/new_button_component";
 @use "./journal_live/sidebar_component";

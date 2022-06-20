@@ -1,26 +1,26 @@
-<div class="NewButtonComponent">
+<div class="ComposeButtonComponent">
   <button aria-controls={@id <> "-menu"} aria-expanded={if @expanded, do: "true"} aria-haspopup="true"  id={@id <> "-button"} phx-click={if !@expanded, do: "toggle"} phx-target={@myself} type="button">
     <span>New</span>
   </button>
   
   <ul aria-labelledby={@id <> "-button"} id={@id <> "-menu"} phx-click-away="collapse" phx-target={@myself} role="menu">
-    <li accesskey="n" phx-click="open-compose" phx-value-kind="note" role="menuitem">
-      New Note
+    <li role="menuitem">
+      <%= live_patch "New Note", accesskey: "n", to: Routes.journal_path(@socket, :new, kind: "note") %>
     </li>
-    <li accesskey="p" phx-click="open-compose" phx-value-kind="photo" role="menuitem">
-      New Photo
+    <li role="menuitem">
+      <%= live_patch "New Photo", accesskey: "p", to: Routes.journal_path(@socket, :new, kind: "photo") %>
     </li>
-    <li accesskey="c" phx-click="open-compose" phx-value-kind="checkin" role="menuitem">
-      New Check-In
+    <li role="menuitem">
+      <%= live_patch "New Check-In", accesskey: "c", to: Routes.journal_path(@socket, :new, kind: "checkin") %>
     </li>
-    <li accesskey="b" phx-click="open-compose" phx-value-kind="bookmark" role="menuitem">
-      New Bookmark
+    <li role="menuitem">
+      <%= live_patch "New Bookmark", accesskey: "b", to: Routes.journal_path(@socket, :new, kind: "bookmark") %>
     </li>
-    <li accesskey="q" phx-click="open-compose" phx-value-kind="quote" role="menuitem">
-      New Quote
+    <li role="menuitem">
+      <%= live_patch "New Quote", accesskey: "q", to: Routes.journal_path(@socket, :new, kind: "quote") %>
     </li>
-    <li accesskey="v" phx-click="open-compose" phx-value-kind="video" role="menuitem">
-      New Video
+    <li role="menuitem">
+      <%= live_patch "New Video", accesskey: "v", to: Routes.journal_path(@socket, :new, kind: "video") %>
     </li>
   </ul>
 </div>

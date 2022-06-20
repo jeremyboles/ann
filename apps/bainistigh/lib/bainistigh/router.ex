@@ -19,12 +19,14 @@ defmodule Bainistigh.Router do
 
     live "/", DashboardLive
     live "/essays", EssaysLive
-    live "/journal", JournalLive
 
     live "/media", MediaLive
     live "/people", PeopleLive
     live "/messages", MessagesLive
     live "/search", SearchLive
+
+    live "/journal", JournalLive, :index
+    live "/journal/new", JournalLive, :new
 
     live "/wiki", WikiLive, :new
     live "/wiki/:id", WikiLive, :edit
