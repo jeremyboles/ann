@@ -74,6 +74,7 @@
   left: 0;
   right: 0;
   top: 48px;
+  z-index: 88;
 
   @include media.ipad(min) {
     top: 40px;

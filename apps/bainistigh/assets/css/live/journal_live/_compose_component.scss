@@ -134,6 +134,17 @@
   top: 10px;
   z-index: 10;
 
+  @include media.ipad(max) {
+    @include border.block-end(tertiary);
+    background-color: inherit;
+    justify-content: space-between;
+    left: 0;
+    padding-block: 10px;
+    padding-inline: 12px;
+    right: 0;
+    top: 48px;
+  }
+
   @include icon.after($url: "/images/fa/solid/chevron-down.svg", $size: 10px) {
     color: #{colors.var(quaternary, $ns: text)};
     margin-inline-end: 0;
@@ -172,6 +183,10 @@
   flex-direction: column;
   flex-grow: 1;
   padding-block: 48px;
+
+  @include media.ipad(max) {
+    padding-block-start: 88px;
+  }
 }
 
 //
