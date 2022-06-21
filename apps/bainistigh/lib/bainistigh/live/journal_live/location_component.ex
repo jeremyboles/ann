@@ -11,8 +11,8 @@ defmodule Bainistigh.JournalLive.LocationComponent do
 
       %{"latitide" => lat, "longitude" => lng} ->
         hidden_input(form, :coords, value: "#{lat} #{lng}")
-        
-      %Geo.Point{coordinates: {lat, lng}} -> 
+
+      %Geo.Point{coordinates: {lat, lng}} ->
         hidden_input(form, :coords, value: "#{lat} #{lng}")
     end
   end

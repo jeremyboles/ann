@@ -10,9 +10,9 @@ defmodule Bainistigh.JournalLive.ComposeComponent do
     {:noreply, socket}
   end
 
-  def handle_event("save", params, socket) do
-    IO.inspect(params, label: "save")
-    {:noreply, push_event(socket, "close-dialog", %{})}
+  def handle_event("save", %{"action" => "save", "entry" => params}, socket) do
+    {:ok, _entry} = Journal.create_entry(params)
+    {:noreply, push_patch(socket, to: "/journal")}
   end
 
   def handle_event("update", params, socket) do

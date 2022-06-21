@@ -22,7 +22,7 @@ defmodule Taifead.Journal.Entry do
   @doc false
   def changeset(entries, attrs) do
     entries
-    |> cast(attrs, [:kind, :published_at, :tags])
+    |> cast(attrs, [:kind, :published_at, :tags, :topic_id])
     |> cast_coords(attrs)
     |> cast_mapkit_response(attrs)
     |> generate_url_slug()
