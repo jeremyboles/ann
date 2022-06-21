@@ -15,6 +15,13 @@ defmodule Taifead.Journal do
   def get_entry!(id), do: Repo.get!(Entry, id)
   def list_entries, do: Repo.all(Entry)
 
+  def publish_entry(attrs \\ %{}) do
+    attrs
+    |> Map.put("is_published", true)
+    |> Map.put("published_at", NaiveDateTime.utc_now())
+    |> create_entry()
+  end
+
   def update_entry(%Entry{} = entries, attrs) do
     entries |> Entry.changeset(attrs) |> Repo.update() |> broadcast(:entry_updated)
   end

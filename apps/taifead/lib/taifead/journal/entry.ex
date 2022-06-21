@@ -10,6 +10,7 @@ defmodule Taifead.Journal.Entry do
     belongs_to(:topic, Taifead.Topics.Draft)
 
     field :coords, Geo.PostGIS.Geometry
+    field :is_published, :boolean
     field :kind, Ecto.Enum, values: [:bookmark, :checkin, :note, :photo, :quote, :video]
     field :mapkit_response, :map
     field :published_at, :utc_datetime_usec
@@ -22,7 +23,7 @@ defmodule Taifead.Journal.Entry do
   @doc false
   def changeset(entries, attrs) do
     entries
-    |> cast(attrs, [:kind, :published_at, :tags, :topic_id])
+    |> cast(attrs, [:is_published, :kind, :published_at, :tags, :topic_id])
     |> cast_coords(attrs)
     |> cast_mapkit_response(attrs)
     |> generate_url_slug()

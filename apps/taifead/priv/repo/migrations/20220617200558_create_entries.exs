@@ -10,6 +10,7 @@ defmodule Taifead.Repo.Migrations.CreateEntries do
       add :topic_id, references(:topic_drafts, on_delete: :nilify_all)
 
       add :coords, :"geometry(Point, 4326)"
+      add :is_published, :boolean, default: false
       add :kind, :entry_kind, null: false
       add :mapkit_response, :map
       add :published_at, :utc_datetime_usec
