@@ -1,3 +1,11 @@
-<div class="JournalLive_TagsComponent">
-  <input id={input_id(@form, :tags, "new")} name={"#{input_name(@form, :tags)}[]"} />
+<div class="JournalLive_TagsComponent" id="journal-tags" phx-hook="JournalTags">
+  <label for="journal-tags-input"  >
+    <%= for tag <- input_value(@form, :tags) do %>
+      <span class="tag">
+        <%= tag %> <input name={"#{input_name(@form, :tags)}[]"} type="hidden" value={tag} />
+        <button phx-click="remove" phx-target={@myself} phx-value-tag={tag} type="button">Remove Tag</button>
+      </span>
+    <% end %>
+    <input autocapitalize="off" form="none" id="journal-tags-input" phx-keydown="keydown" phx-target={@myself} placeholder="Add tags…"/>
+  </label>
 </div>

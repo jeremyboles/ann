@@ -18,10 +18,60 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_TagsComponent {
+  align-items: stretch;
+  block-size: 100%;
+  display: flex;
+  justify-content: stretch;
   padding-inline: 12px;
 }
 
+//
+// Label for containing tags
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_TagsComponent label {
+  align-content: start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: start;
+  padding-block: 12px;
+}
+
+//
+// Input for tags
+// -----------------------------------------------------------------------------------------------
+
 .JournalLive_TagsComponent input {
-  block-size: 100%;
-  inline-size: 100%;
+  @include text.style(sans, $color: main, $size: 14px, $weight: 500);
+  background-color: transparent;
+  border: none;
+  margin-inline-start: 4px;
+  outline: none;
+  padding-block: 4px;
+
+  &::placeholder {
+    @include text.color(faded);
+  }
+}
+
+//
+// Tags themselves
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_TagsComponent .tag {
+  @include box.bg(tertiary);
+  @include border.all();
+  @include text.style($color: main, $size: 14px, $weight: 600);
+  align-items: center;
+  border-radius: 24px;
+  display: flex;
+  gap: 8px;
+  padding-block: 4px;
+  padding-inline: 12px;
+}
+
+.JournalLive_TagsComponent .tag button {
+  @include icon.replace($url: "/images/fa/regular/xmark.svg", $size: 12px);
+  color: #{colors.var(tertiary, $ns: text)};
 }
