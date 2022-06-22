@@ -2,7 +2,7 @@
   "name": "taifead",
   "dependencies": {
     "bainistighn": "file:../../../bainistigh/assets/js",
-    "jsdom": "^19.0.0",
-    "prosemirror-model": "^1.17.0"
+    "jsdom": "^20.0.0",
+    "prosemirror-model": "^1.18.1"
   }
 }
