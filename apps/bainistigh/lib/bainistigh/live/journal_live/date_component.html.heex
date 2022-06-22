@@ -1,3 +1,51 @@
-<div class="JournalLive_DateComponent">
-  <%= datetime_local_input @form, :published_at %>
+<div class="JournalLive_DateComponent" id="journal-date" phx-hook="JournalDate">
+  <table>
+    <caption>
+      <div>
+        <button phx-click="previous" phx-target={@myself} type="button"><span>Previous Month</span></button>
+        <%= display_month @month  %>
+        <button phx-click="next" phx-target={@myself} type="button"><span>Next Month</span></button>
+      </div>
+    </caption>
+    <thead>
+      <tr>
+        <th><abbr title="Sunday">S</abbr></th>
+        <th><abbr title="Monday">M</abbr></th>
+        <th><abbr title="Tuesday">T</abbr></th>
+        <th><abbr title="Wednesday">W</abbr></th>
+        <th><abbr title="Thursday">T</abbr></th>
+        <th><abbr title="Friday">F</abbr></th>
+        <th><abbr title="Saturday">S</abbr></th>
+      </tr>
+    </thead>
+    
+    <.calendar let={date} month={@month}>
+      <td data-current={{date.year, date.month} == @month} phx-click="update" phx-target={@myself} phx-value-date={Date.to_iso8601(date)}>
+        <time
+          aria-current={if is_today?(date), do: "date", else: "false" }
+          aria-selected={if @selected_date == date, do: "true", else: "false"}
+          datetime={Date.to_iso8601(date)}
+        >
+          <%= date.day %>
+        </time>
+      </td>
+    </.calendar>
+  </table>
+  
+  <div>
+    <div class="top">
+      <label for="time-input">Time:</label>
+      <input id="time-input" name="time" phx-change="update" phx-debounce="blur" phx-target={@myself} placeholder="00:00" step="2" type="time" value={time_value(@selected_time)} />
+    </div>
+    
+    <div class="middle"/>
+    
+    
+    <div class="bottom">
+      <button phx-click="set-to-now" phx-target={@myself} type="button">Now</button>
+      <button phx-click="clear" phx-target={@myself} type="button">Clear</button>
+    </div>
+  </div>
+  
+  <%= hidden_input(@form, :published_at) %>
 </div>

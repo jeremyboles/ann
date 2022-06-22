@@ -21,7 +21,6 @@ defmodule Bainistigh.JournalLive.ComposeComponent do
   end
 
   def handle_event("update", params, socket) do
-    IO.inspect(params, label: "update")
     socket = socket |> assign_changeset(params)
     {:noreply, socket}
   end
