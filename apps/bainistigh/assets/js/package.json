@@ -15,6 +15,9 @@
     "prosemirror-view": "^1.24.1"
   },
   "exports": {
+    "./journal-schema": {
+      "import": "./hooks/journal-editor/schema.mjs"
+    },
     "./wiki-schema": {
       "import": "./hooks/wiki-editor/schema.mjs"
     }

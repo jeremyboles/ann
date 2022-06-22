@@ -7,7 +7,8 @@ defmodule Taifead.Journal.Entry do
   @timestamps_opts [type: :utc_datetime_usec]
 
   schema "entries" do
-    belongs_to(:topic, Taifead.Topics.Draft)
+    belongs_to :topic, Taifead.Topics.Draft
+    has_one :note, Taifead.Journal.Note
 
     field :coords, Geo.PostGIS.Geometry
     field :is_published, :boolean
@@ -21,9 +22,10 @@ defmodule Taifead.Journal.Entry do
   end
 
   @doc false
-  def changeset(entries, attrs) do
-    entries
+  def changeset(entry, attrs) do
+    entry
     |> cast(attrs, [:is_published, :kind, :published_at, :tags, :topic_id])
+    |> cast_assoc(:note, required: true)
     |> cast_coords(attrs)
     |> cast_mapkit_response(attrs)
     |> generate_url_slug()

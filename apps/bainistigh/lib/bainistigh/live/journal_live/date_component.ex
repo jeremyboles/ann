@@ -72,13 +72,15 @@ defmodule Bainistigh.JournalLive.DateComponent do
     socket |> assign(selected_date: nil, selected_time: nil)
   end
 
-  defp assign_selected(socket, datetime) do
+  defp assign_selected(socket, datetime) when datetime != "" do
     socket
     |> assign(
       selected_date: DateTime.to_date(datetime),
       selected_time: DateTime.to_time(datetime)
     )
   end
+
+  defp assign_selected(socket, _), do: socket
 
   defp calendar(assigns) do
     ~H"""

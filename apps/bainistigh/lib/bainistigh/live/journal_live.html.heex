@@ -254,10 +254,7 @@
   <%= if @live_action == :new do %>
     <.live_component entry={@entry} id="journal-component" kind={@kind} let={f} module={ComposeComponent}>
       <div class="content">
-        <div class="JournalLive_EditorComponent">
-          <div id="journal-editor"  phx-hook="JournalEditor" />
-          <div class="count">12 / 256</div>
-        </div>
+        <.live_component form={f} id="journal-editor" module={EditorComponent} } />
       </div>
       
       <.live_component entry={@entry} id="journal-sidebar" module={SidebarComponent}>

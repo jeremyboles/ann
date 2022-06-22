@@ -31,6 +31,7 @@ export function mounted() {
   this.view = new EditorView(this.el, {
     attributes: { autofocus: true },
     dispatchTransaction: dispatchTransaction.bind(this),
+    handleDOMEvents: { blur: handleBlur.bind(this) },
     state,
   })
 }
@@ -43,6 +44,7 @@ export function updated() {
 
   this.view = new EditorView(this.el, {
     dispatchTransaction: dispatchTransaction.bind(this),
+    handleDOMEvents: { blur: handleBlur.bind(this) },
     state,
   })
 }
@@ -54,7 +56,9 @@ export function updated() {
 function dispatchTransaction(transaction) {
   const state = this.view.state.apply(transaction)
   this.view.updateState(state)
-  //
-  //   const json = JSON.stringify(state.doc.toJSON())
-  //   document.getElementById(this.el.dataset.input).value = json
+}
+
+function handleBlur(view) {
+  const input = document.getElementById(this.el.dataset.input)
+  this.pushEventTo(input.form, "update", { doc: view.state.doc.toJSON() })
 }

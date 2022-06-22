@@ -6,6 +6,11 @@ defmodule Bainistigh.JournalLive.TagsComponent do
     {:noreply, push_event(socket, "update-tags", %{tags: tags})}
   end
 
+  def handle_event("keydown", %{"key" => ",", "value" => tag}, socket) when tag != "" do
+    tags = input_value(socket.assigns.form, :tags) ++ [String.trim(tag, ",")]
+    {:noreply, push_event(socket, "update-tags", %{tags: tags})}
+  end
+
   def handle_event("keydown", %{"key" => "Enter", "value" => tag}, socket) when tag != "" do
     tags = input_value(socket.assigns.form, :tags) ++ [String.trim(tag)]
     {:noreply, push_event(socket, "update-tags", %{blur: true, tags: tags})}

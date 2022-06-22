@@ -17,4 +17,20 @@ defmodule Taifead.JournalFixtures do
 
     entries
   end
+
+  @doc """
+  Generate a note.
+  """
+  def note_fixture(attrs \\ %{}) do
+    {:ok, note} =
+      attrs
+      |> Enum.into(%{
+        content_html: "some content_html",
+        content_text: "some content_text",
+        doc: %{}
+      })
+      |> Taifead.Journal.create_note()
+
+    note
+  end
 end

@@ -4,7 +4,7 @@ defmodule Bainistigh.JournalLive do
   import Bainistigh.CommonComponent
 
   alias __MODULE__.{Component, ComposeButtonComponent, ComposeComponent, SidebarComponent}
-  alias __MODULE__.{DateComponent, LocationComponent, TagsComponent}
+  alias __MODULE__.{EditorComponent, DateComponent, LocationComponent, TagsComponent}
   alias Bainistigh.MapKit
   alias Taifead.Journal
 
