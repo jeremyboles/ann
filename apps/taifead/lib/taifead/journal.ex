@@ -2,6 +2,7 @@ defmodule Taifead.Journal do
   import Ecto.Query, warn: false
 
   alias Taifead.Journal.Entry
+  alias Taifead.Journal.Note
   alias Taifead.Repo
 
   def change_entry(%Entry{} = entries, attrs \\ %{}), do: Entry.changeset(entries, attrs)
@@ -21,7 +22,7 @@ defmodule Taifead.Journal do
   def publish_entry(attrs \\ %{}) do
     attrs
     |> Map.put("is_published", true)
-    |> Map.put_new("published_at", NaiveDateTime.utc_now())
+    |> put_published_at()
     |> create_entry()
   end
 
@@ -43,7 +44,9 @@ defmodule Taifead.Journal do
     error
   end
 
-  alias Taifead.Journal.Note
+  defp put_published_at(%{"published_at" => ""} = attrs), do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
+  defp put_published_at(%{"published_at" => nil} = attrs), do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
+  defp put_published_at(%{} = attrs), do: attrs
 
   @doc """
   Returns the list of notes.

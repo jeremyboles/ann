@@ -35,11 +35,10 @@
   <div>
     <div class="top">
       <label for="time-input">Time:</label>
-      <input id="time-input" name="time" phx-change="update" phx-debounce="blur" phx-target={@myself} placeholder="00:00" type="time" value={time_value(@selected_time)} />
+      <input data-timezone="UTC" id="time-input" name="time" phx-change="update" phx-debounce="blur" phx-target={@myself} step="2" type="time" value={time_value(@selected_time)} />
     </div>
     
     <div class="middle"/>
-    
     
     <div class="bottom">
       <button phx-click="set-to-now" phx-target={@myself} type="button">Now</button>

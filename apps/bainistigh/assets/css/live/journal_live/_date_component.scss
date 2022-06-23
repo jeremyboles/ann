@@ -194,6 +194,11 @@
   &::placeholder {
     @include text.color(faded);
   }
+
+  &::after {
+    @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
+    content: attr(data-timezone);
+  }
 }
 
 //
