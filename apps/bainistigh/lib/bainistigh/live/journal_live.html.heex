@@ -9,6 +9,36 @@
   </.section_header>
   
   <article class="EntriesComponent" id="entries-component" phx-hook="Masonry">
+    <%= for entry <- @entries do %>
+      <article class={entry.kind}>    
+        <header>
+          <h1><b>Springfield, MO, United States</b> at <b>Cherry Picker</b></h1>
+          <p>
+            <%= if entry.published_at do %>
+              <time datetime={DateTime.to_iso8601(entry.published_at)}>
+                <%= Calendar.strftime(entry.published_at, "%d %B %Y · %H:%M") %>
+              </time>
+            <% else %>
+              <i>Not published</i>
+            <% end %>
+          </p>
+        </header>
+        
+        <div class="content">
+          <%= raw entry.note.content_html %>
+        </div>
+        
+        <footer>
+          <ul>
+            <li class="replies"><data>0</data> <span>Replies</span></li>
+            <li class="likes"><data>0</data> <span>Likes</span></li>
+            <li class="reposts"><data>0</data> <span>Repost</span></li>
+            <li class="bookmarks"><data>0</data> <span>Bookmarks</span></li>
+          </ul>
+        </footer>
+      </article>
+    <% end %>
+    
     <article class="note">    
       <header>
         <h1><b>Springfield, MO, United States</b> at <b>Cherry Picker</b></h1>

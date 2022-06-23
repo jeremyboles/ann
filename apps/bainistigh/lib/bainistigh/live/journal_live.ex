@@ -19,7 +19,9 @@ defmodule Bainistigh.JournalLive do
 
   def mount(_params, _session, socket) do
     if connected?(socket), do: Journal.subscribe()
-    {:ok, assign(socket, entry: nil, kind: nil, page_title: "Journal")}
+
+    entries = Journal.list_entries()
+    {:ok, assign(socket, entries: entries, entry: nil, kind: nil, page_title: "Journal")}
   end
 
   defp mapkit_url(%{center: center} = opts) do

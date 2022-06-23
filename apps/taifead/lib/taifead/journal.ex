@@ -13,7 +13,10 @@ defmodule Taifead.Journal do
   def delete_entry(%Entry{} = entries), do: Repo.delete(entries)
 
   def get_entry!(id), do: Repo.get!(Entry, id)
-  def list_entries, do: Repo.all(Entry)
+
+  def list_entries do
+    Repo.all(from e in Entry, order_by: [desc: e.updated_at]) |> Repo.preload(:note)
+  end
 
   def publish_entry(attrs \\ %{}) do
     attrs
