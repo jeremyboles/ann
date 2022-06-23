@@ -54,7 +54,7 @@ defmodule Taifead.Topics do
     Repo.all(from(p in Publication, distinct: p.draft_id, where: [latest: true]))
   end
 
-  def delete_draft(%Draft{} = draft), do: Repo.delete(draft)
+  def delete_draft(%Draft{} = draft), do: Repo.delete(draft) |> broadcast(:draft_deleted)
 
   def get_draft!(id), do: Repo.get!(Draft, id)
 

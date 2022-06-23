@@ -8,6 +8,11 @@ defmodule Bainistigh.WikiLive do
   alias Taifead.Topics
   alias Taifead.Topics.Draft
 
+  def handle_event("delete", _params, %{assigns: %{draft: draft}} = socket) do
+    {:ok, _} = Topics.delete_draft(draft)
+    {:noreply, push_patch(socket, to: "/wiki")}
+  end
+
   def handle_event("get-last-location", _params, socket) do
     %{coords: %{coordinates: {lat, lng}}} = Topics.latest_publication()
     {:noreply, push_event(socket, "last-location-found", %{latitude: lat, longitude: lng})}
@@ -28,6 +33,13 @@ defmodule Bainistigh.WikiLive do
 
   def handle_info({:draft_created, draft}, socket) do
     socket = update(socket, :catalog, fn catalog -> [draft | catalog] end)
+    {:noreply, socket}
+  end
+
+  def handle_info({:draft_deleted, draft}, socket) do
+    socket =
+      update(socket, :catalog, fn catalog -> Enum.reject(catalog, &(&1.id == draft.id)) end)
+
     {:noreply, socket}
   end
 
