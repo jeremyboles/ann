@@ -13,9 +13,13 @@
       <article class={entry.kind}>    
         <header>
           <h1>
-            <b><%= entry.mapkit_response["locality"] %>, <%= entry.mapkit_response["administrativeAreaCode"] %>, <%= entry.mapkit_response["country"] %></b>
-            <%= if entry.mapkit_response["muid"] do %>
-              at <b><%= entry.mapkit_response["name"] %></b>
+            <%= if entry.mapkit_response do %>
+              <b><%= entry.mapkit_response["locality"] %>, <%= entry.mapkit_response["administrativeAreaCode"] %>, <%= entry.mapkit_response["country"] %></b>
+              <%= if entry.mapkit_response["muid"] do %>
+                at <b><%= entry.mapkit_response["name"] %></b>
+              <% end %>
+            <% else %>
+              <b><i>Unknown Location</i></b>
             <% end %>
           </h1>
           <p>

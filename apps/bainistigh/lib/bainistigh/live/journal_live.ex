@@ -8,6 +8,11 @@ defmodule Bainistigh.JournalLive do
   alias Bainistigh.MapKit
   alias Taifead.Journal
 
+  def handle_info({:entry_created, entry}, socket) do
+    socket = update(socket, :entries, fn entries -> [entry | entries] end)
+    {:noreply, socket}
+  end
+
   def handle_params(%{"kind" => kind}, _url, %{assigns: %{live_action: :new}} = socket) do
     send_update(ComposeButtonComponent, expanded: false, id: "compose-journal")
     {:noreply, assign(socket, :kind, kind)}
