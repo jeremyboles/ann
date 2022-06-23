@@ -33,7 +33,6 @@ export function mounted() {
     })
 
     search.search((error, data) => {
-      console.log(data, error)
       if (error) return
 
       this.results.replaceChildren()
@@ -66,6 +65,20 @@ export function mounted() {
 
       this.results.replaceChildren(...items)
     })
+
+    if (!this.location) {
+      this.location = new mapkit.MarkerAnnotation(coordinate)
+      this.map.addAnnotation(this.location)
+
+      this.geocoder.reverseLookup(coordinate, (_, data) => {
+        const [response] = data.results
+        this.selected.innerHTML = `<span>${response.name}</span>`
+
+        const { latitude, longitude } = coordinate
+        const payload = { coords: { latitude, longitude }, mapkit_response: response }
+        this.pushEventTo("#compose-component", "update", payload)
+      })
+    }
   })
 
   this.map.addEventListener("long-press", ({ pointOnPage }) => {

@@ -12,7 +12,12 @@
     <%= for entry <- @entries do %>
       <article class={entry.kind}>    
         <header>
-          <h1><b>Springfield, MO, United States</b> at <b>Cherry Picker</b></h1>
+          <h1>
+            <b><%= entry.mapkit_response["locality"] %>, <%= entry.mapkit_response["administrativeAreaCode"] %>, <%= entry.mapkit_response["country"] %></b>
+            <%= if entry.mapkit_response["muid"] do %>
+              at <b><%= entry.mapkit_response["name"] %></b>
+            <% end %>
+          </h1>
           <p>
             <%= if entry.published_at do %>
               <time datetime={DateTime.to_iso8601(entry.published_at)}>

@@ -25,8 +25,10 @@ export function mounted() {
       this.map.addAnnotation(this.location)
 
       this.geocoder.reverseLookup(coordinate, (_, data) => {
+        const [response] = data.results
+
         const { latitude, longitude } = coordinate
-        this.pushEvent("update-location", { coords: { latitude, longitude }, mapkit_response: data })
+        this.pushEvent("update-location", { coords: { latitude, longitude }, mapkit_response: response })
       })
     }
   })
@@ -43,8 +45,10 @@ export function mounted() {
     this.map.addAnnotation(this.location)
 
     this.geocoder.reverseLookup(coords, (_, data) => {
+      const [response] = data.results
+
       const { latitude, longitude } = coords
-      this.pushEvent("update-location", { coords: { latitude, longitude }, mapkit_response: data })
+      this.pushEvent("update-location", { coords: { latitude, longitude }, mapkit_response: response })
     })
   })
 
