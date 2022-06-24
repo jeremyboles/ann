@@ -9,13 +9,13 @@ defmodule Foilsigh.WikiView do
   alias Foilsigh.Endpoint
   alias Taifead.Topics.Publication
 
-  def city(%Publication{mapkit_response: %{"results" => [result | _]}}) do
-    case result do
+  def city(%Publication{mapkit_response: response}) do
+    case response do
       %{"countryCode" => "US"} ->
-        "#{result["locality"]}, #{result["administrativeAreaCode"]}, United States"
+        "#{response["locality"]}, #{response["administrativeAreaCode"]}, United States"
 
       _ ->
-        "#{result["locality"]}, #{result["country"]}"
+        "#{response["locality"]}, #{response["country"]}"
     end
   end
 
@@ -85,6 +85,5 @@ defmodule Foilsigh.WikiView do
   defp time_ago(date), do: Timex.from_now(date)
 
   defp time_zone(%Publication{mapkit_response: nil}), do: nil
-  defp time_zone(%Publication{mapkit_response: response}), do: time_zone(response)
-  defp time_zone(%{"results" => [result | _]}), do: result["timezone"]
+  defp time_zone(%Publication{mapkit_response: response}), do: response["timezone"]
 end
