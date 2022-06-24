@@ -9,7 +9,7 @@
             been updated <%= updates_count(@topic) %>, the last time being <%= updated_at(@topic) %>,
             <%= if same_city(@topic), do: "also" %> from <%= updated_from(@topic) %>.
           <% else %>
-            only been updated one time.
+            not been updated since its initial publication.
           <% end %>
       </p>
     </figcaption>
