@@ -25,7 +25,7 @@ defmodule Foilsigh.WikiView do
     assigns = %{publication: publication, time_zone: time_zone(publication)}
 
     ~H"""
-      <time datetime={datetime(@publication.updated_at, @time_zone)}><%= time_ago @publication.updated_at %></time>
+      <time datetime={datetime(@publication.inserted_at, @time_zone)}><%= time_ago @publication.inserted_at %></time>
     """
   end
 

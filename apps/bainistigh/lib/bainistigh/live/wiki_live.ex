@@ -27,6 +27,11 @@ defmodule Bainistigh.WikiLive do
     {:noreply, push_event(socket, "request-location", %{})}
   end
 
+  def handle_event("save-over", _params, %{assigns: %{draft: draft}} = socket) do
+    {:ok, _draft} = Topics.replace_publication(draft)
+    {:noreply, socket}
+  end
+
   def handle_event("update-location", location, socket) do
     {:noreply, assign(socket, :location, location)}
   end

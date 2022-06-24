@@ -1,6 +1,6 @@
 defmodule Taifead.Topics do
   import Ecto.Query, warn: false
-  import Ecto.Changeset, only: [put_change: 3, put_embed: 3]
+  import Ecto.Changeset, only: [change: 2, put_change: 3, put_embed: 3]
 
   alias Ecto.Multi
   alias Taifead.Repo
@@ -103,6 +103,23 @@ defmodule Taifead.Topics do
       end,
       []
     )
+    |> Repo.transaction()
+    |> broadcast(:draft_updated)
+  end
+
+  def replace_publication(%Draft{} = draft) do
+    attributes = draft |> Map.from_struct() |> Map.drop([:__meta__, :id, :inserted_at, :path, :publications, :status, :updated_at])
+    draft_changeset = draft |> change_draft() |> put_change(:status, :live)
+
+    Multi.new()
+    |> Multi.update(:draft, draft_changeset)
+    |> Multi.one(:latest, from(p in Publication, where: [draft_id: ^draft.id, latest: true]))
+    |> Multi.update(:publication, fn %{latest: publication} ->
+      IO.inspect(publication, label: "update")
+      IO.inspect(attributes, label: "update")
+      IO.inspect(publication |> change_publication() |> change(attributes), label: "update")
+      publication |> change_publication() |> change(attributes)
+    end)
     |> Repo.transaction()
     |> broadcast(:draft_updated)
   end
