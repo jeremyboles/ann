@@ -60,7 +60,7 @@ jobs:
         run: mix phx.digest
       - name: Build release
         run: mix release --overwrite
-      - name: Deploy replease with rsync
+      - name: Deploy release with rsync
         run: rsync --checksum --compress --copy-links --delete --human-readable --partial --recursive --verbose ./_build/prod/ ${{ secrets.SSH_HOST }}:/srv/ann
       - name: Restart the server
         run: ssh -tt ${{ secrets.SSH_HOST }} "sudo systemctl restart ann"
