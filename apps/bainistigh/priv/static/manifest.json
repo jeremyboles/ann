@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Ann",
+  "short_name": "Ann",
+
+  "display": "standalone",
+  "start_url": ".",
+  "scope": ".",
+
+  "icons": [
+    {
+      "src": "/images/icon.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ]
+}
