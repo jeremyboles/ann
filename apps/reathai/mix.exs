@@ -17,13 +17,14 @@ defmodule Reathai.MixProject do
 
   # Run "mix help compile.app" to learn about applications.
   def application do
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :rollbax]]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:jason, "~> 1.2"},
+      {:rollbax, "~> 0.11.0"},
       {:poolboy, "~> 1.5.1"}
     ]
   end

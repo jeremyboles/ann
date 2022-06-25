@@ -24,7 +24,7 @@ defmodule Foilsigh.MixProject do
   def application do
     [
       mod: {Foilsigh.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :rollbax, :runtime_tools]
     ]
   end
 
@@ -52,6 +52,7 @@ defmodule Foilsigh.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
       {:plug_cowboy, "~> 2.5"},
+      {:rollbax, "~> 0.11.0"},
       {:reathai, in_umbrella: true},
       {:taifead, in_umbrella: true},
       {:telemetry_metrics, "~> 0.6"},

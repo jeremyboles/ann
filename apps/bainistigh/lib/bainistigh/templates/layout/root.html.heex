@@ -13,8 +13,8 @@
       
     <%= live_title_tag assigns[:page_title] || "Bainistigh", suffix: " · Bainistigh" %>
     <link rel="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-startup-image" href="/images/startup.png">
-    <link rel="icon" href="/images/favicon.png">
+    <link rel="apple-touch-startup-image" href="/images/startup.png" crossorigin="use-credentials">
+    <link rel="icon" href="/images/favicon.png" crossorigin="use-credentials">
     <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
     <link href={Routes.static_path(@conn, "/assets/all.css")} phx-track-static rel="stylesheet">
     

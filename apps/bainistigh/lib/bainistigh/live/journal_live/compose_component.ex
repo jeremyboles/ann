@@ -22,7 +22,6 @@ defmodule Bainistigh.JournalLive.ComposeComponent do
 
   def handle_event("update", %{"doc" => doc}, socket) do
     changeset = socket.assigns.changeset |> Ecto.Changeset.change(note: %{doc: doc})
-    IO.inspect(changeset, label: "doc")
     {:noreply, assign(socket, :changeset, changeset)}
   end
 

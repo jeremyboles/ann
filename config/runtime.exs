@@ -134,6 +134,17 @@ if config_env() == :prod do
 
   config :joken, default_signer: [key_pem: File.read!(keyfile)]
 
+  # Access token for Rollbar
+  rollbar_access_token =
+    System.get_env("ROLLBAR_ACCESS_TOKEN") ||
+      raise """
+      environment variable ROLLBAR_ACCESS_TOKEN is missing.
+      """
+
+  config :rollbax,
+    access_token: rollbar_access_token,
+    environment: "production"
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix

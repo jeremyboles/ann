@@ -24,7 +24,7 @@ defmodule Giorraigh.MixProject do
   def application do
     [
       mod: {Giorraigh.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :rollbax, :runtime_tools]
     ]
   end
 
@@ -39,6 +39,7 @@ defmodule Giorraigh.MixProject do
     [
       {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.4"},
+      {:rollbax, "~> 0.11.0"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},

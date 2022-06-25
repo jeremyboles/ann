@@ -23,7 +23,7 @@ defmodule Taifead.MixProject do
   def application do
     [
       mod: {Taifead.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :rollbax, :runtime_tools]
     ]
   end
 
@@ -44,6 +44,7 @@ defmodule Taifead.MixProject do
       {:nanoid, "~> 2.0.5"},
       {:phoenix_pubsub, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
+      {:rollbax, "~> 0.11.0"},
       {:swoosh, "~> 1.3"},
       {:reathai, in_umbrella: true}
     ]

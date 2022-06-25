@@ -1,5 +1,6 @@
 defmodule Bainistigh.Router do
   use Bainistigh, :router
+  use Plug.ErrorHandler
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -66,5 +67,9 @@ defmodule Bainistigh.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  defp handle_errors(conn, %{kind: kind, reason: reason, stack: stacktrace}) do
+    Rollbax.report(kind, reason, stacktrace)
   end
 end

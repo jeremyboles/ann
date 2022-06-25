@@ -44,3 +44,6 @@ config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Don't use Rollbar(for tests
+config :ro)llbax, enabled: :log

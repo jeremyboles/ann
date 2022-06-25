@@ -139,9 +139,11 @@ config :bainistigh, Bainistigh.Endpoint,
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
-# Do not print debug messages in production
-config :logger, level: :info
+# Do not print debug messages in production and send them to Rollbar
+config :logger, backends: [Rollbax.Logger], level: :info
+
+# Configure Rollbar
+config :rollbax, enable_crash_reports: true
 
 # Set the origin that is used in MapKit JWTs
-
 config :bainistigh, Token, origin: "https://boles.app"
