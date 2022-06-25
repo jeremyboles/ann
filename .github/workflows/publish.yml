@@ -42,12 +42,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "18.4.0"
-      - name: Restore build cache
-        uses: actions/cache@v2
-        with:
-          path: _build
-          key: prod-${{ runner.os }}-build-${{ hashFiles('**/mix.lock') }}
-          restore-keys: prod-${{ runner.os }}-build-
       - name: Install dependencies
         run: mix deps.get --only prod
       - name: Install NPM dependencies
