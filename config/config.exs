@@ -21,11 +21,7 @@ config :bainistigh, Bainistigh.Endpoint,
   pubsub_server: Taifead.PubSub,
   render_errors: [view: Bainistigh.ErrorView, accepts: ~w(html json), layout: false],
   url: [host: "localhost"],
-  webapp: [
-    favicon: "/images/favicon.png",
-    manifest: "/manifest-local.json",
-    startup: "/images/startup.png"
-  ]
+  webapp: [manifest: "/manifest-local.json"]
 
 config :foilsigh,
   generators: [binary_id: true, context_app: false],

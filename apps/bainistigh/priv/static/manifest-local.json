@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "Ann",
-  "short_name": "Ann",
+  "name": "Ann (Local)",
+  "short_name": "Ann (Local)",
 
   "display": "standalone",
   "start_url": ".",
