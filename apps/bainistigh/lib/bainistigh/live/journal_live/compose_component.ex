@@ -34,10 +34,14 @@ defmodule Bainistigh.JournalLive.ComposeComponent do
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
+  def handle_event("update", %{"published_at" => nil}, socket) do
+    changeset = socket.assigns.changeset |> Ecto.Changeset.delete_change(:published_at)
+    {:noreply, assign(socket, :changeset, changeset)}
+  end
+
   def handle_event("update", %{"published_at" => published_at}, socket) do
     {:ok, published_at, _} = DateTime.from_iso8601(published_at)
     changeset = socket.assigns.changeset |> Ecto.Changeset.put_change(:published_at, published_at)
-
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
