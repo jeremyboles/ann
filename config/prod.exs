@@ -103,7 +103,7 @@ config :foilsigh, Foilsigh.Endpoint,
 # before starting your production server.
 config :bainistigh, Bainistigh.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  static_url: [host: "static.boles.app", port: 80],
+  static_url: [host: "static.boles.app", port: 443],
   url: [host: "boles.app", port: 80],
   webapp: [manifest: "/manifest.json"]
 
