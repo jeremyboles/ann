@@ -8,6 +8,11 @@ defmodule Bainistigh.JournalLive do
   alias Bainistigh.MapKit
   alias Taifead.Journal
 
+  def handle_event("show", %{"id" => id}, socket) do
+    IO.inspect(id, label: "show")
+    {:noreply, socket}
+  end
+
   def handle_info({:entry_created, entry}, socket) do
     socket = update(socket, :entries, fn entries -> [entry | entries] end)
     {:noreply, socket}
