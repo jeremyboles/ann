@@ -13,13 +13,13 @@
       
     <%= live_title_tag assigns[:page_title] || "Bainistigh", suffix: " · Bainistigh" %>
     <link rel="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-startup-image" href={Routes.static_path(@conn, "/images/startup.png")}>
-    <link rel="icon" href={Routes.static_path(@conn, "/images/favicon.png")}>
-    <link rel="manifest" href={Routes.static_path(@conn, manifest)} crossorigin="use-credentials">
-    <link href={Routes.static_path(@conn, "/assets/all.css")} phx-track-static rel="stylesheet">
+    <link rel="apple-touch-startup-image" href={startup_image_path(@conn)}>
+    <link rel="icon" href={favicon_path(@conn)}>
+    <link rel="manifest" href={manifest_path(@conn)}>
+    <link href={stylesheet_path(@conn)} phx-track-static rel="stylesheet">
     
     <script defer src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
-    <script phx-track-static src={Routes.static_path(@conn, "/assets/app.js")} type="module"></script>
+    <script phx-track-static src={javascript_path(@conn)} type="module"></script>
   </head>
   <body>
     <%= @inner_content %>
