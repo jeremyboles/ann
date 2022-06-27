@@ -7,51 +7,49 @@ import { Plugin } from "prosemirror-state"
 import { canSplit, findWrapping, ReplaceAroundStep } from "prosemirror-transform"
 import { Decoration, DecorationSet } from "prosemirror-view"
 
-import schema from "./schema.mjs"
+export default function plugins(schema) {
+  return [
+    history(),
 
-const plugins = [
-  history(),
+    // Markdown-esque shortcuts for lists
+    inputRules({
+      rules: [
+        wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list),
+        wrappingInputRule(
+          /^(\d+)\.\s$/,
+          schema.nodes.ordered_list,
+          (match) => ({ order: +match[1] }),
+          (match, node) => node.childCount + node.attrs.order == +match[1]
+        ),
+      ],
+    }),
 
-  // Markdown-esque shortcuts for lists
-  inputRules({
-    rules: [
-      wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list),
-      wrappingInputRule(
-        /^(\d+)\.\s$/,
-        schema.nodes.ordered_list,
-        (match) => ({ order: +match[1] }),
-        (match, node) => node.childCount + node.attrs.order == +match[1]
-      ),
-    ],
-  }),
+    // Smartypants-esque shortcuts for nice typography
+    inputRules({
+      rules: [...smartQuotes, ellipsis, emDash],
+    }),
 
-  // Smartypants-esque shortcuts for nice typography
-  inputRules({
-    rules: [...smartQuotes, ellipsis, emDash],
-  }),
+    // Keyboard shortcuts for undo/redo
+    keymap({ "Mod-z": undo, "Mod-Shift-z": redo }),
 
-  // Keyboard shortcuts for undo/redo
-  keymap({ "Mod-z": undo, "Mod-Shift-z": redo }),
+    // Keyboard shortcuts for bold/italic
+    keymap({
+      "Mod-b": toggleMark(schema.marks.strong),
+      "Mod-i": toggleMark(schema.marks.em),
+    }),
 
-  // Keyboard shortcuts for bold/italic
-  keymap({
-    "Mod-b": toggleMark(schema.marks.strong),
-    "Mod-i": toggleMark(schema.marks.em),
-  }),
+    // Keyboard shortcuts for creating lists
+    keymap({
+      "Mod-Alt-8": wrapInList(schema.nodes.bullet_list),
+      "Mod-Alt-9": wrapInList(schema.nodes.ordered_list),
+      Enter: splitListItem,
+    }),
 
-  // Keyboard shortcuts for creating lists
-  keymap({
-    "Mod-Alt-8": wrapInList(schema.nodes.bullet_list),
-    "Mod-Alt-9": wrapInList(schema.nodes.ordered_list),
-    Enter: splitListItem,
-  }),
+    keymap(baseKeymap),
 
-  keymap(baseKeymap),
-
-  placeholder("What’s going on?"),
-]
-
-export default plugins
+    placeholder("What’s going on?"),
+  ]
+}
 
 //
 // Private plugins

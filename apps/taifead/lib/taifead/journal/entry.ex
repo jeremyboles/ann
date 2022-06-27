@@ -8,9 +8,11 @@ defmodule Taifead.Journal.Entry do
 
   schema "entries" do
     belongs_to :topic, Taifead.Topics.Draft
-    has_one :note, Taifead.Journal.Note
 
+    field :content_html, :string
+    field :content_text, :string
     field :coords, Geo.PostGIS.Geometry
+    field :doc, :map
     field :is_published, :boolean
     field :kind, Ecto.Enum, values: [:bookmark, :checkin, :note, :photo, :quote, :video]
     field :mapkit_response, :map
@@ -25,9 +27,10 @@ defmodule Taifead.Journal.Entry do
   def changeset(entry, attrs) do
     entry
     |> cast(attrs, [:is_published, :kind, :published_at, :tags, :topic_id])
-    |> cast_assoc(:note, required: true)
     |> cast_coords(attrs)
+    |> cast_doc(attrs)
     |> cast_mapkit_response(attrs)
+    |> extract_from_doc()
     |> generate_url_slug()
     |> unique_constraint(:url_slug)
     |> validate_required([:kind, :url_slug])
@@ -55,6 +58,18 @@ defmodule Taifead.Journal.Entry do
     data
   end
 
+  defp cast_doc(changeset, %{"doc" => doc}) when is_map(doc) do
+    cast(changeset, %{"doc" => doc}, [:doc])
+  end
+
+  defp cast_doc(changeset, %{"doc" => doc}) when is_binary(doc) do
+    cast(changeset, %{"doc" => Jason.decode!(doc)}, [:doc])
+  end
+
+  defp cast_doc(changeset, attrs) do
+    cast(changeset, attrs, [:doc])
+  end
+
   defp cast_mapkit_response(changeset, %{"mapkit_response" => resp}) when resp === "" do
     changeset
   end
@@ -70,6 +85,13 @@ defmodule Taifead.Journal.Entry do
   defp cast_mapkit_response(changeset, _) do
     changeset
   end
+
+  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc, kind: kind}}) do
+    {:ok, data} = Reathai.call(Taifead.Reathai, ["journal", [doc, kind]])
+    cast(changeset, data, [:content_html, :content_text])
+  end
+
+  defp extract_from_doc(changeset), do: changeset
 
   defp generate_url_slug(%Ecto.Changeset{data: %__MODULE__{url_slug: nil}} = changeset) do
     changeset |> put_change(:url_slug, Nanoid.generate(5))

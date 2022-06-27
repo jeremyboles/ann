@@ -1,8 +1,6 @@
 <div class="JournalLive_EditorComponent">
-  <%= inputs_for @form, :note, fn f -> %>
-    <div data-input={input_id(f, :doc)} id="journal-editor"  phx-hook="JournalEditor" />
-    <div class="count">0</div>
+  <div data-input={input_id(@form, :doc)} data-schema={input_value(@form, :kind)} id="journal-editor"  phx-hook="JournalEditor" />
+  <div class="count">0</div>
     
-    <%= hidden_input(f, :doc, value: json(input_value(f, :doc))) %>
-  <% end %>
+  <%= hidden_input(@form, :doc, value: json(input_value(@form, :doc))) %>
 </div>

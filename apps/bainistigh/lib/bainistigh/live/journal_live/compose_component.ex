@@ -21,7 +21,7 @@ defmodule Bainistigh.JournalLive.ComposeComponent do
   end
 
   def handle_event("update", %{"doc" => doc}, socket) do
-    changeset = socket.assigns.changeset |> Ecto.Changeset.change(note: %{doc: doc})
+    changeset = socket.assigns.changeset |> Ecto.Changeset.change(doc: doc)
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
@@ -62,8 +62,8 @@ defmodule Bainistigh.JournalLive.ComposeComponent do
 
   defp assign_changeset(socket, attrs \\ %{})
 
-  defp assign_changeset(%{assigns: %{entry: nil}} = socket, attrs) do
-    assign(socket, :changeset, Journal.change_entry(%Entry{}, attrs))
+  defp assign_changeset(%{assigns: %{entry: nil, kind: kind}} = socket, attrs) do
+    assign(socket, :changeset, Journal.change_entry(%Entry{kind: kind}, attrs))
   end
 
   defp assign_changeset(%{assigns: %{entry: entry}} = socket, attrs) do
