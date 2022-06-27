@@ -2,6 +2,7 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
   use Bainistigh, :live_component
 
   alias Taifead.Topics
+  alias Taifead.Topics.Draft
 
   def handle_event("create-draft", _params, socket) do
     Topics.create_draft()
@@ -15,13 +16,25 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
     catalog |> Enum.filter(&(&1.path == path)) |> Enum.sort_by(&{&1.title_text})
   end
 
+  defp class_list(%Draft{publications: []}) do
+    "unpublished"
+  end
+
+  defp class_list(%Draft{status: :changed}) do
+    "published changed"
+  end
+
+  defp class_list(%Draft{status: :live}) do
+    "published live"
+  end
+
   defp list_item(%{catalog: catalog, draft: draft} = assigns) do
     path = Hierarch.LTree.concat(draft.path, draft.id)
     assigns = assigns |> Map.put(:children, children_of(catalog, path))
 
     ~H"""
       <li>
-        <%= live_patch 'aria-current': aria_current(@current, @draft), to: "/wiki/#{@draft.id}" do %>
+        <%= live_patch 'aria-current': aria_current(@current, @draft), class: class_list(@draft), to: "/wiki/#{@draft.id}" do %>
           <%= if @draft.title_html do %>
             <%= raw @draft.title_html %>
           <% else %>

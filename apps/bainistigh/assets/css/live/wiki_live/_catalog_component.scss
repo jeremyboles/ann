@@ -12,6 +12,7 @@
 @use "../../utils/icon";
 @use "../../utils/media";
 @use "../../utils/text";
+@use "../../utils/val";
 
 //
 // Main Containers
@@ -210,6 +211,19 @@ section:has(.header_button:checked) .CatalogComponent {
         &::before {
           background-color: #{palette.stone($lightness: 98%, $alpha: 0.72)};
         }
+      }
+    }
+
+    &.published.live::before {
+      mask-image: #{val.url-escape("/images/fa/regular/file-check.svg")};
+    }
+    &.published.changed::before {
+      mask-image: #{val.url-escape("/images/fa/regular/file-lines.svg")};
+    }
+    &.unpublished {
+      @include text.color(quaternary);
+      &[aria-current="page"] {
+        color: #{palette.stone($lightness: 98%, $alpha: 0.6)};
       }
     }
   }

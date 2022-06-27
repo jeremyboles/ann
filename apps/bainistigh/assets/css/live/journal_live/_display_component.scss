@@ -164,6 +164,7 @@
 // -----------------------------------------------------------------------------------------------
 
 .DisplayComponent .content {
+  align-items: center;
   block-size: 100%;
   display: flex;
   flex-direction: column;
@@ -178,5 +179,6 @@
 
 .DisplayComponent .content > p {
   @include text.style(sans, $size: 18px, $weight: 500);
+  max-inline-size: 72ch;
   padding: 12px;
 }

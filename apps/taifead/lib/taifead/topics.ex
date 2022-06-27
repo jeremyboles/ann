@@ -68,7 +68,7 @@ defmodule Taifead.Topics do
     |> Repo.preload(draft: :publications)
   end
 
-  def list_drafts, do: Repo.all(Draft)
+  def list_drafts, do: Repo.all(Draft) |> Repo.preload(:publications)
 
   def latest_draft do
     Repo.one(from d in Draft, limit: 1, order_by: [desc: d.updated_at])
