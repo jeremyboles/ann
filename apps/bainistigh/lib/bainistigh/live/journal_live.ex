@@ -3,6 +3,7 @@ defmodule Bainistigh.JournalLive do
 
   import Bainistigh.CommonComponent
 
+  alias Bainistigh.JournalLive.ComposeButtonComponent
   alias Bainistigh.MapKit
   alias Taifead.Journal
 
@@ -18,6 +19,7 @@ defmodule Bainistigh.JournalLive do
 
   def handle_params(%{"kind" => kind}, _url, %{assigns: %{live_action: :new}} = socket) do
     send_update(ComposeButtonComponent, expanded: false, id: "compose-journal")
+
     {:noreply, assign(socket, :kind, kind)}
   end
 
