@@ -35,7 +35,7 @@
 // Entry container
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article {
+.EntriesComponent > a > article {
   @include border.all();
   @include box.bg(main);
   @include box.rounded;
@@ -53,7 +53,7 @@
 // Entry header
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article header {
+.EntriesComponent > a > article header {
   column-gap: 4iztypx;
   display: grid;
   grid-template-columns: 40px 1fr;
@@ -92,42 +92,42 @@
 // Entry footer
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article footer {
+.EntriesComponent > a > article footer {
   @include border.block-start(tertiary);
   padding-block: 6px;
   padding-inline: 12px;
 }
 
-.EntriesComponent > article footer ul {
+.EntriesComponent > a > article footer ul {
   display: flex;
   justify-content: space-around;
 }
 
-.EntriesComponent > article footer ul li {
+.EntriesComponent > a > article footer ul li {
   @include text.style($color: quaternary, $size: 12px, $weight: 800);
   align-content: center;
   display: flex;
   gap: 8px;
 }
 
-.EntriesComponent > article footer ul span {
+.EntriesComponent > a > article footer ul span {
   @include text.style($color: faded);
   order: -1;
 }
 
-.EntriesComponent > article footer ul li.replies span {
+.EntriesComponent > a > article footer ul li.replies span {
   @include icon.replace($url: "/images/fa/solid/reply.svg", $size: 14px);
 }
 
-.EntriesComponent > article footer ul li.likes span {
+.EntriesComponent > a > article footer ul li.likes span {
   @include icon.replace($url: "/images/fa/solid/star.svg", $size: 14px);
 }
 
-.EntriesComponent > article footer ul li.reposts span {
+.EntriesComponent > a > article footer ul li.reposts span {
   @include icon.replace($url: "/images/fa/solid/retweet.svg", $size: 14px);
 }
 
-.EntriesComponent > article footer ul li.bookmarks span {
+.EntriesComponent > a > article footer ul li.bookmarks span {
   @include icon.replace($url: "/images/fa/solid/bookmark.svg", $size: 14px);
 }
 
@@ -135,7 +135,7 @@
 // Bookmark entries
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article.bookmark {
+.EntriesComponent > a > article.bookmark {
   header {
     @include border.block-end(tertiary);
   }
@@ -162,7 +162,7 @@
 // Checkin entries
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article.checkin {
+.EntriesComponent > a > article.checkin {
   header::before {
     mask-image: url("/images/fa/solid/location-dot.svg");
   }
@@ -190,7 +190,7 @@
 // Note entries
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article.note {
+.EntriesComponent > a > article.note {
   header {
     @include border.block-end(tertiary);
   }
@@ -209,7 +209,7 @@
 // Photo entries
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article.photo {
+.EntriesComponent > a > article.photo {
   header::before {
     mask-image: url("/images/fa/solid/image.svg");
   }
@@ -224,7 +224,7 @@
 // Quote entries
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article.quote {
+.EntriesComponent > a > article.quote {
   header {
     @include border.block-end(tertiary);
   }
@@ -253,7 +253,7 @@
 // Video entries
 // -----------------------------------------------------------------------------------------------
 
-.EntriesComponent > article.video {
+.EntriesComponent > a > article.video {
   header::before {
     mask-image: url("/images/fa/solid/film.svg");
   }

@@ -1,0 +1,17 @@
+<div class="DisplayComponent" id="display-component">
+  <article>
+    <header>
+      <%= live_patch to: Routes.journal_path(@socket, :index) do %>
+        <button type="button"><span>Back</span></button>
+      <% end %>
+      
+      <button data-confirm="Are you sure you want to delete this entry?" phx-click="delete" phx-target={@myself} type="button">
+        <span>Delete</span>
+      </button>
+    </header>
+    
+    <div class="content">
+      <%= raw @entry.note.content_html %>
+    </div>
+  </article>
+</div>

@@ -42,9 +42,7 @@ defmodule Bainistigh.WikiLive do
   end
 
   def handle_info({:draft_deleted, draft}, socket) do
-    socket =
-      update(socket, :catalog, fn catalog -> Enum.reject(catalog, &(&1.id == draft.id)) end)
-
+    socket = update(socket, :catalog, fn c -> Enum.reject(c, &(&1.id == draft.id)) end)
     {:noreply, socket}
   end
 

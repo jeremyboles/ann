@@ -3,18 +3,16 @@ defmodule Bainistigh.JournalLive do
 
   import Bainistigh.CommonComponent
 
-  alias __MODULE__.{Component, ComposeButtonComponent, ComposeComponent, SidebarComponent}
-  alias __MODULE__.{EditorComponent, DateComponent, LocationComponent, TagsComponent}
   alias Bainistigh.MapKit
   alias Taifead.Journal
 
-  def handle_event("show", %{"id" => id}, socket) do
-    IO.inspect(id, label: "show")
+  def handle_info({:entry_created, entry}, socket) do
+    socket = update(socket, :entries, fn entries -> [entry | entries] end)
     {:noreply, socket}
   end
 
-  def handle_info({:entry_created, entry}, socket) do
-    socket = update(socket, :entries, fn entries -> [entry | entries] end)
+  def handle_info({:entry_deleted, entry}, socket) do
+    socket = update(socket, :entries, fn e -> Enum.reject(e, &(&1.id == entry.id)) end)
     {:noreply, socket}
   end
 
@@ -23,8 +21,13 @@ defmodule Bainistigh.JournalLive do
     {:noreply, assign(socket, :kind, kind)}
   end
 
+  def handle_params(%{"id" => id}, _url, socket) do
+    entry = Journal.get_entry!(id)
+    {:noreply, assign(socket, :entry, entry)}
+  end
+
   def handle_params(_params, _url, socket) do
-    {:noreply, assign(socket, :kind, nil)}
+    {:noreply, assign(socket, entry: nil, kind: nil)}
   end
 
   def mount(_params, _session, socket) do

@@ -3,49 +3,51 @@
     Journal
     
     <:controls>
-      <Component.import_button />
-      <.live_component id="compose-journal" module={ComposeButtonComponent} />
+      <Bainistigh.JournalLive.Component.import_button />
+      <.live_component id="compose-journal" module={Bainistigh.JournalLive.ComposeButtonComponent} />
     </:controls>
   </.section_header>
   
   <article class="EntriesComponent" id="entries-component" phx-hook="Masonry">
     <%= for entry <- @entries do %>
-      <article class={entry.kind} id={entry.id} phx-click="show" phx-value-id={entry.id}>
-        <header>
-          <h1>
-            <%= if entry.mapkit_response do %>
-              <b><%= entry.mapkit_response["locality"] %>, <%= entry.mapkit_response["administrativeAreaCode"] %>, <%= entry.mapkit_response["country"] %></b>
-              <%= if entry.mapkit_response["muid"] do %>
-                at <b><%= entry.mapkit_response["name"] %></b>
+      <%= live_patch to: Routes.journal_path(@socket, :show, entry.id) do %>
+        <article class={entry.kind} id={entry.id}>
+          <header>
+            <h1>
+              <%= if entry.mapkit_response do %>
+                <b><%= entry.mapkit_response["locality"] %>, <%= entry.mapkit_response["administrativeAreaCode"] %>, <%= entry.mapkit_response["country"] %></b>
+                <%= if entry.mapkit_response["muid"] do %>
+                  at <b><%= entry.mapkit_response["name"] %></b>
+                <% end %>
+              <% else %>
+                <b><i>Unknown Location</i></b>
               <% end %>
-            <% else %>
-              <b><i>Unknown Location</i></b>
-            <% end %>
-          </h1>
-          <p>
-            <%= if entry.published_at do %>
-              <time datetime={DateTime.to_iso8601(entry.published_at)}>
-                <%= Calendar.strftime(entry.published_at, "%d %B %Y · %H:%M") %>
-              </time>
-            <% else %>
-              <i>Not published</i>
-            <% end %>
-          </p>
-        </header>
-        
-        <div class="content">
-          <%= raw entry.note.content_html %>
-        </div>
-        
-        <footer>
-          <ul>
-            <li class="replies"><data>0</data> <span>Replies</span></li>
-            <li class="likes"><data>0</data> <span>Likes</span></li>
-            <li class="reposts"><data>0</data> <span>Repost</span></li>
-            <li class="bookmarks"><data>0</data> <span>Bookmarks</span></li>
-          </ul>
-        </footer>
-      </article>
+            </h1>
+            <p>
+              <%= if entry.published_at do %>
+                <time datetime={DateTime.to_iso8601(entry.published_at)}>
+                  <%= Calendar.strftime(entry.published_at, "%d %B %Y · %H:%M") %>
+                </time>
+              <% else %>
+                <i>Not published</i>
+              <% end %>
+            </p>
+          </header>
+          
+          <div class="content">
+            <%= raw entry.note.content_html %>
+          </div>
+          
+          <footer>
+            <ul>
+              <li class="replies"><data>0</data> <span>Replies</span></li>
+              <li class="likes"><data>0</data> <span>Likes</span></li>
+              <li class="reposts"><data>0</data> <span>Repost</span></li>
+              <li class="bookmarks"><data>0</data> <span>Bookmarks</span></li>
+            </ul>
+          </footer>
+        </article>
+      <% end %>
     <% end %>
     
     <article class="note">    
@@ -113,7 +115,6 @@
         </ul>
       </footer>
     </article>
-    
     
     <article class="note">
       <header>
@@ -291,22 +292,26 @@
   </article>
   
   <%= if @live_action == :new do %>
-    <.live_component entry={@entry} id="journal-component" kind={@kind} let={f} module={ComposeComponent}>
+    <.live_component entry={@entry} id="journal-component" kind={@kind} let={f} module={Bainistigh.JournalLive.ComposeComponent}>
       <div class="content">
-        <.live_component form={f} id="journal-editor" module={EditorComponent} } />
+        <.live_component form={f} id="journal-editor" module={Bainistigh.JournalLive.EditorComponent} } />
       </div>
       
-      <.live_component entry={@entry} id="journal-sidebar" module={SidebarComponent}>
+      <.live_component entry={@entry} id="journal-sidebar" module={Bainistigh.JournalLive.SidebarComponent}>
         <:date>
-          <.live_component form={f} id="journal-date" module={DateComponent} />
+          <.live_component form={f} id="journal-date" module={Bainistigh.JournalLive.DateComponent} />
         </:date>
         <:location>
-          <.live_component form={f} id="journal-location" module={LocationComponent} />
+          <.live_component form={f} id="journal-location" module={Bainistigh.JournalLive.LocationComponent} />
         </:location>
         <:tags>
-          <.live_component form={f} id="journal-tags" module={TagsComponent} />
+          <.live_component form={f} id="journal-tags" module={Bainistigh.JournalLive.TagsComponent} />
         </:tags>
       </.live_component>
     </.live_component>
+  <% end %>
+  
+  <%= if @live_action == :show do %>
+    <.live_component entry={@entry} id="journal-display" module={Bainistigh.JournalLive.DisplayComponent} />
   <% end %>
 </section>

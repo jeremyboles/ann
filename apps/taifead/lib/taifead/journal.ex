@@ -11,9 +11,9 @@ defmodule Taifead.Journal do
     %Entry{} |> Entry.changeset(attrs) |> Repo.insert() |> broadcast(:entry_created)
   end
 
-  def delete_entry(%Entry{} = entries), do: Repo.delete(entries)
+  def delete_entry(%Entry{} = entries), do: Repo.delete(entries) |> broadcast(:entry_deleted)
 
-  def get_entry!(id), do: Repo.get!(Entry, id)
+  def get_entry!(id), do: Repo.get!(Entry, id) |> Repo.preload([:note])
 
   def list_entries do
     Repo.all(from e in Entry, order_by: [desc: e.updated_at]) |> Repo.preload(:note)

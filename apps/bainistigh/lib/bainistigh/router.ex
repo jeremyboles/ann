@@ -28,6 +28,7 @@ defmodule Bainistigh.Router do
 
     live "/journal", JournalLive, :index
     live "/journal/new", JournalLive, :new
+    live "/journal/:id", JournalLive, :show
 
     live "/wiki", WikiLive, :new
     live "/wiki/:id", WikiLive, :edit
