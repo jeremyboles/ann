@@ -20,7 +20,12 @@ config :bainistigh, Bainistigh.Endpoint,
   live_view: [signing_salt: "94Q8+jFQ"],
   pubsub_server: Taifead.PubSub,
   render_errors: [view: Bainistigh.ErrorView, accepts: ~w(html json), layout: false],
-  url: [host: "localhost"]
+  url: [host: "localhost"],
+  webapp: [
+    favicon: "/images/favicon.png",
+    manifest: "/manifest-local.json",
+    startup: "/images/startup.png"
+  ]
 
 config :foilsigh,
   generators: [binary_id: true, context_app: false],

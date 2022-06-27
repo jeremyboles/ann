@@ -102,8 +102,13 @@ config :foilsigh, Foilsigh.Endpoint,
 # which you should run after static files are built and
 # before starting your production server.
 config :bainistigh, Bainistigh.Endpoint,
+  cache_static_manifest: "priv/static/cache_manifest.json",
   url: [host: "boles.app", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  webapp: [
+    favicon: "https://static.boles.app/images/favicon.png",
+    manifest: "https://static.boles.app/manifest.json",
+    startup: "https://static.boles.app/images/startup.png"
+  ]
 
 # ## SSL Support
 #
