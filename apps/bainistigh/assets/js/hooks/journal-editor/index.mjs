@@ -23,6 +23,8 @@ export function destroyed() {
 }
 
 export function mounted() {
+  this.count = this.el.parentNode.querySelector(".count")
+
   const json = document.getElementById(this.el.dataset.input)?.value ? JSON.parse(document.getElementById(this.el.dataset.input)?.value) : DEFAULT_JSON
 
   const doc = schema.nodeFromJSON(json)
@@ -56,6 +58,9 @@ export function updated() {
 function dispatchTransaction(transaction) {
   const state = this.view.state.apply(transaction)
   this.view.updateState(state)
+
+  const text = transaction.doc.textBetween(0, transaction.doc.content.size, undefined, " ")
+  this.count.textContent = text.length
 }
 
 function handleBlur(view) {
