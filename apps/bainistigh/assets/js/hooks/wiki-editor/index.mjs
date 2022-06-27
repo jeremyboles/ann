@@ -2,7 +2,7 @@ import { EditorState } from "prosemirror-state"
 import { EditorView } from "prosemirror-view"
 
 import plugins from "./plugins.mjs"
-import schema from "./schema.mjs"
+import * as schemas from "./schema.mjs"
 
 //
 // Settings & constants
@@ -25,8 +25,9 @@ export function destroyed() {
 export function mounted() {
   const json = document.getElementById(this.el.dataset.input)?.value ? JSON.parse(document.getElementById(this.el.dataset.input)?.value) : DEFAULT_JSON
 
+  const schema = schemas[this.el.dataset.schema]
   const doc = schema.nodeFromJSON(json)
-  const state = EditorState.create({ doc, plugins, schema })
+  const state = EditorState.create({ doc, plugins: plugins(schema), schema })
 
   this.view = new EditorView(this.el, {
     dispatchTransaction: dispatchTransaction.bind(this),
@@ -35,18 +36,7 @@ export function mounted() {
   })
 }
 
-export function updated() {
-  const json = document.getElementById(this.el.dataset.input)?.value ? JSON.parse(document.getElementById(this.el.dataset.input)?.value) : DEFAULT_JSON
-
-  const doc = schema.nodeFromJSON(json)
-  const state = EditorState.create({ doc, plugins, schema })
-
-  this.view = new EditorView(this.el, {
-    dispatchTransaction: dispatchTransaction.bind(this),
-    handleDOMEvents: { blur: handleBlur.bind(this) },
-    state,
-  })
-}
+export { mounted as updated }
 
 //
 // Private functions

@@ -20,6 +20,7 @@ defmodule Taifead.Topics.Draft do
     field :content_html, :string
     field :content_text, :string
     field :doc, :map
+    field :kind, Ecto.Enum, values: [:article]
     field :path, LTree, default: ""
     field :short_title, :string
     field :tags, {:array, :string}, default: []
@@ -40,8 +41,8 @@ defmodule Taifead.Topics.Draft do
     |> unique_constraint([:latest, :url_slug])
   end
 
-  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do
-    {:ok, data} = Reathai.call(Taifead.Reathai, ["wiki", [doc]])
+  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc, kind: kind}}) do
+    {:ok, data} = Reathai.call(Taifead.Reathai, ["wiki", [doc, kind]])
     cast(changeset, data, [:content_html, :content_text, :title_html, :title_text])
   end
 

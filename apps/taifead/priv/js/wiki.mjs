@@ -1,16 +1,17 @@
-import jsdom from 'jsdom'
-import { DOMSerializer } from 'prosemirror-model'
+import jsdom from "jsdom"
+import { DOMSerializer } from "prosemirror-model"
 
-import schema from 'bainistighn/wiki-schema'
+import * as schemas from "bainistighn/wiki-schema"
 
 //
 // Exported functions
 // -------------------------------------------------------------------------------------------------
 
-export default function extract(doc) {
+export default function extract(doc, doc_schema) {
   // Create a virtual DOM environment, using JSDOM and then have ProseMirror serialize the document
   // and return a virtual `DocumentFragment` object.
   const { window } = new jsdom.JSDOM()
+  const schema = schemas[doc_schema]
   const node = schema.nodeFromJSON(doc)
   const dom = DOMSerializer.fromSchema(schema).serializeFragment(node.content, {
     document: window.document,
@@ -20,11 +21,11 @@ export default function extract(doc) {
   const $title = dom.firstChild
 
   // Extract everything _after_ the title element and add it to a virtual div element.
-  const template = window.document.createElement('div')
+  const template = window.document.createElement("div")
   for (let i = 1; i < dom.childNodes.length; i++) {
     const child = dom.childNodes[i].cloneNode(true)
     if (child) template.appendChild(child)
-    if (i < dom.childNodes.length - 1) template.appendChild(window.document.createTextNode(' '))
+    if (i < dom.childNodes.length - 1) template.appendChild(window.document.createTextNode(" "))
   }
 
   return {

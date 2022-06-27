@@ -21,6 +21,7 @@ defmodule Taifead.Topics.Publication do
     field :content_html, :string
     field :content_text, :string
     field :doc, :map
+    field :kind, Ecto.Enum, values: [:article]
     field :latest, :boolean, default: true
     field :path, LTree, default: ""
     field :short_title, :string

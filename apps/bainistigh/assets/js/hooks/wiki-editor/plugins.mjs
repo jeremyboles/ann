@@ -7,52 +7,50 @@ import { Plugin } from "prosemirror-state"
 import { canSplit, findWrapping, ReplaceAroundStep } from "prosemirror-transform"
 import { Decoration, DecorationSet } from "prosemirror-view"
 
-import schema from "./schema.mjs"
+export default function plugins(schema) {
+  return [
+    history(),
 
-const plugins = [
-  history(),
+    // Markdown-esque shortcuts for lists
+    inputRules({
+      rules: [
+        wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list),
+        wrappingInputRule(
+          /^(\d+)\.\s$/,
+          schema.nodes.ordered_list,
+          (match) => ({ order: +match[1] }),
+          (match, node) => node.childCount + node.attrs.order == +match[1]
+        ),
+      ],
+    }),
 
-  // Markdown-esque shortcuts for lists
-  inputRules({
-    rules: [
-      wrappingInputRule(/^\s*([-+*])\s$/, schema.nodes.bullet_list),
-      wrappingInputRule(
-        /^(\d+)\.\s$/,
-        schema.nodes.ordered_list,
-        (match) => ({ order: +match[1] }),
-        (match, node) => node.childCount + node.attrs.order == +match[1]
-      ),
-    ],
-  }),
+    // Smartypants-esque shortcuts for nice typography
+    inputRules({
+      rules: [...smartQuotes, ellipsis, emDash],
+    }),
 
-  // Smartypants-esque shortcuts for nice typography
-  inputRules({
-    rules: [...smartQuotes, ellipsis, emDash],
-  }),
+    // Keyboard shortcuts for undo/redo
+    keymap({ "Mod-z": undo, "Mod-Shift-z": redo }),
 
-  // Keyboard shortcuts for undo/redo
-  keymap({ "Mod-z": undo, "Mod-Shift-z": redo }),
+    // Keyboard shortcuts for bold/italic
+    keymap({
+      "Mod-b": toggleMark(schema.marks.strong),
+      "Mod-i": toggleMark(schema.marks.em),
+    }),
 
-  // Keyboard shortcuts for bold/italic
-  keymap({
-    "Mod-b": toggleMark(schema.marks.strong),
-    "Mod-i": toggleMark(schema.marks.em),
-  }),
+    // Keyboard shortcuts for creating lists
+    keymap({
+      "Mod-Alt-8": wrapInList(schema.nodes.bullet_list),
+      "Mod-Alt-9": wrapInList(schema.nodes.ordered_list),
+      Enter: splitListItem,
+    }),
 
-  // Keyboard shortcuts for creating lists
-  keymap({
-    "Mod-Alt-8": wrapInList(schema.nodes.bullet_list),
-    "Mod-Alt-9": wrapInList(schema.nodes.ordered_list),
-    Enter: splitListItem,
-  }),
+    keymap(baseKeymap),
 
-  keymap(baseKeymap),
-
-  placeholders(),
-  tooltips(),
-]
-
-export default plugins
+    placeholders(),
+    tooltips(),
+  ]
+}
 
 //
 // Private plugins
@@ -103,6 +101,7 @@ function tooltips() {
 
 class SelectionSizeTooltip {
   constructor(view) {
+    const { schema } = view.state
     this.tooltip = document.createElement("div")
     this.tooltip.className = "tooltip"
 
@@ -169,6 +168,7 @@ class SelectionSizeTooltip {
 
   update(view, lastState) {
     const state = view.state
+    const { schema } = view.state
     // Don't do anything if the document/selection didn't change
     if (lastState && lastState.doc.eq(state.doc) && lastState.selection.eq(state.selection)) return
 
@@ -214,6 +214,7 @@ function isEmptyParagraph(node) {
 }
 
 function splitListItem(state, dispatch) {
+  const { schema } = state
   const { $from, $to, node } = state.selection
   if ((node && node.isBlock) || $from.depth < 2 || !$from.sameParent($to)) return false
 

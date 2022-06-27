@@ -4,7 +4,7 @@ import { Schema } from "prosemirror-model"
 // Schema definition
 // -------------------------------------------------------------------------------------------------
 
-const schema = new Schema({
+export const article = new Schema({
   marks: {
     em: {
       parseDOM: [{ tag: "em" }, { tag: "i" }, { style: "font-style=italic" }],
@@ -102,5 +102,3 @@ const schema = new Schema({
     text: { group: "inline" },
   },
 })
-
-export default schema

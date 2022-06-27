@@ -1,6 +1,6 @@
 <div class="EditorComponent">
   <.form for={@changeset} let={f} phx-change="update-draft" phx-target={@myself}>
-    <div data-input={input_id(f, :doc)} phx-hook="WikiEditor" id="wiki-editor" />
+    <div data-input={input_id(f, :doc)} data-schema={input_value(f, :kind)} phx-hook="WikiEditor" id="wiki-editor" />
     <%= hidden_input(f, :doc, value: json(input_value(f, :doc))) %>
   </.form>
 </div>
