@@ -29,11 +29,11 @@
   @include text.color(quaternary);
   align-items: center;
   block-size: 48px;
-  bottom: 0;
   display: flex;
   gap: 24px;
   inline-size: 50%;
-  left: 0;
+  inset-block-end: env(safe-area-inset-bottom);
+  inset-inline-start: 0;
   padding: 16px;
   position: absolute;
 }
@@ -69,11 +69,10 @@
 
 .JournalLive_SidebarComponent [role="tabpanel"] {
   @include box.bg(secondary);
-  bottom: 48px;
+  inset-block-start: calc(env(safe-area-inset-top) + 48px);
+  inset-block-end: calc(env(safe-area-inset-bottom) + 48px);
+  inset-inline: 0;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 48px;
   z-index: 88;
 
   @include media.ipad(min) {

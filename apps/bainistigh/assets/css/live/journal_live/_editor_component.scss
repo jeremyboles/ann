@@ -61,10 +61,10 @@
 
 .JournalLive_EditorComponent .count {
   @include text.style($color: quaternary, $size: 13px, $weight: 600);
-  bottom: 0;
+  inset-block-end: env(safe-area-inset-bottom);
+  inset-inline-end: 12px;
   line-height: 48px;
   position: absolute;
-  right: 12px;
   transform: translate(-8px, 100%);
   -webkit-user-select: none;
 
