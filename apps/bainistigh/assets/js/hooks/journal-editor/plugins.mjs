@@ -5,7 +5,6 @@ import { keymap } from "prosemirror-keymap"
 import { Fragment, Slice } from "prosemirror-model"
 import { Plugin } from "prosemirror-state"
 import { canSplit, findWrapping, ReplaceAroundStep } from "prosemirror-transform"
-import { Decoration, DecorationSet } from "prosemirror-view"
 
 export default function plugins(schema) {
   return [

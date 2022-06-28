@@ -4,6 +4,59 @@ import { Schema } from "prosemirror-model"
 // Schema definitions
 // -------------------------------------------------------------------------------------------------
 
+export const checkin = new Schema({
+  marks: {
+    em: {
+      parseDOM: [{ tag: "em" }, { tag: "i" }, { style: "font-style=italic" }],
+      toDOM() {
+        return ["em", 0]
+      },
+    },
+
+    strong: {
+      parseDOM: [{ tag: "b" }, { tag: "string" }, { style: "font-style=bold" }],
+      toDOM() {
+        return ["strong", 0]
+      },
+    },
+
+    link: {
+      attrs: { href: {}, title: { default: null } },
+      inclusive: false,
+      parseDOM: [
+        {
+          tag: "a[href]",
+          getAttrs(dom) {
+            return { href: dom.getAttribute("href"), title: dom.getAttribute("title") }
+          },
+        },
+      ],
+      toDOM(node) {
+        const { href, title } = node.attrs
+        return ["a", { href, title }, 0]
+      },
+    },
+  },
+
+  nodes: {
+    //
+    // Basic node types
+    // -----------------------------------------------------------------------------------------------
+    doc: { content: "block+" },
+
+    paragraph: {
+      content: "inline*",
+      group: "block",
+      parseDOM: [{ tag: "p" }],
+      toDOM() {
+        return ["p", 0]
+      },
+    },
+
+    text: { group: "inline" },
+  },
+})
+
 export const note = new Schema({
   marks: {
     em: {
