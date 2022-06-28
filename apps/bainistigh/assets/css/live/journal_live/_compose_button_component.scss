@@ -159,5 +159,15 @@
         text-transform: uppercase;
       }
     }
+
+    &[disabled] {
+      color: #{colors.var(faded, $ns: text)};
+      cursor: default;
+      pointer-events: none;
+
+      &::before {
+        color: #{colors.var(faded, $ns: text)};
+      }
+    }
   }
 }
