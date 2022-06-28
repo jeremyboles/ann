@@ -39,6 +39,10 @@ defmodule Bainistigh.JournalLive do
     {:ok, assign(socket, entries: entries, entry: nil, kind: nil, page_title: "Journal")}
   end
 
+  defp mapkit_url(%{center: %Geo.Point{coordinates: {lng, lat}}} = opts) do
+    mapkit_url(%{opts | center: "#{lat},#{lng}"})
+  end
+
   defp mapkit_url(%{center: center} = opts) do
     opts
     |> Map.merge(%{annotations: Jason.encode!([%{point: center}])})

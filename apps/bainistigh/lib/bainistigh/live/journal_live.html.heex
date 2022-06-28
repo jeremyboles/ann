@@ -35,7 +35,15 @@
           </header>
           
           <div class="content">
-            <%= raw entry.content_html %>
+            <%= if entry.kind == :checkin do %>
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset={mapkit_url(%{center: entry.coords, colorScheme: "dark"})}}/>
+                <source media="(prefers-color-scheme: light)" srcset={mapkit_url(%{center: entry.coords, colorScheme: "light"})}}/>
+                <img decoding="async" height="216" loading="lazy" src={mapkit_url(%{center: entry.coords, colorScheme: "light"})} width="480" />
+              </picture>
+            <% else %>
+              <%= raw entry.content_html %>
+            <% end %>
           </div>
           
           <footer>
