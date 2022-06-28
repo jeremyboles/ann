@@ -8,7 +8,11 @@ import * as schemas from "./schema.mjs"
 // Settings & constants
 // -----------------------------------------------------------------------------------------------
 
-const DEFAULT_JSON = { content: [{ type: "paragraph" }], type: "doc" }
+const DEFAULT_JSON = {
+  checkin: { content: [{ type: "paragraph" }], type: "doc" },
+  note: { content: [{ type: "paragraph" }], type: "doc" },
+  quote: { content: [{ content: [{ type: "blockquote" }, { type: "figcaption" }], type: "figure" }], type: "doc" },
+}
 
 //
 // Exported functions
@@ -25,7 +29,7 @@ export function destroyed() {
 export function mounted() {
   this.count = this.el.parentNode.querySelector(".count")
 
-  const json = document.getElementById(this.el.dataset.input)?.value ? JSON.parse(document.getElementById(this.el.dataset.input)?.value) : DEFAULT_JSON
+  const json = document.getElementById(this.el.dataset.input)?.value ? JSON.parse(document.getElementById(this.el.dataset.input)?.value) : DEFAULT_JSON[this.el.dataset.schema]
 
   const schema = schemas[this.el.dataset.schema]
   const doc = schema.nodeFromJSON(json)

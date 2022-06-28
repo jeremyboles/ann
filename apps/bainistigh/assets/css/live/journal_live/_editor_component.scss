@@ -56,6 +56,24 @@
 }
 
 //
+// Quote schema
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_EditorComponent [data-schema="quote"] [contenteditable="true"] figure blockquote {
+  font-style: italic;
+}
+
+.JournalLive_EditorComponent [data-schema="quote"] [contenteditable="true"] figcaption {
+  @include text.style(sans, $color: secondary, $size: 16px, $weight: 700);
+  margin-block-start: 8px;
+  margin-inline-start: 16px;
+
+  &::before {
+    content: "— ";
+  }
+}
+
+//
 // Character count
 // -----------------------------------------------------------------------------------------------
 

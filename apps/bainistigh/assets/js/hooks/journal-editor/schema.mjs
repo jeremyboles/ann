@@ -144,3 +144,64 @@ export const note = new Schema({
     text: { group: "inline" },
   },
 })
+
+export const quote = new Schema({
+  marks: {
+    cite: {
+      parseDOM: [{ tag: "cite" }],
+      toDOM() {
+        return ["cite", 0]
+      },
+    },
+
+    em: {
+      parseDOM: [{ tag: "em" }, { tag: "i" }, { style: "font-style=italic" }],
+      toDOM() {
+        return ["em", 0]
+      },
+    },
+
+    strong: {
+      parseDOM: [{ tag: "b" }, { tag: "string" }, { style: "font-style=bold" }],
+      toDOM() {
+        return ["strong", 0]
+      },
+    },
+  },
+
+  nodes: {
+    //
+    // Basic node types
+    // -----------------------------------------------------------------------------------------------
+    doc: { content: "figcaption" },
+
+    blockquote: {
+      content: "inline*",
+      group: "block",
+      parseDOM: [{ tag: "blockquote" }],
+      toDOM() {
+        return ["blockquote", 0]
+      },
+    },
+
+    figcaption: {
+      content: "inline*",
+      group: "block",
+      parseDOM: [{ tag: "figcaption" }],
+      toDOM() {
+        return ["figcaption", 0]
+      },
+    },
+
+    figure: {
+      content: "figcaption blockquote",
+      group: "block",
+      parseDOM: [{ tag: "figure" }],
+      toDOM() {
+        return ["figure", 0]
+      },
+    },
+
+    text: { group: "inline" },
+  },
+})
