@@ -41,7 +41,8 @@ defmodule Taifead.Topics.Draft do
     |> unique_constraint([:latest, :url_slug])
   end
 
-  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc, kind: kind}}) do
+  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do
+    kind = Ecto.Changeset.fetch_field!(changeset, :kind)
     {:ok, data} = Reathai.call(Taifead.Reathai, ["wiki", [doc, kind]])
     cast(changeset, data, [:content_html, :content_text, :title_html, :title_text])
   end

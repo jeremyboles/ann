@@ -15,9 +15,10 @@
           <header>
             <h1>
               <%= if entry.mapkit_response do %>
-                <b><%= entry.mapkit_response["locality"] %>, <%= entry.mapkit_response["administrativeAreaCode"] %>, <%= entry.mapkit_response["country"] %></b>
                 <%= if entry.mapkit_response["muid"] do %>
-                  at <b><%= entry.mapkit_response["name"] %></b>
+                  <b><%= entry.mapkit_response["name"] %></b>
+                <% else %>
+                  <b><%= entry.mapkit_response["locality"] %>, <%= entry.mapkit_response["administrativeAreaCode"] %>, <%= entry.mapkit_response["country"] %></b>
                 <% end %>
               <% else %>
                 <b><i>Unknown Location</i></b>
@@ -58,7 +59,7 @@
       <% end %>
     <% end %>
     
-    <article class="note">    
+    <!-- <article class="note">    
       <header>
         <h1><b>Springfield, MO, United States</b> at <b>Cherry Picker</b></h1>
         <p>14 June 2022  ·  04:20</p>
@@ -296,7 +297,7 @@
           <li class="bookmarks"><data>3</data> <span>Bookmarks</span></li>
         </ul>
       </footer>
-    </article>
+    </article> -->
   </article>
   
   <%= if @live_action == :new do %>

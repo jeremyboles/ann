@@ -86,7 +86,8 @@ defmodule Taifead.Journal.Entry do
     changeset
   end
 
-  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc, kind: kind}}) do
+  defp extract_from_doc(changeset = %Ecto.Changeset{changes: %{doc: doc}}) do
+    kind = Ecto.Changeset.fetch_field!(changeset, :kind)
     {:ok, data} = Reathai.call(Taifead.Reathai, ["journal", [doc, kind]])
     cast(changeset, data, [:content_html, :content_text])
   end
