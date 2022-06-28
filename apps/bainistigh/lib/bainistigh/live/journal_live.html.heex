@@ -294,7 +294,7 @@
   <%= if @live_action == :new do %>
     <.live_component entry={@entry} id="journal-component" kind={@kind} let={f} module={Bainistigh.JournalLive.ComposeComponent}>
       <div class="content">
-        <.live_component form={f} id="journal-editor" module={Bainistigh.JournalLive.EditorComponent} } />
+        <.live_component form={f} id="journal-editor" module={Bainistigh.JournalLive.EditorComponent} />
       </div>
       
       <.live_component entry={@entry} id="journal-sidebar" module={Bainistigh.JournalLive.SidebarComponent}>

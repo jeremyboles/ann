@@ -1,7 +1,7 @@
 import { Schema } from "prosemirror-model"
 
 //
-// Schema definition
+// Schema definitions
 // -------------------------------------------------------------------------------------------------
 
 export const note = new Schema({
@@ -12,6 +12,7 @@ export const note = new Schema({
         return ["em", 0]
       },
     },
+
     strong: {
       parseDOM: [{ tag: "b" }, { tag: "string" }, { style: "font-style=bold" }],
       toDOM() {
@@ -52,20 +53,6 @@ export const note = new Schema({
       },
     },
 
-    heading: {
-      attrs: { level: { default: 1 } },
-      content: "inline*",
-      defining: true,
-      group: "block",
-      parseDOM: [
-        { tag: "h1", attrs: { level: 1 } },
-        { tag: "h2", attrs: { level: 2 } },
-      ],
-      toDOM(node) {
-        return [`h${node.attrs.level}`, 0]
-      },
-    },
-
     ordered_list: {
       attrs: { order: { default: 1 } },
       content: "list_item+",
@@ -82,6 +69,7 @@ export const note = new Schema({
         return node.attrs.order == 1 ? ["ol", 0] : ["ol", { start: node.attrs.order }, 0]
       },
     },
+
     bullet_list: {
       parseDOM: [{ tag: "ul" }],
       content: "list_item+",
@@ -90,6 +78,7 @@ export const note = new Schema({
         return ["ul", 0]
       },
     },
+
     list_item: {
       content: "paragraph block*",
       defining: true,
