@@ -19,6 +19,7 @@ defmodule Taifead.Journal.Entry do
     field :published_at, :utc_datetime_usec
     field :tags, {:array, :string}, default: []
     field :url_slug, :string
+    field :weatherkit_response, :map
 
     timestamps()
   end
@@ -30,6 +31,7 @@ defmodule Taifead.Journal.Entry do
     |> cast_coords(attrs)
     |> cast_doc(attrs)
     |> cast_mapkit_response(attrs)
+    |> cast_weatherkit_response(attrs)
     |> extract_from_doc()
     |> generate_url_slug()
     |> unique_constraint(:url_slug)
@@ -83,6 +85,18 @@ defmodule Taifead.Journal.Entry do
   end
 
   defp cast_mapkit_response(changeset, _) do
+    changeset
+  end
+
+  defp cast_weatherkit_response(changeset, %{"weatherkit_response" => resp}) when is_bitstring(resp) do
+    cast(changeset, %{"weatherkit_response" => Jason.decode!(resp)}, [:weatherkit_response])
+  end
+
+  defp cast_weatherkit_response(changeset, %{"weatherkit_response" => resp}) do
+    cast(changeset, %{"weatherkit_response" => resp}, [:weatherkit_response])
+  end
+
+  defp cast_weatherkit_response(changeset, _) do
     changeset
   end
 

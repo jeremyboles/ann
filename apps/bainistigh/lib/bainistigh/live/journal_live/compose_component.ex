@@ -26,10 +26,13 @@ defmodule Bainistigh.JournalLive.ComposeComponent do
   end
 
   def handle_event("update", %{"coords" => coords, "mapkit_response" => resp}, socket) do
+    weatherkit_response = Bainistigh.AppleServices.weatherkit_request(coords)
+
     changeset =
       socket.assigns.changeset
       |> Ecto.Changeset.put_change(:coords, coords)
       |> Ecto.Changeset.put_change(:mapkit_response, resp)
+      |> Ecto.Changeset.put_change(:weatherkit_response, weatherkit_response)
 
     {:noreply, assign(socket, :changeset, changeset)}
   end

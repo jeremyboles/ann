@@ -46,6 +46,7 @@ defmodule Bainistigh.MixProject do
       {:phoenix_live_dashboard, "~> 0.6"},
       {:dart_sass, "~> 0.4", runtime: Mix.env() == :dev},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:httpoison, "~> 1.8"},
       {:rollbax, "~> 0.11.0"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},

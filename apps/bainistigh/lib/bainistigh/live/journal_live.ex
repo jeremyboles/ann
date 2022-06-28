@@ -4,7 +4,6 @@ defmodule Bainistigh.JournalLive do
   import Bainistigh.CommonComponent
 
   alias Bainistigh.JournalLive.ComposeButtonComponent
-  alias Bainistigh.MapKit
   alias Taifead.Journal
 
   def handle_info({:entry_created, entry}, socket) do
@@ -47,6 +46,6 @@ defmodule Bainistigh.JournalLive do
     opts
     |> Map.merge(%{annotations: Jason.encode!([%{point: center}])})
     |> Map.merge(%{scale: "2", size: "480x216", z: 17})
-    |> MapKit.snapshot_url()
+    |> Bainistigh.AppleServices.mapkit_snapshot_url()
   end
 end

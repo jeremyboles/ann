@@ -29,4 +29,17 @@ defmodule Bainistigh.JournalLive.LocationComponent do
         hidden_input(form, :mapkit_response, value: Jason.encode!(data))
     end
   end
+
+  defp hidden_weatherkit_response_input(form) do
+    case input_value(form, :weatherkit_response) do
+      nil ->
+        hidden_input(form, :weatherkit_response)
+
+      "" ->
+        hidden_input(form, :weatherkit_response)
+
+      data ->
+        hidden_input(form, :weatherkit_response, value: Jason.encode!(data))
+    end
+  end
 end
