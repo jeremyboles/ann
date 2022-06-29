@@ -64,7 +64,7 @@ section.wiki:has(.SidebarComponent > .toggle:not(:checked)) .EditorComponent {
 
   @include media.ipad(max) {
     font-size: 20px;
-    padding-block-end: 120px;
+    padding-block-end: 160px;
   }
 
   a {

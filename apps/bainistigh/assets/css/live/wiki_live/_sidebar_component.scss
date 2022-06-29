@@ -59,9 +59,9 @@
     align-items: center;
     block-size: 40px;
     border-radius: 20px;
-    bottom: calc(env(safe-area-inset-bottom, 0) + 88px);
     box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.02)}, 0 4px 24px #{palette.stone($lightness: 8%, $alpha: 0.15)};
-    left: 50%;
+    inset-inline-start: 50%;
+    inset-block-end: calc(env(safe-area-inset-bottom, 0) + 72px);
     padding-inline: 4px;
     position: fixed;
     transform: translateX(-50%);
@@ -222,13 +222,13 @@ section.wiki:has(.save_button > input[type="checkbox"]:checked) .SidebarComponen
   @include media.ipad(max) {
     @include box.bg(tertiary);
     border-radius: 8px;
-    bottom: calc(env(safe-area-inset-bottom, 0) + 68px);
     box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.1)}, 0 4px 24px #{palette.stone($lightness: 8%, $alpha: 0.25)};
-    left: calc(env(safe-area-inset-left, 0) + 8px);
+    inset-block-end: calc(env(safe-area-inset-bottom, 0) + 60px);
+    inset-block-start: calc(env(safe-area-inset-top, 0) + 40px);
+    inset-inline-end: calc(env(safe-area-inset-right, 0) + 8px);
+    inset-inline-start: calc(env(safe-area-inset-left, 0) + 8px);
     padding-block-end: 80px;
     position: fixed;
-    right: calc(env(safe-area-inset-right, 0) + 8px);
-    top: calc(env(safe-area-inset-top, 0) + 40px);
     z-index: 799;
   }
 }

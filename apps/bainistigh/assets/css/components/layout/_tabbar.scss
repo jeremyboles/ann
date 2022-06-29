@@ -18,14 +18,13 @@
 // -----------------------------------------------------------------------------------------------
 
 .tabbar {
-  $padding: 12px;
   @include border.block-start(tertiary);
   @include box.bg(secondary);
   bottom: 0;
   left: 0;
   position: fixed;
-  padding-block-end: calc(env(safe-area-inset-bottom) + $padding);
-  padding-block-start: $padding;
+  padding-block-end: calc(env(safe-area-inset-bottom) + 2px);
+  padding-block-start: 6px;
   padding-inline-end: env(safe-area-inset-right);
   padding-inline-start: env(safe-area-inset-left);
   right: 0;
@@ -198,13 +197,11 @@
 
 .tabbar:has(:checked) .more_tabs::before {
   @include box.bg(mask);
-  bottom: 64px;
   content: "";
   display: block;
-  left: 0;
+  inset: 0;
+  inset-block-end: calc(env(safe-area-inset-bottom) + 48px);
   position: fixed;
-  right: 0;
-  top: 0;
   z-index: 9;
 }
 
@@ -214,13 +211,12 @@
   @include box.bg(secondary);
   @include box.rounded(12px);
   block-size: 254px;
-  bottom: calc(64px + $space);
   box-shadow: 0 0 0 1px #{palette.stone($lightness: 8%, $alpha: 0.04)}, 0 -4px 16px #{palette.stone($lightness: 8%, $alpha: 0.15)};
   content: "";
   display: block;
-  left: $space;
+  inset-inline: $space;
+  inset-block-end: calc(env(safe-area-inset-bottom) + 48px + $space);
   position: fixed;
-  right: $space;
   z-index: 10;
 
   @media (prefers-color-scheme: dark) {
@@ -238,11 +234,10 @@
     @include border.all(secondary);
     @include box.bg(main);
     @include box.rounded(6px);
-    bottom: calc(64px + env(safe-area-inset-bottom) + $space);
     display: none;
-    left: $space;
+    inset-inline: $space;
+    inset-block-end: calc(env(safe-area-inset-bottom) + 48px + $space);
     position: fixed;
-    right: $space;
     z-index: 11;
 
     a {
@@ -263,15 +258,17 @@
     }
 
     &:nth-of-type(7) {
-      bottom: calc(124px + env(safe-area-inset-bottom) + $space);
+      inset-block-end: calc(env(safe-area-inset-bottom) + 108px + $space);
+      // bottom: calc(124px + env(safe-area-inset-bottom) + $space);
     }
 
     &:nth-of-type(8) {
-      bottom: calc(184px + env(safe-area-inset-bottom) + $space);
+      inset-block-end: calc(env(safe-area-inset-bottom) + 168px + $space);
+      // bottom: calc(184px + env(safe-area-inset-bottom) + $space);
     }
 
     &:nth-of-type(9) {
-      bottom: calc(244px + env(safe-area-inset-bottom) + $space);
+      inset-block-end: calc(env(safe-area-inset-bottom) + 228px + $space);
     }
   }
 
