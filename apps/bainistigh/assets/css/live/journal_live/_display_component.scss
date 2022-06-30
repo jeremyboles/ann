@@ -33,7 +33,7 @@
   }
 }
 
-.DisplayComponent article {
+.DisplayComponent form {
   @include box.bg(secondary);
   block-size: 100%;
   border-radius: 8px;
@@ -67,7 +67,7 @@
   }
 }
 
-.DisplayComponent article .inside {
+.DisplayComponent .inside {
   display: contents;
 
   @include media.ipad(max) {
@@ -201,13 +201,15 @@
 // -----------------------------------------------------------------------------------------------
 
 .DisplayComponent aside {
-  @include border.inline-start(secondary);
-  @include box.bg(tertiary);
-  grid-area: aside;
+  @include media.ipad(min) {
+    @include border.inline-start(main);
+    @include box.bg(quaternary);
+    grid-area: aside;
 
-  @media (prefers-color-scheme: dark) {
-    @include border.inline-start(separator);
-    @include box.bg(main);
+    @media (prefers-color-scheme: dark) {
+      @include border.inline-start(quaternary);
+      @include box.bg(main);
+    }
   }
 }
 
@@ -216,7 +218,8 @@
 // -----------------------------------------------------------------------------------------------
 
 .DisplayComponent footer {
-  @include border.block-start(tertiary);
+  @include box.bg(tertiary);
+  @include border.block-start(separator);
   align-items: center;
   display: flex;
   gap: 8px;
@@ -225,11 +228,8 @@
   padding-inline: 8px;
   z-index: 11;
 
-  @media (prefers-color-scheme: dark) {
-    @include border.block-start(quaternary);
-  }
-
   @include media.ipad(max) {
+    background-color: transparent;
     border-block-start: none;
     position: absolute;
     inset-block-start: -38px;
@@ -238,8 +238,6 @@
 }
 
 .DisplayComponent footer button {
-  background-color: transparent;
-
   &[value="publish"] {
     @include text.style(sans, $color: accent, $size: 18px, $weight: 700);
   }
@@ -266,6 +264,7 @@
   }
 
   @include media.ipad(max) {
+    background-color: transparent;
     &[value="delete"] {
       @include icon.replace($url: "/images/fa/regular/trash.svg", $size: 20px);
       color: #{palette.red($lightness: 52%)};

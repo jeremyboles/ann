@@ -22,10 +22,14 @@
   flex-grow: 1;
   inline-size: 100%;
   max-inline-size: 600px;
+  overflow-y: auto;
+  padding-block: 24px;
   padding-inline: 40px;
   position: relative;
 
   @include media.ipad(max) {
+    @include border.block-end(tertiary);
+    @include box.bg(main);
     padding: 12px;
   }
 }
@@ -40,6 +44,7 @@
   inline-size: 100%;
   margin-inline: auto;
   max-inline-size: 72ch;
+  min-block-size: 224px;
   outline: none;
   text-rendering: optimizelegibility;
 
@@ -79,21 +84,23 @@
 
 .JournalLive_EditorComponent .count {
   @include text.style($color: quaternary, $size: 13px, $weight: 600);
-  inset-block-end: env(safe-area-inset-bottom);
-  inset-inline-end: 12px;
-  line-height: 48px;
-  position: absolute;
-  transform: translate(-8px, 100%);
+  margin-block-start: 16px;
+  text-align: end;
   -webkit-user-select: none;
 
   @include media.ipad(min) {
     @include text.style($color: faded, $size: 11px, $weight: 600);
-    right: 50%;
+    inline-size: 40px;
+    inset-block-end: calc(env(safe-area-inset-bottom, 0) + 12px);
+    inset-inline-end: env(safe-area-inset-right, 0);
+    margin-block-start: unset;
+    position: absolute;
+    text-align: center;
   }
 }
 
-.JournalLive_EditorComponent:has([contenteditable="true"]:focus-visible) .count {
-  @include media.ipad(max) {
-    transform: translateY(-218px);
-  }
-}
+// .JournalLive_EditorComponent:has([contenteditable="true"]:focus-visible) .count {
+//   @include media.ipad(max) {
+//     transform: translateY(-218px);
+//   }
+// }

@@ -1,5 +1,5 @@
 <div class="DisplayComponent" id="display-component">
-  <article>
+  <.form for={@changeset} let={f}>
     <header>
       <%= live_patch to: Routes.journal_path(@socket, :index) do %>
         <button type="button"><span>Back</span></button>
@@ -13,11 +13,11 @@
     
     <div class="inside">
       <div class="content">
-        <p>Test</p>
+        <.live_component form={f} id="journal-editor" module={Bainistigh.JournalLive.EditorComponent} />
       </div>
       
       <aside>
-        test<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        Meta<br><br><br><br>
       </aside>
     </div>
     
@@ -26,5 +26,5 @@
       <button name="action" type="submit" value="save">Save <span>Without Publishing</span></button>
       <button name="action" type="submit" value="publish">Publish</button>
     </footer>
-  </article>
+  </.form>
 </div>
