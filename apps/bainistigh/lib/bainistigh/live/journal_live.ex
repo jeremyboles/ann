@@ -22,7 +22,7 @@ defmodule Bainistigh.JournalLive do
     {:noreply, assign(socket, :kind, kind)}
   end
 
-  def handle_params(%{"id" => id}, _url, socket) do
+  def handle_params(%{"id" => id}, _url, %{assigns: %{live_action: :show}} = socket) do
     entry = Journal.get_entry!(id)
     {:noreply, assign(socket, :entry, entry)}
   end

@@ -35,26 +35,50 @@
 
 .DisplayComponent article {
   @include box.bg(secondary);
+  block-size: 100%;
   border-radius: 8px;
-  bottom: 80px;
   box-shadow: 0 4px 32px #{palette.stone($lightness: 8%, $alpha: 0.15)};
-  display: flex;
-  flex-direction: column;
-  left: 80px;
+  display: grid;
+  grid-template-areas: "header aside" "content aside" "footer footer";
+  grid-template-columns: 1fr 308px;
+  grid-template-rows: 46px 1fr 52px;
+  inline-size: 100%;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
   margin: auto;
+  max-block-size: 520px;
+  max-inline-size: 880px;
+  overflow: hidden;
   position: fixed;
-  right: 80px;
-  top: 80px;
+  transform: translate(-50%, -50%);
   z-index: 999;
 
   @include media.ipad(max) {
     border-radius: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
+    grid-template-areas: "header" "footer" "inside";
+    grid-template-columns: 1fr;
+    grid-template-rows: 48px 0 1fr;
+    max-block-size: unset;
+    max-inline-size: unset;
     min-block-size: 100svh;
     min-inline-size: 100svw;
-    right: 0;
-    top: 0;
+    transform: none;
+  }
+}
+
+.DisplayComponent article .inside {
+  display: contents;
+
+  @include media.ipad(max) {
+    display: block;
+    grid-area: inside;
+    overflow-y: scroll;
+    z-index: 1;
+  }
+
+  @include media.ipad(max) {
+    margin-block-start: 44px;
   }
 }
 
@@ -63,23 +87,17 @@
 // -----------------------------------------------------------------------------------------------
 
 .DisplayComponent header {
-  display: contents;
+  @include border.block-end(tertiary);
+  align-items: center;
+  display: flex;
+  grid-area: header;
+  justify-content: space-between;
+  padding-inline: 8px;
+  position: relative;
+  z-index: 10;
 
-  @include media.ipad(max) {
-    @include border.block-end(tertiary);
-    @include box.bg(secondary);
-    align-items: center;
-    display: flex;
-    font-size: 20px;
-    font-weight: 700;
-    height: 48px;
-    left: 0;
-    position: absolute;
-    justify-content: space-between;
-    padding-block-start: calc(env(safe-area-inset-top, 0));
-    padding-inline: 12px;
-    right: 0;
-    top: 0;
+  @media (prefers-color-scheme: dark) {
+    @include border.block-start(quaternary);
   }
 }
 
@@ -93,7 +111,6 @@
   appearance: none;
   display: flex;
   background-color: transparent;
-  margin-inline-start: -4px;
 
   @include icon.before($url: "/images/fa/solid/chevron-left.svg", $size: 20px) {
     margin-inline-end: 0;
@@ -105,9 +122,6 @@
     border-radius: 50%;
     justify-content: center;
     padding: 4px;
-    position: absolute;
-    left: 12px;
-    top: 8px;
 
     @include icon.before($url: "/images/fa/solid/xmark.svg", $size: 20px) {
       margin-inline-end: 0;
@@ -124,38 +138,53 @@
 }
 
 //
-// Back button
+// Topic select
 // -----------------------------------------------------------------------------------------------
 
-.DisplayComponent header > button {
-  @include text.style(sans, $size: 18px, $weight: 600);
+.DisplayComponent header label {
   align-items: center;
-  appearance: none;
-  background-color: transparent;
-  color: #{palette.red($lightness: 62%)};
   display: flex;
-  margin-inline-start: -4px;
+  gap: 4px;
+  padding: 4px;
+  z-index: 12;
 
-  @include icon.before($url: "/images/fa/regular/trash.svg", $size: 20px);
-
-  @media (prefers-color-scheme: dark) {
-    color: #{palette.red($lightness: 58%)};
+  @include media.ipad(max) {
+    @include border.block-end(tertiary);
+    background-color: inherit;
+    inset-inline: 0;
+    inset-block-start: 48px;
+    justify-content: space-between;
+    padding-block: 10px;
+    padding-inline: 12px;
+    position: absolute;
   }
 
+  @include icon.after($url: "/images/fa/solid/chevron-down.svg", $size: 10px) {
+    color: #{colors.var(quaternary, $ns: text)};
+    margin-inline-end: 0;
+  }
+
+  &:has(option:first-of-type:checked)::after {
+    @include text.color(faded);
+  }
+}
+
+.DisplayComponent header select {
+  @include text.style(sans, $color: tertiary, $size: 18px, $weight: 500);
+  background-color: transparent;
+  accent-color: #{colors.var(accent, $ns: text)};
+  outline: 0;
+  text-align: end;
+  z-index: 12;
+
   @include media.ipad(min) {
-    background-color: transparent;
-    border-radius: 50%;
-    justify-content: center;
-    padding: 4px;
-    position: absolute;
-    right: 12px;
-    top: 8px;
+    @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
+    accent-color: #{colors.var(accent, $ns: text)};
+    appearance: none;
+  }
 
-    @include icon.before($url: "/images/fa/solid/trash.svg", $size: 20px);
-
-    &:hover {
-      @include text.color(secondary);
-    }
+  &:has(option:first-of-type:checked) {
+    @include text.color(faded);
   }
 }
 
@@ -164,21 +193,99 @@
 // -----------------------------------------------------------------------------------------------
 
 .DisplayComponent .content {
-  align-items: center;
-  block-size: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding-block: 48px;
-  padding-inline: 12px;
+  grid-area: content;
+}
 
-  @include media.ipad(max) {
-    padding-block-start: 64px;
+//
+// Aside
+// -----------------------------------------------------------------------------------------------
+
+.DisplayComponent aside {
+  @include border.inline-start(secondary);
+  @include box.bg(tertiary);
+  grid-area: aside;
+
+  @media (prefers-color-scheme: dark) {
+    @include border.inline-start(separator);
+    @include box.bg(main);
   }
 }
 
-.DisplayComponent .content > p {
-  @include text.style(sans, $size: 18px, $weight: 500);
-  max-inline-size: 72ch;
-  padding: 12px;
+//
+// Footer
+// -----------------------------------------------------------------------------------------------
+
+.DisplayComponent footer {
+  @include border.block-start(tertiary);
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  grid-area: footer;
+  justify-content: end;
+  padding-inline: 8px;
+  z-index: 11;
+
+  @media (prefers-color-scheme: dark) {
+    @include border.block-start(quaternary);
+  }
+
+  @include media.ipad(max) {
+    border-block-start: none;
+    position: absolute;
+    inset-block-start: -38px;
+    inset-inline-end: 8px;
+  }
+}
+
+.DisplayComponent footer button {
+  background-color: transparent;
+
+  &[value="publish"] {
+    @include text.style(sans, $color: accent, $size: 18px, $weight: 700);
+  }
+
+  @include media.ipad(min) {
+    @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
+    @include box.bg(quaternary);
+    @include box.rounded;
+    padding-block: 6px;
+    padding-inline: 12px;
+
+    &[value="delete"] {
+      @include text.style($size: 14px, $weight: 700);
+      background-color: #{palette.red($lightness: 62%)};
+      color: #{palette.stone($lightness: 96%)};
+      margin-inline-end: auto;
+    }
+
+    &[value="publish"] {
+      @include text.style($size: 14px, $weight: 700);
+      background-color: #{colors.var(accent, $ns: text)};
+      color: #{palette.stone($lightness: 96%)};
+    }
+  }
+
+  @include media.ipad(max) {
+    &[value="delete"] {
+      @include icon.replace($url: "/images/fa/regular/trash.svg", $size: 20px);
+      color: #{palette.red($lightness: 52%)};
+      margin-inline-end: 4px;
+    }
+
+    &[value="save"] {
+      @include text.style(sans, $color: accent, $size: 18px, $weight: 700);
+
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+.DisplayComponent footer:has(button[value="publish"]) button[value="save"] {
+  @include media.ipad(max) {
+    @include icon.replace($url: "/images/fa/regular/floppy-disk.svg", $size: 20px);
+    @include text.color(quaternary);
+    margin-inline-end: 4px;
+  }
 }
