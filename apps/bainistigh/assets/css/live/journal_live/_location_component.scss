@@ -18,14 +18,15 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_LocationComponent {
-  block-size: 100%;
+  @include border.block-start(main);
   display: flex;
-  gap: 12px;
-  padding-inline: 12px;
+  flex-direction: column;
+  padding-block-start: 8px;
+  position: relative;
 
   @include media.ipad(max) {
-    flex-direction: column-reverse;
-    padding-block-start: 12px;
+    border-block-start: none;
+    padding-block-start: 18px;
   }
 }
 
@@ -35,10 +36,66 @@
 
 .JournalLive_LocationComponent .map {
   @include box.bg(faded);
-  @include border.all(secondary);
-  block-size: 100%;
+  @include border.all(main);
+  aspect-ratio: 3/2;
+  border-block-end: 0;
+  border-radius: 4px 4px 0 0;
+  inline-size: 100%;
+  overflow: hidden;
+  z-index: 1;
+
+  @include media.ipad(max) {
+    aspect-ratio: unset;
+    block-size: 240px;
+    inline-size: calc(100% + 24px);
+    margin-inline: -12px;
+  }
+}
+
+//
+// Location Selection
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_LocationComponent p {
+  @include box.bg(quaternary);
+  @include text.style($color: accent, $size: 18px, $weight: 600);
+  align-items: center;
+  min-block-size: 48px;
   border-radius: 4px;
-  flex-basis: 50%;
+  display: flex;
+  justify-content: start;
+  margin-block-start: 8px;
+  padding: 8px 6px;
+
+  @include media.ipad(min) {
+    @include box.bg(tertiary);
+    @include border.all(main);
+    @include text.size(12px);
+    min-block-size: 32px;
+    border-radius: 0 0 4px 4px;
+    margin-block-start: 0;
+    min-block-size: 32px;
+  }
+
+  span {
+    @include icon.before($url: "/images/fa/solid/location-dot.svg", $size: 20px) {
+      color: #{colors.var(faded, $ns: text)};
+      transform: translateY(1px);
+    }
+
+    @include media.ipad(min) {
+      @include icon.before($url: "/images/fa/solid/location-dot.svg", $size: 12px) {
+        color: #{colors.var(faded, $ns: text)};
+        transform: translateY(1px);
+      }
+    }
+
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
 }
 
 //
@@ -47,25 +104,28 @@
 
 .JournalLive_LocationComponent .locations {
   display: flex;
-  flex-basis: 50%;
-  flex-direction: column;
+  margin-block-start: 8px;
 }
 
 //
 // Search Input
 // -----------------------------------------------------------------------------------------------
 
-.JournalLive_LocationComponent input[type="search"] {
+.JournalLive_LocationComponent .locations input[type="search"] {
+  @include border.all(main);
   @include box.bg(main);
-  @include border.all(tertiary);
-  @include text.style(sans, $color: main, $size: 16px, $weight: 500);
+  @include text.style(sans, $color: main, $size: 13px, $weight: 500);
   -webkit-appearance: none;
-  border-radius: 4px;
-  margin-block-end: 8px;
-  padding: 4px 8px;
+  border-radius: 4px 0 0 4px;
+  inline-size: calc(100% - 28px);
+  padding: 2px 8px;
 
   &::placeholder {
     @include text.color(faded);
+  }
+
+  &::-webkit-search-cancel-button {
+    margin-inline-end: -16px;
   }
 
   @include media.ipad(max) {
@@ -74,18 +134,63 @@
   }
 }
 
+.JournalLive_LocationComponent .locations button:has(span) {
+  @include box.bg(control);
+  @include icon.before($url: "/images/fa/solid/magnifying-glass.svg", $size: 16px) {
+    transform: translate(1px, 1px);
+  }
+  border-radius: 0 4px 4px 0;
+  color: #{colors.var(quaternary, $ns: text)};
+  inline-size: 40px;
+
+  @include media.ipad(min) {
+    @include icon.before($url: "/images/fa/solid/magnifying-glass.svg", $size: 12px) {
+      transform: translate(1px, 1px);
+    }
+    inline-size: 28px;
+  }
+
+  span {
+    display: none;
+  }
+}
+
 //
 // Location Options
 // -----------------------------------------------------------------------------------------------
 
+.JournalLive_LocationComponent dialog {
+  block-size: 100%;
+  border-radius: 8px;
+  flex-direction: column;
+  gap: 8px;
+  inline-size: 100%;
+  margin: auto;
+  max-block-size: 480px;
+  max-inline-size: min(calc(100% - 32px), 400px);
+  padding: 16px;
+
+  &[open] {
+    display: flex;
+  }
+
+  &::backdrop {
+    background-color: #{palette.stone($lightness: 15%, $alpha: 0.35)};
+    @media (prefers-color-scheme: dark) {
+      background-color: #{palette.stone($lightness: 2%, $alpha: 0.6)};
+    }
+  }
+}
+
 .JournalLive_LocationComponent ul {
   @include text.style($color: tertiary, $size: 18px, $weight: 500);
   flex-grow: 1;
-  max-block-size: 100%;
   overflow-y: auto;
 }
 
 .JournalLive_LocationComponent ul li {
+  @include border.all(quaternary);
+  @include box.bg(secondary);
   @include icon.before($url: "/images/fa/regular/location-dot.svg", $size: 20px) {
     background-color: #{colors.var(faded, $ns: text)};
     transform: translateY(1px);
@@ -96,13 +201,15 @@
   display: flex;
   max-inline-size: 100%;
   padding-block: 8px;
+  padding-inline: 8px;
   -webkit-user-select: none;
 
   b {
-    max-inline-size: 100%;
+    display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    // white-space: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
 
   address {
@@ -127,91 +234,31 @@
   }
 }
 
-.JournalLive_LocationComponent ul li[data-category="Brewery"] {
-  @include icon.before($url: "/images/fa/regular/beer-mug.svg", $size: 20px) {
-    background-color: #{colors.var(faded, $ns: text)};
-    transform: translateY(1px);
-    flex-shrink: 0;
-  }
-
-  @include media.ipad(min) {
-    @include icon.before($url: "/images/fa/regular/beer-mug.svg", $size: 16px) {
-      background-color: #{colors.var(faded, $ns: text)};
-      transform: translateY(0.5px);
-      flex-shrink: 0;
-    }
-  }
-}
-
-.JournalLive_LocationComponent ul li[data-category="Cafe"] {
-  @include icon.before($url: "/images/fa/regular/mug.svg", $size: 20px) {
-    background-color: #{colors.var(faded, $ns: text)};
-    transform: translateY(1px);
-    flex-shrink: 0;
-  }
-
-  @include media.ipad(min) {
-    @include icon.before($url: "/images/fa/regular/mug.svg", $size: 16px) {
-      background-color: #{colors.var(faded, $ns: text)};
-      transform: translateY(0.5px);
-      flex-shrink: 0;
-    }
-  }
-}
-
-.JournalLive_LocationComponent ul li[data-category="FoodMarket"],
-.JournalLive_LocationComponent ul li[data-category="Restaurant"] {
-  @include icon.before($url: "/images/fa/regular/baguette.svg", $size: 20px) {
-    background-color: #{colors.var(faded, $ns: text)};
-    transform: translateY(1px);
-    flex-shrink: 0;
-  }
-
-  @include media.ipad(min) {
-    @include icon.before($url: "/images/fa/regular/baguette.svg", $size: 16px) {
-      background-color: #{colors.var(faded, $ns: text)};
-      transform: translateY(0.5px);
-      flex-shrink: 0;
-    }
-  }
-}
-
-//
-// Location Selection
-// -----------------------------------------------------------------------------------------------
-
-.JournalLive_LocationComponent p {
-  @include text.style($color: accent, $size: 18px, $weight: 600);
-  display: flex;
-  justify-content: center;
-
-  &:has(span) {
-    @include border.block-start(tertiary);
-    margin-block-end: -4px;
-    padding-block-start: 8px;
-  }
+.JournalLive_LocationComponent dialog button {
+  @include box.bg(faded);
+  @include text.style(sans, $color: main, $size: 18px, $weight: 600);
+  padding: 8px;
+  border-radius: 4px;
 
   @include media.ipad(min) {
     @include text.size(14px);
-
-    &:has(span) {
-      @include border.block-end(tertiary);
-      margin-block-end: 0;
-      padding-block-end: 8px;
-    }
   }
+}
 
-  span {
-    @include icon.before($url: "/images/fa/solid/location-dot.svg", $size: 20px) {
+@each $category, $icon in (Brewery: beer-mug, Cafe: mug, FoodMarket: baguette, Restaurant: baguette) {
+  .JournalLive_LocationComponent ul li[data-category="#{$category}"] {
+    @include icon.before($url: "/images/fa/regular/#{$icon}.svg", $size: 20px) {
+      background-color: #{colors.var(faded, $ns: text)};
       transform: translateY(1px);
+      flex-shrink: 0;
     }
 
     @include media.ipad(min) {
-      @include icon.before($url: "/images/fa/solid/location-dot.svg", $size: 16px) {
+      @include icon.before($url: "/images/fa/solid/#{$icon}.svg", $size: 16px) {
+        background-color: #{colors.var(faded, $ns: text)};
         transform: translateY(0.5px);
+        flex-shrink: 0;
       }
     }
-    align-content: center;
-    display: flex;
   }
 }

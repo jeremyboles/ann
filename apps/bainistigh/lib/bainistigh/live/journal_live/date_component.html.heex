@@ -2,25 +2,29 @@
   <table>
     <caption>
       <div>
-        <button phx-click="previous" phx-target={@myself} type="button"><span>Previous Month</span></button>
         <%= display_month @month  %>
-        <button phx-click="next" phx-target={@myself} type="button"><span>Next Month</span></button>
+        
+        <span>
+          <button phx-click="previous" phx-target={@myself} type="button"><span>Previous Month</span></button>
+          <button phx-click="next" phx-target={@myself} type="button"><span>Next Month</span></button>
+        </span>
       </div>
     </caption>
     <thead>
       <tr>
-        <th><abbr title="Sunday">S</abbr></th>
-        <th><abbr title="Monday">M</abbr></th>
-        <th><abbr title="Tuesday">T</abbr></th>
-        <th><abbr title="Wednesday">W</abbr></th>
-        <th><abbr title="Thursday">T</abbr></th>
-        <th><abbr title="Friday">F</abbr></th>
-        <th><abbr title="Saturday">S</abbr></th>
+        <th><abbr title="Sunday">SUN</abbr></th>
+        <th><abbr title="Monday">MON</abbr></th>
+        <th><abbr title="Tuesday">TUE</abbr></th>
+        <th><abbr title="Wednesday">WED</abbr></th>
+        <th><abbr title="Thursday">THU</abbr></th>
+        <th><abbr title="Friday">FRI</abbr></th>
+        <th><abbr title="Saturday">SAT</abbr></th>
       </tr>
     </thead>
     
     <.calendar let={date} month={@month}>
-      <td data-current={{date.year, date.month} == @month} phx-click="update" phx-target={@myself} phx-value-date={Date.to_iso8601(date)}>
+      <%= if {date.year, date.month} == @month do %>
+      <td phx-click="update" phx-target={@myself} phx-value-date={Date.to_iso8601(date)}>
         <time
           aria-current={if is_today?(date), do: "date", else: "false" }
           aria-selected={if @selected_date == date, do: "true", else: "false"}
@@ -29,9 +33,19 @@
           <%= date.day %>
         </time>
       </td>
+      <% else %>
+        <td />
+      <% end %>
     </.calendar>
+    
+    <tfoot>
+      <tr>
+        <td colspan="3"><label for="time-input">Time</label></td>
+        <td colspan="4"><input data-timezone="UTC" id="time-input" name="time" phx-change="update" phx-debounce="blur" phx-target={@myself} type="time" value={time_value(@selected_time)} /></td>
+      </tr>
+    </tfoot>
   </table>
-  
+  <!-- 
   <div>
     <div class="top">
       <label for="time-input">Time:</label>
@@ -44,7 +58,7 @@
       <button phx-click="set-to-now" phx-target={@myself} type="button">Now</button>
       <button phx-click="clear" phx-target={@myself} type="button">Clear</button>
     </div>
-  </div>
+  </div> -->
   
   <%= hidden_input(@form, :published_at) %>
 </div>

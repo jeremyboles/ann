@@ -18,14 +18,8 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_DateComponent {
-  display: flex;
-  gap: 24px;
-  padding-inline: 12px;
-
-  @include media.ipad(max) {
-    block-size: 100%;
-    flex-direction: column;
-  }
+  display: block;
+  // flex-direction: column;
 }
 
 //
@@ -35,16 +29,17 @@
 .JournalLive_DateComponent table {
   -webkit-user-select: none;
   cursor: default;
+  inline-size: 100%;
 
   th,
   td {
-    @include text.style($color: main, $size: 14px, $weight: 600);
-    padding: 2px;
+    @include text.style($color: secondary, $size: 14px, $weight: 600);
+    // padding: 2px;
     text-align: center;
     vertical-align: middle;
 
     @include media.ipad(max) {
-      @include text.style($color: main, $size: 18px, $weight: 600);
+      @include text.style($color: tertiary, $size: 18px, $weight: 600);
     }
   }
 
@@ -56,37 +51,28 @@
     display: flex;
     line-height: 1;
     justify-content: center;
-    padding: 4px;
-  }
-
-  td:not([data-current]) {
-    @include text.color(faded);
+    padding: 2px;
   }
 
   time[aria-current="date"] {
     @include text.color(accent);
-    border-color: #{palette.orange($lightness: 66%, $alpha: 0.25)};
   }
 
   time[aria-selected="true"] {
     background-color: #{colors.var(accent, $ns: text)};
-    color: #{palette.stone($lightness: 92%)};
+    color: #{palette.stone($lightness: 98%)};
   }
 
   th {
-    @include text.color(quaternary);
-    font-size: 10px;
+    @include text.color(faded);
+    font-size: 9px;
     font-weight: 800;
     padding-block: 2px;
 
     @include media.ipad(max) {
-      font-size: 14px;
+      font-size: 12px;
       padding-block: 4px;
     }
-  }
-
-  thead {
-    @include border.block-end(secondary);
   }
 }
 
@@ -95,16 +81,16 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_DateComponent table caption div {
-  @include border.block-end(secondary);
-  @include text.style($color: secondary, $size: 14px, $weight: 600);
+  @include text.style($color: secondary, $size: 14px, $weight: 800);
   align-items: center;
   display: flex;
   justify-content: space-between;
   inline-size: 100%;
-  padding-block-end: 4px;
+  padding-block-end: 8px;
 
   @include media.ipad(max) {
-    @include text.style($color: secondary, $size: 18px, $weight: 600);
+    padding-block-end: 12px;
+    @include text.style($color: secondary, $size: 18px, $weight: 800);
   }
 }
 
@@ -113,17 +99,14 @@
   padding: 8px;
 
   @include media.ipad(min) {
-    @include border.all(quaternary);
-    @include box.bg(main);
-    border-radius: 4px;
-    padding: 4px;
+    padding: 2px;
   }
 
   &[phx-click="next"] span {
     @include icon.replace("/images/fa/solid/arrow-right.svg", $size: 14px);
 
     @include media.ipad(max) {
-      @include icon.replace("/images/fa/solid/arrow-right.svg", $size: 16px);
+      @include icon.replace("/images/fa/solid/angle-right.svg", $size: 16px);
     }
   }
 
@@ -131,7 +114,7 @@
     @include icon.replace("/images/fa/solid/arrow-left.svg", $size: 14px);
 
     @include media.ipad(max) {
-      @include icon.replace("/images/fa/solid/arrow-left.svg", $size: 16px);
+      @include icon.replace("/images/fa/solid/angle-left.svg", $size: 16px);
     }
   }
 
@@ -143,97 +126,139 @@
 }
 
 //
-// Secondary
+// Calendar footer / time picker
 // -----------------------------------------------------------------------------------------------
 
-.JournalLive_DateComponent > div {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+.JournalLive_DateComponent table tfoot td {
+  padding-block: 8px;
 
   @include media.ipad(max) {
-    flex-shrink: 1;
-    margin-block-start: 80px;
+    padding-block: 12px;
   }
 }
 
-//
-// Time field
-// -----------------------------------------------------------------------------------------------
-
-.JournalLive_DateComponent .top {
-  @include border.block-end(secondary);
-  align-items: center;
-  display: flex;
-  gap: 4px;
-  justify-content: start;
-  padding-block-end: 4px;
-}
-
-.JournalLive_DateComponent .top label {
-  @include text.style($color: quaternary, $size: 14px, $weight: 600);
-  content: "Time:";
-
-  @include media.ipad(max) {
-    @include text.style($color: quaternary, $size: 18px, $weight: 600);
-  }
-}
-
-.JournalLive_DateComponent .top input {
-  @include text.style(sans, $color: main, $size: 14px, $weight: 600);
-  appearance: none;
-  accent-color: #{colors.var(accent, $ns: text)};
-  background-color: transparent;
-  padding: 0;
+.JournalLive_DateComponent table tfoot td[colspan="3"] {
+  @include text.style($color: tertiary, $size: 12px, $weight: 600);
   text-align: start;
 
   @include media.ipad(max) {
+    @include text.style($color: tertiary, $size: 18px, $weight: 700);
+  }
+
+  label {
+    block-size: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.JournalLive_DateComponent table tfoot td[colspan="4"] {
+  text-align: end;
+  vertical-align: middle;
+
+  input {
     @include text.style(sans, $color: main, $size: 18px, $weight: 600);
-  }
+    accent-color: #{colors.var(accent, $ns: text)};
 
-  &::placeholder {
-    @include text.color(faded);
-  }
-
-  &::after {
-    @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
-    content: attr(data-timezone);
+    @include media.ipad(min) {
+      @include text.style(sans, $color: main, $size: 12px, $weight: 600);
+      background-color: transparent;
+    }
   }
 }
 
+// //
+// // Secondary
+// // -----------------------------------------------------------------------------------------------
 //
-// Middle section
-// -----------------------------------------------------------------------------------------------
-
-.JournalLive_DateComponent .middle {
-  flex-grow: 1;
-}
-
+// .JournalLive_DateComponent > div {
+//   display: flex;
+//   flex-direction: column;
+//   flex-grow: 1;
 //
-// Now button
-// -----------------------------------------------------------------------------------------------
-
-.JournalLive_DateComponent .bottom {
-  display: flex;
-  gap: 8px;
-  justify-content: end;
-}
-
-.JournalLive_DateComponent .bottom button {
-  @include box.bg(control);
-  @include text.style(sans, $color: secondary, $size: 12px, $weight: 700);
-  border-radius: 6px;
-  padding-block: 4px;
-  padding-inline: 8px;
-
-  @include media.ipad(max) {
-    @include text.size(14px);
-    padding-block: 8px;
-    padding-inline: 12px;
-  }
-
-  &[phx-click="clear"] {
-    @include box.bg(faded);
-    @include text.color(tertiary);
-  }
-}
+//   @include media.ipad(max) {
+//     flex-shrink: 1;
+//     margin-block-start: 80px;
+//   }
+// }
+//
+// //
+// // Time field
+// // -----------------------------------------------------------------------------------------------
+//
+// .JournalLive_DateComponent .top {
+//   @include border.block-end(secondary);
+//   align-items: center;
+//   display: flex;
+//   gap: 4px;
+//   justify-content: start;
+//   padding-block-end: 4px;
+// }
+//
+// .JournalLive_DateComponent .top label {
+//   @include text.style($color: quaternary, $size: 14px, $weight: 600);
+//   content: "Time:";
+//
+//   @include media.ipad(max) {
+//     @include text.style($color: quaternary, $size: 18px, $weight: 600);
+//   }
+// }
+//
+// .JournalLive_DateComponent .top input {
+//   @include text.style(sans, $color: main, $size: 14px, $weight: 600);
+//   appearance: none;
+//   accent-color: #{colors.var(accent, $ns: text)};
+//   background-color: transparent;
+//   padding: 0;
+//   text-align: start;
+//
+//   @include media.ipad(max) {
+//     @include text.style(sans, $color: main, $size: 18px, $weight: 600);
+//   }
+//
+//   &::placeholder {
+//     @include text.color(faded);
+//   }
+//
+//   &::after {
+//     @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
+//     content: attr(data-timezone);
+//   }
+// }
+//
+// //
+// // Middle section
+// // -----------------------------------------------------------------------------------------------
+//
+// .JournalLive_DateComponent .middle {
+//   flex-grow: 1;
+// }
+//
+// //
+// // Now button
+// // -----------------------------------------------------------------------------------------------
+//
+// .JournalLive_DateComponent .bottom {
+//   display: flex;
+//   gap: 8px;
+//   justify-content: end;
+// }
+//
+// .JournalLive_DateComponent .bottom button {
+//   @include box.bg(control);
+//   @include text.style(sans, $color: secondary, $size: 12px, $weight: 700);
+//   border-radius: 6px;
+//   padding-block: 4px;
+//   padding-inline: 8px;
+//
+//   @include media.ipad(max) {
+//     @include text.size(14px);
+//     padding-block: 8px;
+//     padding-inline: 12px;
+//   }
+//
+//   &[phx-click="clear"] {
+//     @include box.bg(faded);
+//     @include text.color(tertiary);
+//   }
+// }

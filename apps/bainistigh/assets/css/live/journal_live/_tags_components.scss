@@ -18,11 +18,11 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_TagsComponent {
+  @include border.block-start(main);
   align-items: stretch;
-  block-size: 100%;
   display: flex;
   justify-content: stretch;
-  padding-inline: 12px;
+  margin-block-start: 8px;
 }
 
 //
@@ -33,9 +33,14 @@
   align-content: start;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px;
   justify-content: start;
-  padding-block: 12px;
+  padding-block: 8px;
+
+  @include media.ipad(max) {
+    gap: 8px;
+    padding-block: 12px;
+  }
 }
 
 //
@@ -43,9 +48,10 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_TagsComponent input {
-  @include text.style(sans, $color: main, $size: 14px, $weight: 500);
+  @include text.style(sans, $color: main, $size: 12px, $weight: 500);
   background-color: transparent;
   border: none;
+  inline-size: min-content;
   margin-inline-start: 4px;
   outline: none;
   padding-block: 4px;
@@ -64,18 +70,22 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_TagsComponent .tag {
-  @include box.bg(tertiary);
+  @include box.bg(secondary);
   @include border.all();
-  @include text.style($color: main, $size: 14px, $weight: 600);
+  @include text.style($color: main, $size: 12px, $weight: 600);
   align-items: center;
   border-radius: 24px;
   display: flex;
-  gap: 8px;
+  gap: 4px;
   padding-block: 4px;
-  padding-inline: 12px;
+  padding-inline: 12px 6px;
 
   @include media.ipad(max) {
+    @include box.bg(tertiary);
+    @include border.all();
     @include text.size(18px);
+    gap: 8px;
+    padding-inline: 12px;
   }
 }
 

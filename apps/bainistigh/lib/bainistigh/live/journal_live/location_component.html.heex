@@ -1,12 +1,19 @@
 <div class="JournalLive_LocationComponent" id="journal-map" phx-hook="JournalMap">
   <div class="map" id="journal-map-mapkit" phx-update="ignore" />
+  <p/>
   
   <div class="locations" id="journal-location-form" phx-update="ignore">
-    <input autocomplete="off" form="false" list="journal-map-suggestions" placeholder="Search for a place…" type="search" />
+    <input autocomplete="off" form="none" list="journal-map-suggestions" placeholder="Search for a place…" type="search" />
+    <button type="button">
+      <span>Search</span>
+    </button>
+    
     <datalist id="journal-map-suggestions" />
     
-    <ul/>
-    <p/>
+    <dialog>
+      <ul/>
+      <button type="button">Cancel</button>
+    </dialog>
   </div>
   
   <%= hidden_coords_input @form %>

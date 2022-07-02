@@ -113,7 +113,7 @@ defmodule Bainistigh.JournalLive.DateComponent do
   defp time_value(nil), do: nil
 
   defp time_value(time) do
-    time |> Time.truncate(:second) |> Time.to_iso8601()
+    time |> Time.truncate(:second) |> Time.to_iso8601() |> String.slice(0..4)
   end
 
   defp update_date(%{assigns: %{selected_date: nil, selected_time: _}} = socket) do

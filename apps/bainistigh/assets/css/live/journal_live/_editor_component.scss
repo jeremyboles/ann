@@ -83,7 +83,7 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_EditorComponent .count {
-  @include text.style($color: quaternary, $size: 13px, $weight: 600);
+  @include text.style($color: quaternary, $size: 14px, $weight: 600);
   margin-block-start: 16px;
   text-align: end;
   -webkit-user-select: none;
@@ -98,9 +98,3 @@
     text-align: center;
   }
 }
-
-// .JournalLive_EditorComponent:has([contenteditable="true"]:focus-visible) .count {
-//   @include media.ipad(max) {
-//     transform: translateY(-218px);
-//   }
-// }
