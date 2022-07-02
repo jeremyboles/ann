@@ -300,31 +300,7 @@
     </article> -->
   </article>
   
-  <!-- <%= if @live_action == :new do %>
-    <.live_component entry={@entry} id="journal-display" module={Bainistigh.JournalLive.DisplayComponent} />
-  <% end %> -->
-  
-  <%= if @live_action == :new do %>
-    <.live_component entry={@entry} id="journal-component" kind={@kind} let={f} module={Bainistigh.JournalLive.ComposeComponent}>
-      <div class={"content #{@kind}"}>
-        <.live_component form={f} id="journal-editor" module={Bainistigh.JournalLive.EditorComponent} />
-      </div>
-      
-      <.live_component entry={@entry} id="journal-sidebar" module={Bainistigh.JournalLive.SidebarComponent}>
-        <:date>
-          <.live_component form={f} id="journal-date" module={Bainistigh.JournalLive.DateComponent} />
-        </:date>
-        <:location>
-          <.live_component form={f} id="journal-location" module={Bainistigh.JournalLive.LocationComponent} />
-        </:location>
-        <:tags>
-          <.live_component form={f} id="journal-tags" module={Bainistigh.JournalLive.TagsComponent} />
-        </:tags>
-      </.live_component>
-    </.live_component>
-  <% end %>
-  
-  <%= if @live_action == :show do %>
-    <.live_component entry={@entry} id="journal-display" module={Bainistigh.JournalLive.DisplayComponent} />
+  <%= if @live_action == :new or @live_action == :show do %>
+    <.live_component entry={@entry} kind={@kind} id="journal-display" module={Bainistigh.JournalLive.DisplayComponent} />
   <% end %>
 </section>

@@ -1,5 +1,7 @@
 <div class="DisplayComponent" id="display-component">
-  <.form for={@changeset} let={f}>
+  <.form for={@changeset} let={f} phx-change="validate" phx-submit="save" phx-target={@myself}>
+    <%= hidden_input f, :kind %>
+    
     <header>
       <%= live_patch to: Routes.journal_path(@socket, :index) do %>
         <button type="button"><span>Back</span></button>
@@ -24,9 +26,13 @@
     </div>
     
     <footer>
-      <!-- <button name="action" type="button" value="delete">Delete</button> -->
-      <button name="action" type="submit" value="save">Save <span>Without Publishing</span></button>
-      <button name="action" type="submit" value="publish">Publish</button>
+      <%= if input_value f, :id do %>
+        <button data-confirm="Are you sure you want to delete this entry?" phx-click="delete" phx-target={@myself} type="button">Delete</button>
+        <button name="action" type="submit" value="save">Update <span>Entry</span></button>
+      <% else %>
+        <button name="action" type="submit" value="save">Save <span>Without Publishing</span></button>
+        <button name="action" type="submit" value="publish">Publish</button>
+      <% end %>
     </footer>
   </.form>
 </div>

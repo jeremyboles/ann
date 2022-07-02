@@ -35,11 +35,11 @@
   flex-wrap: wrap;
   gap: 4px;
   justify-content: start;
-  padding-block: 8px;
+  padding-block-start: 8px;
 
   @include media.ipad(max) {
     gap: 8px;
-    padding-block: 12px;
+    padding-block-start: 12px;
   }
 }
 

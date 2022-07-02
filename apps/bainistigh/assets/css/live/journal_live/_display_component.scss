@@ -264,7 +264,7 @@
     padding-block: 6px;
     padding-inline: 12px;
 
-    &[value="delete"] {
+    &[phx-click="delete"] {
       @include text.style($size: 14px, $weight: 700);
       background-color: #{palette.red($lightness: 62%)};
       color: #{palette.stone($lightness: 96%)};
@@ -280,7 +280,7 @@
 
   @include media.ipad(max) {
     background-color: transparent;
-    &[value="delete"] {
+    &[phx-click="delete"] {
       @include icon.replace($url: "/images/fa/regular/trash.svg", $size: 20px);
       color: #{palette.red($lightness: 52%)};
       margin-inline-end: 4px;

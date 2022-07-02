@@ -77,6 +77,7 @@ export function mounted() {
       this.map.addAnnotation(this.location)
 
       this.geocoder.reverseLookup(coordinate, (_, data) => {
+        console.log(data)
         const [response] = data.results
         this.selected.innerHTML = `<span>${response.name}</span>`
 
