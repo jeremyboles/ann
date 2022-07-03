@@ -57,15 +57,14 @@
 // -----------------------------------------------------------------------------------------------
 
 .JournalLive_LocationComponent p {
-  @include box.bg(quaternary);
+  @include border.all(secondary);
+  @include box.bg(main);
   @include text.style($color: accent, $size: 18px, $weight: 600);
   align-items: center;
   min-block-size: 48px;
-  border-radius: 4px;
   display: flex;
   justify-content: start;
-  margin-block-start: 8px;
-  padding: 8px 6px;
+  padding-inline: 12px;
 
   @include media.ipad(min) {
     @include box.bg(tertiary);
@@ -75,18 +74,23 @@
     border-radius: 0 0 4px 4px;
     margin-block-start: 0;
     min-block-size: 32px;
+    padding-inline: 6px;
+  }
+
+  @include media.ipad(max) {
+    margin-inline: -12px;
   }
 
   span {
     @include icon.before($url: "/images/fa/solid/location-dot.svg", $size: 20px) {
       color: #{colors.var(faded, $ns: text)};
-      transform: translateY(1px);
+      transform: translateY(2.5px);
     }
 
     @include media.ipad(min) {
       @include icon.before($url: "/images/fa/solid/location-dot.svg", $size: 12px) {
         color: #{colors.var(faded, $ns: text)};
-        transform: translateY(1px);
+        transform: translateY(1.5px);
       }
     }
 

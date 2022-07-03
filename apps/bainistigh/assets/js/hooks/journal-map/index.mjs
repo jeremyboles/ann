@@ -132,7 +132,6 @@ export function mounted() {
       this.map.setRegionAnimated(region)
 
       const response = JSON.parse(this.el.querySelector("#entry_mapkit_response").value)
-      console.log(response)
       this.selected.innerHTML = `<span>${response.name}</span>`
     }
   })
