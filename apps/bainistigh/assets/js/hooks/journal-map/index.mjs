@@ -12,6 +12,7 @@ export function mounted() {
 
   this.button = this.el.querySelector("button:has(span)")
   this.cancel = this.el.querySelector("dialog button")
+
   this.dialog = this.el.querySelector("dialog")
   this.form = this.el.querySelector("form")
   this.results = this.el.querySelector("ul")
@@ -31,6 +32,8 @@ export function mounted() {
   })
 
   this.map.addEventListener("user-location-change", ({ coordinate }) => {
+    if (this.el.querySelector("#entry_coords")?.value) return
+
     this.map.setRegionAnimated(new mapkit.CoordinateRegion(coordinate, new mapkit.CoordinateSpan(0.005, 0.005)))
 
     const search = new mapkit.PointsOfInterestSearch({
@@ -99,6 +102,26 @@ export function mounted() {
       if (data.results.length === 0) return
       this.selected.innerHTML = `<span>${data.results[0].name}</span>`
     })
+  })
+
+  window.requestAnimationFrame(() => {
+    const coords = this.el.querySelector("#entry_coords")
+    if (coords.value) {
+      const [lat, lng] = coords.value.split(" ")
+      const coordinate = new mapkit.Coordinate(Number.parseFloat(lat), Number.parseFloat(lng))
+
+      this.location = new mapkit.MarkerAnnotation(coordinate)
+      this.map.addAnnotation(this.location)
+      console.log("zoom", this.location)
+
+      const span = new mapkit.CoordinateSpan(0.003, 0.003)
+      const region = new mapkit.CoordinateRegion(coordinate, span)
+      this.map.setRegionAnimated(region)
+
+      const response = JSON.parse(this.el.querySelector("#entry_mapkit_response").value)
+      console.log(response)
+      this.selected.innerHTML = `<span>${response.name}</span>`
+    }
   })
 
   this.changeColorScheme = changeColorScheme.bind(this.map)
