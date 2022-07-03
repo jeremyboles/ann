@@ -149,6 +149,14 @@
     block-size: 100%;
     display: flex;
     align-items: center;
+
+    span {
+      @include text.color(quaternary);
+
+      &::before {
+        content: "­· ";
+      }
+    }
   }
 }
 
@@ -163,6 +171,11 @@
     @include media.ipad(min) {
       @include text.style(sans, $color: main, $size: 12px, $weight: 600);
       background-color: transparent;
+    }
+
+    &:not([value]),
+    &:placeholder-shown {
+      @include text.color(faded);
     }
   }
 }

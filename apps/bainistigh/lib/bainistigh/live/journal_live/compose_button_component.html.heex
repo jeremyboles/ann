@@ -11,13 +11,13 @@
       <%= live_patch "New Photo", accesskey: "p", disabled: true, to: Routes.journal_path(@socket, :new, kind: "photo") %>
     </li>
     <li role="menuitem">
-      <%= live_patch "New Check-In", accesskey: "c", to: Routes.journal_path(@socket, :new, kind: "checkin") %>
+      <%= live_patch "New Check-In", accesskey: "c", disabled: true, to: Routes.journal_path(@socket, :new, kind: "checkin") %>
     </li>
     <li role="menuitem">
       <%= live_patch "New Bookmark", accesskey: "b", disabled: true, to: Routes.journal_path(@socket, :new, kind: "bookmark") %>
     </li>
     <li role="menuitem">
-      <%= live_patch "New Quote", accesskey: "q", to: Routes.journal_path(@socket, :new, kind: "quote") %>
+      <%= live_patch "New Quote", accesskey: "q", disabled: true, to: Routes.journal_path(@socket, :new, kind: "quote") %>
     </li>
     <li role="menuitem">
       <%= live_patch "New Video", accesskey: "v", disabled: true, to: Routes.journal_path(@socket, :new, kind: "video") %>

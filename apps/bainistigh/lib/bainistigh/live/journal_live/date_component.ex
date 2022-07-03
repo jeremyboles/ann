@@ -110,10 +110,32 @@ defmodule Bainistigh.JournalLive.DateComponent do
     Date.new!(year, month, 1) |> Date.end_of_month() |> Date.end_of_week(:sunday)
   end
 
-  defp time_value(nil), do: nil
+  defp local_time_input(form, {date, time}, opts \\ []) do
+    tz = input_value(form, :mapkit_response)["timezone"]
 
-  defp time_value(time) do
-    time |> Time.truncate(:second) |> Time.to_iso8601() |> String.slice(0..4)
+    opts =
+      opts
+      |> Keyword.put_new(:id, "time-input")
+      |> Keyword.put_new(:name, "time")
+      |> Keyword.put_new(:placeholder, "00:00")
+      |> Keyword.put_new(:type, "time")
+      |> Keyword.put_new(:value, time_value({date, time}, tz))
+
+    tag(:input, opts)
+  end
+
+  defp time_value({_date, nil}, _tz), do: nil
+
+  defp time_value({nil, time}, _tz) do
+    time |> Time.truncate(:second) |> Time.to_iso8601() |> String.slice(0, 5)
+  end
+
+  defp time_value({date, time}, tz) do
+    DateTime.new!(date, time)
+    |> DateTime.shift_zone!(tz)
+    |> DateTime.truncate(:second)
+    |> DateTime.to_iso8601()
+    |> String.slice(11, 5)
   end
 
   defp update_date(%{assigns: %{selected_date: nil, selected_time: _}} = socket) do
@@ -124,8 +146,10 @@ defmodule Bainistigh.JournalLive.DateComponent do
     socket
   end
 
-  defp update_date(%{assigns: %{selected_date: date, selected_time: time}} = socket) do
-    push_event(socket, "update-datetime", %{datetime: DateTime.new!(date, time)})
+  defp update_date(%{assigns: %{form: form, selected_date: date, selected_time: time}} = socket) do
+    tz = input_value(form, :mapkit_response)["timezone"]
+    datetime = DateTime.new!(date, time, tz)
+    push_event(socket, "update-datetime", %{datetime: datetime})
   end
 
   defp update_date(socket), do: socket

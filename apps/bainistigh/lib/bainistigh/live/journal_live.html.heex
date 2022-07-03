@@ -27,7 +27,7 @@
             <p>
               <%= if entry.published_at do %>
                 <time datetime={DateTime.to_iso8601(entry.published_at)}>
-                  <%= Calendar.strftime(entry.published_at, "%d %B %Y · %H:%M") %>
+                  <%= published_at(entry) %>
                 </time>
               <% else %>
                 <i>Not published</i>

@@ -48,4 +48,10 @@ defmodule Bainistigh.JournalLive do
     |> Map.merge(%{scale: "2", size: "480x216", z: 17})
     |> Bainistigh.AppleServices.mapkit_snapshot_url()
   end
+
+  defp published_at(%Journal.Entry{} = entry) do
+    entry.published_at
+    |> DateTime.shift_zone!(entry.mapkit_response["timezone"])
+    |> Calendar.strftime("%d %B %Y · %H:%M")
+  end
 end
