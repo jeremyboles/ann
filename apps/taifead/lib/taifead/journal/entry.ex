@@ -39,20 +39,13 @@ defmodule Taifead.Journal.Entry do
   end
 
   defp cast_coords(data, %{"coords" => coords}) when is_bitstring(coords) do
-    parsed = coords |> String.split() |> Enum.map(&Float.parse(&1))
-
-    case parsed do
-      [{latitude, _}, {longitude, _}] ->
-        params = %{"coords" => %Geo.Point{coordinates: {longitude, latitude}, srid: 4326}}
-        cast(data, params, [:coords])
-
-      _ ->
-        data
-    end
+    coords = coords |> Jason.decode!() |> Geo.JSON.decode!()
+    params = %{"coords" => coords}
+    cast(data, params, [:coords])
   end
 
   defp cast_coords(data, %{"coords" => %{"latitude" => latitude, "longitude" => longitude}}) do
-    params = %{"coords" => %Geo.Point{coordinates: {latitude, longitude}, srid: 4326}}
+    params = %{"coords" => %Geo.Point{coordinates: {longitude, latitude}, srid: nil}}
     cast(data, params, [:coords])
   end
 

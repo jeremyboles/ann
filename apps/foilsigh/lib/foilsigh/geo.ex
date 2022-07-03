@@ -10,22 +10,22 @@ defmodule Foilsigh.Geo do
     end
   end
 
-  def round_point(%Geo.Point{coordinates: {lat, lng}}, precision \\ 4) do
+  def round_point(%Geo.Point{coordinates: {lng, lat}}, precision \\ 4) do
     %Geo.Point{coordinates: {Float.round(lat, precision), Float.round(lng, precision)}}
   end
 
   def to_decimal_string(%Geo.Point{} = point) do
-    %Geo.Point{coordinates: {lat, lng}} = round_point(point) |> obfuscate_point()
+    %Geo.Point{coordinates: {lng, lat}} = round_point(point) |> obfuscate_point()
     "#{lat} #{lng}"
   end
 
   def to_dms_string(%Geo.Point{} = point) do
-    %Geo.Point{coordinates: {lat, lng}} = round_point(point) |> obfuscate_point()
+    %Geo.Point{coordinates: {lng, lat}} = round_point(point) |> obfuscate_point()
     "#{decimal_to_lat_dms(lat)} #{decimal_to_lng_dms(lng)}"
   end
 
   def to_geohash_string(%Geo.Point{} = point, precision \\ 9) do
-    %Geo.Point{coordinates: {lat, lng}} = round_point(point) |> obfuscate_point()
+    %Geo.Point{coordinates: {lng, lat}} = round_point(point) |> obfuscate_point()
     Geohash.encode(lat, lng, precision)
   end
 
@@ -72,12 +72,12 @@ defmodule Foilsigh.Geo do
   end
 
   def to_circle(hash) when is_binary(hash), do: hash |> Geohash.decode() |> to_circle()
-  def to_circle({lat, lng}), do: %Circle{latitude: lat, longitude: lng, radius: 150}
+  def to_circle({lng, lat}), do: %Circle{latitude: lat, longitude: lng, radius: 150}
 
   def to_point(hash) when is_binary(hash), do: hash |> Geohash.decode() |> to_point()
-  def to_point({lat, lng}), do: %Geo.Point{coordinates: {lat, lng}}
+  def to_point({lng, lat}), do: %Geo.Point{coordinates: {lng, lat}}
 
-  defp translate_to(%Geo.Point{coordinates: {lat, lng}}) do
+  defp translate_to(%Geo.Point{coordinates: {lng, lat}}) do
     from_env() |> Enum.find(fn {from, _to} -> in_area?(from, %{lat: lat, lng: lng}) end)
   end
 end

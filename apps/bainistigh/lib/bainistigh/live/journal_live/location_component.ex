@@ -10,10 +10,11 @@ defmodule Bainistigh.JournalLive.LocationComponent do
         hidden_input(form, :coords)
 
       %{"latitude" => lat, "longitude" => lng} ->
-        hidden_input(form, :coords, value: "#{lat} #{lng}")
+        value = %Geo.Point{coordinates: {lng, lat}, srid: nil} |> Jason.encode!()
+        hidden_input(form, :coords, value: value)
 
-      %Geo.Point{coordinates: {lat, lng}} ->
-        hidden_input(form, :coords, value: "#{lat} #{lng}")
+      %Geo.Point{} = geom ->
+        hidden_input(form, :coords, value: Jason.encode!(geom))
     end
   end
 

@@ -107,12 +107,11 @@ export function mounted() {
   window.requestAnimationFrame(() => {
     const coords = this.el.querySelector("#entry_coords")
     if (coords.value) {
-      const [lat, lng] = coords.value.split(" ")
+      const [lng, lat] = JSON.parse(coords.value).coordinates
       const coordinate = new mapkit.Coordinate(Number.parseFloat(lat), Number.parseFloat(lng))
 
       this.location = new mapkit.MarkerAnnotation(coordinate)
       this.map.addAnnotation(this.location)
-      console.log("zoom", this.location)
 
       const span = new mapkit.CoordinateSpan(0.003, 0.003)
       const region = new mapkit.CoordinateRegion(coordinate, span)
