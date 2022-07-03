@@ -259,7 +259,7 @@
 
   @include media.ipad(min) {
     @include text.style(sans, $color: tertiary, $size: 14px, $weight: 600);
-    @include box.bg(quaternary);
+    @include box.bg(control);
     @include box.rounded;
     padding-block: 6px;
     padding-inline: 12px;

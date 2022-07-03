@@ -104,6 +104,20 @@ export function mounted() {
     })
   })
 
+  this.map.addEventListener("select", ({ annotation }) => {
+    if (annotation.coordinate) {
+      if (this.location) this.map.removeAnnotation(this.location)
+
+      this.location = new mapkit.MarkerAnnotation(annotation.coordinate)
+      this.map.addAnnotation(this.location)
+
+      this.geocoder.reverseLookup(annotation.coordinate, (_, data) => {
+        if (data.results.length === 0) return
+        this.selected.innerHTML = `<span>${data.results[0].name}</span>`
+      })
+    }
+  })
+
   window.requestAnimationFrame(() => {
     const coords = this.el.querySelector("#entry_coords")
     if (coords.value) {
