@@ -21,12 +21,12 @@
   @include border.block-start(main);
   display: flex;
   flex-direction: column;
-  padding-block-start: 8px;
+  padding-block-start: 12px;
   position: relative;
 
   @include media.ipad(max) {
     border-block-start: none;
-    padding-block-start: 18px;
+    padding-block-start: 24px;
   }
 }
 
@@ -109,6 +109,10 @@
 .JournalLive_LocationComponent .locations {
   display: flex;
   margin-block-start: 8px;
+
+  @include media.ipad(max) {
+    margin-block-start: 12px;
+  }
 }
 
 //

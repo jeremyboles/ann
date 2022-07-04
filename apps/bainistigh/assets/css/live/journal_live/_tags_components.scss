@@ -22,7 +22,11 @@
   align-items: stretch;
   display: flex;
   justify-content: stretch;
-  margin-block-start: 8px;
+  margin-block-start: 12px;
+
+  @include media.ipad(max) {
+    margin-block-start: 24px;
+  }
 }
 
 //
@@ -35,11 +39,11 @@
   flex-wrap: wrap;
   gap: 4px;
   justify-content: start;
-  padding-block-start: 8px;
+  padding-block-start: 12px;
 
   @include media.ipad(max) {
     gap: 8px;
-    padding-block-start: 12px;
+    padding-block-start: 24px;
   }
 }
 
