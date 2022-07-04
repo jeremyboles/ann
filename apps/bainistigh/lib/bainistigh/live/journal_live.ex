@@ -5,6 +5,7 @@ defmodule Bainistigh.JournalLive do
 
   alias Bainistigh.JournalLive.ComposeButtonComponent
   alias Taifead.Journal
+  alias Taifead.Journal.Entry
 
   def handle_info({:entry_created, entry}, socket) do
     socket = update(socket, :entries, fn entries -> [entry | entries] end)
@@ -13,6 +14,11 @@ defmodule Bainistigh.JournalLive do
 
   def handle_info({:entry_deleted, entry}, socket) do
     socket = update(socket, :entries, fn e -> Enum.reject(e, &(&1.id == entry.id)) end)
+    {:noreply, socket}
+  end
+
+  def handle_info({:entry_updated, %Entry{id: id} = entry}, socket) do
+    socket = update(socket, :entries, fn c -> replace_when(c, &(&1.id == id), entry) end)
     {:noreply, socket}
   end
 
@@ -53,5 +59,9 @@ defmodule Bainistigh.JournalLive do
     entry.published_at
     |> DateTime.shift_zone!(entry.mapkit_response["timezone"])
     |> Calendar.strftime("%d %B %Y · %H:%M")
+  end
+
+  defp replace_when(list, fun, value) do
+    List.replace_at(list, Enum.find_index(list, fun), value)
   end
 end

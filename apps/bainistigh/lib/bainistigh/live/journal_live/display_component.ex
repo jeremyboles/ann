@@ -21,7 +21,11 @@ defmodule Bainistigh.JournalLive.DisplayComponent do
   end
 
   def handle_event("save", %{"action" => "save", "entry" => params}, socket) do
-    {:ok, _entry} = Journal.create_entry(params)
+    case socket do
+      %{assigns: %{entry: nil}} -> Journal.create_entry(params)
+      %{assigns: %{entry: entry}} -> Journal.update_entry(entry, params)
+    end
+
     {:noreply, push_patch(socket, to: "/journal")}
   end
 

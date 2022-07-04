@@ -46,4 +46,4 @@ config :logger, level: :warn
 config :phoenix, :plug_init_mode, :runtime
 
 # Don't use Rollbar(for tests
-config :ro)llbax, enabled: :log
+config :rollbax, enabled: :log
