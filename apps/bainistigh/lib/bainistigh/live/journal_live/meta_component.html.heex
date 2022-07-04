@@ -1,10 +1,12 @@
 <div class="JournalLive_MetaComponent">
   <dl>
-    <dt>Temperature</dt>
-    <dd><%= temperature(@form) %>° C</dd>
-    <dt>Conditions</dt>
-    <dd><%= conditions(@form) %></dd>
-    <dt>Time of Day</dt>
-    <dd><%= if daylight(@form), do: "Daylight", else: "Night" %></dd>
+    <%= if weather(@form) do %>
+      <dt>Temperature</dt>
+      <dd><%= temperature(@form) %>° C</dd>
+      <dt>Conditions</dt>
+      <dd><%= conditions(@form) %></dd>
+      <dt>Time of Day</dt>
+      <dd><%= if daylight(@form), do: "Daylight", else: "Night" %></dd>
+    <% end %>
   </dl>
 </div>

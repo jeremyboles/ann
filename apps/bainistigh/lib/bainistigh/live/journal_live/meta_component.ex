@@ -18,6 +18,9 @@ defmodule Bainistigh.JournalLive.MetaComponent do
   end
 
   defp weather(form) do
-    form |> input_value(:weatherkit_response) |> Map.get("currentWeather", %{})
+    case input_value(form, :weatherkit_response) do
+      nil -> nil
+      response -> Map.get(response, "currentWeather")
+    end
   end
 end
