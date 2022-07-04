@@ -7,10 +7,9 @@
         <button type="button"><span>Back</span></button>
       <% end %>
       
-      <label><select>
-        <option>Attach to a wiki topic…</option>
-        <option>Travel</option>
-      </select></label>
+      <label>
+        <%= select f, :topic_id, Enum.map(@topics, &({&1.title_text, &1.id})), prompt: [key: "Select a wiki topic…"] %>
+      </label>
     </header>
     
     <div class="inside">
@@ -22,6 +21,7 @@
         <.live_component form={f} id="journal-date" module={Bainistigh.JournalLive.DateComponent} />
         <.live_component form={f} id="journal-location" module={Bainistigh.JournalLive.LocationComponent} />
         <.live_component form={f} id="journal-tags" module={Bainistigh.JournalLive.TagsComponent} />
+        <.live_component form={f} id="journal-meta" module={Bainistigh.JournalLive.MetaComponent} />
       </aside>
     </div>
     

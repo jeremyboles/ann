@@ -62,8 +62,13 @@ defmodule Bainistigh.JournalLive.DisplayComponent do
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
+  def mount(socket) do
+    topics = Topics.list_drafts()
+    {:ok, assign(socket, entry: nil, topics: topics)}
+  end
+
   def update(assigns, socket) do
-    {:ok, socket = socket |> assign(assigns) |> assign_changeset()}
+    {:ok, socket |> assign(assigns) |> assign_changeset()}
   end
 
   defp assign_changeset(socket, attrs \\ %{})

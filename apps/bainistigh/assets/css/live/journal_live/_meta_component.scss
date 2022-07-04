@@ -1,0 +1,62 @@
+// -----------------------------------------------------------------------------------------------
+//
+// EditorComponent Styles
+//
+// -----------------------------------------------------------------------------------------------
+
+@use "../../../../../../assets/css/palette";
+
+@use "../../utils/border";
+@use "../../utils/box";
+@use "../../utils/colors";
+@use "../../utils/icon";
+@use "../../utils/media";
+@use "../../utils/text";
+
+//
+// Main container
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_MetaComponent {
+  @include border.block-start(main);
+  align-items: stretch;
+  display: flex;
+  justify-content: stretch;
+  margin-block-start: 8px;
+  padding-block-start: 8px;
+}
+
+//
+// Meta data list
+// -----------------------------------------------------------------------------------------------
+
+.JournalLive_MetaComponent dl {
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr;
+  inline-size: 100%;
+}
+
+.JournalLive_MetaComponent dl dt {
+  @include text.style($color: tertiary, $size: 12px, $weight: 500);
+
+  @include media.ipad(max) {
+    @include text.size(18px);
+  }
+
+  &:not(:last-of-type) {
+    margin-block-end: 8px;
+  }
+}
+
+.JournalLive_MetaComponent dl dd {
+  @include text.style($color: main, $size: 12px, $weight: 700);
+  text-align: end;
+
+  @include media.ipad(max) {
+    @include text.size(18px);
+  }
+
+  &:not(:last-of-type) {
+    margin-block-end: 8px;
+  }
+}
