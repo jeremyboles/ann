@@ -181,9 +181,14 @@ section:has(.header_button:checked) .CatalogComponent {
     }
     @include text.style($color: secondary, $size: 18px, $weight: 500);
     align-items: center;
-    display: block;
+    display: -webkit-box;
+    overflow: hidden;
     padding-block: 10px;
     padding-inline: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 
     @include media.mouse {
       @include icon.before($url: "/images/fa/regular/file.svg", $size: 16px) {
