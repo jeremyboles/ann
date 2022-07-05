@@ -5,8 +5,8 @@ defmodule Bainistigh.WikiLive.CatalogComponent do
   alias Taifead.Topics.Draft
 
   def handle_event("create-draft", _params, socket) do
-    Topics.create_draft()
-    {:noreply, socket}
+    {:ok, draft} = Topics.create_draft()
+    {:noreply, push_patch(socket, to: "/wiki/#{draft.id}")}
   end
 
   defp aria_current(%{id: id}, %{id: id}), do: 'page'
