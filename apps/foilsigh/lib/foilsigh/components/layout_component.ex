@@ -23,11 +23,11 @@ defmodule Foilsigh.LayoutComponent do
           <nav aria-labelledby="secondary-nav-label">
             <h3 id="secondary-nav-label">Concerning Myself</h3>
             <ul>
-              <li><a href="/">About Me, in Roughly Ten Minutes</a></li>
-              <li><a href="/">Notable Work and Projects</a></li>
-              <li><a href="/">What I’m Up to Now</a></li>
-              <li><a href="/">Various Writings and Such</a></li>
-              <li><a href="/">Places That I've Published From</a></li>
+              <li><a href="/about/">About Me, in Roughly Ten Minutes</a></li>
+              <li><a href="/work/">Notable Work and Projects</a></li>
+              <li><a href="/now/">What I’m Up to Now</a></li>
+              <li><a href="/essays/">Various Writings and Such</a></li>
+              <li><a href="/map/">Places That I've Published From</a></li>
             </ul>
           </nav>
           
