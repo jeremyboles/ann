@@ -1,4 +1,5 @@
 export * as Autogrow from "./autogrow/index.mjs"
+export * as JournalCheckin from "./journal-checkin/index.mjs"
 export * as JournalDate from "./journal-date/index.mjs"
 export * as JournalEditor from "./journal-editor/index.mjs"
 export * as JournalMap from "./journal-map/index.mjs"

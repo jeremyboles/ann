@@ -204,7 +204,7 @@
 // Aside
 // -----------------------------------------------------------------------------------------------
 
-.DisplayComponent aside {
+.DisplayComponent .inside > aside {
   padding: 12px;
 
   @include media.ipad(min) {

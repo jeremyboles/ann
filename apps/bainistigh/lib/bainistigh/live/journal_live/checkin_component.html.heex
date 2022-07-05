@@ -1,0 +1,18 @@
+<div class="JournalLive_CheckinComponent" id="journal-checkin" phx-hook="JournalCheckin">
+  <div class="map" id="journal-checkin-mapkit" phx-update="ignore" />
+  
+  <aside id="journal-checkin-sidebar" phx-update="ignore">
+    <label>
+      <span>Search:</span>
+      <input form="none" placeholder="Search for a place…" list="checkin-suggestions" type="search" />
+    </label>
+    
+    <datalist id="checkin-suggestions" />
+    
+    <ul />
+  </aside>
+  
+  <%= hidden_coords_input @form %>
+  <%= hidden_mapkit_response_input @form %>
+  <%= hidden_weatherkit_response_input @form %>
+</div>

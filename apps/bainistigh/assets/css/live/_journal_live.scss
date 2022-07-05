@@ -4,6 +4,7 @@
 //
 // -----------------------------------------------------------------------------------------------
 
+@use "./journal_live/checkin_component";
 @use "./journal_live/component";
 @use "./journal_live/compose_button_component";
 @use "./journal_live/date_component";
@@ -13,4 +14,4 @@
 @use "./journal_live/location_component";
 @use "./journal_live/meta_component";
 @use "./journal_live/sidebar_component";
-@use "./journal_live/tags_components";
+@use "./journal_live/tags_component";

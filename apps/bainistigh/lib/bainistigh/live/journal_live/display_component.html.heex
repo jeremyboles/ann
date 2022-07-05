@@ -13,13 +13,18 @@
     </header>
     
     <div class="inside">
-      <div class="content">
+      <div class="content" data-kind={@kind}>
+        <%= if @kind == "checkin" do %>
+          <.live_component form={f} id="journal-checkin" module={Bainistigh.JournalLive.CheckinComponent} />
+        <% end %>
         <.live_component form={f} id="journal-editor" module={Bainistigh.JournalLive.EditorComponent} />
       </div>
       
       <aside>
         <.live_component form={f} id="journal-date" module={Bainistigh.JournalLive.DateComponent} />
-        <.live_component form={f} id="journal-location" module={Bainistigh.JournalLive.LocationComponent} />
+        <%= if @kind != "checkin" do %>
+          <.live_component form={f} id="journal-location" module={Bainistigh.JournalLive.LocationComponent} />
+        <% end %>
         <.live_component form={f} id="journal-tags" module={Bainistigh.JournalLive.TagsComponent} />
         <.live_component form={f} id="journal-meta" module={Bainistigh.JournalLive.MetaComponent} />
       </aside>

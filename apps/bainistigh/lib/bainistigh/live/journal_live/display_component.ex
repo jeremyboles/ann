@@ -68,7 +68,7 @@ defmodule Bainistigh.JournalLive.DisplayComponent do
   end
 
   def update(assigns, socket) do
-    {:ok, socket |> assign(assigns) |> assign_changeset()}
+    {:ok, socket |> assign(assigns) |> assign_changeset() |> assign_kind()}
   end
 
   defp assign_changeset(socket, attrs \\ %{})
@@ -80,4 +80,10 @@ defmodule Bainistigh.JournalLive.DisplayComponent do
   defp assign_changeset(%{assigns: %{entry: entry}} = socket, attrs) do
     assign(socket, :changeset, Journal.change_entry(entry, attrs))
   end
+
+  defp assign_kind(%{assigns: %{entry: entry, kind: nil}} = socket) do
+    assign(socket, :kind, Atom.to_string(entry.kind))
+  end
+
+  defp assign_kind(socket), do: socket
 end

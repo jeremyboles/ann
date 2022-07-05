@@ -11,7 +11,7 @@
       <%= live_patch "New Photo", accesskey: "p", disabled: true, to: Routes.journal_path(@socket, :new, kind: "photo") %>
     </li>
     <li role="menuitem">
-      <%= live_patch "New Check-In", accesskey: "c", disabled: true, to: Routes.journal_path(@socket, :new, kind: "checkin") %>
+      <%= live_patch "New Check-In", accesskey: "c", to: Routes.journal_path(@socket, :new, kind: "checkin") %>
     </li>
     <li role="menuitem">
       <%= live_patch "New Bookmark", accesskey: "b", disabled: true, to: Routes.journal_path(@socket, :new, kind: "bookmark") %>

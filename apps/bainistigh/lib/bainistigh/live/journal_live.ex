@@ -56,6 +56,8 @@ defmodule Bainistigh.JournalLive do
   end
 
   defp published_at(%Journal.Entry{} = entry) do
+    IO.inspect(entry.mapkit_response["timezone"])
+
     entry.published_at
     |> DateTime.shift_zone!(entry.mapkit_response["timezone"])
     |> Calendar.strftime("%d %B %Y · %H:%M")
