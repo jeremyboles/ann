@@ -11,7 +11,7 @@ defmodule Foilsigh.Geo do
   end
 
   def round_point(%Geo.Point{coordinates: {lng, lat}}, precision \\ 4) do
-    %Geo.Point{coordinates: {Float.round(lat, precision), Float.round(lng, precision)}}
+    %Geo.Point{coordinates: {Float.round(lng, precision), Float.round(lat, precision)}}
   end
 
   def to_decimal_string(%Geo.Point{} = point) do
