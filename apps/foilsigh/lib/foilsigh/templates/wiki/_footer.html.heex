@@ -3,8 +3,7 @@
     <figcaption>
       <p>
         The topic <i><%= raw @topic.title_html %></i> was created <%= created_at(@topic) %>
-        from <%= created_from(@topic) %>. It’s currently considered a <%= raw topic_type(@topic) %>
-        and has
+        from <%= created_from(@topic) %>. It’s has
           <%= if Enum.count(@topic.draft.publications) > 1 do %>
             been updated <%= updates_count(@topic) %>, the last time being <%= updated_at(@topic) %>,
             <%= if same_city(@topic), do: "also" %> from <%= updated_from(@topic) %>.

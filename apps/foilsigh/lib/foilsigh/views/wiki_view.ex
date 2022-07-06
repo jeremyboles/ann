@@ -76,7 +76,7 @@ defmodule Foilsigh.WikiView do
     "#{Number.to_string!(count, format: :spellout)} #{Inflex.inflect("time", count)}"
   end
 
-  def topic_type(%Publication{} = _), do: "<b><i>seedling topic</i></b>"
+  # def topic_type(%Publication{} = _), do: "<b><i>seedling topic</i></b>"
 
   defp datetime(date), do: date |> DateTime.truncate(:second) |> DateTime.to_iso8601()
   defp datetime(date, nil), do: date |> datetime()
