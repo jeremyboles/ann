@@ -4,7 +4,7 @@ defmodule Bainistigh.WikiLive.HistoryComponent do
   alias Taifead.Topics.Publication
 
   def handle_event("select", %{"id" => id}, socket) do
-    selected = socket.assigns.article.revisions |> Enum.find(&(&1.id == id))
+    selected = socket.assigns.draft.publications |> Enum.find(&(&1.id == id))
     {:noreply, assign(socket, :selected, selected)}
   end
 
@@ -17,10 +17,13 @@ defmodule Bainistigh.WikiLive.HistoryComponent do
     {:ok, socket}
   end
 
-  defp location(%Publication{mapkit_response: %{"results" => [result | _]}}) do
-    case result do
+  defp location(%Publication{mapkit_response: response}) do
+    case response do
       %{"administrativeAreaCode" => state, "country" => "United States", "locality" => city} ->
         "#{city}, #{state}"
+
+      %{"country" => country, "locality" => city} ->
+        "#{city}, #{country}"
 
       _ ->
         raw("<i>Unknown</i>")
