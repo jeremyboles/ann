@@ -19,7 +19,7 @@
 // -----------------------------------------------------------------------------------------------
 
 .CatalogComponent {
-  $header-height: 48px;
+  $header-height: 44px;
   @include border.block-start(quaternary);
   @include box.bg(secondary);
   bottom: 0;
@@ -166,9 +166,17 @@ section:has(.header_button:checked) .CatalogComponent {
 // -----------------------------------------------------------------------------------------------
 
 .CatalogComponent .list {
-  padding: 12px;
+  max-block-size: 100%;
+  overflow-y: auto;
+  padding: 0 12px;
+  padding-block-end: calc(128px + env(safe-area-inset-left));
   position: relative;
   z-index: 3;
+
+  @include media.mouse {
+    padding-block-end: 48px;
+    padding-block-start: 12px;
+  }
 
   li a {
     @include box.rounded;
@@ -200,6 +208,10 @@ section:has(.header_button:checked) .CatalogComponent {
       @include text.style($color: secondary, $size: 13px, $weight: 500);
       border-block-end: none;
       padding-block: 6px;
+    }
+
+    @include media.ipad(max) {
+      border-radius: 0;
     }
 
     &[aria-current="page"] {
@@ -269,7 +281,7 @@ section:has(.header_button:checked) .CatalogComponent {
     @include box.bg(secondary);
     align-items: center;
     display: flex;
-    height: 47px;
+    height: 43px;
     inline-size: 50%;
     justify-content: end;
     padding-inline: 12px;
@@ -280,11 +292,13 @@ section:has(.header_button:checked) .CatalogComponent {
 
   @include media.mouse {
     @include border.block-start;
+    @include box.bg(quaternary);
     bottom: 0;
     inline-size: calc(264px - 1px);
     left: 0;
     padding-block: 2px;
     position: fixed;
+    z-index: 4;
   }
 }
 
