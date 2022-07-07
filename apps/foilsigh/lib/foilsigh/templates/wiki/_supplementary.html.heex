@@ -7,7 +7,7 @@
           <% :glossary -> %>
             <dl>
               <%= for term <- appendix.terms do %>
-                <dt><%= term.term %></dt>
+                <dt><%= term.title %></dt>
                 <dd><%= term.definition %></dd>
               <% end %>
             </dl>
