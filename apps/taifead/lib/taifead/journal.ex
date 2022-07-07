@@ -18,6 +18,11 @@ defmodule Taifead.Journal do
     Repo.all(from e in Entry, order_by: [desc: e.updated_at])
   end
 
+  def published_entries_by_date do
+    query = from e in Entry, order_by: [desc: e.published_at], where: e.is_published == true
+    query |> Repo.all() |> group_by_published_date()
+  end
+
   def publish_entry(attrs \\ %{}) do
     attrs
     |> Map.put("is_published", true)
@@ -43,7 +48,15 @@ defmodule Taifead.Journal do
     error
   end
 
+  defp group_by_published_date(entries) do
+    Enum.group_by(entries, &published_on/1)
+  end
+
   defp put_published_at(%{"published_at" => ""} = attrs), do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
   defp put_published_at(%{"published_at" => nil} = attrs), do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
   defp put_published_at(%{} = attrs), do: attrs
+
+  defp published_on(%Entry{published_at: datetime}) do
+    DateTime.to_date(datetime)
+  end
 end

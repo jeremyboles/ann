@@ -6,13 +6,17 @@
   <.filter_by_type />
 
   <section>
-    <h2 class="vh"><time datetime="2021-10-20">Saturday, November 20th, 2021</time></h2>    
-    <.entry_summary type="note" />
-    <.entry_summary type="photo" />
+    <%= for {date, entries} <- @entries do %>
+      <h2 class="vh"><time datetime={datetime(date)}><%= english date %></time></h2>
+      <%= for entry <- entries do %>
+        <.entry_summary entry={entry} />
+      <% end %>
+    <% end %>
+    <!-- <.entry_summary type="photo" />
     <.entry_summary type="checkin" />
     <.entry_summary type="video" />
     <.entry_summary type="bookmark" />
-    <.entry_summary type="quote" />
+    <.entry_summary type="quote" /> -->
   </section>
   
   <.recent_tags />

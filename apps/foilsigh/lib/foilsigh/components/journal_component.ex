@@ -3,6 +3,8 @@ defmodule Foilsigh.JournalComponent do
 
   import Foilsigh.GraphicsComponent
 
+  alias Taifead.Journal.Entry
+
   def blogroll(assigns) do
     ~H"""
       <aside class="blogroll">
@@ -71,20 +73,45 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
-  def entry_summary(%{type: type} = assigns) do
+  def entry_summary(assigns) do
     ~H"""
-      <article class={"entry_summary #{type}"}>
+      <article class={"entry_summary #{@entry.kind}"}>
         <p>
-          <span class="vh">On</span> <time datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
-          <a class="vh" href="/">I</a> <a href={"/journal/#{type}"}>posted a <%= type %></a>
-          <span class="vh">from</span> <span><span>Paris</span><span class="vh">,</span> <abbr title="France">FR</abbr></span><span class="vh">:</span>
+          <span class="vh">On </span><.local_time entry={@entry} /><span class="vh">,</span>
+          <a class="vh" href="/">I</a> <a href={"/journal/#{@entry.kind}"}>posted a <%= @entry.kind %></a>
+          <span class="vh">from</span> <.location entry={@entry} /><span class="vh">:</span>
         </p>
       
-        <blockquote cite={"/journal/#{type}"}>
-          <.content type={type} />
+        <blockquote cite={"/journal/#{@entry.kind}"}>
+          <.content entry={@entry} />
         </blockquote>
       </article>
     """
+  end
+
+  defp local_time(%{entry: %Entry{mapkit_response: resp, published_at: published_at}} = assigns) do
+    date = DateTime.shift_zone!(published_at, resp["timezone"])
+
+    ~H"""
+      <time timestamp={DateTime.to_iso8601(date)}>
+        <%= Calendar.strftime(date, "%b %-d") %><span class="vh">,</span><%= Calendar.strftime(date, " %Y ") %>
+        <span class="vh">@</span><%= Calendar.strftime(date, " %-I:%M %p") %>
+      </time>
+    """
+  end
+
+  defp location(%{entry: %Entry{mapkit_response: resp}} = assigns) do
+    case resp do
+      %{"country" => "United States"} ->
+        ~H"""
+        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["administrativeArea"]}><%= resp["administrativeAreaCode"] %></abbr><span class="vh">,</span> <abbr title="United States">US</abbr></span>
+        """
+
+      _ ->
+        ~H"""
+        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["country"]}><%= resp["countryCode"] %></abbr></span>
+        """
+    end
   end
 
   def filter_by_type(assigns) do
@@ -270,16 +297,16 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
-  defp content(%{type: "checkin"} = assigns) do
+  defp content(%{entry: %Entry{kind: :checkin}} = assigns) do
     ~H"""
-      <p>Checked in at <span class="h-card p-name u-checkin">Schiphol Airport</span></p>
-      <p>AMS ✈ DAR</p>
+      <p>Checked in at <span class="h-card p-name u-checkin"><%= @entry.mapkit_response["name"] %></span></p>
+      <%= raw @entry.content_html %>
     """
   end
 
-  defp content(%{type: "note"} = assigns) do
+  defp content(%{entry: %Entry{kind: :note}} = assigns) do
     ~H"""
-      <p>Nothing says “long flight to Europe” like&nbsp;Nescafé. Nothing says “long flight to Europe” like&nbsp;Nescafé.</p>
+      <%= raw @entry.content_html %>
     """
   end
 
@@ -346,7 +373,7 @@ defmodule Foilsigh.JournalComponent do
       <div class="entry_content checkin">
         <figure>
           <p>Checked in at <a href="https://www.schiphol.nl/">Amsterdam Airport Schiphol</a></p>
-          <figcaption><p>AMS ✈&nbsp;DAR</p></figcaption>
+          <figcaption><%= raw @entry.content_html %></figcaption>
         </figure>
       </div>
     """
@@ -355,7 +382,7 @@ defmodule Foilsigh.JournalComponent do
   defp entry_content(%{type: "note"} = assigns) do
     ~H"""
       <div class="entry_content note">
-        <p>This isn’t a particularly interesting note, but it is a&nbsp;note.</p>
+        <%= raw @entry.content_html %>
       </div>
     """
   end
