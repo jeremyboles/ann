@@ -115,9 +115,6 @@ defmodule Taifead.Topics do
     |> Multi.update(:draft, draft_changeset)
     |> Multi.one(:latest, from(p in Publication, where: [draft_id: ^draft.id, latest: true]))
     |> Multi.update(:publication, fn %{latest: publication} ->
-      IO.inspect(publication, label: "update")
-      IO.inspect(attributes, label: "update")
-      IO.inspect(publication |> change_publication() |> change(attributes), label: "update")
       publication |> change_publication() |> change(attributes)
     end)
     |> Repo.transaction()
