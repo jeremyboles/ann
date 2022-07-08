@@ -50,7 +50,7 @@
 
 .JournalLive_CheckinComponent aside {
   @include border.block-end(separator);
-  @include box.bg(seconary);
+  @include box.bg(secondary);
   overflow: hidden;
   padding: 12px;
 
