@@ -93,10 +93,7 @@ defmodule Foilsigh.JournalComponent do
     date = DateTime.shift_zone!(published_at, resp["timezone"])
 
     ~H"""
-      <time timestamp={DateTime.to_iso8601(date)}>
-        <%= Calendar.strftime(date, "%b %-d") %><span class="vh">,</span><%= Calendar.strftime(date, " %Y ") %>
-        <span class="vh">@</span><%= Calendar.strftime(date, " %-I:%M %p") %>
-      </time>
+      <time timestamp={DateTime.to_iso8601(date)}><%= Calendar.strftime(date, "%b %-d") %><span class="vh">,</span><%= Calendar.strftime(date, " %Y ") %><span class="vh">@</span><%= Calendar.strftime(date, " %-I:%M %p") %></time>
     """
   end
 
@@ -104,7 +101,7 @@ defmodule Foilsigh.JournalComponent do
     case resp do
       %{"country" => "United States"} ->
         ~H"""
-        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["administrativeArea"]}><%= resp["administrativeAreaCode"] %></abbr><span class="vh">,</span> <abbr title="United States">US</abbr></span>
+        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["administrativeArea"]}><%= resp["administrativeAreaCode"] %></abbr><span class="vh">,</span> <abbr title="United States of America">US</abbr></span>
         """
 
       _ ->

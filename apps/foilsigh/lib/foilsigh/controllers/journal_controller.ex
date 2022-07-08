@@ -2,12 +2,7 @@ defmodule Foilsigh.JournalController do
   use Foilsigh, :controller
 
   def index(conn, _params) do
-    entries =
-      Taifead.Journal.published_entries_by_date()
-      |> Map.to_list()
-      |> Enum.sort_by(fn {date, _} -> date end)
-      |> Enum.reverse()
-
+    entries = Taifead.Journal.published_entries_by_date()
     render(conn, "index.html", entries: entries)
   end
 

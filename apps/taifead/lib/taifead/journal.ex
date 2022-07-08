@@ -20,7 +20,7 @@ defmodule Taifead.Journal do
 
   def published_entries_by_date do
     query = from e in Entry, order_by: [desc: e.published_at], where: e.is_published == true
-    query |> Repo.all() |> group_by_published_date()
+    query |> Repo.all() |> group_by_published_date() |> Map.to_list() |> Enum.sort_by(fn {date, _} -> date end) |> Enum.reverse()
   end
 
   def publish_entry(attrs \\ %{}) do
