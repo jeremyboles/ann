@@ -27,25 +27,25 @@ defmodule Foilsigh.JournalComponent do
   def entry_detail(assigns) do
     ~H"""
       <div class="entry_detail">
-        <.entry_header slug={@slug} />
-        <.entry_content type={@slug} />
-        <.entry_footer />
+        <.entry_header entry={@entry} />
+        <.entry_content entry={@entry} />
+        <.entry_footer entry={@entry} />
       </div>
     """
   end
 
   def entry_header(assigns) do
     ~H"""
-      <header class={"entry_header #{@slug}"}>
+      <header class={"entry_header #{@entry.kind}"}>
         <h2>
           <a class="h-card p-author" href="/">
             <picture>
               <img alt="I" class="u-photo" loading="lazy" src="/images/avatar@880w.jpg">
             </picture>
           </a>
-          <a class="u-uid u-url" href={"/journal/#{@slug}"}>Published the Following Note</a>
-          <span class="vh">at</span> <time class="dt-published" datetime="2013-06-13 12:00:00"><span>5:53 AM</span> <span class="vh">on</span> December 2nd, 2014</time><span class="vh">,</span>
-          <span class="vh">from</span> <a class="h-adr p-location" href="/map">Quartier de Bonne-Nouvelle</a><span class="vh">:</span>
+          <a class="u-uid u-url" href={"/journal/#{@entry.url_slug}"}>Published the Following <%= to_string(@entry.kind) |> String.capitalize() %></a>
+          <span class="vh">at</span> <.local_time_long entry={@entry} /><span class="vh">,</span>
+          <span class="vh">from</span> <.location_long entry={@entry} /><span class="vh">:</span>
         </h2>
       </header>
     """
@@ -77,9 +77,9 @@ defmodule Foilsigh.JournalComponent do
     ~H"""
       <article class={"entry_summary #{@entry.kind}"}>
         <p>
-          <span class="vh">On </span><.local_time entry={@entry} /><span class="vh">,</span>
-          <a class="vh" href="/">I</a> <a href={"/journal/#{@entry.kind}"}>posted a <%= @entry.kind %></a>
-          <span class="vh">from</span> <.location entry={@entry} /><span class="vh">:</span>
+          <span class="vh">On </span><.local_time_abbr entry={@entry} /><span class="vh">,</span>
+          <a class="vh" href="/">I</a> <a href={"/journal/#{@entry.url_slug}"}>posted a <%= @entry.kind %></a>
+          <span class="vh">from</span> <.location_abbr entry={@entry} /><span class="vh">:</span>
         </p>
       
         <blockquote cite={"/journal/#{@entry.kind}"}>
@@ -89,24 +89,48 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
-  defp local_time(%{entry: %Entry{mapkit_response: resp, published_at: published_at}} = assigns) do
-    date = DateTime.shift_zone!(published_at, resp["timezone"])
+  defp local_time_abbr(%{entry: %Entry{mapkit_response: resp, published_at: date}} = assigns) do
+    date = DateTime.shift_zone!(date, resp["timezone"])
 
     ~H"""
       <time timestamp={DateTime.to_iso8601(date)}><%= Calendar.strftime(date, "%b %-d") %><span class="vh">,</span><%= Calendar.strftime(date, " %Y ") %><span class="vh">@</span><%= Calendar.strftime(date, " %-I:%M %p") %></time>
     """
   end
 
-  defp location(%{entry: %Entry{mapkit_response: resp}} = assigns) do
+  defp local_time_long(%{entry: %Entry{mapkit_response: resp, published_at: date}} = assigns) do
+    date = DateTime.shift_zone!(date, resp["timezone"])
+
+    ~H"""
+      <time class="dt-published" timestamp={DateTime.to_iso8601(date)}><span><%= Calendar.strftime(date, " %-I:%M %p") %></span> <span class="vh">on</span> <%= english date %></time>
+    """
+  end
+
+  defp location_abbr(%{entry: %Entry{mapkit_response: resp}} = assigns) do
     case resp do
       %{"country" => "United States"} ->
         ~H"""
-        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["administrativeArea"]}><%= resp["administrativeAreaCode"] %></abbr><span class="vh">,</span> <abbr title="United States of America">US</abbr></span>
+        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["administrativeArea"]}><%= resp["administrativeAreaCode"] %></abbr><span class="vh">,</span> <abbr title="United States">US</abbr></span>
         """
 
       _ ->
         ~H"""
         <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["country"]}><%= resp["countryCode"] %></abbr></span>
+        """
+    end
+  end
+
+  defp location_long(%{entry: %Entry{coords: coords, mapkit_response: resp}} = assigns) do
+    href = "/map/#{Foilsigh.Geo.to_geohash_string(coords, 5)}/"
+
+    case resp do
+      %{"country" => "United States"} ->
+        ~H"""
+        <a class="h-adr p-location" href={href}><%= resp["locality"] %>, <%= resp["administrativeArea"] %>, <abbr title="United States of America">US</abbr></a>
+        """
+
+      _ ->
+        ~H"""
+        <a class="h-adr p-location" href={href}><%= resp["locality"] %>, <%= resp["country"] %></a>
         """
     end
   end
@@ -365,18 +389,18 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
-  defp entry_content(%{type: "checkin"} = assigns) do
+  defp entry_content(%{entry: %Entry{kind: :checkin}} = assigns) do
     ~H"""
       <div class="entry_content checkin">
         <figure>
-          <p>Checked in at <a href="https://www.schiphol.nl/">Amsterdam Airport Schiphol</a></p>
+      <p>Checked in at <a href={@entry.mapkit_response["urls"] |> hd} rel="external nofollow noopener"><%= @entry.mapkit_response["name"] %></a></p>
           <figcaption><%= raw @entry.content_html %></figcaption>
         </figure>
       </div>
     """
   end
 
-  defp entry_content(%{type: "note"} = assigns) do
+  defp entry_content(%{entry: %Entry{kind: :note}} = assigns) do
     ~H"""
       <div class="entry_content note">
         <%= raw @entry.content_html %>
@@ -436,4 +460,21 @@ defmodule Foilsigh.JournalComponent do
       </div>
     """
   end
+
+  defp day(%DateTime{day: day}), do: to_string(day) <> ordinal(day)
+
+  defp english(date) do
+    Calendar.strftime(date, "%B ") <> day(date) <> Calendar.strftime(date, ", %Y")
+  end
+
+  def ordinal(num) when is_integer(num) and num > 100 do
+    rem(num, 100) |> ordinal()
+  end
+
+  def ordinal(num) when num in 11..13, do: "th"
+  def ordinal(num) when num > 10, do: rem(num, 10) |> ordinal()
+  def ordinal(1), do: "st"
+  def ordinal(2), do: "nd"
+  def ordinal(3), do: "rd"
+  def ordinal(_), do: "th"
 end

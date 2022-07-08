@@ -7,6 +7,7 @@ defmodule Foilsigh.JournalController do
   end
 
   def show(conn, %{"slug" => slug}) do
-    render(conn, "show.html", slug: slug)
+    entry = Taifead.Journal.get_entry!(slug)
+    render(conn, "show.html", entry: entry)
   end
 end

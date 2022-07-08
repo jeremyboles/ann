@@ -12,7 +12,7 @@ defmodule Taifead.Journal do
 
   def delete_entry(%Entry{} = entries), do: Repo.delete(entries) |> broadcast(:entry_deleted)
 
-  def get_entry!(id), do: Repo.get!(Entry, id)
+  def get_entry!(slug), do: Repo.get_by!(Entry, url_slug: slug)
 
   def list_entries do
     Repo.all(from e in Entry, order_by: [desc: e.updated_at])
