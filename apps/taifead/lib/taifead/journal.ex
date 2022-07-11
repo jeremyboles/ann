@@ -17,7 +17,7 @@ defmodule Taifead.Journal do
   def get_entry_by_slug!(slug), do: Repo.get_by!(Entry, url_slug: slug)
 
   def list_entries do
-    Repo.all(from e in Entry, order_by: [desc: e.updated_at])
+    Repo.all(from e in Entry, order_by: [desc: e.published_at])
   end
 
   def published_entries_by_date do
