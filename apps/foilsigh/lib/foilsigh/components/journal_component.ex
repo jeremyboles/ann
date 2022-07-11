@@ -324,7 +324,13 @@ defmodule Foilsigh.JournalComponent do
     ~H"""
       <div class="entry_content checkin">
         <figure>
-      <p>Checked in at <a href={@entry.mapkit_response["urls"] |> hd} rel="external nofollow noopener"><%= @entry.mapkit_response["name"] %></a></p>
+          <p>Checked in at
+            <%= if Enum.count(@entry.mapkit_response["urls"]) > 0 do %>
+              <a href={@entry.mapkit_response["urls"] |> hd} rel="external nofollow noopener"><%= @entry.mapkit_response["name"] %></a>
+            <% else %>
+              <%= @entry.mapkit_response["name"] %>
+            <% end %>
+          </p>
           <figcaption><%= raw @entry.content_html %></figcaption>
         </figure>
       </div>
