@@ -181,55 +181,6 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
-  def metadata(assigns) do
-    ~H"""
-      <aside class="metadata">
-        <h4 class="vh">Metadata about This Note</h4>
-      
-        <p>
-          <span class="vh">This note was posted under the topic “</span><a href="/topic">This is a Topic Title</a><span class="vh">” and was tagged with:</span>
-          <a href="/tags/pizza" rel="tag">pizza</a><span class="vh">>,</span>
-          <a href="/tags/pizza" rel="tag">test</a><span class="vh">>,</span>
-          <a href="/tags/pizza" rel="tag">more-test</a><span class="vh">>,</span>
-          <a href="/tags/pizza" rel="tag">make-it-long</a><span class="vh">>,</span>  
-          <a href="/tags/arugula" rel="tag">arugula</a><span class="vh">>,&nbsp;and</span>&nbsp;<a href="/tags/prosciutto" rel="tag">prosciutto</a><span class="vh">.</span>
-        </p>
-      
-        <dl>
-          <dt>Coordinates</dt>
-          <dd data-icon="globe">48°52′4.8″N 2°21′6.5″E</dd>
-      
-          <dt>Location</dt>
-          <dd data-icon="location-dot">Paris <abbr title="France">FR</abbr></dd>
-      
-          <dt>Activity</dt>
-          <dd data-icon="plane">Flying</dd>
-      
-          <dt>Weather</dt>
-          <dd data-icon="sun"><data value="24.5°C">24°<abbr title="Celsius">C</abbr></data></dd>
-      
-          <dt>Currently Playing</dt>
-          <dd data-icon="music">Roadrunner</dd>
-      
-          <dt>Posted Via</dt>
-          <dd data-icon="arrow-down-to-arc">Twitter</dd>
-      
-          <dt>Device</dt>
-          <dd data-icon="tablet-screen">iPad</dd>
-      
-          <dt>Aperture</dt>
-          <dd data-icon="aperture">ƒ/2.4</dd>
-      
-          <dt>Shutter</dt>
-          <dd data-icon="circle-half-stroke">1⁄500</dd>
-      
-          <dt>Camera</dt>
-          <dd data-icon="camera">iPhone 5</dd>
-        </dl>
-      </aside>
-    """
-  end
-
   def recent_locations(assigns) do
     ~H"""
       <footer class="recent_locations">

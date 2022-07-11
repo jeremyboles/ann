@@ -14,15 +14,21 @@ defmodule Taifead.Journal do
 
   def get_entry!(id), do: Repo.get!(Entry, id)
 
-  def get_entry_by_slug!(slug), do: Repo.get_by!(Entry, url_slug: slug)
+  def get_entry_by_slug!(slug), do: Repo.get_by!(Entry, url_slug: slug) |> Repo.preload(:topic)
 
   def list_entries do
-    Repo.all(from e in Entry, order_by: [desc: e.published_at])
+    Repo.all(from(e in Entry, order_by: [desc: e.published_at]))
   end
 
   def published_entries_by_date do
-    query = from e in Entry, order_by: [desc: e.published_at], where: e.is_published == true
-    query |> Repo.all() |> group_by_published_date() |> Map.to_list() |> Enum.sort_by(fn {date, _} -> date end) |> Enum.reverse()
+    query = from(e in Entry, order_by: [desc: e.published_at], where: e.is_published == true)
+
+    query
+    |> Repo.all()
+    |> group_by_published_date()
+    |> Map.to_list()
+    |> Enum.sort_by(fn {date, _} -> date end)
+    |> Enum.reverse()
   end
 
   def publish_entry(attrs \\ %{}) do
@@ -54,8 +60,12 @@ defmodule Taifead.Journal do
     Enum.group_by(entries, &published_on/1)
   end
 
-  defp put_published_at(%{"published_at" => ""} = attrs), do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
-  defp put_published_at(%{"published_at" => nil} = attrs), do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
+  defp put_published_at(%{"published_at" => ""} = attrs),
+    do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
+
+  defp put_published_at(%{"published_at" => nil} = attrs),
+    do: %{attrs | "published_at" => NaiveDateTime.utc_now()}
+
   defp put_published_at(%{} = attrs), do: attrs
 
   defp published_on(%Entry{published_at: datetime}) do

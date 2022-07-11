@@ -1,6 +1,6 @@
 <article class={@entry.kind}>
   <.entry_detail entry={@entry} />
   <.location_map />
-  <.metadata />
+  <%= render "_metadata.html", entry: @entry %>
   <.responses />
 </article>

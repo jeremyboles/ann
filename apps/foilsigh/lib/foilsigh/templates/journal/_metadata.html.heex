@@ -1,0 +1,57 @@
+<aside class="metadata">
+  <h4 class="vh">Metadata about This Note</h4>
+  <%= if @entry.topic || Enum.count(@entry.tags) > 0 do %>
+    <p>
+      <span class="vh">This note was</span>
+      <%= if @entry.topic do %>
+        <span class="vh">posted under the topic “</span><a href={"/#{@entry.topic.url_slug}"}><%= raw @entry.topic.title_html %></a><span class="vh">”</span><%= if Enum.count(@entry.tags) > 0 do %> <span class="vh">and was</span><% else %><span class="vh">.</span><% end %>
+      <% end %>
+      <%= if Enum.count(@entry.tags) > 0 do %>
+        <span class="vh">tagged with:</span>
+        <%= if Enum.count(@entry.tags) == 1 do %>
+          <a href={"/tags/#{hd(@entry.tags)}"} rel="tag"><%= hd @entry.tags %></a><span class="vh">.</span>
+        <% else %>
+          <%= for {tag, index} <- Enum.with_index(@entry.tags) do %>
+            <%= if index == Enum.count(@entry.tags) - 1 do %>
+              <span class="vh">and</span> <a href={"/tags/#{tag}"} rel="tag"><%= tag %></a><span class="vh">.</span>
+            <% else %>
+              <a href={"/tags/#{tag}"} rel="tag"><%= tag %></a><span class="vh">,</span>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </p>
+  <% end %>
+
+  <dl>
+    <dt>Coordinates</dt>
+    <dd data-icon="globe">48°52′4.8″N 2°21′6.5″E</dd>
+
+    <dt>Location</dt>
+    <dd data-icon="location-dot">Paris <abbr title="France">FR</abbr></dd>
+
+    <dt>Activity</dt>
+    <dd data-icon="plane">Flying</dd>
+
+    <dt>Weather</dt>
+    <dd data-icon="sun"><data value="24.5°C">24°<abbr title="Celsius">C</abbr></data></dd>
+
+    <dt>Currently Playing</dt>
+    <dd data-icon="music">Roadrunner</dd>
+
+    <dt>Posted Via</dt>
+    <dd data-icon="arrow-down-to-arc">Twitter</dd>
+
+    <dt>Device</dt>
+    <dd data-icon="tablet-screen">iPad</dd>
+
+    <dt>Aperture</dt>
+    <dd data-icon="aperture">ƒ/2.4</dd>
+
+    <dt>Shutter</dt>
+    <dd data-icon="circle-half-stroke">1⁄500</dd>
+
+    <dt>Camera</dt>
+    <dd data-icon="camera">iPhone 5</dd>
+  </dl>
+</aside>
