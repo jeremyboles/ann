@@ -44,6 +44,22 @@ defmodule Bainistigh.JournalLive do
     {:ok, assign(socket, entries: entries, entry: nil, kind: nil, page_title: "Journal")}
   end
 
+  defp location(%{"muid" => _, "name" => name} = resp) do
+    raw("<b>#{name}</b>")
+  end
+
+  defp location(%{"administrativeAreaCode" => state, "country" => country, "locality" => city}) do
+    raw("<b>#{city}, #{state}, #{country}</b>")
+  end
+
+  defp location(%{"country" => country, "locality" => city}) do
+    raw("<b>#{city}, #{country}</b>")
+  end
+
+  defp location(_) do
+    raw("<b><i>Unknown Location</i></b>")
+  end
+
   defp mapkit_url(%{center: %Geo.Point{coordinates: {lng, lat}}} = opts) do
     mapkit_url(%{opts | center: "#{lat},#{lng}"})
   end
