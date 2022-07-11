@@ -11,7 +11,7 @@ defmodule Foilsigh.WikiController do
   def recipe(conn, _params), do: render(conn, "recipe.html")
 
   def show(conn, %{"slug" => slug}) do
-    topic = Topics.get_published!(slug)
+    topic = Topics.get_published_by_slug!(slug)
     ancestors = Topics.ancestors(topic)
 
     render(conn, "show.html", ancestors: ancestors, topic: topic)

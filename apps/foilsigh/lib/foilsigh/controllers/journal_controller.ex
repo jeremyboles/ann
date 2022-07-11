@@ -8,6 +8,8 @@ defmodule Foilsigh.JournalController do
 
   def show(conn, %{"slug" => slug}) do
     entry = Taifead.Journal.get_entry_by_slug!(slug)
-    render(conn, "show.html", entry: entry)
+    topic = Taifead.Topics.get_published!(entry.topic_id)
+
+    render(conn, "show.html", entry: entry, topic: topic)
   end
 end

@@ -1,10 +1,10 @@
 <aside class="metadata">
   <h4 class="vh">Metadata about This Note</h4>
-  <%= if @entry.topic || Enum.count(@entry.tags) > 0 do %>
+  <%= if @topic || Enum.count(@entry.tags) > 0 do %>
     <p>
       <span class="vh">This note was</span>
-      <%= if @entry.topic do %>
-        <span class="vh">posted under the topic “</span><a href={"/#{@entry.topic.url_slug}"}><%= raw @entry.topic.title_html %></a><span class="vh">”</span><%= if Enum.count(@entry.tags) > 0 do %> <span class="vh">and was</span><% else %><span class="vh">.</span><% end %>
+      <%= if @topic do %>
+        <span class="vh">posted under the topic “</span><a href={"/#{@topic.url_slug}"}><%= raw @topic.title_html %></a><span class="vh">”</span><%= if Enum.count(@entry.tags) > 0 do %> <span class="vh">and was</span><% else %><span class="vh">.</span><% end %>
       <% end %>
       <%= if Enum.count(@entry.tags) > 0 do %>
         <span class="vh">tagged with:</span>

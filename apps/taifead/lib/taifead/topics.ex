@@ -60,7 +60,12 @@ defmodule Taifead.Topics do
 
   def get_publication!(id), do: Repo.get!(Publication, id)
 
-  def get_published!(url_slug) do
+  def get_published!(id) do
+    query = from d in Draft, where: d.id == ^id, join: p in Publication, on: p.draft_id == d.id, select: p, where: p.latest == true
+    query |> Repo.one()
+  end
+
+  def get_published_by_slug!(url_slug) do
     query = from p in Publication, limit: 1, where: [latest: true, url_slug: ^url_slug]
 
     query
