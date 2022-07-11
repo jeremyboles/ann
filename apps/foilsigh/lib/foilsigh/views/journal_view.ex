@@ -26,6 +26,8 @@ defmodule Foilsigh.JournalView do
     Calendar.strftime(date, "%A, %B ") <> day(date) <> Calendar.strftime(date, ", %Y")
   end
 
+  def geohash(coords), do: Foilsigh.Geo.to_geohash_string(coords, 5)
+
   def suffix(num) when is_integer(num) and num > 100 do
     rem(num, 100) |> suffix()
   end

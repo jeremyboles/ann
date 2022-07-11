@@ -161,26 +161,6 @@ defmodule Foilsigh.JournalComponent do
     """
   end
 
-  def location_map(assigns) do
-    ~H"""
-      <aside class="location_map">
-        <svg role="img" viewBox="0 0 384 168">
-          <desc>
-            <p><i>Trip to Scotland, 2018</i> has been updated from the following locations:</p>
-            <ul>
-              <li><data value="37.202039578772734,-93.27147187929123">Springfield, MO (37°12'07.3"N 93°16'17.3"W')</data></li>
-              <li><data value="56.11932088728583,-3.9401846057621692">Stirling, Scotland (56°07'09.6"N 3°56'24.7"W)</data></li>
-              <li><data value="43.842596263769565,10.503018539613965">Lucca, Italy (43°50'33.4"N 10°30'10.9"E)</data></li>
-            </ul>
-          </desc>
-        
-          <use href="/g/map.svg?height=168&width=384#map"/>
-          <use href="/g/points.svg?locations[primary][]=9ytetsdz2&locations[secondary][]=spz3rj21d&locations[secondary][]=gcvpq24ye&height=168&width=384#points"/>
-        </svg>
-      </aside>
-    """
-  end
-
   def recent_locations(assigns) do
     ~H"""
       <footer class="recent_locations">
