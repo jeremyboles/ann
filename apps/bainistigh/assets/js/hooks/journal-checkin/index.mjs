@@ -32,7 +32,6 @@ export function mounted() {
     this.map.setRegionAnimated(new mapkit.CoordinateRegion(coordinate, new mapkit.CoordinateSpan(0.005, 0.005)))
 
     const search = new mapkit.PointsOfInterestSearch({
-      pointOfInterestFilter: mapkit.PointOfInterestFilter.including([mapkit.PointOfInterestCategory.Bakery, mapkit.PointOfInterestCategory.Cafe, mapkit.PointOfInterestCategory.Hotel, mapkit.PointOfInterestCategory.Restaurant]),
       region: new mapkit.CoordinateRegion(coordinate, new mapkit.CoordinateSpan(0.03, 0.03)),
     })
 
