@@ -24,34 +24,40 @@
   <% end %>
 
   <dl>
-    <dt>Coordinates</dt>
-    <dd data-icon="globe">48°52′4.8″N 2°21′6.5″E</dd>
+    <%= if @entry.coords do %>
+      <dt>Coordinates</dt>
+      <dd data-icon="globe"><%= dms @entry.coords %></dd>
+    <% end %>
+    
+    <%= if @entry.mapkit_response do %>
+      <dt>Location</dt>
+      <dd data-icon="location-dot"><%=  city @entry.mapkit_response %></dd>
+    <% end %>
 
-    <dt>Location</dt>
-    <dd data-icon="location-dot">Paris <abbr title="France">FR</abbr></dd>
+    <!-- <dt>Activity</dt>
+    <dd data-icon="plane">Flying</dd> -->
 
-    <dt>Activity</dt>
-    <dd data-icon="plane">Flying</dd>
+    <%= if @entry.weatherkit_response do %>
+      <dt>Weather</dt>
+      <dd data-icon={weather_icon(@entry.weatherkit_response)}><%= temperature @entry.weatherkit_response %></dd>
+    <% end %>
 
-    <dt>Weather</dt>
-    <dd data-icon="sun"><data value="24.5°C">24°<abbr title="Celsius">C</abbr></data></dd>
+    <!-- <dt>Currently Playing</dt>
+    <dd data-icon="music">Roadrunner</dd> -->
 
-    <dt>Currently Playing</dt>
-    <dd data-icon="music">Roadrunner</dd>
+    <!-- <dt>Posted Via</dt>
+    <dd data-icon="arrow-down-to-arc">Twitter</dd> -->
 
-    <dt>Posted Via</dt>
-    <dd data-icon="arrow-down-to-arc">Twitter</dd>
+    <!-- <dt>Device</dt>
+    <dd data-icon="tablet-screen">iPad</dd> -->
 
-    <dt>Device</dt>
-    <dd data-icon="tablet-screen">iPad</dd>
+    <!-- <dt>Aperture</dt>
+    <dd data-icon="aperture">ƒ/2.4</dd> -->
 
-    <dt>Aperture</dt>
-    <dd data-icon="aperture">ƒ/2.4</dd>
+    <!-- <dt>Shutter</dt>
+    <dd data-icon="circle-half-stroke">1⁄500</dd> -->
 
-    <dt>Shutter</dt>
-    <dd data-icon="circle-half-stroke">1⁄500</dd>
-
-    <dt>Camera</dt>
-    <dd data-icon="camera">iPhone 5</dd>
+    <!-- <dt>Camera</dt>
+    <dd data-icon="camera">iPhone 5</dd> -->
   </dl>
 </aside>

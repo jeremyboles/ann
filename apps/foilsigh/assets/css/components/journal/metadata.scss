@@ -88,7 +88,8 @@
 .metadata dd {
   padding-inline-start: #{calc(val.fragments(2) + 0.5ch)};
   text-indent: #{calc((val.fragments(2) + 0.5ch) * -1)};
-  @each $name in (aperture arrow-down-to-arc camera circle-half-stroke globe location-dot music plane sun tablet-screen) {
+
+  @each $name in (aperture arrow-down-to-arc camera circle-half-stroke cloud cloud-sun globe location-dot music plane sun sun-cloud tablet-screen) {
     &[data-icon="#{$name}"] {
       @include icon.before("/images/fa/solid/#{$name}.svg", $color: var(--color-faded-text), $size: val.fragments(2)) {
         transform: translateY(0.1em);

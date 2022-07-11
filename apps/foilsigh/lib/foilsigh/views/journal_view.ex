@@ -10,11 +10,17 @@ defmodule Foilsigh.JournalView do
 
   def title(_action, _assigns), do: "Journal · Jeremy Boles"
 
+  def city(%{"locality" => city, "country" => country, "countryCode" => code}) do
+    raw("#{city} <abbr title=\"#{country}\">#{code}</abbr>")
+  end
+
   defp day(%Date{day: day}) do
     to_string(day) <> suffix(day)
   end
 
   defp datetime(date), do: Date.to_iso8601(date)
+
+  def dms(coords), do: Foilsigh.Geo.to_dms_string(coords)
 
   defp english(date) do
     Calendar.strftime(date, "%A, %B ") <> day(date) <> Calendar.strftime(date, ", %Y")
@@ -30,4 +36,15 @@ defmodule Foilsigh.JournalView do
   def suffix(2), do: "nd"
   def suffix(3), do: "rd"
   def suffix(_), do: "th"
+
+  def temperature(%{"currentWeather" => %{"temperature" => temperature}}) do
+    raw(
+      "<data value=\"#{temperature}°C\">#{temperature |> Decimal.from_float() |> Decimal.round(0)}°<abbr title=\"Celsius\">C</abbr></data>"
+    )
+  end
+
+  def weather_icon(%{"currentWeather" => %{"conditionCode" => "Cloudy"}}), do: "cloud"
+  def weather_icon(%{"currentWeather" => %{"conditionCode" => "MostlyClear"}}), do: "sun-cloud"
+  def weather_icon(%{"currentWeather" => %{"conditionCode" => "MostlyCloudy"}}), do: "cloud-sun"
+  def weather_icon(_), do: "sun"
 end
