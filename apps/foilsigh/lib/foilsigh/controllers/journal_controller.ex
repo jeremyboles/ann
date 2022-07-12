@@ -3,7 +3,9 @@ defmodule Foilsigh.JournalController do
 
   def index(conn, _params) do
     entries = Taifead.Journal.published_entries_by_date()
-    render(conn, "index.html", entries: entries)
+    tags = Taifead.Journal.list_tags() |> List.flatten()
+
+    render(conn, "index.html", entries: entries, tags: tags)
   end
 
   def show(conn, %{"slug" => slug}) do

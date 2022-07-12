@@ -190,25 +190,9 @@ defmodule Foilsigh.JournalComponent do
         <h3>Recent Tags <span class="vh">in the Journal</span></h3>
       
         <ol>
-          <li><a href="/tags/colophon" rel="tag">colophon</a></li>
-          <li><a href="/tags/programming" rel="tag">programming</a></li>
-          <li><a href="/tags/computers" rel="tag">computers</a></li>
-          <li><a href="/tags/cookware" rel="tag">cookware</a></li>
-          <li><a href="/tags/beverage" rel="tag">beverage</a></li>
-          <li><a href="/tags/cooking" rel="tag">cooking</a></li>
-          <li><a href="/tags/wiki" rel="tag">wiki</a></li>
-          <li><a href="/tags/motivation" rel="tag">motivation</a></li>
-          <li><a href="/tags/mornings" rel="tag">mornings</a></li>
-          <li><a href="/tags/productivity" rel="tag">productivity</a></li>
-          <li><a href="/tags/ideas" rel="tag">ideas</a></li>
-          <li><a href="/tags/work" rel="tag">work</a></li>
-          <li><a href="/tags/git" rel="tag">git</a></li>
-          <li><a href="/tags/geotracking" rel="tag">geotracking</a></li>
-          <li><a href="/tags/mushrooms" rel="tag">mushrooms</a></li>
-          <li><a href="/tags/valley-water-mill" rel="tag">valley-water-mill</a></li>
-          <li><a href="/tags/foraging" rel="tag">foraging</a></li>
-          <li><a href="/tags/garum" rel="tag">garum</a></li>
-          <li><a href="/tags/fish-sauce" rel="tag">fish-sauce</a></li>
+          <%= for tag <- @tags do %>
+            <li><a href={"/tags/#{tag}"} rel="tag"><%= tag %></a></li>
+          <% end %>
         </ol>
       </aside>
     """

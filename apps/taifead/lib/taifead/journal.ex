@@ -20,6 +20,10 @@ defmodule Taifead.Journal do
     Repo.all(from(e in Entry, order_by: [desc: e.published_at]))
   end
 
+  def list_tags do
+    Repo.all(from e in Entry, select: e.tags)
+  end
+
   def published_entries_by_date do
     query = from(e in Entry, order_by: [desc: e.published_at], where: e.is_published == true)
 
