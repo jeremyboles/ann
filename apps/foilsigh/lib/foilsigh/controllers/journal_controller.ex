@@ -3,9 +3,10 @@ defmodule Foilsigh.JournalController do
 
   def index(conn, _params) do
     entries = Taifead.Journal.published_entries_by_date()
+    locations = Taifead.Journal.locations()
     tags = Taifead.Journal.list_tags()
 
-    render(conn, "index.html", entries: entries, tags: tags)
+    render(conn, "index.html", entries: entries, locations: locations, tags: tags)
   end
 
   def show(conn, %{"slug" => slug}) do

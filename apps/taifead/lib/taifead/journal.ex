@@ -29,6 +29,19 @@ defmodule Taifead.Journal do
     |> Repo.all()
   end
 
+  def locations do
+    %{rows: rows} =
+      Repo.query!("""
+        SELECT ST_Centroid(ST_Collect(coords)) AS coords, array_agg(id) AS ids, array_agg(published_at) AS dates FROM (
+          SELECT id, published_at, ST_ClusterDBSCAN(coords, eps := 2, minpoints := 1) OVER () AS cid, coords FROM entries
+        ) AS sq GROUP BY cid;
+      """)
+
+    rows
+    |> Enum.sort_by(fn [_, _, dates] -> latest(dates) end, :desc)
+    |> Enum.map(fn [coords, _, _] -> coords end)
+  end
+
   def published_entries_by_date do
     query = from(e in Entry, order_by: [desc: e.published_at], where: e.is_published == true)
 
@@ -67,6 +80,10 @@ defmodule Taifead.Journal do
 
   defp group_by_published_date(entries) do
     Enum.group_by(entries, &published_on/1)
+  end
+
+  defp latest(dates) do
+    dates |> Enum.sort(:desc)
   end
 
   defp put_published_at(%{"published_at" => ""} = attrs),

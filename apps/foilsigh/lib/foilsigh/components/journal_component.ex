@@ -171,7 +171,7 @@ defmodule Foilsigh.JournalComponent do
             </p>
           </figcaption>
           
-          <.map height="168" width="384">
+          <.map height="168" locations={@locations} width="384">
             <p>Locations that I’ve posted journal entries from:</p>
             <ul>
               <li><data value="37.202039578772734,-93.27147187929123">Springfield, MO (37°12'07.3"N 93°16'17.3"W')</data></li>
