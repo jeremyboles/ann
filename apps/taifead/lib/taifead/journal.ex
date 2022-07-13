@@ -12,9 +12,17 @@ defmodule Taifead.Journal do
 
   def delete_entry(%Entry{} = entries), do: Repo.delete(entries) |> broadcast(:entry_deleted)
 
+  def first_entry do
+    Repo.one(from(e in Entry, order_by: [asc: e.published_at], limit: 1))
+  end
+
   def get_entry!(id), do: Repo.get!(Entry, id)
 
   def get_entry_by_slug!(slug), do: Repo.get_by!(Entry, url_slug: slug) |> Repo.preload(:topic)
+
+  def last_entry do
+    Repo.one(from(e in Entry, order_by: [desc: e.published_at], limit: 1))
+  end
 
   def list_entries do
     Repo.all(from(e in Entry, order_by: [desc: e.published_at]))
@@ -29,11 +37,11 @@ defmodule Taifead.Journal do
     |> Repo.all()
   end
 
-  def locations do
+  def locations(eps \\ 2) do
     %{rows: rows} =
       Repo.query!("""
         SELECT ST_Centroid(ST_Collect(coords)) AS coords, array_agg(id) AS ids, array_agg(published_at) AS dates FROM (
-          SELECT id, published_at, ST_ClusterDBSCAN(coords, eps := 2, minpoints := 1) OVER () AS cid, coords FROM entries
+          SELECT id, published_at, ST_ClusterDBSCAN(coords, eps := #{eps}, minpoints := 1) OVER () AS cid, coords FROM entries WHERE is_published = TRUE
         ) AS sq GROUP BY cid;
       """)
 
@@ -66,6 +74,10 @@ defmodule Taifead.Journal do
 
   def subscribe do
     Phoenix.PubSub.subscribe(Taifead.PubSub, "entries")
+  end
+
+  def total_entries do
+    Repo.aggregate(from(e in Entry, where: e.is_published == true), :count, :id)
   end
 
   defp broadcast({:ok, draft}, event) do

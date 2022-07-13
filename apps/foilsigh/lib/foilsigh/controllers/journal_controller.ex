@@ -6,7 +6,12 @@ defmodule Foilsigh.JournalController do
     locations = Taifead.Journal.locations()
     tags = Taifead.Journal.list_tags()
 
-    render(conn, "index.html", entries: entries, locations: locations, tags: tags)
+    render(conn, "index.html",
+      aggregate: aggregate(),
+      entries: entries,
+      locations: locations,
+      tags: tags
+    )
   end
 
   def show(conn, %{"slug" => slug}) do
@@ -14,5 +19,15 @@ defmodule Foilsigh.JournalController do
     topic = Taifead.Topics.get_published!(entry.topic_id)
 
     render(conn, "show.html", entry: entry, topic: topic)
+  end
+
+  defp aggregate do
+    date_range =
+      Date.range(
+        Taifead.Journal.first_entry().published_at,
+        Taifead.Journal.last_entry().published_at
+      )
+
+    %{date_range: date_range, total: Taifead.Journal.total_entries()}
   end
 end

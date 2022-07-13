@@ -3,6 +3,7 @@ defmodule Foilsigh.JournalComponent do
 
   import Foilsigh.GraphicsComponent
 
+  alias Foilsigh.Cldr.Number
   alias Taifead.Journal.Entry
 
   def blogroll(assigns) do
@@ -167,7 +168,7 @@ defmodule Foilsigh.JournalComponent do
         <figure>      
           <figcaption>
             <p>
-              There have been forty-six journal entries published over the last sixty days from four different&nbsp;locations.
+          There have been <%= Number.to_string!(@aggregate.total, format: :spellout) %> journal <%= Inflex.inflect("entry", @aggregate.total) %> published over the last <%= Number.to_string!(Enum.count(@aggregate.date_range), format: :spellout) %> <%= Inflex.inflect("day", Enum.count(@aggregate.date_range)) %> from <%= Number.to_string!(Enum.count(@locations), format: :spellout) %> <%= if Enum.count(@locations) != 1, do: "different general", else: "" %> <%= Inflex.inflect("location", Enum.count(@locations)) %>.
             </p>
           </figcaption>
           
