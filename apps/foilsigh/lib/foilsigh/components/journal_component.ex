@@ -190,7 +190,7 @@ defmodule Foilsigh.JournalComponent do
         <h3>Recent Tags <span class="vh">in the Journal</span></h3>
       
         <ol>
-          <%= for tag <- @tags do %>
+          <%= for %{tag: tag} <- @tags do %>
             <li><a href={"/tags/#{tag}"} rel="tag"><%= tag %></a></li>
           <% end %>
         </ol>

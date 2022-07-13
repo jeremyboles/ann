@@ -3,7 +3,7 @@ defmodule Foilsigh.JournalController do
 
   def index(conn, _params) do
     entries = Taifead.Journal.published_entries_by_date()
-    tags = Taifead.Journal.list_tags() |> List.flatten() |> Enum.uniq()
+    tags = Taifead.Journal.list_tags()
 
     render(conn, "index.html", entries: entries, tags: tags)
   end

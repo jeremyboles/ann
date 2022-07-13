@@ -21,7 +21,12 @@ defmodule Taifead.Journal do
   end
 
   def list_tags do
-    Repo.all(from e in Entry, select: e.tags)
+    from(e in Entry,
+      select: %{tag: fragment("unnest(?) AS tag", e.tags), count: fragment("count(*)")},
+      group_by: fragment("tag"),
+      order_by: [desc: fragment("count")]
+    )
+    |> Repo.all()
   end
 
   def published_entries_by_date do
