@@ -60,6 +60,8 @@ defmodule Taifead.Topics do
 
   def get_publication!(id), do: Repo.get!(Publication, id)
 
+  def get_published!(nil), do: nil
+
   def get_published!(id) do
     query = from d in Draft, where: d.id == ^id, join: p in Publication, on: p.draft_id == d.id, select: p, where: p.latest == true
     query |> Repo.one()
