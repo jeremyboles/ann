@@ -1,7 +1,7 @@
-import { geoNaturalEarth1, geoPath } from 'd3-geo'
-import geohash from 'ngeohash'
-import { feature } from 'topojson-client'
-import world from 'world-atlas/land-110m.json' assert { type: 'json' }
+import { geoNaturalEarth1, geoPath } from "d3-geo"
+import geohash from "ngeohash"
+import { feature } from "topojson-client"
+import world from "world-atlas/land-110m.json" assert { type: "json" }
 
 export async function map({ height, width }) {
   const { land, projection } = await geoProjection(width, height)
@@ -14,34 +14,31 @@ export async function map({ height, width }) {
   `
 }
 
-export async function points({ height, width }, options) {
+export async function points({ height, radius = 2, width }, options) {
   const { projection } = await geoProjection(width, height)
 
-  let points = ''
+  let points = ""
   if (Array.isArray(options.locations)) {
     points = options.locations
       .map((hash) => {
         const { latitude, longitude } = geohash.decode(hash)
         const [cx, cy] = projection([longitude, latitude])
-        return `<circle cx="${cx}" cy="${cy}" r="4" style="fill: var(--circle-fill, currentColor)" />`
+        return `<circle cx="${cx}" cy="${cy}" r="${radius}" style="fill: var(--circle-fill, currentColor)" />`
       })
-      .join('')
-  } else if (
-    typeof options.locations === 'object' &&
-    options.locations !== null
-  ) {
+      .join("")
+  } else if (typeof options.locations === "object" && options.locations !== null) {
     points = Object.entries(options.locations)
       .map(([group, hashes]) => {
         const circles = hashes
           .map((hash) => {
             const { latitude, longitude } = geohash.decode(hash)
             const [cx, cy] = projection([longitude, latitude])
-            return `<circle cx="${cx}" cy="${cy}" r="4" />`
+            return `<circle cx="${cx}" cy="${cy}" r="${radius}" />`
           })
-          .join('')
+          .join("")
         return `<g id="${group}" style="fill: var(--${group}-fill, currentColor)" >${circles}</g>`
       })
-      .join('')
+      .join("")
   }
 
   return `
@@ -57,10 +54,7 @@ export async function points({ height, width }, options) {
 
 export default async function geoProjection(width, height) {
   const [land] = feature(world, world.objects.land).features
-  const projection = geoNaturalEarth1()
-    .center([0, 0])
-    .fitSize([width, height], land)
-    .rotate([-11.25, 0, 0])
+  const projection = geoNaturalEarth1().center([0, 0]).fitSize([width, height], land).rotate([-11.25, 0, 0])
 
   return { land, projection }
 }
