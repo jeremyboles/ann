@@ -6,7 +6,7 @@
       <%= render "_header.html", topic: @topic %>
       <%= render "_content.html", topic: @topic, table_of_contents: false %>
       
-      <%= render "_journal.html" %>
+      <%= render "_journal.html", entries: @entries %>
       <%= render "_supplementary.html", topic: @topic %>
       <%= render "_essays.html" %>
       <%= render "_footer.html", topic: @topic %>

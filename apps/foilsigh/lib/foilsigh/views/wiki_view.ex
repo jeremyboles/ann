@@ -7,6 +7,7 @@ defmodule Foilsigh.WikiView do
 
   alias Foilsigh.Cldr.Number
   alias Foilsigh.Endpoint
+  alias Taifead.Journal.Entry
   alias Taifead.Topics.Publication
 
   def city(%Publication{mapkit_response: response}) do
@@ -43,6 +44,28 @@ defmodule Foilsigh.WikiView do
   def locations_query(%Publication{draft: %{publications: publications}}) do
     [primary | secondary] = publications |> Enum.map(&geohash/1) |> Enum.uniq()
     Plug.Conn.Query.encode(%{locations: %{primary: [primary], secondary: secondary}})
+  end
+
+  defp local_time_abbr(%{entry: %Entry{mapkit_response: resp, published_at: date}} = assigns) do
+    date = DateTime.shift_zone!(date, resp["timezone"])
+
+    ~H"""
+      <time timestamp={DateTime.to_iso8601(date)}><%= Calendar.strftime(date, "%b %-d") %><span class="vh">,</span><%= Calendar.strftime(date, " %Y ") %><span class="vh">@</span><%= Calendar.strftime(date, " %-I:%M %p") %></time>
+    """
+  end
+
+  defp location_abbr(%{entry: %Entry{mapkit_response: resp}} = assigns) do
+    case resp do
+      %{"country" => "United States"} ->
+        ~H"""
+        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["administrativeArea"]}><%= resp["administrativeAreaCode"] %></abbr><span class="vh">,</span> <abbr title="United States">US</abbr></span>
+        """
+
+      _ ->
+        ~H"""
+        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["country"]}><%= resp["countryCode"] %></abbr></span>
+        """
+    end
   end
 
   def same_city(%Publication{draft: %{publications: [first | rest]}}) do

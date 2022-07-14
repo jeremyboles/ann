@@ -1,18 +1,24 @@
  <section class="journal">
   <h3 class="vh">Latest Journal Entries About “Scotland, 2018”</h3>
 
-  <article class="h-entry note">
-    <p>
-      <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
-      <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href="/journal/6T51WU">posted a note</a>
-      <span class="vh">from</span> <span class="h-adr p-location"><span class="p-locality">Paris</span><span class="vh">,</span> <abbr class="p-country-name" title="France">FR</abbr></span><span class="vh">:</span>
-    </p>
-
-    <blockquote cite="/journal/6T51WU" class="e-content p-name">
-      <p>Nothing says “long flight to Europe” like Nescafé.</p>
-    </blockquote>
-  </article>
-
+  <%= for entry <- @entries do %>
+    <article class={"h-entry #{entry.kind}"}>
+      <p>
+        <span class="vh">On</span> <.local_time_abbr entry={entry} /><span class="vh">,</span>
+        <a class="h-card p-author vh" href="/">I</a> <a class="u-uid u-url" href={"/journal/#{entry.url_slug}"}>posted a <%= entry.kind %></a>
+        <span class="vh">from</span> <.location_abbr entry={entry} /><span class="vh">:</span>
+      </p>
+  
+      <blockquote cite={"/journal/#{entry.url_slug}"} class="e-content p-name">
+        <%= if entry.kind == :checkin do %>
+          <p>Checked in at <span class="h-card p-name u-checkin">Schiphol Airport</span></p>
+        <% end %>
+        <%= raw entry.content_html %>
+      </blockquote>
+    </article>
+  <% end %>
+  
+<%#
   <article class="h-entry photo">
     <p>
       <span class="vh">On</span> <time class="dt-published" datetime="2013-06-13 12:00:00">Dec 2<span class="vh">,</span> 2014 <span class="vh">@</span> 5:53 am</time><span class="vh">,</span>
@@ -101,5 +107,5 @@
         <figcaption>Anthony Bourdain, <cite>The Nasty Bits</cite></figcaption>
       </figure>
     </blockquote>
-  </article>
+  </article> #%>
 </section>

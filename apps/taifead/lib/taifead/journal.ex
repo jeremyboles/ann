@@ -2,6 +2,7 @@ defmodule Taifead.Journal do
   import Ecto.Query, warn: false
 
   alias Taifead.Journal.Entry
+  alias Taifead.Topics
   alias Taifead.Repo
 
   def change_entry(%Entry{} = entries, attrs \\ %{}), do: Entry.changeset(entries, attrs)
@@ -14,6 +15,16 @@ defmodule Taifead.Journal do
 
   def first_entry do
     Repo.one(from(e in Entry, order_by: [asc: e.published_at], limit: 1))
+  end
+
+  def list_by_topic(%Topics.Publication{draft_id: nil}), do: []
+
+  def list_by_topic(%Topics.Publication{draft_id: id}) do
+    Repo.all(from(e in Entry, where: e.topic_id == ^id, order_by: [desc: e.published_at]))
+  end
+
+  def list_by_topic(%Topics.Draft{id: id}) do
+    Repo.all(from(e in Entry, where: e.topic_id == ^id, order_by: [desc: e.published_at]))
   end
 
   def get_entry!(id), do: Repo.get!(Entry, id)
