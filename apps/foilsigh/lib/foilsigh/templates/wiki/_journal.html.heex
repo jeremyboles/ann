@@ -11,7 +11,7 @@
   
       <blockquote cite={"/journal/#{entry.url_slug}"} class="e-content p-name">
         <%= if entry.kind == :checkin do %>
-          <p>Checked in at <span class="h-card p-name u-checkin">Schiphol Airport</span></p>
+          <p>Checked in at <span class="h-card p-name u-checkin"><%= entry.mapkit_response["name"] %></span></p>
         <% end %>
         <%= raw entry.content_html %>
       </blockquote>
