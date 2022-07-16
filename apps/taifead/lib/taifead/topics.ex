@@ -98,6 +98,19 @@ defmodule Taifead.Topics do
     Repo.one(from p in Publication, limit: 1, order_by: [desc: p.updated_at])
   end
 
+  def locations(eps \\ 2) do
+    %{rows: rows} =
+      Repo.query!("""
+        SELECT ST_Centroid(ST_Collect(coords)) AS coords, array_agg(id) AS ids, array_agg(inserted_at) AS dates FROM (
+          SELECT id, inserted_at, ST_ClusterDBSCAN(coords, eps := #{eps}, minpoints := 1) OVER () AS cid, coords FROM topic_publications
+        ) AS sq GROUP BY cid;
+      """)
+
+    rows
+    |> Enum.sort_by(fn [_, _, dates] -> latest(dates) end, :desc)
+    |> Enum.map(fn [coords, _, _] -> coords end)
+  end
+
   def publish(%Draft{} = draft, attrs \\ %{}) do
     attributes = draft |> Map.from_struct() |> Map.drop([:__meta__, :id, :inserted_at, :path, :publications, :updated_at])
     publication_changeset = draft |> Ecto.build_assoc(:publications, attributes) |> change_publication(attrs) |> put_path_change(draft)
@@ -188,6 +201,10 @@ defmodule Taifead.Topics do
   defp broadcast({:error, _reason} = error, _event) do
     IO.inspect(error, label: "error")
     error
+  end
+
+  defp latest(dates) do
+    dates |> Enum.sort(:desc)
   end
 
   defp put_path_change(changeset, %Draft{} = draft) do
