@@ -56,6 +56,10 @@ defmodule Taifead.Topics do
 
   def delete_draft(%Draft{} = draft), do: Repo.delete(draft) |> broadcast(:draft_deleted)
 
+  def descendants(%Publication{} = publication) do
+    publication |> Publication.descendants() |> Repo.all()
+  end
+
   def get_draft!(id), do: Repo.get!(Draft, id)
 
   def get_publication!(id), do: Repo.get!(Publication, id)
@@ -156,6 +160,10 @@ defmodule Taifead.Topics do
 
   def update_draft(%Draft{} = draft, attrs) do
     draft |> Draft.changeset(attrs) |> put_change(:status, :changed) |> Repo.update() |> broadcast(:draft_updated)
+  end
+
+  def with_simpliar_tags(%Publication{tags: tags}) do
+    Repo.all(from p in Publication, where: fragment("? && ?", p.tags, ^tags))
   end
 
   defp broadcast({:ok, %{draft: draft, publication: publication}}, event) do

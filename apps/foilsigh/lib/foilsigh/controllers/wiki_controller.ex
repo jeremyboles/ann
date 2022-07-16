@@ -13,9 +13,19 @@ defmodule Foilsigh.WikiController do
 
   def show(conn, %{"slug" => slug}) do
     topic = Topics.get_published_by_slug!(slug)
-    ancestors = Topics.ancestors(topic)
+
     entries = Journal.list_by_topic(topic)
 
-    render(conn, "show.html", ancestors: ancestors, entries: entries, topic: topic)
+    ancestors = Topics.ancestors(topic)
+    descendants = Topics.descendants(topic)
+    similar = Topics.with_simpliar_tags(topic)
+
+    render(conn, "show.html",
+      ancestors: ancestors,
+      descendants: descendants,
+      entries: entries,
+      similar: similar,
+      topic: topic
+    )
   end
 end

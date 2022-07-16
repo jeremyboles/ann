@@ -2,10 +2,10 @@
   <h3 class="vh">Related Wiki Topics</h3>
   <dl>
     <div>
-      <dt>Other Topics Under “Trip to Scotland, 2018”</dt>
-      <dd><a href="/">Topic This Is Long</a></dd>
-      <dd><a href="/">Topic This Is Longer Yet</a></dd>
-      <dd><a href="/">IndieWeb</a></dd>
+      <dt>Other Topics Under “<%= raw @topic.title_html %>”</dt>
+      <%= for topic <- @descendants do %>
+        <dd><a href={"/#{topic.url_slug}/"}><%= raw topic.title_html %></a></dd>
+      <% end %>
     </div>
     <div>
       <dt>Topics That Link <i>to</i> Here</dt>
@@ -21,9 +21,9 @@
     </div>
     <div>
       <dt>Topics with Similiar Tags</dt>
-      <dd><a href="/">Topic This Is Long</a></dd>
-      <dd><a href="/">Topic This Is Longer Yet</a></dd>
-      <dd><a href="/">IndieWeb</a></dd>
+      <%= for topic <- @similar do %>
+        <dd><a href={"/#{topic.url_slug}/"}><%= raw topic.title_html %></a></dd>
+      <% end %>
     </div>
   </dl>
 </aside>
