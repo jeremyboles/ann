@@ -17,10 +17,13 @@ defmodule Foilsigh.GraphicsComponent do
   end
 
   def map(assigns) do
+    location_params =
+      Enum.map_join(assigns.locations, "&", fn coords -> "locations[]=#{geohash(coords)}" end)
+
     ~H"""
       <svg class="map" role="img" viewBox={"0 0 #{@width} #{@height}"}>
         <use href={"/g/map.svg?height=#{@height}&width=#{@width}#map"}/>
-        <use href={"/g/points.svg?locations[recent][]=9ytetsdz2&locations[previous][]=spz3rj21d&locations[previous][]=gcvpq24ye&height=#{@height}&width=#{@width}#points"}/>
+        <use href={"/g/points.svg?#{location_params}&height=#{@height}&width=#{@width}#points"}/>
       </svg>
     """
   end

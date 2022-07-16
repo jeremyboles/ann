@@ -1,6 +1,7 @@
 defmodule Foilsigh.MapView do
   use Foilsigh, :view
 
+  import Foilsigh.GraphicsComponent
   import Foilsigh.MapComponent
   import Foilsigh.SharedComponent
 
