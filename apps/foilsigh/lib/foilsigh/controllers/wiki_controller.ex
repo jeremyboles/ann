@@ -18,6 +18,7 @@ defmodule Foilsigh.WikiController do
 
     ancestors = Topics.ancestors(topic)
     descendants = Topics.descendants(topic)
+    from_here = Topics.links_from(topic)
     similar = Topics.with_simpliar_tags(topic)
     to_here = Topics.links_to(topic)
 
@@ -25,6 +26,7 @@ defmodule Foilsigh.WikiController do
       ancestors: ancestors,
       descendants: descendants,
       entries: entries,
+      from_here: from_here,
       similar: similar,
       to_here: to_here,
       topic: topic

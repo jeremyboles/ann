@@ -79,6 +79,11 @@ defmodule Taifead.Topics do
     |> Repo.preload(draft: :publications)
   end
 
+  def links_from(%Publication{doc: doc}) do
+    matches = ~r["href":"/(\w+)/"] |> Regex.scan(Jason.encode!(doc)) |> Enum.map(fn [_, slug] -> slug end)
+    Repo.all(from p in Publication, where: p.url_slug in ^matches and p.latest == true)
+  end
+
   def links_to(%Publication{url_slug: url_slug}) do
     Repo.all(from p in Publication, where: fragment("?::text LIKE '%/'||?||'/%'", p.doc, ^url_slug) and p.latest == true)
   end
