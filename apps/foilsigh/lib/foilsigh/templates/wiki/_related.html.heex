@@ -9,9 +9,9 @@
     </div>
     <div>
       <dt>Topics That Link <i>to</i> Here</dt>
-      <dd><a href="/">IndieWeb</a></dd>
-      <dd><a href="/">Topic This Is Long</a></dd>
-      <dd><a href="/">Topic This Is Longer Yet</a></dd>
+      <%= for topic <- @to_here do %>
+        <dd><a href={"/#{topic.url_slug}/"}><%= raw topic.title_html %></a></dd>
+      <% end %>
     </div>
     <div>
       <dt>Topics Linked <i>from</i> Here</dt>

@@ -79,6 +79,10 @@ defmodule Taifead.Topics do
     |> Repo.preload(draft: :publications)
   end
 
+  def links_to(%Publication{url_slug: url_slug}) do
+    Repo.all(from p in Publication, where: fragment("?::text LIKE '%/'||?||'/%'", p.doc, ^url_slug) and p.latest == true)
+  end
+
   def list_drafts, do: Repo.all(Draft) |> Repo.preload(:publications)
 
   def latest_draft do
@@ -163,7 +167,7 @@ defmodule Taifead.Topics do
   end
 
   def with_simpliar_tags(%Publication{tags: tags}) do
-    Repo.all(from p in Publication, where: fragment("? && ?", p.tags, ^tags))
+    Repo.all(from p in Publication, where: fragment("? && ?", p.tags, ^tags) and p.latest == true)
   end
 
   defp broadcast({:ok, %{draft: draft, publication: publication}}, event) do

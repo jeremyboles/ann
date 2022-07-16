@@ -19,12 +19,14 @@ defmodule Foilsigh.WikiController do
     ancestors = Topics.ancestors(topic)
     descendants = Topics.descendants(topic)
     similar = Topics.with_simpliar_tags(topic)
+    to_here = Topics.links_to(topic)
 
     render(conn, "show.html",
       ancestors: ancestors,
       descendants: descendants,
       entries: entries,
       similar: similar,
+      to_here: to_here,
       topic: topic
     )
   end
