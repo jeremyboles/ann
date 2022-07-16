@@ -171,8 +171,8 @@ defmodule Taifead.Topics do
     draft |> Draft.changeset(attrs) |> put_change(:status, :changed) |> Repo.update() |> broadcast(:draft_updated)
   end
 
-  def with_simpliar_tags(%Publication{tags: tags}) do
-    Repo.all(from p in Publication, where: fragment("? && ?", p.tags, ^tags) and p.latest == true)
+  def with_simpliar_tags(%Publication{id: id, tags: tags}) do
+    Repo.all(from p in Publication, where: fragment("? && ?", p.tags, ^tags) and p.latest == true and p.id != ^id)
   end
 
   defp broadcast({:ok, %{draft: draft, publication: publication}}, event) do
