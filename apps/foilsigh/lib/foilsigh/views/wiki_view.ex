@@ -23,7 +23,7 @@ defmodule Foilsigh.WikiView do
   def coords(%Publication{coords: coords}), do: Foilsigh.Geo.to_decimal_string(coords)
 
   def created_at(%Publication{draft: draft}) do
-    [publication | _] = draft.publications
+    [publication | _] = draft.publications |> Enum.sort_by(& &1.inserted_at)
     assigns = %{publication: publication, time_zone: time_zone(publication)}
 
     ~H"""
@@ -32,7 +32,7 @@ defmodule Foilsigh.WikiView do
   end
 
   def created_from(%Publication{draft: draft}) do
-    [publication | _] = draft.publications
+    [publication | _] = draft.publications |> Enum.sort_by(& &1.inserted_at)
     link(city(publication), to: map_path(Endpoint, :show, geohash(publication)))
   end
 
