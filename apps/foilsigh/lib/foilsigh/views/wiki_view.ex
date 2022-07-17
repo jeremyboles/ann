@@ -11,13 +11,7 @@ defmodule Foilsigh.WikiView do
   alias Taifead.Topics.Publication
 
   def city(%Publication{mapkit_response: response}) do
-    case response do
-      %{"countryCode" => "US"} ->
-        "#{response["locality"]}, #{response["administrativeAreaCode"]}, United States"
-
-      _ ->
-        "#{response["locality"]}, #{response["country"]}"
-    end
+    "#{Taifead.Geo.city_name(response)}, #{response["country"]}"
   end
 
   def coords(%Publication{coords: coords}), do: Foilsigh.Geo.to_decimal_string(coords)
@@ -65,7 +59,7 @@ defmodule Foilsigh.WikiView do
 
       _ ->
         ~H"""
-        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["country"]}><%= resp["countryCode"] %></abbr></span>
+        <span><span><%= Taifead.Geo.city_name(resp) %></span><span class="vh">,</span> <abbr title={resp["country"]}><%= resp["countryCode"] %></abbr></span>
         """
     end
   end

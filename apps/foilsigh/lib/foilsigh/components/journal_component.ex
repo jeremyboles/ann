@@ -115,7 +115,7 @@ defmodule Foilsigh.JournalComponent do
 
       _ ->
         ~H"""
-        <span><span><%= resp["locality"] %></span><span class="vh">,</span> <abbr title={resp["country"]}><%= resp["countryCode"] %></abbr></span>
+        <span><span><%=Taifead.Geo.city_name(resp) %></span><span class="vh">,</span> <abbr title={resp["country"]}><%= resp["countryCode"] %></abbr></span>
         """
     end
   end
@@ -131,7 +131,7 @@ defmodule Foilsigh.JournalComponent do
 
       _ ->
         ~H"""
-        <a class="h-adr p-location" href={href}><%= resp["locality"] %>, <%= resp["country"] %></a>
+        <a class="h-adr p-location" href={href}><%= Taifead.Geo.city_name(resp) %>, <%= resp["country"] %></a>
         """
     end
   end
