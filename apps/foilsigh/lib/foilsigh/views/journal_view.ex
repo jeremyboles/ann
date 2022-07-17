@@ -10,8 +10,8 @@ defmodule Foilsigh.JournalView do
 
   def title(_action, _assigns), do: "Journal · Jeremy Boles"
 
-  def city(%{"locality" => city, "country" => country, "countryCode" => code}) do
-    raw("#{city} <abbr title=\"#{country}\">#{code}</abbr>")
+  def city(%{"country" => country, "countryCode" => code} = resp) do
+    raw("#{Taifead.Geo.city_name(resp)} <abbr title=\"#{country}\">#{code}</abbr>")
   end
 
   defp day(%Date{day: day}) do
