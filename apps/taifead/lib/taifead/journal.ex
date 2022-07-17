@@ -39,6 +39,10 @@ defmodule Taifead.Journal do
     Repo.all(from(e in Entry, order_by: [desc: e.published_at]))
   end
 
+  def list_published_entries do
+    Repo.all(from(e in Entry, where: e.is_published == true))
+  end
+
   def list_tags do
     from(e in Entry,
       select: %{tag: fragment("unnest(?) AS tag", e.tags), count: fragment("count(*)")},
@@ -63,6 +67,11 @@ defmodule Taifead.Journal do
 
   def kinds do
     Repo.all(from e in Entry, distinct: e.kind, select: e.kind)
+  end
+
+  def near_by(point, radius \\ 10) do
+    radius = radius * 1000
+    Repo.all(from(e in Entry, where: fragment("ST_DWithin(?::geography, ?, ?)", e.coords, ^point, ^radius)))
   end
 
   def published_entries_by_date do

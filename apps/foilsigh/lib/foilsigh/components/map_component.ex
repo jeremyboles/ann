@@ -6,69 +6,16 @@ defmodule Foilsigh.MapComponent do
   def locations(assigns) do
     ~H"""
       <dl class="locations">
-        <div>
-          <dt>Belgium</dt>
-          <dd>
-            <a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a>
-          </dd>
-        </div>
-      
-        <div>
-          <dt>United States</dt>
-          <dd><a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Boston</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>New York City</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Springfield, MO</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Washington, DC</b> <i>1 Post</i></a></dd>
-        </div>
-      
-                <div>
-          <dt>Belgium</dt>
-          <dd>
-            <a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a>
-          </dd>
-        </div>
-      
-        <div>
-          <dt>United States</dt>
-          <dd><a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Boston</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>New York City</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Springfield, MO</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Washington, DC</b> <i>1 Post</i></a></dd>
-        </div>
-      
-                <div>
-          <dt>Belgium</dt>
-          <dd>
-            <a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a>
-          </dd>
-        </div>
-      
-        <div>
-          <dt>United States</dt>
-          <dd><a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Boston</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>New York City</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Springfield, MO</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Washington, DC</b> <i>1 Post</i></a></dd>
-        </div>
-      
-                <div>
-          <dt>Belgium</dt>
-          <dd>
-            <a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a>
-          </dd>
-        </div>
-      
-        <div>
-          <dt>United States</dt>
-          <dd><a href="/map/gcyby"><b>Ath</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Boston</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>New York City</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Springfield, MO</b> <i>1 Post</i></a></dd>
-          <dd><a href="/map/gcyby"><b>Washington, DC</b> <i>1 Post</i></a></dd>
-        </div>
+        <%= for {country, cities} <- @locations do %>
+          <div>
+            <dt><%= country %></dt>
+            <%= for {city, count} <- cities do %>
+              <dd>
+                <a href="/map/gcyby"><b><%= city %></b> <i><%= count %> <%= Inflex.inflect("Post", count) %></i></a>
+              </dd>
+            <% end %>
+          </div>
+        <% end %>
       </dl>
     """
   end

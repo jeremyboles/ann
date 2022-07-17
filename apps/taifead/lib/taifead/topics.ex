@@ -113,6 +113,11 @@ defmodule Taifead.Topics do
     |> Enum.map(fn [coords, _, _] -> coords end)
   end
 
+  def near_by(point, radius \\ 10) do
+    radius = radius * 1000
+    Repo.all(from(p in Publication, where: fragment("ST_DWithin(?::geography, ?, ?)", p.coords, ^point, ^radius)))
+  end
+
   def publish(%Draft{} = draft, attrs \\ %{}) do
     attributes = draft |> Map.from_struct() |> Map.drop([:__meta__, :id, :inserted_at, :path, :publications, :updated_at])
     publication_changeset = draft |> Ecto.build_assoc(:publications, attributes) |> change_publication(attrs) |> put_path_change(draft)

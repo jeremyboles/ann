@@ -6,10 +6,21 @@
   </div>
   
   <figure>
-    <.map height="736" locations={@locations} width="1680" />
+    <.map height="736" locations={@points} width="1680" />
     
     <figcaption>
-      <.locations />
+      <dl class="locations">
+        <%= for {country, cities}<- @locations do %>
+          <div>
+            <dt><%= country %></dt>
+            <%= for {city, {count, geohash}} <- cities do %>
+              <dd>
+                <a href={"/map/#{geohash}/"}><b><%= city %></b> <i><%= count %> <%= Inflex.inflect("Post", count) %></i></a>
+              </dd>
+            <% end %>
+          </div>
+        <% end %>
+      </dl>
     </figcaption>
   </figure>
 </article>
