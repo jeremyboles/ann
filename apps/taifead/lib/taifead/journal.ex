@@ -61,6 +61,10 @@ defmodule Taifead.Journal do
     |> Enum.map(fn [coords, _, _] -> coords end)
   end
 
+  def kinds do
+    Repo.all(from e in Entry, distinct: e.kind, select: e.kind)
+  end
+
   def published_entries_by_date do
     query = from(e in Entry, order_by: [desc: e.published_at], where: e.is_published == true)
 

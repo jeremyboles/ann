@@ -142,7 +142,10 @@ defmodule Foilsigh.JournalComponent do
         <fieldset>
           <legend class="vh">Filter by entry type:</legend>
           <ul>
-            <li><label><input checked name="notes" type="checkbox" value> <span>Notes</span></label></li>
+            <%= for kind <- @kinds do %>
+              <li><label><input checked name={kind} type="checkbox" value> <span><%= kind_display(kind) %></span></label></li>
+            <% end %>
+            <%# <li><label><input checked name="notes" type="checkbox" value> <span>Notes</span></label></li>
             <li><label><input checked name="photos" type="checkbox" value> <span>Photos</span></label></li>
             <li><label><input checked name="videos" type="checkbox" value> <span>Videos</span></label></li>
             <li><label><input checked name="quotes" type="checkbox" value> <span>Quotes</span></label></li>
@@ -153,7 +156,7 @@ defmodule Foilsigh.JournalComponent do
             <li><label><input name="replies" type="checkbox" value> <span>Replies</span></label></li>
             <li><label><input name="rsvps" type="checkbox" value> <span>RSVPs</span></label></li>
             <li><label><input name="read" type="checkbox" value> <span>Read</span></label></li>
-            <li><label><input name="walks" type="checkbox" value> <span>Walks</span></label></li>
+            <li><label><input name="walks" type="checkbox" value> <span>Walks</span></label></li> #%>
           </ul>
       
           <p class="vh"><button type="submit">Filter Entries</button></p>
@@ -161,6 +164,9 @@ defmodule Foilsigh.JournalComponent do
       </form>
     """
   end
+
+  defp kind_display(:checkin), do: "Check-Ins"
+  defp kind_display(:note), do: "Notes"
 
   def recent_locations(assigns) do
     ~H"""

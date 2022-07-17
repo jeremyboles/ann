@@ -50,7 +50,7 @@
   }
 }
 
-@each $name, $icon in (bookmarks: bookmark, checkins: location-dot, likes: star, notes: note, photos: image, quotes: quote-left, read: book, replies: reply, reposts: retweet, rsvps: calendar-check, videos: film, walks: person-walking) {
+@each $name, $icon in (bookmark: bookmark, checkin: location-dot, like: star, note: note, photo: image, quote: quote-left, read: book, reply: reply, repost: retweet, rsvp: calendar-check, video: film, walk: person-walking) {
   .filter_by_type input[name="#{$name}"] {
     mask-image: url("/images/fa/solid/#{$icon}.svg");
   }

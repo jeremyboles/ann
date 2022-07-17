@@ -3,7 +3,7 @@
     This little corner of my website is the “social” section, such as it is. It’s where I publish things that one would typically add to Twitter, Facebook, or Instagram. Instead, they live here, on my website, and I syndicate to those places. Learn more about this style of publishing on my <a href="/indieweb">IndieWeb topic&nbsp;page</a>.
   </.section_header>  
 
-  <.filter_by_type />
+  <.filter_by_type kinds={@kinds} />
 
   <section>
     <%= for {date, entries} <- @entries do %>
@@ -18,6 +18,7 @@
     <.entry_summary type="bookmark" />
     <.entry_summary type="quote" /> -->
   </section>
+  
   
   <.recent_tags tags={@tags} />
   <.blogroll />
