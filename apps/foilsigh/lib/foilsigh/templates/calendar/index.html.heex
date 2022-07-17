@@ -4,11 +4,11 @@
   </.section_header>
   
   <%= for {year, months} <- @all do %>
-    <section class="chronology">
+    <section class="chronology" id={"#{year}"}>
       <h2><span class="vh">Published in</span> <%= year %></h2>
       
       <%= for {month, items} <- months do %>
-        <section>
+        <section id={"#{year}-#{month}"}>
           <h3><span class="vh">Content from</span> <%= Calendar.strftime(Date.new!(year, month,1), "%B") %><span class="vh">, <%= year %></span></h3>
         
           <section>
@@ -23,6 +23,21 @@
   
   <aside>
     <.publishing_frequency />
-    <.month_breakdown />
+    <div class="month_breakdown">
+      <h3>Throughout the Months</h3>
+      <ol>
+        <%= for {year, months} <- @all do %>
+          <li>
+            <a href={"##{year}"}><%= year %></a>
+            <ol>
+              <%= for {month, _} <- months do %>
+                
+                <li><a href={"##{year}-#{month}"}><%= Calendar.strftime(Date.new!(year, month,1), "%B") %><span class="vh"> <%= year %></span></a></li>
+              <% end %>
+            </ol>
+          </li>
+        <% end %>
+      </ol>
+    </div>
   </aside>
 </div>
