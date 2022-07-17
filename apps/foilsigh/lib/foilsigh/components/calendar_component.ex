@@ -1,6 +1,9 @@
 defmodule Foilsigh.CalendarComponent do
   use Foilsigh, :component
 
+  alias Taifead.Journal.Entry
+  alias Taifead.Topics.Publication
+
   def chronology(assigns) do
     ~H"""
       <section class="chronology">
@@ -71,11 +74,14 @@ defmodule Foilsigh.CalendarComponent do
   def event(%{type: type} = assigns) do
     ~H"""
       <article class={"event #{type}"}>
-      <h4><span class="vh">On</span> <time>Wednesday December 2, 2014 @ 5:53 am</time><span class="vh">,</span> <a href="#"><span class="vh">I</span> <%= event_text(type) %></a><span class="vh">:</span></h4>
+        <h4><span class="vh">On</span> <.local_time_abbr item={@item} /><span class="vh">,</span> <a href={url_path(@item)}><span class="vh">I</span> <%= event_text(type, @item) %></a><span class="vh">:</span></h4>
         <blockquote><%= render_slot(@inner_block) %></blockquote>
       </article>
     """
   end
+
+  def url_path(%Entry{url_slug: url_slug}), do: "/journal/#{url_slug}/"
+  def url_path(%Publication{url_slug: url_slug}), do: "/#{url_slug}/"
 
   def month_breakdown(assigns) do
     ~H"""
@@ -173,13 +179,42 @@ defmodule Foilsigh.CalendarComponent do
     """
   end
 
-  defp event_text("bookmark"), do: "Bookmarked a Webpage"
-  defp event_text("checkin"), do: "Checked-In at Schiphol Airport"
-  defp event_text("essay"), do: "Published an Essay"
-  defp event_text("note"), do: "Posted a Note"
-  defp event_text("photo"), do: "Posted a Photo"
-  defp event_text("quote"), do: "Posted a Quote"
-  defp event_text("video"), do: "Posted a Video"
-  defp event_text("wiki_new"), do: "Created the Topic “Trip to Ireland, 2012”"
-  defp event_text("wiki_update"), do: "Updated the Topic “Colophon”"
+  defp event_text("bookmark", _), do: "Bookmarked a Webpage"
+  defp event_text("checkin", %Entry{mapkit_response: resp}), do: "Checked-In at #{resp["name"]}"
+  defp event_text("essay", _), do: "Published an Essay"
+  defp event_text("note", _), do: "Posted a Note"
+  defp event_text("photo", _), do: "Posted a Photo"
+  defp event_text("quote", _), do: "Posted a Quote"
+  defp event_text("video", _), do: "Posted a Video"
+  defp event_text("wiki_new", _), do: "Created the Topic “Trip to Ireland, 2012”"
+
+  defp event_text("wiki_update", %Publication{title_html: title}),
+    do: raw("Updated the Topic “#{title}”")
+
+  def ordinal(num) when is_integer(num) and num > 100 do
+    rem(num, 100) |> ordinal()
+  end
+
+  def ordinal(num) when num in 11..13, do: "th"
+  def ordinal(num) when num > 10, do: rem(num, 10) |> ordinal()
+  def ordinal(1), do: "st"
+  def ordinal(2), do: "nd"
+  def ordinal(3), do: "rd"
+  def ordinal(_), do: "th"
+
+  defp local_time_abbr(%{item: %Entry{mapkit_response: resp, published_at: date}} = assigns) do
+    date = DateTime.shift_zone!(date, resp["timezone"])
+
+    ~H"""
+      <time timestamp={DateTime.to_iso8601(date)}><%= Calendar.strftime(date, "%b %-d") %><span class="vh">,</span><%= Calendar.strftime(date, " %Y ") %><span class="vh">@</span><%= Calendar.strftime(date, " %-I:%M %p") %></time>
+    """
+  end
+
+  defp local_time_abbr(%{item: %Publication{mapkit_response: resp, inserted_at: date}} = assigns) do
+    date = DateTime.shift_zone!(date, resp["timezone"])
+
+    ~H"""
+      <time timestamp={DateTime.to_iso8601(date)}><%= Calendar.strftime(date, "%b %-d") %><span class="vh">,</span><%= Calendar.strftime(date, " %Y ") %><span class="vh">@</span><%= Calendar.strftime(date, " %-I:%M %p") %></time>
+    """
+  end
 end

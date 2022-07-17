@@ -3,7 +3,23 @@
     Here’s all that I’ve published on my website, organized chronologically. Peruse everything in-order and slowly go back in time, or narrow it down by date or month and see what things I found interesting at a particular time in my&nbsp;life.
   </.section_header>
   
-  <.chronology />
+  <%= for {year, months} <- @all do %>
+    <section class="chronology">
+      <h2><span class="vh">Published in</span> <%= year %></h2>
+      
+      <%= for {month, items} <- months do %>
+        <section>
+          <h3><span class="vh">Content from</span> <%= Calendar.strftime(Date.new!(year, month,1), "%B") %><span class="vh">, <%= year %></span></h3>
+        
+          <section>
+            <%= for item <- items do %>
+              <.display item={item} />
+            <% end %>
+          </section>
+        </section>
+      <% end %>
+    </section>
+  <% end %>
   
   <aside>
     <.publishing_frequency />
